@@ -20,7 +20,7 @@ title                    : "어서 오세요 누렁총각네 테크블로그 Tit
 title_separator          : "-"
 subtitle                 : # site tagline that appears below site title in masthead
 name                     : "Your Name"
-description              : "An amazing website."
+description              : "누렁 총각"
 url                      : "https://jinwoongkim.github.io"
 baseurl                  : # the subpath of your site, e.g. "/blog"
 repository               : # GitHub username/repo-name e.g. "mmistakes/minimal-mistakes"
