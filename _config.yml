@@ -107,8 +107,8 @@ author:
   name             : "누렁 총각"
   avatar           : # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
   bio              : "I am an **amazing** 누렁."
-  location         : "Somewhere"
-  email            :
+  location         : "Seoul, SouthKorea"
+  email            : "aragnom@gmail.com"
   links:
     - label: "Email"
       icon: "fas fa-fw fa-envelope-square"
