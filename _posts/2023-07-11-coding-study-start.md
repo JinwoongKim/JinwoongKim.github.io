@@ -13,4 +13,4 @@ tag: [coding study]
 
 간간히 재밌었던 문제랑 코멘트(피드백)을 정리해서 올려야겠다.
 
-<img src="../images/study.PNG">
+<img src="./images/study.PNG">
