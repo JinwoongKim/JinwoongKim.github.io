@@ -291,5 +291,6 @@ defaults:
       share: true
       show_date : true
       related: true
+      #root-url: ../
 
 date_format: "%Y-%m-%d"

@@ -14,5 +14,7 @@ tag: [coding study]
 
 아니.. 나만 disjoint-set 문제 처음 본거 아니죠? ㅠㅠ
 
+~~곧 따라갈게요 게이츠 형~~
 
-<img src="/images/gates_chicken.jpg" width=300>
+<img src="/images/gates_chicken.jpg" width=400>
+
