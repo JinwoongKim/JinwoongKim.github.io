@@ -8,7 +8,7 @@ main:
     url: /year-archive/
   - title: "Search"
     url: /search/
-  - title: "About"
+  - title: "AboutMe"
     url: /about/
 #    url: https://mmistakes.github.io/minimal-mistakes/about/
   #- title: "Quick-Start Guide"
