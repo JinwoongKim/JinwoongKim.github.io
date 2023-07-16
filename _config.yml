@@ -124,10 +124,13 @@ author:
       # url: "https://facebook.com/"
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
-      # url: "https://github.com/"
+      # url: "https://github.com/jinwoongkim"
     - label: "Instagram"
       icon: "fab fa-fw fa-instagram"
       # url: "https://instagram.com/"
+    - label: "LinkedIn"
+      icon: "fab fa-fw fa-instagram"
+      # url: "https://www.linkedin.com/in/jinwoong-kim-891602b3/"
 
 # Site Footer
 footer:
