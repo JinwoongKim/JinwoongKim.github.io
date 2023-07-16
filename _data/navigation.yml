@@ -4,6 +4,8 @@ main:
     url: /categories/
   - title: "Tag"
     url: /tags/
+  - title: "By year"
+    url: /year-archive/
   - title: "Search"
     url: /search/
   - title: "About"
@@ -11,8 +13,6 @@ main:
 #    url: https://mmistakes.github.io/minimal-mistakes/about/
   #- title: "Quick-Start Guide"
   #  url: https://mmistakes.github.io/minimal-mistakes/docs/quick-start-guide/
-  - title: "By year"
-    url: /year-archive/
   # - title: "Sample Collections"
   #   url: /collection-archive/
   # - title: "Sitemap"
