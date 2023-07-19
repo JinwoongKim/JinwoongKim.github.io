@@ -1,20 +1,18 @@
 ---
 title:  "오랜만의 코딩 스터디(WIP)"
-categories: "dairy"
-tag: [coding study]
+categories: "coding study"
+tag: [coding study, leetcode]
 toc: true   #Table Of Contents 목차 
 toc_sticky: true
+published : false
 ---
 
 https://leetcode.com/problems/lexicographically-smallest-equivalent-string/description/
 
 
-```python3
+```python
 class Solution:
     def smallestEquivalentString(self, s1: str, s2: str, baseStr: str) -> str:
-
-        # put letters with smallest key?
-        # e.g. c -> a O(1)
 
         d = dict()
         r_d = dict()
@@ -25,10 +23,8 @@ class Solution:
             if a == b:
                 continue
 
-            if a < b:
-                s, l = a, b 
-            else:
-                s, l = b, a
+            s, l = (a, b) if a < b else (b, a)
+
             # if both are not in d
             # make a new group and make s as a smallest one
             if s not in d and l not in d:
