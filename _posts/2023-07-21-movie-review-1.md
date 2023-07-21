@@ -1,7 +1,7 @@
 ---
 title:  "비의 계절"
-categories: "dairy"
-tag: [<지금, 만나러갑니다>]
+categories: "영화감상"
+tag: ["<지금, 만나러갑니다>"]
 ---
 
 blahblah
