@@ -1,6 +1,6 @@
 ---
 title:  "예전의 나와 현재 나의 DP 풀이 차이"
-categories: "coding study"
+categories: "coding_study"
 tag: [coding study, leetcode]
 ---
 
