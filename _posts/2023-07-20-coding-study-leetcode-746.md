@@ -1,7 +1,7 @@
 ---
 title:  "예전의 나와 현재 나의 DP 풀이 차이"
 categories: "coding_study"
-tag: [coding study, leetcode]
+tag: [dynamic programing]
 ---
 
 [예전 포스트](http://jinwoongkim.net/dairy/coding-study-start/) 에서 언급했듯이 최근 코테에서 자꾸 떨어져서 다시 공부중인데, 공교롭게도 떨어진 문제들이 죄다 DP 였다.. ~~실무에서 DP 쓰는 사람 있나요?? ㅠㅠ~~
