@@ -8,9 +8,12 @@ sidebar_main: false
 
 
 # Short bio
-데이터베이스 내 다차원 인덱스를 GPU로 가속화하는 연구 <sup> [[Link]](https://scholarworks.unist.ac.kr/handle/201301/22497) </sup> 로 UNIST에서 박사를 받았습니다. 첫 직장은  약간 전공과는 쌩뚱(?)맞은 네이버 클로바 조직으로 가게 됩니다. 네이버 자체 머신 러닝 플랫폼(NSML)에서 스케쥴러와 모니터링 시스템을 만들고 <sup> [[Link]](https://deview.kr/2018/schedule/240) </sup> 자동 하이퍼파라미터 튜닝 시스템 <sup> [[Link]](https://arxiv.org/abs/1810.03527) </sup> 도 만들었습니다.
+데이터베이스 내 다차원 인덱스를 GPU로 가속화하는 연구 <sup> [[Link]](https://scholarworks.unist.ac.kr/handle/201301/22497) </sup> 로 UNIST에서 박사를 받았습니다. 첫 직장은  약간은 전공과 쌩뚱(?)맞은 네이버 클로바 조직으로 가게 됩니다. 
 
-이후에는 검색 조직으로 옮겨, GPU 클러스터를 쿠버네티스로 운영하는 업무를 사용했습니다. 이후 GPT3를 기존 검색서비스에 접목하는 일 <sup> [[Link]](https://deview.kr/2021/sessions/439) </sup> 도 했습니다.
+네이버 자체 머신 러닝 플랫폼(NSML)에서 스케쥴러와 모니터링 시스템을 만들고 자동 하이퍼파라미터 튜닝 시스템 <sup> [[Link]](https://deview.kr/2018/schedule/240) </sup>  <sup> [[Link]](https://arxiv.org/abs/1810.03527) </sup> 도 만들었습니다.
+
+이후에는 검색 조직으로 옮겨, GPU 클러스터를 쿠버네티스로 운영하는 업무를 했습니다. 이후 GPT3를 기존 검색서비스에 접목하는 일 <sup> [[Link]](https://deview.kr/2021/sessions/465) </sup> <sup> [[Link]](https://deview.kr/2021/sessions/439) </sup> 도 했습니다.
+
 
 ~~빛의 속도로 창업을 했다가 접고~~
 
