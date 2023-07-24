@@ -6,6 +6,7 @@ author_profile: false
 sidebar_main: false
 ---
 
+<p align="center">
 
 # Short bio
 데이터베이스 내 다차원 인덱스를 GPU로 가속화하는 연구 <sup> [[Link]](https://scholarworks.unist.ac.kr/handle/201301/22497) </sup> 로 UNIST에서 박사를 받았습니다. 첫 직장은  약간은 전공과 쌩뚱(?)맞은 네이버 클로바 조직으로 가게 됩니다. 
@@ -31,16 +32,21 @@ sidebar_main: false
 
 **_#Painting_**, **_#Piano_**, **_#Book_**, **_#Espresso_**, **_#Movie_**
 
-취미를 갖기 위해 이것저것 시도해보다가, 전공과 정반대에 있는 그림그리기, 피아노 등을 취미로 갖게 되었습니다.
+최근에는 ~~epiphany를 위해~~ 취미를 갖기 위해 이것저것 시도해보다가, 전공과 정반대에 있는 그림그리기, 피아노 등을 취미로 갖게 되었습니다.
+
+</p>
 
 # Links
 
 [Google scholar](https://scholar.google.com/citations?user=IY2b0coAAAAJ&hl=ko)
+
 [Resume]()
+
 [CV]()
 
 
 # Invited Talk
 
 [NSML: 머신러닝 플랫폼 서비스하기 & 모델 튜닝 자동화하기](https://deview.kr/2018/schedule/240)
+
 [2021년 네이버 개발자 컨퍼런스 대규모 자연어처리 모델 서빙 경험기](https://deview.kr/2021/sessions/439)
