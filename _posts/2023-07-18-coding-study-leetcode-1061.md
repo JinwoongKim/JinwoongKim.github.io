@@ -1,6 +1,6 @@
 ---
 title:  "오랜만의 코딩 스터디(WIP)"
-categories: "coding study"
+categories: "coding_study"
 tag: [coding study, leetcode]
 toc: true   #Table Of Contents 목차 
 toc_sticky: true
