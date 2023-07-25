@@ -1,6 +1,6 @@
 ---
 title:  "오랜만의 코딩 스터디"
-categories: "dairy"
+categories: "diary"
 tag: [coding study]
 ---
 

@@ -1,6 +1,6 @@
 ---
 title:  "다른길"
-categories: "dairy"
+categories: "diary"
 tag: [coding study]
 ---
 

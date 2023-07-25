@@ -1,6 +1,6 @@
 ---
 title:  "도메인 샀다!"
-categories: "dairy"
+categories: "diary"
 tag: [domain]
 ---
 

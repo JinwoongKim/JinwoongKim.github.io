@@ -4,7 +4,7 @@ categories: "coding_study"
 tag: [dynamic programing]
 ---
 
-[예전 글](http://jinwoongkim.net/dairy/coding-study-start/) 에서 언급했듯이 최근 코딩 테스트에서 자꾸 떨어져서 공부중인데, 공교롭게도 떨어진 문제들이 죄다 DP 였다.. 
+[예전 글](http://jinwoongkim.net/diary/coding-study-start/) 에서 언급했듯이 최근 코딩 테스트에서 자꾸 떨어져서 공부중인데, 공교롭게도 떨어진 문제들이 죄다 DP 였다.. 
 
 ~~진짜 실무에서 DP 쓰는 사람 있나요?? ㅠㅠ~~ 
 
