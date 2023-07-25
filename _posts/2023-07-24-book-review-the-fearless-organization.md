@@ -1,5 +1,5 @@
 ---
-title:  "조직 문화"
+title:  "두려움은 적인가?"
 categories: "review"
 tag: ["두려움 없는 조직", "군주론"]
 published : false

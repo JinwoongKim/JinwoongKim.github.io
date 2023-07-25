@@ -6,9 +6,11 @@ author_profile: false
 sidebar_main: false
 ---
 
+안녕하세요~ 누렁 총각 입니다.
 
-# Short bio
-데이터베이스 내 다차원 인덱스를 GPU로 가속화하는 연구 <sup> [[Link]](https://scholarworks.unist.ac.kr/handle/201301/22497) </sup> 로 UNIST에서 박사를 받았습니다. 첫 직장은  약간은 전공과 쌩뚱(?)맞은 네이버 클로바 조직으로 가게 됩니다. 
+컴퓨터,머신러닝을 좋아하고 책,영화,그림 ... 입니다.
+
+데이터베이스 내 다차원 인덱스를 GPU로 가속화하는 연구 <sup> [[Link]](https://scholarworks.unist.ac.kr/handle/201301/22497) </sup> 로 UNIST에서 박사 학위를 받았습니다. 첫 직장은 전공과 약간은 쌩뚱(?)맞은 네이버 클로바 조직으로 가게 됩니다. 
 
 네이버 자체 머신 러닝 플랫폼(NSML)에서 스케쥴러와 모니터링 시스템을 만들고 자동 하이퍼파라미터 튜닝 시스템 <sup> [[Link]](https://deview.kr/2018/schedule/240) </sup>  <sup> [[Link]](https://arxiv.org/abs/1810.03527) </sup> 도 만들었습니다.
 
