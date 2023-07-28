@@ -1,7 +1,7 @@
 ---
 title:  "False alarm and belief engine"
 categories: "diary"
-tag: ["false alarm", "belief engine", "본가"]
+tag: [false alarm, belief engine]
 ---
 
 본가에서 자고 있는데 화재 경보기가 울려서 일어났다.
