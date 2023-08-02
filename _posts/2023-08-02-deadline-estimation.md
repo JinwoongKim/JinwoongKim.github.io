@@ -8,13 +8,11 @@ tag: ["Deadline estimation", "TTM (Time to market)", "Uncertainty"]
 
 이미 마감 기한을 다섯 번쯤 미뤘을 때 제품의 심각한 결함을 발견했지만, 마감 기한을 더 미루면 안 된다는 심리적 압박감과, 잘못될 확률이 현저히 낮다는 생각에 제품을 출시했다가 결국 인명 사고가 발생했다.
 
-<br>
 
 영화에 나온 장면이지만 난 비현실적이라고 생각하지 않는다. 물론 Tim Urban의 TED 강연<sup>[[Link]](https://www.ted.com/talks/tim_urban_inside_the_mind_of_a_master_procrastinator)</sup>에서처럼 내 머릿속 안에 망할 원숭이가 자꾸 다른 거 하라고 꼬드겨서 그럴 수도 있지만, 누군가는 완성도를 위해, 누군가는 피치 못할 사정으로 마감을 미룬다.
 
 문득 아래와 같은 궁금증들이 머릿속에 맴돌아서, 나의 생각을 적어보았다.
 
-<br>
 <br>
 
 <p align="center">
@@ -31,10 +29,8 @@ tag: ["Deadline estimation", "TTM (Time to market)", "Uncertainty"]
 여기 내가 아주 좋아하는 말이 있다. 
 
 <br>
-<br>
 
-> Done is better than perfect
-
+> Done is better than perfect <br>
 > 완성이 완벽보다 낫다
 
 <br>
@@ -94,9 +90,6 @@ tag: ["Deadline estimation", "TTM (Time to market)", "Uncertainty"]
 
 2의 경우는 '업무를 과대평가'하거나 '나를 과소평가'한 경우이다.
 3의 경우는 '업무를 과소평가'하거나 '나를 과대평가'한 경우이다.  
-
-
-
 
 앞서 말했듯이 이 세상엔 온갖 불확실성이 가득하다. 이런 세상에서 일을 잘 한다는 것은 이러한 불확실성을 잘 다루는 것이라고도 생각된다.
 
