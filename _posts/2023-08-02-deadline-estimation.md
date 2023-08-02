@@ -34,6 +34,7 @@ tag: ["Deadline estimation", "TTM (Time to market)", "Uncertainty"]
 <br>
 
 > Done is better than perfect
+
 > 완성이 완벽보다 낫다
 
 <br>
