@@ -23,3 +23,5 @@ https://devinlife.com/howto/
 https://github.com/mmistakes/minimal-mistakes/blob/8a67ce8e41ec850f2d7c373aa47739b2abfee6f1/docs/_posts/2012-01-03-layout-table-of-contents-sticky.md?plain=1#L4
 
 https://mmistakes.github.io/minimal-mistakes/layout-table-of-contents-sticky/#code-snippets
+
+공지 종류 https://heoseongh.github.io/gitblog/jekyll-style-notice/
