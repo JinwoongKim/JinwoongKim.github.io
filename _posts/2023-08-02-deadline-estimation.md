@@ -1,5 +1,5 @@
 ---
-title:  "Uncertainty of Deadline estimation"
+title:  "Uncertainty of deadline estimation"
 categories: "thought"
 tag: ["Deadline estimation", "TTM (Time to market)", "Uncertainty"]
 ---
