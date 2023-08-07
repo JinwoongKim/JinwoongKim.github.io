@@ -1,5 +1,5 @@
 ---
-title:  "[책리뷰] 유난한 도전 - 정경화"
+title:  "[책] 유난한 도전 - 정경화"
 categories: "review"
 tag: [""]
 ---
