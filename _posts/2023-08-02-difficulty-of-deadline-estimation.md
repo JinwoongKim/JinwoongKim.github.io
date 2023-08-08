@@ -1,5 +1,5 @@
 ---
-title:  "Uncertainty of deadline estimation"
+title:  "Difficulty of deadline estimation"
 categories: "thought"
 tag: ["Deadline estimation", "TTM (Time to market)", "Uncertainty"]
 ---
@@ -75,12 +75,12 @@ tag: ["Deadline estimation", "TTM (Time to market)", "Uncertainty"]
 
 하지만 개발자가 스스로 정한 마감 기한이 스스로에게 족쇄가 되고, 지키지 못했을때 죄책감이 되어서는 안된다. 또한 조직에서는 마감 기한을 지키지 못한 개발자를 이해관계 없이 다그치거나 책임을 묻지 말고, 앞서 말한 심리적 안정감을 제공하여 '왜 마감 기한을 지키지 못했는가?'를 분석하고 재발방지를 해야 한다.
 
----
+##### 정리
 
-지나고나면 별일 아닌 '일'들이 참 많다. 그러니 당장의 결과에 일희일비하지 말자.
-
-나 스스로에게 하는 다짐이다 ^^;
-
+- 개발자는 완성도를 높이는 것을 지향해야 한다. 하지만 오버엔지니어링은 지양해야 한다.
+  - 현재 하고 있는 업무가 오버엔지니어링인지 구분하기가 어렵다면, 매니저 혹은 동료와 의논해보자
+- 데드라인 측정은 어렵지만 해야한다.
+  
 <!--
 
 ##### 마감 기한을 지키는 법
