@@ -1,7 +1,6 @@
 ---
 title:  "[책] 도둑맞은 집중력 - 요한 하리"
 categories: "review"
-tag: [""]
 published : false
 ---
 
