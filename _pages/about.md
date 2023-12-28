@@ -36,10 +36,11 @@ sidebar_main: false
 
 # Other Interest
 
-**_#Painting_**, **_#Piano_**, **_#Book_**, **_#Espresso_**, **_#Movie_**
+**_#Painting_**, **_#Book_**, **_#Espresso_**, **_#Movie_**
 
 최근에는 ~~epiphany를 위해~~ 취미를 갖기 위해 이것저것 시도해보다가, 전공과 정반대에 있는 그림그리기, 피아노 등을 취미로 갖게 되었습니다.
 
++ 요즘은 피아노는 듣기만 하고 치지를 않아.. 제외..
 
 # Links
 
