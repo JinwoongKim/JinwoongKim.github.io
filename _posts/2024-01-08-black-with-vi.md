@@ -1,5 +1,5 @@
 ---
-title: "[파이썬] vi 편집기 이용시 black 으로 자동 포멧팅 하"
+title: "[파이썬] vi 편집기 이용시 black 으로 자동 포멧팅 하기"
 categories: python
 tags:
   - Python
