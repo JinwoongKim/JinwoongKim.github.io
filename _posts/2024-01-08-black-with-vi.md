@@ -23,5 +23,11 @@ augroup python_format
 augroup end
 ```
 
+추가))
 
-참고 : https://www.meetgor.com/vim-python-black-autoformat/
+`BufWritePost` 는 습관적으로 저장할때마다 포멧팅해서 현재 보고 있는 파일이 업데이트 된다..
+그래서 `BufWinLeave` 를 쓰면 파일을 나갈때만 포멧팅돼서 좋다!!
+
+참고
+- https://www.meetgor.com/vim-python-black-autoformat/
+- https://vimdoc.sourceforge.net/htmldoc/autocmd.html#BufWinLeave
