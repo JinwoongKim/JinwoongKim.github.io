@@ -20,12 +20,15 @@ https://medium.com/mind-cafe/7-habits-i-avoid-to-become-highly-productive-98baed
 - 일어나서 첫 한 시간 동안 무엇을 하느냐에 따라 하루의 생산성이 많이 좌우된다고 한다.
 
 # 3. Allowing Distractions During Work
-- 똑같이 총 3시간을 한다고 했을떄, 죽- 3시간을 해서 좋을 업무가 있는 반면, 30분씩 6번해야 좋을
-
+- 집중해야 될 때 방해를 받는다면, 결국 다시 돌아가는데 생각보다 많은 시간이 든다. 할당한 시간이 모두 소요돼서 혹은 퇴근시간이 임박해서 그만두는 것과는 다르다.
 # 4. Working Until Exhaustion
+- 지친 상태에서는 생각보다 효율이 나오지 않는다.
 
 # 5. Working Without Priorities
+- 1번과 상통하는 말.
 
 # 6. Failing to Set Boundaries
+- 세이노!
+
 
 # 7. Takeaways
