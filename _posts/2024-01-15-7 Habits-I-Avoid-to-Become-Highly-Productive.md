@@ -10,5 +10,18 @@ published: false
 나름 괜찮은 것 같아 여기에 정리해본다.
 
 https://medium.com/mind-cafe/7-habits-i-avoid-to-become-highly-productive-98baed2b4b7a
-
+(예전에 공짜였는데 지금은 가입해야 글이 봐지네 ㅠ)
 # 1. Focusing on Minor Details, Not Results
+
+# 2. Checking Devices First Thing in the Morning
+
+
+# 3. Allowing Distractions During Work
+
+# 4. Working Until Exhaustion
+
+# 5. Working Without Priorities
+
+# 6. Failing to Set Boundaries
+
+# 7. Takeaways
