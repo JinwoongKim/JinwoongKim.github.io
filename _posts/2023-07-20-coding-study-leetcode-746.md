@@ -18,7 +18,8 @@ DP 의 실무성이 어떻든 간에, 떨어지는게 싫어서 리트코드의 
 
  제출하고 이전기록을 보니 3년 전에 풀었더라.. 그때와 지금 코드가 사뭇 달라 재밌어 여기에 기록해본다 ㅎㅎ
 
-
+  
+문제 : [746. Min Cost Climbing Stairs](https://leetcode.com/problems/min-cost-climbing-stairs/)
 # 3년전 코드
 
 아마 이때는 제대로 못 풀었던 것으로 기억한다. 위에 주석처리된게 내가 DP를 정확히 모르니 나름 recursion이용해서 처음 시도한거고, 메모리나 실행시간에서 터졌을 것 같다.
