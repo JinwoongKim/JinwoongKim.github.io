@@ -1,6 +1,6 @@
 ---
 title: 내가 보려고 기록하는 bash cheat sheet
-categories: Archive
+categories: archive
 tags:
   - bash
   - cheatsheet

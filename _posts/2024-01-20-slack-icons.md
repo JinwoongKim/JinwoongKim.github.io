@@ -1,6 +1,6 @@
 ---
 title: 슬랙 아이콘 모음
-categories: python
+categories: archive
 tags:
   - slack
   - icon
