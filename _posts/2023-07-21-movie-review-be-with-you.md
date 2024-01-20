@@ -1,7 +1,9 @@
 ---
-title:  "비의 계절"
-categories: "review"
-tag: ["<지금, 만나러갑니다>", "영화이야기"]
+title: 비의 계절
+categories: review
+tags:
+  - 영화이야기
+  - 지금만나러갑니다
 ---
 <p align="center">
 2004년도 일본 영화 <지금, 만나러 갑니다.> 를 보았다.

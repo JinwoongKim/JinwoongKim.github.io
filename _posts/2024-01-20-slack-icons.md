@@ -7,4 +7,5 @@ tags:
 published: true
 ---
 
-<img src="/images/silen.png" />
+<img src="/images/silen.png" width="200"/>
+
