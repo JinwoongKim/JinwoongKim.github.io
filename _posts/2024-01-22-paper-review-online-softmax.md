@@ -15,9 +15,12 @@ Flash Attention2 논문을 읽다 보니 이해가 안 되는 부분이 많았�
 논문 URL : https://arxiv.org/abs/1805.02867
 
 # tl;dr
-- GPU 에서 softmax연산시 메모리 엑세스 최소화 및 병렬 프로세싱을 다룬 논문
-- 여타 다른 논문에선 근사치로 softmax 를 계산해서 최적화하는데 여기선 
+- Nvidia GPU 에서 softmax 연산시 메모리 엑세스 최소화 및 병렬 프로세싱을 다룬 논문
+- 여타 다른 논문에선 근사치로 softmax 를 계산해서 최적화하는데 여기선 아님. 정확한 값이 나옴 
+
 ## softmax
+
+
 
 ## safe-softmax
 
