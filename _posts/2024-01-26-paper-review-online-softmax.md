@@ -32,9 +32,8 @@ Flash Attention2 논문을 읽다 보니 이해가 안 되는 부분이 많았�
 
 <p align="center">
 <img width="200" alt="image" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/c936ec0b-fa65-4e78-a0f1-860935199bec">
-_수식 2. Softmax 수식
 <br>
-<em>수식 1. Attention</em>
+<em>수식 2. (Naive) Softmax</em>
 </p>
 
 
