@@ -23,16 +23,20 @@ Flash Attention2 논문을 읽다 보니 이해가 안 되는 부분이 많았�
 <p align="center">
 <img width="600" alt="image" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/3b757b71-4f83-487b-9b35-f3050fb58d41">
 <br>
-<수식 1. Attention
-
+<em>수식 1. Attention</em>
 </p>
 
 이 논문에서는 Attention을 다루진 않지만, 나는 Flash Attention 의 softmax 를 기준으로 이해하기 위해서 보는 것이므로, Flash Attention 논문에서 attention 을 가지고 왔다. 
 
 여기서 내가 강조하고 싶은 것은 softmax의 S가 최근 LLM에서는 엄청 크다는 것이다. 따라서 아래에서 살펴볼 가장 기본적인 softmax는 수식으로는 아무런 문제가 없을 수 있으나, 실제로 컴퓨터에서 동작을 하면 오버/언더플로우가 발생 할 수 있다.
 
+<p align="center">
 <img width="200" alt="image" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/c936ec0b-fa65-4e78-a0f1-860935199bec">
-_수식 2. Softmax 수식_
+_수식 2. Softmax 수식
+<br>
+<em>수식 1. Attention</em>
+</p>
+
 
 여기서 한 가지 더 살펴볼 점은, 메모리 엑세스 횟수이다.
 아래 <코드 1> 에서 볼 수 있듯이 softmax 는 각각의 값을 구하기 위해서 메모리를 총 3번 엑세스 하는데, 
