@@ -30,7 +30,8 @@ _수식 1. Attention 수식_
 <img width="200" alt="image" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/c936ec0b-fa65-4e78-a0f1-860935199bec">
 _수식 2. Softmax 수식_
 
-여기서 한 가지 더 살펴볼 점은, 메모리 엑세스 횟수이다 아래 코드에서 볼 수 있듯이 softmax 는 메모리를 총 3번 엑세스 하는데, 
+여기서 한 가지 더 살펴볼 점은, 메모리 엑세스 횟수이다.
+아래 <코드 1> 에서 볼 수 있듯이 softmax 는 각각의 값을 구하기 위해서 메모리를 총 3번 엑세스 하는데, 
 1. (3번째 줄) dj 를 구할때 모든 e^xj 에 대해 한 번 씩 (Load)
 2. (6번째 줄, 우항) yi 를 구할때 또 e^xi 한번씩 (Load)
 3. (6번째 줄, 좌항) 그리고 yi 에 값을 저장할때 또 한 번씩 (Store)
