@@ -22,7 +22,7 @@ Flash Attention2 논문을 읽다 보니 이해가 안 되는 부분이 많았�
 
 <img width="200" alt="image" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/c936ec0b-fa65-4e78-a0f1-860935199bec">
 
-이 논문은 softmax 를 다루는 논문이라, 먼저 기본적인 소프트맥스를 살펴보자. 
+이 논문은 softmax 를 다루는 논문이라, 먼저 기본적인 소프트맥스를 살펴보자. 수학적으로 별 문제가 없어보인다. 하지만 
 ## safe-softmax
 
 ## online safe-softmax
