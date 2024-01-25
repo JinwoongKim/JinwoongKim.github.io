@@ -1,9 +1,11 @@
 ---
-title: "[논문리뷰]"
-categories: archive
+title: "[논문리뷰] Online normalizer calcuation for softmax by Nvidia (2018)"
+categories: papers
 tags:
-  - 습관
-  - 엔지니어링
+  - 논문리뷰
+  - softmax
+  - Nvidia
+  - FlashAttention
 published: true
 ---
 _아래 글을 GN에서 번역한 것을 퍼옴_
