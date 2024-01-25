@@ -18,16 +18,16 @@ Flash Attention2 논문을 읽다 보니 이해가 안 되는 부분이 많았�
 - Nvidia GPU 에서 softmax 연산시 메모리 엑세스 최소화 및 병렬 프로세싱을 다룬 논문
 - 여타 다른 논문에선 근사치로 softmax 를 계산해서 최적화하는데 여기선 아님. 정확한 값이 나옴 
 
-## Attention
+## Attention & Softmax
 
 <img width="600" alt="image" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/3b757b71-4f83-487b-9b35-f3050fb58d41">
 
 이 논문에서는 Attention을 다루진 않지만, 나는 Flash Attention 의 softmax 를 기준으로 이해하기 위해서 보는 것이므로, Flash Attention 논문에서 attention 을 가지고 왔다. 
 
-여기서 내가 강조하고 싶은 것은 softmax의 S가 최근 LLM에서는 엄청 크다는 것이다. 따라서 아래에서 살펴볼 가장 기본적인 softmax는 수식으로는 아무런 문제가 없을 수 있으나, 실제로 컴
-## Softmax
+여기서 내가 강조하고 싶은 것은 softmax의 S가 최근 LLM에서는 엄청 크다는 것이다. 따라서 아래에서 살펴볼 가장 기본적인 softmax는 수식으로는 아무런 문제가 없을 수 있으나, 실제로 컴퓨터에서 동작을 하면 오버/언더플로우가 발생 할 수 있다.
 
 <img width="200" alt="image" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/c936ec0b-fa65-4e78-a0f1-860935199bec">
+
 
 이 논문은 softmax 를 다루는 논문이라, 먼저 기본적인 소프트맥스를 살펴보자. 수학적으로 별 문제가 없어보인다. 하지만, 최근 등장한 LLM 등은 분모가 상당히 커질 수 있어서 오버플로우나 언더플로우를 야기 시킬 수 있다.
 ## Safe Softmax
