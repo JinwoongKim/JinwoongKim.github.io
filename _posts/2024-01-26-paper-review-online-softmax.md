@@ -6,7 +6,7 @@ tags:
   - softmax
   - Nvidia
   - FlashAttention
-published: false
+published: true
 ---
 Flash Attention2 논문을 읽다 보니 이해가 안 되는 부분이 많았다. 팀내 연구원들은 GPU 파트를 이해 못 했는데 난 오히려 GPU 파트 보단 딥러닝파트가 이해가 안 됐다;;
 
@@ -31,10 +31,10 @@ _수식 1. Attention 수식_
 _수식 2. Softmax 수식_
 
 여기서 한 가지 더 살펴볼 점은, 메모리 엑세스 횟수이다 아래 코드에서 볼 수 있듯이 softmax 는 메모리를 총 3번 엑세스 하는데, 
-1. (Load) dj 를 구할때 모든 e^xj 에 대해 한 번 씩,
-2. (Load) yi 를 구할때 또 e^xi 한번씩,
+1. (3번째 줄) dj 를 구할때 모든 e^xj 에 대해 한 번 씩 (Load)
+2. (6번째 줄) yi 를 구할때 또 e^xi 한번씩 (Load)
 3. (Store) 그리고 yi 에 값을 저장할때 또 한 번씩
-이렇게 V 개의 숫자에 대해 softmax 를 구할때 총 O(3V) 번 
+이렇게 V 개의 숫자에 대해 softmax 를 구할때 총 O(3V) 번 메모리에 접근한다.
 
 <img width="300" alt="image" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/27ae5fe9-2b4d-45d1-8c87-2b4df54d2dc6">
 _코드 1. Softmax 코드_
