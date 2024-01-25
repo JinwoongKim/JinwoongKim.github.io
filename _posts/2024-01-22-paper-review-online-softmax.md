@@ -12,3 +12,9 @@ Flash Attention2 논문을 읽다 보니 이해가 안 되는 부분이 많았�
 
 그 중에서도 Flash Attention 2의 핵심 아이디어인 softmax 병렬 계산이 도통 이해가 안 돼서 관련 논문을 열심히 읽었다. 인용수가 22밖에 안돼서 그런가 자료가 매우 없어서 아쉬웠고, 그래서 나의 부족한 리뷰라도 누군가가에게 도움이 돼지 않을까 하여 올려본다.
 
+논문 URL 
+## softmax
+
+## safe-softmax
+
+## online safe-softmax
