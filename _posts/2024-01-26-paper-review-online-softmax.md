@@ -21,6 +21,7 @@ Flash Attention2 논문을 읽다 보니 이해가 안 되는 부분이 많았�
 ## Attention & Softmax
 
 <img width="600" alt="image" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/3b757b71-4f83-487b-9b35-f3050fb58d41">
+
 _수식 1. Attention 수식_
 
 이 논문에서는 Attention을 다루진 않지만, 나는 Flash Attention 의 softmax 를 기준으로 이해하기 위해서 보는 것이므로, Flash Attention 논문에서 attention 을 가지고 왔다. 
