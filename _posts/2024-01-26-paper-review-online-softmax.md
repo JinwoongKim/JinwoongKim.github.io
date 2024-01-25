@@ -29,6 +29,12 @@ _수식 1. Attention 수식_
 
 <img width="200" alt="image" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/c936ec0b-fa65-4e78-a0f1-860935199bec">
 _수식 2. Softmax 수식_
+
+여기서 한 가지 더 살펴볼 점은, 메모리 엑세스 횟수이다 아래 코드에서 볼 수 있듯이 softmax 는 
+
+<img width="300" alt="image" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/27ae5fe9-2b4d-45d1-8c87-2b4df54d2dc6">
+_코드 1. Softmax 코드_
+
 ## Safe Softmax
 
 
