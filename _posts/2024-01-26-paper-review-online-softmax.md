@@ -19,6 +19,10 @@ Flash Attention2 논문을 읽다 보니 이해가 안 되는 부분이 많았�
 - 여타 다른 논문에선 근사치로 softmax 를 계산해서 최적화하는데 여기선 아님. 정확한 값이 나옴 
 
 ## Attention
+
+<img width="600" alt="image" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/3b757b71-4f83-487b-9b35-f3050fb58d41">
+
+이 논문에서는 Attention을 다루진 않지만 Flash Attention 논문ㅇ
 ## Softmax
 
 <img width="200" alt="image" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/c936ec0b-fa65-4e78-a0f1-860935199bec">
