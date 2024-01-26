@@ -65,7 +65,7 @@ Flash Attention2 논문을 읽다 보니 이해가 안 되는 부분이 많았�
 <em>코드 2. Safe Softmax</em>
 </p>
 
-## Online Safe Softmax
+
 
 
 <p align="center">
@@ -73,4 +73,9 @@ Flash Attention2 논문을 읽다 보니 이해가 안 되는 부분이 많았�
 <br>
 <em>그림 1. GPU 메모리 계층 및 대역폭, 사이즈 </em>
 </p>
+
+## Online Safe Softmax
+
+
+
 
