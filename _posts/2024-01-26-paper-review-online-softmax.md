@@ -49,6 +49,18 @@ _코드 1. Softmax 코드_
 
 ## Safe Softmax
 
+<p align="center">
+<img width="200" alt="image" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/d823cdbd-61a8-4e71-b609-48a8deb5d2d1">
+<br>
+<em>수식 2. (Naive) Softmax</em>
+</p>
+
+<p align="center">
+<img width="300" alt="image" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/00d65fd5-b6aa-44f9-8a7b-2303812d8d46">
+<br>
+<em>수식 2. (Naive) Softmax</em>
+</p>
+
 
 
 ## Online Safe Softmax
