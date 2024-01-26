@@ -44,21 +44,24 @@ Flash Attention2 논문을 읽다 보니 이해가 안 되는 부분이 많았�
 3. (6번째 줄, 좌항) 그리고 <em>y<sub>i</sub></em> 에 값을 저장할때 또 한 번씩 (Store)
 이렇게 V 개의 숫자에 대해 softmax 를 구할때 총 O(3V) 번 메모리에 접근한다.
 
+<p align="center">
 <img width="300" alt="image" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/27ae5fe9-2b4d-45d1-8c87-2b4df54d2dc6">
-_코드 1. Softmax 코드_
+<br>
+<em> 코드 1. Softmax </em>
+</p>
 
 ## Safe Softmax
 
 <p align="center">
 <img width="200" alt="image" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/d823cdbd-61a8-4e71-b609-48a8deb5d2d1">
 <br>
-<em>수식 2. Safe Softmax</em>
+<em>수식 3. Safe Softmax</em>
 </p>
 
 <p align="center">
 <img width="300" alt="image" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/00d65fd5-b6aa-44f9-8a7b-2303812d8d46">
 <br>
-<em>수식 2. (Naive) Softmax</em>
+<em>코드 2. Safe Softmax</em>
 </p>
 
 
