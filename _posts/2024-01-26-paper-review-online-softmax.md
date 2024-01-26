@@ -6,7 +6,7 @@ tags:
   - softmax
   - Nvidia
   - FlashAttention
-published: true
+published: false
 ---
 Flash Attention2 논문을 읽다 보니 이해가 안 되는 부분이 많았다. 팀내 연구원들은 GPU 파트를 이해 못 했는데 난 오히려 GPU 파트 보단 딥러닝파트가 이해가 안 됐다;;
 
@@ -65,6 +65,5 @@ Flash Attention2 논문을 읽다 보니 이해가 안 되는 부분이 많았�
 <em>코드 2. Safe Softmax</em>
 </p>
 
-
-
 ## Online Safe Softmax
+
