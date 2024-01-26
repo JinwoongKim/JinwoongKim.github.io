@@ -58,7 +58,7 @@ Flash Attention2 논문을 읽다 보니 이해가 안 되는 부분이 많았�
 <br>
 <em>수식 3. Safe Softmax</em>
 </p>
-
+여기서 주목해야 할 점은 최댓값을 구해줘야 함으로써 메모리 접근 수가 한 번 더 늘었다는 것이다. 아래 <코드2>에서 볼 수 있다 싶이 3번째 줄에서 최댓값을 구하기 위해 O(V)만큼 
 <p align="center">
 <img width="300" alt="image" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/00d65fd5-b6aa-44f9-8a7b-2303812d8d46">
 <br>
