@@ -52,7 +52,7 @@ _코드 1. Softmax 코드_
 <p align="center">
 <img width="200" alt="image" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/d823cdbd-61a8-4e71-b609-48a8deb5d2d1">
 <br>
-<em>수식 2. (Naive) Softmax</em>
+<em>수식 2. Safe Softmax</em>
 </p>
 
 <p align="center">
