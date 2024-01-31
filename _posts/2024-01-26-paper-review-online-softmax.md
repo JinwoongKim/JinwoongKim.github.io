@@ -78,4 +78,8 @@ Flash Attention2 논문을 읽다 보니 이해가 안 되는 부분이 많았�
 
 
 
+$$
+E = 
+$$
 
+https://velog.io/@d2h10s/LaTex-Markdown-수식-작성법
