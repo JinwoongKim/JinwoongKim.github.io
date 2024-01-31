@@ -84,3 +84,6 @@ Flash Attention2 논문을 읽다 보니 이해가 안 되는 부분이 많았�
 
 https://velog.io/@d2h10s/LaTex-Markdown-수식-작성법
 https://github.com/JinwoongKim/JinwoongKim.github.io/issues/1
+
+
+https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/ba400caf-3bd0-42f4-8436-5514d28cba30
