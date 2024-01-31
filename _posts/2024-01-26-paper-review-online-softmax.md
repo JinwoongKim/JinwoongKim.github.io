@@ -76,11 +76,11 @@ Flash Attention2 논문을 읽다 보니 이해가 안 되는 부분이 많았�
 
 ## Online Safe Softmax
 
-![[blog/images/Pasted image 20240131143044.png]]
-
-$$
-E = 
-$$
+<p align="center">
+<img width="600" alt="image" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/72075e54-36d6-4885-b8f0-347d627fee4b">
+<br>
+<em>코드 2. Safe Softmax</em>
+</p>
 
 https://velog.io/@d2h10s/LaTex-Markdown-수식-작성법
 https://github.com/JinwoongKim/JinwoongKim.github.io/issues/1
