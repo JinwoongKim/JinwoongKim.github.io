@@ -18,7 +18,7 @@ Flash Attention2 논문을 읽다 보니 이해가 안 되는 부분이 많았�
 - Softmax 연산시 메모리 엑세스 최소화 및 병렬 프로세싱을 다룬 논문
 - 여타 다른 논문에선 approxiative softmax 를 계산해서 최적화하는데 여기선 아님. 정확한 값이 나옴 
 
-## Attention & Softmax
+## Motivation : Attention is getting expensive in LLM
 
 <p align="center">
 <img width="600" alt="image" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/3b757b71-4f83-487b-9b35-f3050fb58d41">
@@ -30,7 +30,9 @@ Flash Attention2 논문을 읽다 보니 이해가 안 되는 부분이 많았�
 
 여기서 강조하고 싶은 것은 위의 attention matrix,  S가 최근 long sequence가 유행하는 LLM에서는 점 점 커지고 있다는 것이다. 심지어 N x N 이기 때문에 선형이 아니라 제곱 배수로 그 크기가 증가하고 있다.
 
-본 논문에서는, 이러한 많은 메모리 및 연산 
+본 논문에서는, 이러한 많은 메모리 및 연산 시간을 요구하는 비싼 softmax 연산을 어떻게 메모리, 시간 적으로 최적화 할지 다룬다.
+
+## Attention & Softmax
 
 따라서 아래에서 살펴볼 가장 기본적인 softmax는 수식으로는 아무런 문제가 없을 수 있으나, _**실제로 컴퓨터에서 동작을 하면 오버/언더플로우가 발생 할 수 있다.**_
 
