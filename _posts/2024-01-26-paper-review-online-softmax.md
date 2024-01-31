@@ -98,6 +98,16 @@ Flash Attention2 논문을 읽다 보니 이해가 안 되는 부분이 많았�
 
 핵심은, 모든 x의 max 값을 구하지 않고, dj 값을 구하는 것인데 아래 예제에서 설며하
 
+
+<수식 3> 으로 돌아가보자. 수식 3을 풀어서 서술하면 아래와 같다.
+
+
+
+
+
+
+
+참고 :
 https://velog.io/@d2h10s/LaTex-Markdown-수식-작성법
 https://github.com/JinwoongKim/JinwoongKim.github.io/issues/1
 
