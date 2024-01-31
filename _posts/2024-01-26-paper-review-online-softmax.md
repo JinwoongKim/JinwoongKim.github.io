@@ -18,7 +18,7 @@ Flash Attention2 논문을 읽다 보니 이해가 안 되는 부분이 많았�
 - Softmax 연산시 메모리 엑세스 최소화 및 병렬 프로세싱을 다룬 논문
 - 여타 다른 논문에선 approxiative softmax 를 계산해서 최적화하는데 여기선 아님. 정확한 값이 나옴 
 
-## Motivation : Attention is getting expensive in LLM
+## Motivation
 
 <p align="center">
 <img width="600" alt="image" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/3b757b71-4f83-487b-9b35-f3050fb58d41">
@@ -87,6 +87,10 @@ Flash Attention2 논문을 읽다 보니 이해가 안 되는 부분이 많았�
 <br>
 <em>코드 2. Safe Softmax</em>
 </p>
+
+위의 <코드2>에 본 논문의 핵심 아이디어가 서술되어있다. 주목 할 부분은 4-5번
+
+
 
 https://velog.io/@d2h10s/LaTex-Markdown-수식-작성법
 https://github.com/JinwoongKim/JinwoongKim.github.io/issues/1
