@@ -28,7 +28,9 @@ Flash Attention2 논문을 읽다 보니 이해가 안 되는 부분이 많았�
 
 이 논문에서는 Attention을 다루진 않지만, 나는 Flash Attention 의 softmax 를 기준으로 이해하기 위해서 보는 것이므로, Flash Attention 논문에서 attention 을 가지고 왔다. 
 
-여기서 강조하고 싶은 것은 위의 attention matrix,  S가 최근 long sequence가 유행하는 LLM에서는 엄청 크다는 것이다. 심지어 N x N 이기 때문에 선형이 아니라 제곱배 수로 증가하고 있다.
+여기서 강조하고 싶은 것은 위의 attention matrix,  S가 최근 long sequence가 유행하는 LLM에서는 점 점 커지고 있다는 것이다. 심지어 N x N 이기 때문에 선형이 아니라 제곱 배수로 그 크기가 증가하고 있다.
+
+본 논문에서는, 이러한 많은 메모리 및 연산 
 
 따라서 아래에서 살펴볼 가장 기본적인 softmax는 수식으로는 아무런 문제가 없을 수 있으나, _**실제로 컴퓨터에서 동작을 하면 오버/언더플로우가 발생 할 수 있다.**_
 
