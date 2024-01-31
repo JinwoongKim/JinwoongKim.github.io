@@ -85,10 +85,12 @@ Flash Attention2 논문을 읽다 보니 이해가 안 되는 부분이 많았�
 <p align="center">
 <img width="600" alt="image" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/72075e54-36d6-4885-b8f0-347d627fee4b">
 <br>
-<em>코드 2. Safe Softmax</em>
+<em>코드 3. Online Safe Softmax</em>
 </p>
 
-위의 <코드2>에 본 논문의 핵심 아이디어가 서술되어있다. 주목 할 부분은 4-5번
+위의 <코드3>에 본 논문의 핵심 아이디어가 서술되어있다. 주목 할 부분은 3-6번째 줄인데, <코드2>의 2-8줄과 비교해보면 for loop 이 하나 없다는 걸 파악 할 수 있다.
+느낄 수 있다.
+비교해보면 2-8줄
 
 
 
