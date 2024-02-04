@@ -127,11 +127,14 @@ $$
 $$
 l = { e^{x_1} + e^{x_2} + ... + e^{x_N} \over e^{max(x)}} = { e^{x_1} + e^{x_2} + ... + e^{x_N} \over e^{some\_of(x)}}  { e^{some\_of(x)} \over e^{max(x)}}    
 $$
-<p align="center"> <em>수식5. 분모 바꿔치기 </em> </p>
+<p align="center"> <em>수식5. 리스케일링 </em> </p>
 
 오버플로우를 방지 할 수 있는 적당한 숫자란 무엇일까? 최댓값이다. 단, 전체 x 의 최댓값은 모두 탐색해야 알 수 있으니까, 단순히 여태 까지 본 x 중에 최댓값이면 된다. (`<코드3>`의 4-5번째 줄). 아래 `<수식6>`의 마지막 항을 보면, <em>d<sub>j-1</sub></em> 에 <em>e<sup>m<sub>j-1</sub></sup></em> (이전까지 최댓값) 을 곱하여 없애주고 다시 <em>e<sup>m<sub>j</sub></sup></em> (현재까지의 최댓값) 로 분모를 취해주는 것을 볼 수 있다.
 
 
+$$
+d_j = d_{j-1} \times e^{ {m_j-1}-{m_j}} + e^{{x_j}-{m_j}} = d_{j-1} \times {e^{m_j-1} \over {e^{m_j}}} + {e^{x_j} \over e^{m_j}}
+$$
 
 <p align="center"> <em>수식6. 코드3의 5번째 줄 수식화</em> </p>
 
