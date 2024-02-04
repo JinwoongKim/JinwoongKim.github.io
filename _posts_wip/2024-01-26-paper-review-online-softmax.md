@@ -137,7 +137,20 @@ $$
 
 
 $$
-d_{j-1} \times {e^{{m_j-1}} \over {e^{m_j}}} + {e^{x_j} \over e^{m_j}}
+{e^{3} + e^{4} +e^{5} +e^{6} \over e^{6}} 
+$$
+
+$$
+{e^{3} +e^{4} \over e^{4}} 
+$$
+$$
+{e^{3} +e^{4} \over e^{4}} \times {e^{4} \over e^{5} } +  {e^{5} \over e^{5}}
+$$
+$$
+{e^{3} +e^{4} +e^{5}  \over e^{5}} \times {e^{5} \over e^{6} } +  {e^{6} \over e^{6}}
+$$
+$$
+{e^{3} +e^{4} +e^{5} +e^{2} \over e^{5}} \times {e^{5} \over e^{6} } +  {e^{6} \over e^{6}}
 $$
 <p align="center"> <em>수식6. 코드3의 5번째 줄 수식화</em> </p>
 
