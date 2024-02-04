@@ -111,20 +111,17 @@ Flash Attention2 논문을 읽다 보니 이해가 안 되는 부분이 많았�
 
 
 `<수식3>` 으로 돌아가보자. `<수식3>`의 분모를 <em>l</em> 이라하면, 아래와 같다.
-
-
-$$
-l = \displaystyle\sum_{i=1}^N e^{x_i-max} where 
-$$
+(편의상 <em>j</em>를 <em>i</em>로, <em>x</em> 중 최댓값을 <em>max(x) </em>로 표현하였다.)
 
 $$
-max = \displaystyle\sum_{i=1}^N  \underset{<constraints>}{\operatorname{<argmax>} asdf }
+l = \displaystyle\sum_{i=1}^N e^{x_i-max(x)}
 $$
 
-\over
-
-
-t
+<p align="center">
+<img width="200" alt="image" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/d823cdbd-61a8-4e71-b609-48a8deb5d2d1">
+<br>
+<em>수식 3. Safe Softmax</em>
+</p>
 
 
 참고 :
