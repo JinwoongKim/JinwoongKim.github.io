@@ -16,12 +16,6 @@ Flash Attention2 논문을 읽다 보니 이해가 안 되는 부분이 많았�
 
 논문 URL : https://arxiv.org/abs/1805.02867
 
-$$
-\lim_{x\to 0}{\frac{e^x-1}{2x}}
-\overset{\left[\frac{0}{0}\right]}{\underset{\mathrm{H}}{=}}
-\lim_{x\to 0}{\frac{e^x}{2}}={\frac{1}{2}}
-$$
-
 # tl;dr
 - Softmax 메모리 최적화 및 병렬 프로세싱을 다룬 논문
 	- 병렬로 연산을 하지만 근사치가 아닌 정확한 값을 도출 해낸다.
@@ -120,10 +114,11 @@ $$
 `<수식3>` 으로 돌아가보자. `<수식3>`의 분모를 <em>l</em> 이라하면, 아래와 같다.
 (편의상 <em>j</em>를 <em>i</em>로, <em>x</em>의 최댓값을 <em>max(x) </em>로 표현하였다.)
 
+<p align="center">
 $$
 l = \displaystyle\sum_{i=1}^N e^{x_i-max(x)} = \displaystyle\sum_{i=1}^N {e^{x_i} \over e^{max(x)}} = {e^{x_1} \over e^{max(x)} } + {e^{x_2} \over e^{max(x)} } + ... + {e^{x_N} \over e^{max(x)} } = { e^{x_1} + e^{x_2} + ... + e^{x_N} \over e^{max(x)}}  
 $$
-<p align="center"> <em>수식4. Safe softmax의 분모 풀어쓰기</em> </p>
+<em>수식4. Safe softmax의 분모 풀어쓰기</em> </p>
 
 수학적으로만 본다면 <em>e<sup>x<sub>1</sub></sup> + e<sup>x<sub>2</sub></sup> + ... + e<sup>x<sub>N</sub></sup></em> 를 모두 더한 뒤에 **마지막에 <em>e<sup>max(x)</sup></em> 를 빼주어도 된다**. 물론 앞서 말했듯이 최댓값을 빼주는 이유가 오버플로우 발생 예방이기 때문에 이렇게 마지막에 빼주려고 한다면 이미 오버플로우는 발생했겠지만 말이다. 
 
