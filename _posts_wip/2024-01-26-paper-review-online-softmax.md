@@ -131,7 +131,7 @@ $$
 
 
 $$
-d_j = d_{j-1} \times e^{m_j-1}-{m_j} = \displaystyle\sum_{i=1}^N {e^{x_i} \over e^{max(x)}} = {e^{x_1} \over e^{max(x)} } + {e^{x_2} \over e^{max(x)} } + ... + {e^{x_N} \over e^{max(x)} } = { e^{x_1} + e^{x_2} + ... + e^{x_N} \over e^{max(x)}}  
+d_j = d_{j-1} \times e^{{m_j-1}-{m_j}} + e^{{x_j}-{m_j}} = d_{j-1} \times {e^{{m_j-1}} \over {e^{m_j}}} + {e^{x_j} \over e^{m_j}}
 $$
 <p align="center"> <em>수식4. Safe softmax의 분모 풀어쓰기</em> </p>
 <p align="center">
