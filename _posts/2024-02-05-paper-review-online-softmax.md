@@ -125,7 +125,7 @@ $$
 (아래 수식에선 적당한 숫자를 <em>e<sup>some_of(x)</sup></em> 라 표현 함)
 
 $$
-{ e^{x_1} + e^{x_2} + ... + e^{x_N} \over e^{max(x)}} = { e^{x_1} + e^{x_2} + ... + e^{x_N} \over e^{some\_of(x)}}  { e^{some\_of(x)} \over e^{max(x)}}    
+l = { e^{x_1} + e^{x_2} + ... + e^{x_N} \over e^{max(x)}} = { e^{x_1} + e^{x_2} + ... + e^{x_N} \over e^{some\_of(x)}}  { e^{some\_of(x)} \over e^{max(x)}}    
 $$
 <p align="center"> <em>수식5. 분모 바꿔치기 </em> </p>
 
@@ -138,15 +138,20 @@ $$
 N이 4이고 x = {3,4,2,5} 일 때의 예제를 아래에 풀어서 설명해놓았다.
 
 최종적으로 <em>d<sub>4</sub></em> 가 아래와 같은 형태이면 되는데,
+
 $$
 d_4 = {e^{3} + e^{4} +e^{2} +e^{5} \over e^{5}} 
 $$
 
+
 <em>d<sub>1</sub></em>은 직관적이니 넘어가고,
+
 $$
 d_1 = {e^{3} \over e^{3}} 
 $$
+
 <em>d<sub>2</sub></em> 의 경우, <em>d<sub>1</sub></em>에 이전까지의 최댓값(<em>e<sup>3</sup></em>)을 곱해주고, 현재의 최댓값(<em>e<sup>4</sup></em>)으로 나누어 준다. 그리고 현재의 최댓값(<em>e<sup>4</sup></em>) 분의 현재값(<em>e<sup>4</sup></em>)을 더해주면 된다.
+
 
 $$
 d_2 = {e^{3} \over e^{3}} \times {e^{3} \over e^{4} } +  {e^{4} \over e^{4}} = {e^3 + e^{4} \over e^{4}}
