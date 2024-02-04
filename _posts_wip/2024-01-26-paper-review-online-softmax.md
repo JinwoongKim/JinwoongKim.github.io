@@ -15,8 +15,9 @@ Flash Attention2 논문을 읽다 보니 이해가 안 되는 부분이 많았�
 논문 URL : https://arxiv.org/abs/1805.02867
 
 # tl;dr
-- Softmax 연산시 메모리 엑세스 최소화 및 병렬 프로세싱을 다룬 논문
-- not approximate, it's an exact result
+- Softmax 메모리 엑세스 최소화 및 병렬 프로세싱을 다룬 논문
+	- 병렬로 연산을 하지만 근사치가 아닌 정확한 값을 도출 해낸다.
+- 또한 인풋이 증가해도 메모리가 제곱배수가 아닌 선형으로 증가한다.
 
 ## Motivation
 
