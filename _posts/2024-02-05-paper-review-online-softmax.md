@@ -6,7 +6,8 @@ tags:
   - softmax
   - Nvidia
   - FlashAttention
-published: false
+  - onlinesoftmax
+published: true
 ---
 Flash Attention2 논문을 읽다 보니 이해가 안 되는 부분이 많았다. 팀 내 ML 연구원들은 GPU 파트를 이해 못 했는데 난 오히려 GPU 파트 보단 ML 파트가 이해가 안 됐다;;
 
@@ -158,7 +159,8 @@ $$
 <p align="center"> 예제1. N이 4이고 x = {3,4,2,5} 일 때</p>
 이런식으로 수행하면 전체의 max 를 구하지 않고도 위의 <em>d<sub>4</sub></em> 를 만들 수 있어서 메모리 엑세스를 줄일 수 있다.
 
-## Online Safe Softmax
+## Parallel Online Safe Softmax
+(TBU)
 
 참고 :
 https://velog.io/@d2h10s/LaTex-Markdown-수식-작성법
