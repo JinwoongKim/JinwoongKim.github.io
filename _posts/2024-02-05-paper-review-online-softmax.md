@@ -115,7 +115,7 @@ Flash Attention2 논문을 읽다 보니 이해가 안 되는 부분이 많았�
 (편의상 <em>j</em>를 <em>i</em>로, <em>x</em>의 최댓값을 <em>max(x) </em>로 표현하였다.)
 
 $$
-l = \displaystyle\sum_{i=1}^N e^{x_i-max(x)} = \displaystyle\sum_{i=1}^N {e^{x_i} \over e^{max(x)}} = {e^{x_1} \over e^{max(x)} } + {e^{x_2} \over e^{max(x)} } + ... + {e^{x_N} \over e^{max(x)} } = { e^{x_1} + e^{x_2} + ... + e^{x_N} \over e^{max(x)}}  
+l = \displaystyle\sum_{i=1}^N e^{x_i-max(x)} = \displaystyle\sum_{i=1}^N {e^{x_i} \over e^{max(x)}} = {e^{x_1} \over e^{max(x)} } + {e^{x_2} \over e^{max(x)} } + ... + {e^{x_N} \over e^{max(x)} } \newline = { e^{x_1} + e^{x_2} + ... + e^{x_N} \over e^{max(x)}}  
 $$
 <p align="center"> <em>수식4. Safe softmax의 분모 풀어쓰기</em> </p>
 
@@ -147,23 +147,21 @@ $$
 d_1 = {e^{3} \over e^{3}} 
 $$
 <em>d<sub>2</sub></em> 의 경우, <em>d<sub>1</sub></em>에 이전까지의 최댓값(<em>e<sup>3</sup></em>)을 곱해주고, 현재의 최댓값(<em>e<sup>4</sup></em>)으로 나누어 준다. 그리고 현재의 최댓값(<em>e<sup>4</sup></em>) 분의 현재값(<em>e<sup>4</sup></em>)을 더해주면 된다.
+
 $$
 d_2 = {e^{3} \over e^{3}} \times {e^{3} \over e^{4} } +  {e^{4} \over e^{4}} = {e^3 + e^{4} \over e^{4}}
 $$
+
 $$
 d_3 = {e^{3} +e^{4} \over e^{4}} \times {e^{4} \over e^{4} } +  {e^{2} \over e^{4}} = {e^3 + e^4 + e^2 \over e^4}
 $$
+
 $$
 d_4 = {e^{3} +e^{4} +e^{2}  \over e^{4}} \times {e^{4} \over e^{5} } +  {e^{5} \over e^{5}} = {e^3 + e^4 + e^2 + e^5 \over e^5}
 $$
+
 <p align="center"> 예제1. N이 4이고 x = {3,4,2,5} 일 때</p>
 이런식으로 수행하면 전체의 max 를 구하지 않고도 위의 <em>d<sub>4</sub></em> 를 만들 수 있어서 메모리 엑세스를 줄일 수 있다.
-
-$$
-\lim_{x\to 0}{\frac{e^x-1}{2x}}
-\overset{\left[\frac{0}{0}\right]}{\underset{\mathrm{H}}{=}}
-\lim_{x\to 0}{\frac{e^x}{2}}={\frac{1}{2}}
-$$
 
 ## Parallel Online Safe Softmax
 (TBU)
