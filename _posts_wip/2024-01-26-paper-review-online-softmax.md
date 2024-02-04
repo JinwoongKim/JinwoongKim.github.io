@@ -114,8 +114,11 @@ Flash Attention2 논문을 읽다 보니 이해가 안 되는 부분이 많았�
 
 
 $$
-l = \displaystyle\sum_{i=1}^N e^{x_i-max}x  e
+l = \displaystyle\sum_{i=1}^N e^{x_i-max} where 
+$$
 
+$$
+max = \displaystyle\sum_{i=1}^N  \underset{<constraints>}{\operatorname{<argmax>} asdf }
 $$
 
 \over
