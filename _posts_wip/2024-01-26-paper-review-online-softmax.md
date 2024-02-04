@@ -15,11 +15,11 @@ Flash Attention2 논문을 읽다 보니 이해가 안 되는 부분이 많았�
 논문 URL : https://arxiv.org/abs/1805.02867
 
 # tl;dr
-- Softmax 메모리 엑세스 최소화 및 병렬 프로세싱을 다룬 논문
+- Softmax 메모리 최적화 및 병렬 프로세싱을 다룬 논문
 	- 병렬로 연산을 하지만 근사치가 아닌 정확한 값을 도출 해낸다.
-- 또한 인풋이 증가해도 메모리가 제곱배수가 아닌 선형으로 증가한다.
+	- 메모리가 제곱배수가 아닌 선형으로 증가한다.
 
-## Motivation
+## Motivation - Attention requires O(NxN) memory
 
 <p align="center">
 <img width="600" alt="image" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/3b757b71-4f83-487b-9b35-f3050fb58d41">
@@ -29,13 +29,13 @@ Flash Attention2 논문을 읽다 보니 이해가 안 되는 부분이 많았�
 
 이 논문에서는 Attention을 다루진 않지만, 나는 Flash Attention 의 softmax 를 기준으로 이해하기 위해서 보는 것이므로, Flash Attention 논문에서 attention 을 가지고 왔다. 
 
-여기서 강조하고 싶은 것은 위의 attention matrix,  S가 최근 long sequence가 유행하는 LLM에서는 점 점 커지고 있다는 것이다. 심지어 N x N 이기 때문에 선형이 아니라 제곱 배수로 그 크기가 증가하고 있다.
+여기서 강조하고 싶은 것은 위의 attention matrix,  S가 최근 long sequence가 유행하는 LLM에서는 점 점 커지고 있다는 것이다. 심지어 N x N 이기 때문에 (여기서 N은 인풋 길이, 토큰 수) 선형이 아니라 제곱으로 그 크기가 증가하고 있다.
 
 본 논문에서는, 이러한 많은 메모리 및 연산 시간을 요구하는 비싼 softmax 연산을 어떻게 메모리, 시간 적으로 최적화 할지 다룬다.
 
-## Attention & Softmax
+## Standard Softmax
 
-따라서 아래에서 살펴볼 가장 기본적인 softmax는 수식으로는 아무런 문제가 없을 수 있으나, _**실제로 컴퓨터에서 동작을 하면 오버/언더플로우가 발생 할 수 있다.**_
+먼저, 기본 Softmax 수식을 살펴보겠다. 아래 수식은 수학적으로는 \아무런 문제가 없을 수 있으나, _**실제로 컴퓨터에서 동작을 하면 오버/언더플로우가 발생 할 수 있다.**_
 
 <p align="center">
 <img width="200" alt="image" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/c936ec0b-fa65-4e78-a0f1-860935199bec">
