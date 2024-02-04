@@ -63,7 +63,7 @@ Flash Attention2 논문을 읽다 보니 이해가 안 되는 부분이 많았�
 
 
 > [!NOTE] 왜 최댓값일까?
-> 사실 난 이 부분이 직관적으로 이해가 되진 않았다. 그런데 후에 곰곰이 생각해보니, 결국 오버/언더플로우가 발생하는 이유는 개중에 가장 큰 놈 때문이니까 그럴 것 같다는 새악 
+> 사실 난 이 부분이 직관적으로 이해가 되진 않았다. 그런데 후에 곰곰이 생각해보니, 결국 오버/언더플로우가 발생하는 이유는 상대적으로 큰 수치 때문이니까 그럴 것 같다는 생각이 들었다. 
 
 
 <p align="center">
@@ -72,21 +72,22 @@ Flash Attention2 논문을 읽다 보니 이해가 안 되는 부분이 많았�
 <em>수식 3. Safe Softmax</em>
 </p>
 
-여기서 주목해야 할 점은 최댓값을 구해줘야 함으로써 메모리 접근 수가 한 번 더 늘었다는 것이다. 아래 <코드2>에서 볼 수 있다 싶이 3번째 줄에서 최댓값을 구하기 위해 O(V)만큼 메모리를 더 접근해야 한다. 따라서 하나의 softmax 값을 구하기 위해 이전에 3번만 접근하면 됐다면 이젠 4번 접근을 해야 하는 상황인 것이다.
+여기서 주목해야 할 점은 최댓값을 구해줘야 함으로써 **메모리 접근 수가 한 번 더 늘었다는 것**이다. 아래 `<코드2>` 에서 볼 수 있듯이이 3번째 줄에서 최댓값을 구하기 위해 O(V)만큼 메모리를 더 접근해야 한다. 따라서 하나의 softmax 값을 구하기 위해 이전에 3번만 접근하면 됐다면 이젠 4번 접근을 해야 하는 상황인 것이다.
 <p align="center">
 <img width="300" alt="image" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/00d65fd5-b6aa-44f9-8a7b-2303812d8d46">
 <br>
 <em>코드 2. Safe Softmax</em>
 </p>
 
-
-
+메모리 한 번 더 접근하는 게 무슨 큰 이슈일까?
+GPU에선 큰 이슈이다. 아래 그림은 FlashAttention 논문에서 가져온 그림인데, GPU는 작지만 빠른 SRA
 
 <p align="center">
 <img width="450" alt="image" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/b37fe3d2-6095-469a-a947-379980acf627">
 <br>
 <em>그림 1. GPU 메모리 계층 및 대역폭, 사이즈 </em>
 </p>
+
 
 ## Online Safe Softmax
 
