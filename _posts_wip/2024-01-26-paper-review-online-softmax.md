@@ -119,17 +119,21 @@ $$
 
 수학적으로만 본다면 <em>e<sup>x<sub>1</sub></sup> + e<sup>x<sub>2</sub></sup> + ... + e<sup>x<sub>N</sub></sup></em> 를 모두 더한 뒤에 **마지막에 <em>e<sup>max(x)</sup></em> 를 빼주어도 된다**. 물론 앞서 말했듯이 최댓값을 빼주는 이유가 오버플로우 발생 예방이기 때문에 이렇게 마지막에 빼주려고 한다면 이미 오버플로우는 발생했겠지만 말이다. 
 
-다시 말하면, 적당한 숫자를 빼주면서 오버플로우만 방지한다면, 정확한 값을 얻기 위해 마지막에만  <em>e<sup>max(x)</sup></em> 로 나눠주면 된다는 말이다.
+다시 말하면, 적당한 숫자로 나눠주면서 오버플로우만 방지한다면, 정확한 값을 얻기 위한 마지막에만  <em>e<sup>max(x)</sup></em> 로 나눠주면 된다는 말이다.
+(아래 수식에선 적당한 숫자를 <em>e<sup>some_of(x)</sup></em> 라 표현 함)
 
 $$
 { e^{x_1} + e^{x_2} + ... + e^{x_N} \over e^{max(x)}} = { e^{x_1} + e^{x_2} + ... + e^{x_N} \over e^{some\_of(x)}}  { e^{some\_of(x)} \over e^{max(x)}}    
 $$
 <p align="center"> <em>수식5. 분모 바꿔치기 </em> </p>
 
+오버플로우를 방지 할 수 있는 적당한 숫자란 무엇일까? 최댓값이다. 단, 전체 x 의 최댓값은 모두 탐색해야 알 수 있으니까, 단순히 여태 까지 본 x 중에 최댓값이면 된다. (`<코드3>`의 4-5번째 줄)
 
-이기 때문이다.
 
-
+$$
+l = \displaystyle\sum_{i=1}^N e^{x_i-max(x)} = \displaystyle\sum_{i=1}^N {e^{x_i} \over e^{max(x)}} = {e^{x_1} \over e^{max(x)} } + {e^{x_2} \over e^{max(x)} } + ... + {e^{x_N} \over e^{max(x)} } = { e^{x_1} + e^{x_2} + ... + e^{x_N} \over e^{max(x)}}  
+$$
+<p align="center"> <em>수식4. Safe softmax의 분모 풀어쓰기</em> </p>
 
 
 참고 :
