@@ -35,7 +35,7 @@ Flash Attention2 논문을 읽다 보니 이해가 안 되는 부분이 많았�
 
 ## 2. Potential Problem of Standard(Naive) Softmax
 
-먼저, 기본 Softmax 수식을 살펴보겠다. 아래 수식은 수학적으로는 \아무런 문제가 없을 수 있으나, _**실제로 컴퓨터에서 동작을 하면 오버/언더플로우가 발생 할 수 있다.**_ 따라서 TensorFlow, PyTorch 등은 뒤에서 설명할 `Safe Softmax` 를 사용한다.
+먼저, 기본 Softmax 수식을 살펴보겠다. 아래 수식은 수학적으로는 \아무런 문제가 없을 수 있으나, _**실제로 컴퓨터에서 동작을 하면 오버/언더플로우가 발생 할 수 있다.**_ 따라서 `TensorFlow`, `PyTorch` 등은 뒤에서 설명할 `Safe Softmax` 를 사용한다.
 
 <p align="center">
 <img width="200" alt="image" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/c936ec0b-fa65-4e78-a0f1-860935199bec">
@@ -45,11 +45,11 @@ Flash Attention2 논문을 읽다 보니 이해가 안 되는 부분이 많았�
 
 
 여기서 한 가지 더 살펴볼 점은, **메모리 엑세스 횟수**이다.
-아래 `<코드 1>` 에서 볼 수 있듯이 standard softmax 는 각각의 값을 구하기 위해서 메모리를 총 3번 엑세스 하는데, 
-1. (3번째 줄) <em>d<sub>j</sub></em> 를 구할때 모든 <em>e<sup>x<sub>j </sub></sup></em> 에 대해 한 번 씩 (Load)
-2. (6번째 줄, 우항) <em>y<sub>i</sub></em> 를 구할때 또 <em>e<sup>x<sub>i</sub></sup></em> 한번씩 (Load)
-3. (6번째 줄, 좌항) 그리고 <em>y<sub>i</sub></em> 에 값을 저장할때 또 한 번씩 (Store)
-이렇게 softmax 를 구할때 총 _O(3V)_ 번 메모리에 접근한다.  (V=N)
+아래 `<코드1>` 에서 볼 수 있듯이 standard softmax 는 각각의 값을 구하기 위해서 메모리를 총 3번 엑세스 하는데, 
+1. `(3번째 줄)` <em>d<sub>j</sub></em> 를 구할때 모든 <em>e<sup>x<sub>j </sub></sup></em> 에 대해 한 번 씩 `(Load)`
+2. `(6번째 줄, 우항)` <em>y<sub>i</sub></em> 를 구할때 또 <em>e<sup>x<sub>i</sub></sup></em> 한번씩 `(Load)`
+3. `(6번째 줄, 좌항)` 그리고 <em>y<sub>i</sub></em> 에 값을 저장할때 또 한 번씩 `(Store)`
+이렇게 softmax 를 구할때 총 _O(3V)_ 번 메모리에 접근한다.  `(V=N)`
 
 <p align="center">
 <img width="300" alt="image" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/27ae5fe9-2b4d-45d1-8c87-2b4df54d2dc6">
@@ -79,8 +79,9 @@ Flash Attention2 논문을 읽다 보니 이해가 안 되는 부분이 많았�
 <em>코드 2. Safe Softmax</em>
 </p>
 
-메모리 한 번 더 접근하는 게 무슨 큰 이슈일까?
-GPU에선 큰 이슈이다. 아래 그림은 FlashAttention 논문에서 가져온 그림인데, GPU는 작지만 빠른 SRA
+메모리 한 번 더 접근하는 게 무슨 큰 이슈일까? -> 사실 GPU에선 매우 큰 이슈이다.
+
+아래 `<그림1>`은 FlashAttention 논문에서 가져온 그림인데, GPU는 **작지만 빠른 SRAM**과 **크지만 느린 HBM** 으로 메모리가 구성되어있다. 그리고, softmax matrix는 너무 커서 SRAM에 모두 두기 힘들다. 따라서 크지만 느린 HBM 으로의 메모리 연산이 하나 더 증가하는 것은 전체 성능에 많은 영향을 끼친다.
 
 <p align="center">
 <img width="450" alt="image" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/b37fe3d2-6095-469a-a947-379980acf627">
