@@ -16,6 +16,20 @@ Flash Attention2 논문을 읽다 보니 이해가 안 되는 부분이 많았�
 
 논문 URL : https://arxiv.org/abs/1805.02867
 
+```latex
+$$
+\lim_{x\to 0}{\frac{e^x-1}{2x}}
+\overset{\left[\frac{0}{0}\right]}{\underset{\mathrm{H}}{=}}
+\lim_{x\to 0}{\frac{e^x}{2}}={\frac{1}{2}}
+$$
+```
+>
+$$
+\lim_{x\to 0}{\frac{e^x-1}{2x}}
+\overset{\left[\frac{0}{0}\right]}{\underset{\mathrm{H}}{=}}
+\lim_{x\to 0}{\frac{e^x}{2}}={\frac{1}{2}}
+$$
+
 # tl;dr
 - Softmax 메모리 최적화 및 병렬 프로세싱을 다룬 논문
 	- 병렬로 연산을 하지만 근사치가 아닌 정확한 값을 도출 해낸다.
