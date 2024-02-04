@@ -134,23 +134,26 @@ d_j = d_{j-1} \times e^{{m_j-1}-{m_j}} + e^{{x_j}-{m_j}} = d_{j-1} \times {e^{{m
 $$
 <p align="center"> <em>수식6. 코드3의 5번째 줄 수식화</em> </p>
 
-
+3
 
 $$
 {e^{3} + e^{4} +e^{5} +e^{6} \over e^{6}} 
 $$
 
 $$
-{e^{3} +e^{4} \over e^{4}} 
+d_1 = {e^{3} \over e^{3}} 
 $$
 $$
-{e^{3} +e^{4} \over e^{4}} \times {e^{4} \over e^{5} } +  {e^{5} \over e^{5}}
+d_2 = {e^{3} \over e^{3}} \times {e^{4} \over e^{4} } +  {e^{4} \over e^{4}}
 $$
 $$
-{e^{3} +e^{4} +e^{5}  \over e^{5}} \times {e^{5} \over e^{6} } +  {e^{6} \over e^{6}}
+l(3) = {e^{3} +e^{4} \over e^{4}} \times {e^{4} \over e^{5} } +  {e^{5} \over e^{5}}
 $$
 $$
-{e^{3} +e^{4} +e^{5} +e^{2} \over e^{5}} \times {e^{5} \over e^{6} } +  {e^{6} \over e^{6}}
+l(4) = {e^{3} +e^{4} +e^{5}  \over e^{5}} \times {e^{5} \over e^{6} } +  {e^{6} \over e^{6}}
+$$
+$$
+{e^{3} +e^{4} +e^{5} +e^{2} \over e^{6}} \times {e^{6} \over e^{6} } +  {e^{2} \over e^{6}}
 $$
 <p align="center"> <em>수식6. 코드3의 5번째 줄 수식화</em> </p>
 
