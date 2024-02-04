@@ -35,7 +35,7 @@ Flash Attention2 논문을 읽다 보니 이해가 안 되는 부분이 많았�
 
 ## 2. Potential Problem of Standard(Naive) Softmax
 
-먼저, 기본 Softmax 수식을 살펴보겠다. 아래 수식은 수학적으로는 \아무런 문제가 없을 수 있으나, _**실제로 컴퓨터에서 동작을 하면 오버/언더플로우가 발생 할 수 있다.**_ 따라서 `TensorFlow`, `PyTorch` 등은 뒤에서 설명할 `Safe Softmax` 를 사용한다.
+먼저, 기본 Softmax 수식을 살펴보겠다. 아래 수식은 수학적으로는 \아무런 문제가 없을 수 있으나, _**실제로 컴퓨터에서 동작을 하면 오버/언더플로우가 발생 할 수 있다.**_ 따라서 `TensorFlow`, `PyTorch` 등은 뒤에서 설명할 `Safe Softmax` 를 사용한다. (편의상 앞으론 오버/언더플로우를 오버플로우라고만 표현하겠다.)
 
 <p align="center">
 <img width="200" alt="image" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/c936ec0b-fa65-4e78-a0f1-860935199bec">
@@ -59,11 +59,11 @@ Flash Attention2 논문을 읽다 보니 이해가 안 되는 부분이 많았�
 
 ## 3. Safe Softmax
 
-앞서 기본 형태의 softmax는 오버/언더플로우 문제가 있다고 언급했고, 그걸 해결하기 위한 것이 이 safe softmax 라는 것을 말했다. 아래 수식을 보면 Safe softmax 는 오버/언더플로우 문제를 해결하기 위해 단순히 최댓값을 빼주어서 scale down 해준다.
+앞서 기본 형태의 softmax는 오버플로우 문제가 있다고 언급했고, 그걸 해결하기 위한 것이 이 safe softmax 라는 것을 말했다. 아래 수식을 보면 Safe softmax 는 오버플로우 문제를 해결하기 위해 단순히 최댓값을 빼주어서 scale down 해준다.
 
 
 > [!NOTE] 왜 최댓값일까?
-> 사실 난 이 부분이 직관적으로 이해가 되진 않았다. 그런데 후에 곰곰이 생각해보니, 결국 오버/언더플로우가 발생하는 이유는 상대적으로 큰 수치 때문이니까 그럴 것 같다는 생각이 들었다. (누군가에게는 당연 할 수 있지만, 난 헤맸어서 기록해 본다)
+> 사실 난 이 부분이 직관적으로 이해가 되진 않았다. 그런데 후에 곰곰이 생각해보니, 결국 오버플로우가 발생하는 이유는 상대적으로 큰 수치 때문이니까 그럴 것 같다는 생각이 들었다. (누군가에게는 당연 할 수 있지만, 난 헤맸어서 기록해 본다)
 
 
 <p align="center">
@@ -109,9 +109,8 @@ Flash Attention2 논문을 읽다 보니 이해가 안 되는 부분이 많았�
 
 이 알고리즘에서의 핵심은, 모든 <em>x</em>의 <em>max</em> 값을 구하지 않고 <em>d<sub>j</sub></em> 값을 구하는 것인데, 어떻게 가능한지 아래에서 설명하겠다.
 
-
 `<수식3>` 으로 돌아가보자. `<수식3>`의 분모를 <em>l</em> 이라하면, 아래와 같다.
-(편의상 <em>j</em>를 <em>i</em>로, <em>x</em> 중 최댓값을 <em>max(x) </em>로 표현하였다.)
+(편의상 <em>j</em>를 <em>i</em>로, <em>x</em>의 최댓값을 <em>max(x) </em>로 표현하였다.)
 
 $$
 
@@ -120,7 +119,9 @@ l = \displaystyle\sum_{i=1}^N e^{x_i-max(x)} = \displaystyle\sum_{i=1}^N {e^{x_i
 $$
 <p align="center"> <em>수식4. Safe softmax의 분모 풀어쓰기</em> </p>
 
-즉, 수학적으로만 본다면 <em>e<sup>x<sub>1</sub></sup> + e<sup>x<sub>2</sub></sup> + ... + e<sup>x<sub>N</sub></sup></em> 를 모두 더한 뒤에 마지막에 <em>e<sup>max(x)<sub>N</sub></sup></em>
+즉, 수학적으로만 본다면 <em>e<sup>x<sub>1</sub></sup> + e<sup>x<sub>2</sub></sup> + ... + e<sup>x<sub>N</sub></sup></em> 를 모두 더한 뒤에 마지막에 <em>e<sup>max(x)</sup></em> 를 빼주어도 된다. 물론 앞서 말했듯이 최댓값을 빼주는 이유가 오버플로우 발생 예방이기 때문에 이렇게 마지막에 빼주려고 한다면 이미 오버플로우는 발생했겠지만 말이다. 
+
+여기서 한 가지 더 나아가 생각해보면, `<수식4>`의 분모는 무엇이어도
 
 
 
