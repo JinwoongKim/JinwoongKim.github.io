@@ -16,14 +16,6 @@ Flash Attention2 논문을 읽다 보니 이해가 안 되는 부분이 많았�
 
 논문 URL : https://arxiv.org/abs/1805.02867
 
-```latex
-$$
-\lim_{x\to 0}{\frac{e^x-1}{2x}}
-\overset{\left[\frac{0}{0}\right]}{\underset{\mathrm{H}}{=}}
-\lim_{x\to 0}{\frac{e^x}{2}}={\frac{1}{2}}
-$$
-```
->
 $$
 \lim_{x\to 0}{\frac{e^x-1}{2x}}
 \overset{\left[\frac{0}{0}\right]}{\underset{\mathrm{H}}{=}}
