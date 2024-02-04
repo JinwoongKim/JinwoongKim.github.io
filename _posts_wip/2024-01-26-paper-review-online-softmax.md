@@ -35,7 +35,7 @@ Flash Attention2 논문을 읽다 보니 이해가 안 되는 부분이 많았�
 
 ## 2. Potential Problem of Standard(Naive) Softmax
 
-먼저, 기본 Softmax 수식을 살펴보겠다. 아래 수식은 수학적으로는 \아무런 문제가 없을 수 있으나, _**실제로 컴퓨터에서 동작을 하면 오버/언더플로우가 발생 할 수 있다.**_ 따라서 텐서플로, 파이토츠 등에서는 뒤에서 설명할 `Safe Softmax` 를 사용한다.
+먼저, 기본 Softmax 수식을 살펴보겠다. 아래 수식은 수학적으로는 \아무런 문제가 없을 수 있으나, _**실제로 컴퓨터에서 동작을 하면 오버/언더플로우가 발생 할 수 있다.**_ 따라서 TensorFlow, PyTorch 등은 뒤에서 설명할 `Safe Softmax` 를 사용한다.
 
 <p align="center">
 <img width="200" alt="image" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/c936ec0b-fa65-4e78-a0f1-860935199bec">
@@ -59,13 +59,19 @@ Flash Attention2 논문을 읽다 보니 이해가 안 되는 부분이 많았�
 
 ## 3. Safe Softmax
 
-앞서 기본 형태의 softmax를 살펴봤으니, 이젠 
-위에서 언급한 오버/언더플로우 문제를 해결 하기 위해 TensorFlow, PyTorch 등은 아래와 같이 안전한 형태의 softmax 를 사용한다.  수식은 매우 직관적인데, 단순히 최댓값을 빼주어서 scale down 하는 것 같다.
+앞서 기본 형태의 softmax는 오버/언더플로우 문제가 있다고 언급했고, 그걸 해결하기 위한 것이 이 safe softmax 라는 것을 말했다. 아래 수식을 보면 Safe softmax 는 오버/언더플로우 문제를 해결하기 위해 단순히 최댓값을 빼주어서 scale down 해준다.
+
+
+> [!NOTE] 왜 최댓값일까?
+> 사실 난 이 부분이 직관적으로 이해가 되진 않았다. 그런데 후에 곰곰이 생각해보니, 결국 오버/언더플로우가 발생하는 이유는 개중에 가장 큰 놈 때문이니까 그럴 것 같다는 새악 
+
+
 <p align="center">
 <img width="200" alt="image" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/d823cdbd-61a8-4e71-b609-48a8deb5d2d1">
 <br>
 <em>수식 3. Safe Softmax</em>
 </p>
+
 여기서 주목해야 할 점은 최댓값을 구해줘야 함으로써 메모리 접근 수가 한 번 더 늘었다는 것이다. 아래 <코드2>에서 볼 수 있다 싶이 3번째 줄에서 최댓값을 구하기 위해 O(V)만큼 메모리를 더 접근해야 한다. 따라서 하나의 softmax 값을 구하기 위해 이전에 3번만 접근하면 됐다면 이젠 4번 접근을 해야 하는 상황인 것이다.
 <p align="center">
 <img width="300" alt="image" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/00d65fd5-b6aa-44f9-8a7b-2303812d8d46">
