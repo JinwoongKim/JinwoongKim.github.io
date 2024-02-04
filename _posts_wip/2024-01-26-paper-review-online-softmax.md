@@ -49,7 +49,7 @@ Flash Attention2 논문을 읽다 보니 이해가 안 되는 부분이 많았�
 1. (3번째 줄) <em>d<sub>j</sub></em> 를 구할때 모든 <em>e<sup>x<sub>j </sub></sup></em> 에 대해 한 번 씩 (Load)
 2. (6번째 줄, 우항) <em>y<sub>i</sub></em> 를 구할때 또 <em>e<sup>x<sub>i</sub></sup></em> 한번씩 (Load)
 3. (6번째 줄, 좌항) 그리고 <em>y<sub>i</sub></em> 에 값을 저장할때 또 한 번씩 (Store)
-이렇게 V 개의 숫자에 대해 softmax 를 구할때 총 O(3V) 번 메모리에 접근한다.
+이렇게 softmax 를 구할때 총 _O(3V)_ 번 메모리에 접근한다.  (V=N)
 
 <p align="center">
 <img width="300" alt="image" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/27ae5fe9-2b4d-45d1-8c87-2b4df54d2dc6">
@@ -59,6 +59,7 @@ Flash Attention2 논문을 읽다 보니 이해가 안 되는 부분이 많았�
 
 ## 3. Safe Softmax
 
+앞서 기본 형태의 softmax를 살펴봤으니, 이젠 
 위에서 언급한 오버/언더플로우 문제를 해결 하기 위해 TensorFlow, PyTorch 등은 아래와 같이 안전한 형태의 softmax 를 사용한다.  수식은 매우 직관적인데, 단순히 최댓값을 빼주어서 scale down 하는 것 같다.
 <p align="center">
 <img width="200" alt="image" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/d823cdbd-61a8-4e71-b609-48a8deb5d2d1">
