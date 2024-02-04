@@ -159,6 +159,12 @@ $$
 <p align="center"> 예제1. N이 4이고 x = {3,4,2,5} 일 때</p>
 이런식으로 수행하면 전체의 max 를 구하지 않고도 위의 <em>d<sub>4</sub></em> 를 만들 수 있어서 메모리 엑세스를 줄일 수 있다.
 
+$$
+\lim_{x\to 0}{\frac{e^x-1}{2x}}
+\overset{\left[\frac{0}{0}\right]}{\underset{\mathrm{H}}{=}}
+\lim_{x\to 0}{\frac{e^x}{2}}={\frac{1}{2}}
+$$
+
 ## Parallel Online Safe Softmax
 (TBU)
 
