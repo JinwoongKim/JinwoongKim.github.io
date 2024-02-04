@@ -131,10 +131,14 @@ $$
 
 
 $$
-l = \displaystyle\sum_{i=1}^N e^{x_i-max(x)} = \displaystyle\sum_{i=1}^N {e^{x_i} \over e^{max(x)}} = {e^{x_1} \over e^{max(x)} } + {e^{x_2} \over e^{max(x)} } + ... + {e^{x_N} \over e^{max(x)} } = { e^{x_1} + e^{x_2} + ... + e^{x_N} \over e^{max(x)}}  
+d_j = d_{j-1} \times e^{m_j-1}-{m_j} = \displaystyle\sum_{i=1}^N {e^{x_i} \over e^{max(x)}} = {e^{x_1} \over e^{max(x)} } + {e^{x_2} \over e^{max(x)} } + ... + {e^{x_N} \over e^{max(x)} } = { e^{x_1} + e^{x_2} + ... + e^{x_N} \over e^{max(x)}}  
 $$
 <p align="center"> <em>수식4. Safe softmax의 분모 풀어쓰기</em> </p>
-
+<p align="center">
+<img width="600" alt="image" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/72075e54-36d6-4885-b8f0-347d627fee4b">
+<br>
+<em>코드 3. Online Safe Softmax</em>
+</p>
 
 참고 :
 https://velog.io/@d2h10s/LaTex-Markdown-수식-작성법
