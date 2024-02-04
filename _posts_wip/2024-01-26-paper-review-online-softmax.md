@@ -118,9 +118,9 @@ $$
 l = \displaystyle\sum_{i=1}^N e^{x_i-max(x)} = \displaystyle\sum_{i=1}^N {e^{x_i} \over e^{max(x)}} = {e^{x_1} \over e^{max(x)} } + {e^{x_2} \over e^{max(x)} } + ... + {e^{x_N} \over e^{max(x)} } = { e^{x_1} + e^{x_2} + ... + e^{x_N} \over e^{max(x)}}  
 
 $$
-<p align="center"> <em>수식 4. ㄴㅇㄹ</em> </p>
+<p align="center"> <em>수식4. Safe softmax의 분모 풀어쓰기</em> </p>
 
-즉, 수식으로 본다면 
+즉, 수학적으로만 본다면 <em>e<sup>x<sub>1</sub></sup> + e<sup>x<sub>2</sub></sup> + ... + e<sup>x<sub>N</sub></sup></em> 를 모두 더한 뒤에 마지막에 <em>e<sup>max(x)<sub>N</sub></sup></em>
 
 
 
