@@ -8,6 +8,7 @@ tags:
   - FlashAttention
   - onlinesoftmax
 published: true
+use_math: true
 ---
 Flash Attention2 논문을 읽다 보니 이해가 안 되는 부분이 많았다. 팀 내 ML 연구원들은 GPU 파트를 이해 못 했는데 난 오히려 GPU 파트 보단 ML 파트가 이해가 안 됐다;;
 
