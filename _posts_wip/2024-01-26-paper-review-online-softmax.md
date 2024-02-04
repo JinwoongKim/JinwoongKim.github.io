@@ -114,14 +114,15 @@ Flash Attention2 논문을 읽다 보니 이해가 안 되는 부분이 많았�
 (편의상 <em>j</em>를 <em>i</em>로, <em>x</em> 중 최댓값을 <em>max(x) </em>로 표현하였다.)
 
 $$
-l = \displaystyle\sum_{i=1}^N e^{x_i-max(x)} = \displaystyle\sum_{i=1}^N {e^{x_i} \over e^{max(x)}} = {e^{x_0} \over e^{max(x)} } + {e^{x_1} \over e^{max(x)} } + ... + {e^{x_N} \over e^{max(x)} }
-$$
 
-<p align="center">
-<img width="200" alt="image" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/d823cdbd-61a8-4e71-b609-48a8deb5d2d1">
-<br>
-<em>수식 3. Safe Softmax</em>
-</p>
+l = \displaystyle\sum_{i=1}^N e^{x_i-max(x)} = \displaystyle\sum_{i=1}^N {e^{x_i} \over e^{max(x)}} = {e^{x_1} \over e^{max(x)} } + {e^{x_2} \over e^{max(x)} } + ... + {e^{x_N} \over e^{max(x)} } = { e^{x_1} + e^{x_2} + ... + e^{x_N} \over e^{max(x)}}  
+
+$$
+<p align="center"> <em>수식 4. ㄴㅇㄹ</em> </p>
+
+즉, 수식으로 본다면 
+
+
 
 
 참고 :
