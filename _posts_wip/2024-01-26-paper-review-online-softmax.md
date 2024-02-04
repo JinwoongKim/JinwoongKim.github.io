@@ -19,7 +19,7 @@ Flash Attention2 논문을 읽다 보니 이해가 안 되는 부분이 많았�
 	- 병렬로 연산을 하지만 근사치가 아닌 정확한 값을 도출 해낸다.
 	- 메모리가 제곱배수가 아닌 선형으로 증가한다.
 
-## Motivation - Attention requires O(NxN) memory
+## 1. Motivation - Attention requires O(NxN) memory
 
 <p align="center">
 <img width="600" alt="image" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/3b757b71-4f83-487b-9b35-f3050fb58d41">
@@ -33,9 +33,9 @@ Flash Attention2 논문을 읽다 보니 이해가 안 되는 부분이 많았�
 
 본 논문에서는, 이러한 많은 메모리 및 연산 시간을 요구하는 비싼 softmax 연산을 어떻게 메모리, 시간 적으로 최적화 할지 다룬다.
 
-## Standard Softmax
+## 2. Potential Problem of Standard(Naive) Softmax
 
-먼저, 기본 Softmax 수식을 살펴보겠다. 아래 수식은 수학적으로는 \아무런 문제가 없을 수 있으나, _**실제로 컴퓨터에서 동작을 하면 오버/언더플로우가 발생 할 수 있다.**_
+먼저, 기본 Softmax 수식을 살펴보겠다. 아래 수식은 수학적으로는 \아무런 문제가 없을 수 있으나, _**실제로 컴퓨터에서 동작을 하면 오버/언더플로우가 발생 할 수 있다.**_ 따라서 텐서플로, 파이토츠 등에서는 뒤에서 설명할 `Safe Softmax` 를 사용한다.
 
 <p align="center">
 <img width="200" alt="image" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/c936ec0b-fa65-4e78-a0f1-860935199bec">
@@ -44,9 +44,9 @@ Flash Attention2 논문을 읽다 보니 이해가 안 되는 부분이 많았�
 </p>
 
 
-여기서 한 가지 더 살펴볼 점은, 메모리 엑세스 횟수이다.
-아래 <코드 1> 에서 볼 수 있듯이 softmax 는 각각의 값을 구하기 위해서 메모리를 총 3번 엑세스 하는데, 
-1. (3번째 줄) dj 를 구할때 모든 <em>e<sup>x<sub>j </sub></sup></em> 에 대해 한 번 씩 (Load)
+여기서 한 가지 더 살펴볼 점은, **메모리 엑세스 횟수**이다.
+아래 `<코드 1>` 에서 볼 수 있듯이 standard softmax 는 각각의 값을 구하기 위해서 메모리를 총 3번 엑세스 하는데, 
+1. (3번째 줄) <em>d<sub>j</sub></em> 를 구할때 모든 <em>e<sup>x<sub>j </sub></sup></em> 에 대해 한 번 씩 (Load)
 2. (6번째 줄, 우항) <em>y<sub>i</sub></em> 를 구할때 또 <em>e<sup>x<sub>i</sub></sup></em> 한번씩 (Load)
 3. (6번째 줄, 좌항) 그리고 <em>y<sub>i</sub></em> 에 값을 저장할때 또 한 번씩 (Store)
 이렇게 V 개의 숫자에 대해 softmax 를 구할때 총 O(3V) 번 메모리에 접근한다.
@@ -57,7 +57,7 @@ Flash Attention2 논문을 읽다 보니 이해가 안 되는 부분이 많았�
 <em> 코드 1. Softmax </em>
 </p>
 
-## Safe Softmax
+## 3. Safe Softmax
 
 위에서 언급한 오버/언더플로우 문제를 해결 하기 위해 TensorFlow, PyTorch 등은 아래와 같이 안전한 형태의 softmax 를 사용한다.  수식은 매우 직관적인데, 단순히 최댓값을 빼주어서 scale down 하는 것 같다.
 <p align="center">
