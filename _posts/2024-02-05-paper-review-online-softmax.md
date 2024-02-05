@@ -155,19 +155,15 @@ $$
 
 
 <em>d<sub>1</sub></em>은 직관적이니 넘어가고,
-
 $$
 d_1 = {e^{3} \over e^{3}} 
 $$
-
 $$
 d_2 = {e^{3} \over e^{3}} \times {e^{3} \over e^{4} } +  {e^{4} \over e^{4}} = {e^3 + e^{4} \over e^{4}}
 $$
-
 $$
 d_3 = {e^{3} +e^{4} \over e^{4}} \times {e^{4} \over e^{4} } +  {e^{2} \over e^{4}} = {e^3 + e^4 + e^2 \over e^4}
 $$
-
 $$
 d_4 = {e^{3} +e^{4} +e^{2}  \over e^{4}} \times {e^{4} \over e^{5} } +  {e^{5} \over e^{5}} = {e^3 + e^4 + e^2 + e^5 \over e^5}
 $$
