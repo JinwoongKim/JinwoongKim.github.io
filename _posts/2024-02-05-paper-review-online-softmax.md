@@ -17,7 +17,7 @@ Flash Attention2 논문을 읽다 보니 이해가 안 되는 부분이 많았�
 논문 URL : https://arxiv.org/abs/1805.02867
 
 # tl;dr
-- 마지막에만 리스케일링을 해주면 softmax 를 O(N) 메모리를 쓰며 병렬로 계산 할 수 있다. 
+- 마지막에 리스케일링을 해주면 softmax 를 병렬로 계산 할 수 있다. 
 
 ## 1. Motivation - Attention requires O(NxN) memory
 
@@ -90,7 +90,7 @@ Flash Attention2 논문을 읽다 보니 이해가 안 되는 부분이 많았�
 </p>
 
 
-## Online Safe Softmax
+## 4. Online Safe Softmax
 
 이러한 문제를 해결하기 위해 제안 한 것이 저자들의 `Online Safe Softmax` 이다. ~~(이 코드 처음 이해 했을때 저자들 진짜 천재 같았음..)~~
 <p align="center">
@@ -101,7 +101,7 @@ Flash Attention2 논문을 읽다 보니 이해가 안 되는 부분이 많았�
 
 위의 `<코드3>`에 본 논문의 핵심 아이디어가 서술 되어있다. 주목 할 부분은 3-6번째 줄인데, `<코드2>`의 2-8줄과 비교해보면 `for loop` 이 하나 없다는 걸 파악 할 수 있다.
 
-기존 `<코드2>`에서는 <em>max</em> 값을 구하고, 그 값을 이용해서  <em>d<sub>j</sub></em> 를 구했다면, 여기서는 실시간으로 현재 최댓값을 이용해서 <em>d<sub>j</sub></em>  를 구하고 나중에 그 값을 정상화(?) 해준다.
+기존 `<코드2>`에서는 <em>max</em> 값을 구하고, 그 값을 이용해서  <em>d<sub>j</sub></em> 를 구했다면, 여기서는 실시간으로 현재 최댓값을 이용해서 <em>d<sub>j</sub></em>  를 구하고 나중에 그 값을 정상화(리스케일링) 해준다.
 
 이렇게 해주면 메모리 접근 횟수가 한 번 줄어들게 된다. 좀 더 자세히 설명하자면 기존 `<코드2>`에서는 `max` 값을 구하려고 모든 <em>x<sub>j</sub></em> 에 접근하면서 메모리 접근 한 번씩, 그리고 <em>d<sub>j</sub></em> 를 구하느라 다시 한 번 <em>x<sub>j</sub></em>에 접근하는데, 위의 `<코드3>`에서는 <em> x<sub>j</sub></em> 에 한 번 엑세스하고 <em>d<sub>j</sub></em> 를 구해 버리므로 메모리 접근 횟수가 한 번 줄어든다. (총 4에서 3으로 감소)
 
@@ -176,7 +176,8 @@ $$
 이런식으로 수행하면 전체의 max 를 구하지 않고도 위의 <em>d<sub>4</sub></em> 를 만들 수 있어서 메모리 엑세스를 줄일 수 있다.
 
 ## Parallel Online Safe Softmax
-(TBU)
+
+
 
 참고 :
 https://velog.io/@d2h10s/LaTex-Markdown-수식-작성법
