@@ -17,9 +17,7 @@ Flash Attention2 논문을 읽다 보니 이해가 안 되는 부분이 많았�
 논문 URL : https://arxiv.org/abs/1805.02867
 
 # tl;dr
-- Softmax 메모리 최적화 및 병렬 프로세싱을 다룬 논문
-	- 병렬로 연산을 하지만 근사치가 아닌 정확한 값을 도출 해낸다.
-	- 메모리가 제곱배수가 아닌 선형으로 증가한다.
+- 마지막에만 리스케일링을 해주면 softmax 를 O(N) 메모리를 쓰며 병렬로 계산 할 수 있다. 
 
 ## 1. Motivation - Attention requires O(NxN) memory
 
