@@ -175,13 +175,13 @@ $$
 <p align="center"> 예제1. N이 4이고 x = {3,4,2,5} 일 때</p>
 이런식으로 수행하면 전체의 max 를 구하지 않고도 위의 <em>d<sub>4</sub></em> 를 만들 수 있어서 메모리 엑세스를 줄일 수 있다.
 
-## Parallel Online Safe Softmax
+## 5. Parallel Online Safe Softmax
+
+이를 이용해서 local softmax를 구하고, 마지막에 리스케일링(전체 최댓값으로 나눠주는 행위)를 함으로써 선형 메모리를 사용하며 safe softmax 를 병렬로 진행 할 수 있다.
+
+## 6. 실험
+TBU
 
 
 
 참고 :
-https://velog.io/@d2h10s/LaTex-Markdown-수식-작성법
-https://github.com/JinwoongKim/JinwoongKim.github.io/issues/1
-
-
-https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/ba400caf-3bd0-42f4-8436-5514d28cba30
