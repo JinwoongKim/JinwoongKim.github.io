@@ -1,0 +1,9 @@
+{
+	"nodes":[
+		{"id":"778c333ba1a31e4f","x":-240,"y":-40,"width":100,"height":60,"type":"text","text":"CPU"},
+		{"id":"574024dccbc3fd14","x":-80,"y":-39,"width":250,"height":60,"type":"text","text":""}
+	],
+	"edges":[
+		{"id":"cf05c330923441b7","fromNode":"778c333ba1a31e4f","fromSide":"right","toNode":"574024dccbc3fd14","toSide":"left","fromEnd":"arrow"}
+	]
+}
