@@ -119,8 +119,8 @@ l = \displaystyle\sum_{i=1}^N e^{x_i-max(x)} = \displaystyle\sum_{i=1}^N {e^{x_i
 $$
 
 $$
- = { e^{x_1} + e^{x_2} + ... + e^{x_N} \over e^{max(x)}}  
- $$
+l = { e^{x_1} + e^{x_2} + ... + e^{x_N} \over e^{max(x)}}  
+$$
 <p align="center"> <em>수식4. Safe softmax의 분모 풀어쓰기</em> </p>
 
 수학적으로만 본다면 <em>e<sup>x<sub>1</sub></sup> + e<sup>x<sub>2</sub></sup> + ... + e<sup>x<sub>N</sub></sup></em> 를 모두 더한 뒤에 **마지막에 <em>e<sup>max(x)</sup></em> 를 빼주어도 된다**. 물론 앞서 말했듯이 최댓값을 빼주는 이유가 오버플로우 발생 예방이기 때문에 이렇게 마지막에 빼주려고 한다면 이미 오버플로우는 발생했겠지만 말이다. 
@@ -131,6 +131,7 @@ $$
 $$
 l = { e^{x_1} + e^{x_2} + ... + e^{x_N} \over e^{max(x)}} = { e^{x_1} + e^{x_2} + ... + e^{x_N} \over e^{some\_of(x)}}  { e^{some\_of(x)} \over e^{max(x)}}    
 $$
+
 <p align="center"> <em>수식5. 리스케일링 </em> </p>
 
 오버플로우를 방지 할 수 있는 적당한 숫자란 무엇일까? 최댓값이다. 단, 전체 x 의 최댓값은 모두 탐색해야 알 수 있으니까, 단순히 여태 까지 본 x 중에 최댓값이면 된다. (`<코드3>`의 4-5번째 줄). 아래 `<수식6>`의 마지막 항을 보면, <em>d<sub>j-1</sub></em> 에 <em>e<sup>m<sub>j-1</sub></sup></em> (이전까지 최댓값) 을 곱하여 없애주고 다시 <em>e<sup>m<sub>j</sub></sup></em> (현재까지의 최댓값) 로 분모를 취해주는 것을 볼 수 있다.
