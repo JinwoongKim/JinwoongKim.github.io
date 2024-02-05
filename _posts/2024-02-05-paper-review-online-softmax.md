@@ -138,7 +138,7 @@ $$
 
 
 $$
-d_j = d_{j-1} \times e^{ {m_j-1}-{m_j}} + e^{{x_j}-{m_j}} = d_{j-1} \times {e^{m_j-1} \over {e^{m_j}}} + {e^{x_j} \over e^{m_j}}
+d_j = d_{j-1} \times e^{ {m_j-1}-{m_j}} + e^{ {x_j}-{m_j}} = d_{j-1} \times {e^{m_j-1} \over {e^{m_j}}} + {e^{x_j} \over e^{m_j}}
 $$
 
 <p align="center"> <em>수식6. 코드3의 5번째 줄 수식화</em> </p>
