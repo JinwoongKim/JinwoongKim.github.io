@@ -114,7 +114,11 @@ Flash Attention2 논문을 읽다 보니 이해가 안 되는 부분이 많았�
 
 
 $$
-l = \displaystyle\sum_{i=1}^N e^{x_i-max(x)} = \displaystyle\sum_{i=1}^N {e^{x_i} \over e^{max(x)}} = {e^{x_1} \over e^{max(x)} } + {e^{x_2} \over e^{max(x)} } + ... + {e^{x_N} \over e^{max(x)} } = { e^{x_1} + e^{x_2} + ... + e^{x_N} \over e^{max(x)}}  
+l = \displaystyle\sum_{i=1}^N e^{x_i-max(x)} = \displaystyle\sum_{i=1}^N {e^{x_i} \over e^{max(x)}} 
+$$
+
+$$
+= {e^{x_1} \over e^{max(x)} } + {e^{x_2} \over e^{max(x)} } + ... + {e^{x_N} \over e^{max(x)} } = { e^{x_1} + e^{x_2} + ... + e^{x_N} \over e^{max(x)}}  
 $$
 
 
