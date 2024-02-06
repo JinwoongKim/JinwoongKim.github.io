@@ -1,4 +1,3 @@
-
 연결된 상담원: Shekinah Rachel.
 
 Hello
@@ -110,3 +109,91 @@ of course
 청구 기간이 도래하는 줄 몰랐습니다.. 어찌됐든 환불 안된다는 것이지요?
 
 1:24pm
+
+네..  
+다만, 취소하셨으니 내년에 또 갱신되지 않을거고 또 결제되지 않을 부분이 다행이라고 생각합니다..
+
+1:25pm
+
+기록을 위해서 여쭤보고 싶은데요...  
+GoPro 카메라 아직도 가지고 있으시나요?
+
+1:25pm
+
+네
+
+1:25pm
+
+갱신된 구독 서비스를 환불 드릴 수 없는 점을 양해해 주시기 바랍니다.  
+대신 가지고 계신 고프로 카메라와 같이 사용하실 수 있는 마운트 하나 드리고 싶은데요.
+
+1:26pm
+
+아래와 같이 옵션을 알려 드리고 마운트 하나 선택하시면 됩니다.  
+Gumby 플렉시블 마운트:  
+[https://gopro.com/ko/kr/shop/mounts-accessories/gumby/AGRTM-001.html](https://gopro.com/ko/kr/shop/mounts-accessories/gumby/AGRTM-001.html)  
+Shorty  
+[https://gopro.com/ko/kr/shop/mounts-accessories/shorty/AFTTM-001.html](https://gopro.com/ko/kr/shop/mounts-accessories/shorty/AFTTM-001.html)  
+흡착기  
+[https://gopro.com/ko/kr/shop/mounts-accessories/suction-cup/AUCMT-302.html](https://gopro.com/ko/kr/shop/mounts-accessories/suction-cup/AUCMT-302.html)  
+Chesty 가슴 마운트  
+[https://gopro.com/ko/kr/shop/mounts-accessories/chesty/AGCHM-001.html](https://gopro.com/ko/kr/shop/mounts-accessories/chesty/AGCHM-001.html)
+
+1:26pm
+
+한 번 확인해 봐 주시면 감사하겠습니다..
+
+1:26pm
+
+네, 설명 감사합니다.
+
+1:27pm
+
+아닙니다.
+
+1:27pm
+
+Shorty 마운트가 좋아보이네요!
+
+1:27pm
+
+:)
+
+1:27pm
+
+알겠습니다..
+
+1:27pm
+
+밑의 정보를 영문으로 작성부탁드리겠습니다. 🙏  
+  
+성함 (Full Name):  
+연락처 (Contact Number):  
+받으실 주소지 (Receiving Address):  
+우편번호 (Zip Code):  
+이메일 주소 (Email Address):
+
+1:27pm
+
+성함 (Full Name): Jinwoong Kim 연락처 (Contact Number): +82-10-5415-1511 받으실 주소지 (Receiving Address): Gracehome 202-ho, 16, Baumoe-ro 4-gil, Seocho-gu, Seoul, Republic of Korea 우편번호 (Zip Code): 06763 이메일 주소 (Email Address): aragnom@gmail.com
+
+1:30pm
+
+여기 있습니다.
+
+1:30pm
+
+감사합니다..  
+그럼 상의 정보로 접수드리겠습니다..
+
+1:31pm
+
+다시 한 번만 확인해 주세요...
+
+1:31pm
+
+접수된 후 보안상 더 이상 수정드리거나 변경드릴 수 없어서 확인해 주세요. 🙏🙏🙏
+
+1:31pm
+
+맞습니다
