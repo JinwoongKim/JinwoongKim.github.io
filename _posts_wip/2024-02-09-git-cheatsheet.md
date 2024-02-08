@@ -9,4 +9,5 @@ published: false
 ### 마지막으로 push 한 commit 삭제
 ```
 git reset --hard HEAD~1
+git push -f
 ```
