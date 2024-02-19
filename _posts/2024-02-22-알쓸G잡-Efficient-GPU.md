@@ -25,7 +25,7 @@ published: true
 출처 : https://www.sciencedirect.com/topics/computer-science/dynamic-parallelism
 </p>
 
-
+---
 
 ## B. Avoid Warp Divergence
 - 앞서 설명 했듯이 GPU는 32개의 쓰레드가 그룹핑되어 Warp라고 불림. 
@@ -57,6 +57,8 @@ int main() {
 
 (좌) 일반적으로 생각하는 병렬화 (우) Warp divergence가 발생한 상황
 </p>
+
+---
 
 ## C. Access Memory Efficiently
 ### C.1. How to achieve memory coalescing?
