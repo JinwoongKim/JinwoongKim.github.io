@@ -2,9 +2,10 @@
 title: "[알쓸G잡] EFficient GPU?"
 categories: GPU
 tags:
-  - GPU
-  - SM
-  - Warp
+  - kernel_fusion
+  - dynamic_parallelism
+  - warp_divergence
+  - memory_coalescing
 published: true
 ---
 
@@ -72,7 +73,7 @@ int main() {
 
 
 
-# 5. 그 외
+# 2. 그 외
 - 유니파이드 메모리
 - 스트림
 - 싱크로나이제이션
