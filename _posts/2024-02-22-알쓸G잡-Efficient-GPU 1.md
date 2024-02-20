@@ -69,3 +69,16 @@ int main() {
 <p align="center">
 <img width="700" alt="image" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/ee38e738-6ae4-4852-8fab-a88c4cb971f6">
 </p>
+
+
+
+# 2. 그 외
+- 유니파이드 메모리
+- 스트림
+- 싱크로나이제이션
+- 호환성
+	- CPU 와의 호환성
+	- GPU 와의 호환성
+- Warp ILP
+- 컨트롤 유닛 연산 관련
+- unrolling
