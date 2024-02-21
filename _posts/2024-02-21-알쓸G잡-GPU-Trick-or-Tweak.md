@@ -17,6 +17,7 @@ published: true
 - 이러한 문제를 해결 하는 가장 흔한 기법 중 하나는 여러 개의 함수를 하나로 합치는 것이다. 이를 kernel fusion 이라는 멋진 이름으로 부르는데, 사실 아이디어 자체는 단순하다.
 
 ![[blog/images/Pasted image 20240221153808.png]]
+출처 : https://github.com/huggingface/transformers/issues/13845
 ### 1.B. Dynamic Parallelism
 - 또 다른 기법 중 하나는 GPU 커널 함수 안에서 또 다른 커널 함수를 호출 할 수 있게 한 것이다. CPU에서 GPU 커널 함수를 부르는 것 보단, GPU 커널 함수 내에서 다른 GPU 커널 함수를 부르는 것이 오버헤드가 적다.
 <p align="center">
@@ -27,8 +28,8 @@ published: true
 
 
 ## 2. Avoid Warp Divergence
-- 앞서 설명 했듯이 GPU는 32개의 쓰레드가 그룹핑되어 Warp라고 불림. 
-- Warp 는 안에 32개의 쓰레드가 있어도 동시에 하나의 명령어 밖에 수행 할 수 없기 때문에, 사실 쓰레드 보다 warp 를 최소 단위로 보는 경우가 많음
+- 앞서 설명 했듯이 GPU는 32개의 쓰레드가 그룹핑되어 Warp라고 불린다.
+- Warp 는 안에 32개의 쓰레드가 있어도 동시에 하나의 명령어 밖에 수행 할 수 없기 때문에, 사실 쓰레드 보다 warp 를 최소 단위로 보는 경우가 많다
 
 ```c
 __global__ void test(int *c, int* a, int* b, int num){
