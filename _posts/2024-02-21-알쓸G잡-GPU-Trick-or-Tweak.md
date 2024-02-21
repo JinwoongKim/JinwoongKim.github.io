@@ -142,8 +142,8 @@ int main() {
 
 ## 3. Access Memory Efficiently
 ### 3.A. How to achieve memory coalescing
-- 할당 : 모던 CPU, GPU는 128, 256 
-- 접근
+- 모던 CPU, GPU는 128, 256 바이트로 정렬되어서 할당되기 때문에 메모리 할당은 이슈가 아니나, 접근 할때 성능 저하가 종종 일어난다.
+
 
 <p align="center">
 <img width="900" alt="image" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/b6c5c2f0-db48-47e8-888a-8bee81d5bd95">
