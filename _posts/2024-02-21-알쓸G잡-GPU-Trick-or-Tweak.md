@@ -106,7 +106,7 @@ int main() {
 __global__ void non_parallel(){
   int i = blockDim.x * blockIdx.x + threadIdx.x;
 
-  if i%2 == 0 {
+  if ( i%2 == 0 ) {
     // do something
   } else {
     // do something else
@@ -116,7 +116,7 @@ __global__ void non_parallel(){
 __global__ void parallel(){
   int i = blockDim.x * blockIdx.x + threadIdx.x;
 
-  if i%2 == 0 {
+  if (i < 32 ) {
     // do something
   } else {
     // do something else
@@ -125,7 +125,8 @@ __global__ void parallel(){
 
 int main() {
   // blah blah
-  test<<<1,32>>>(); // 블럭 1개, 쓰레드 32개 생성
+  non_parallel<<<1,64>>>(); // 블럭 1개, 쓰레드 64개 생성
+  parallel<<<1,64>>>(); // 블럭 1개, 쓰레드 64개 생성
   // blah blah..
 }
 ```
