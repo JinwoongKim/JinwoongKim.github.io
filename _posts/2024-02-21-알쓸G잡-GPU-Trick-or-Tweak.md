@@ -151,7 +151,25 @@ struct student {
   int id;
 }
 
-struct student students[10];
+struct student students[32];
+
+
+__global__ void access_with_AoS(){
+  int i = blockDim.x * blockIdx.x + threadIdx.x;
+
+  if ( students[i].age > 10) {
+  }
+}
+
+__global__ void parallel(){
+  int i = blockDim.x * blockIdx.x + threadIdx.x;
+
+  if (i < 32 ) {
+    // do something
+  } else {
+    // do something else in parallel
+  }
+}
 ```
 
 - 위와 같이 구현 했을때, 
