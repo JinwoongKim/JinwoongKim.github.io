@@ -15,6 +15,7 @@ published: true
 ### 1.A. Kernel fusion
 - CPU 기반의 코드 들은 가독성 등의 문제로 함수를 잘게 쪼개는 경우가 흔했는데, 이러한 구조는 GPU 함수를 여러 번 호출해야 해서 SM이나 코어 가동률이 낮아지게 되는 경우가 많았다.
 - 이러한 문제를 해결 하는 가장 흔한 기법 중 하나는 여러 개의 함수를 하나로 합치는 것이다. 이를 kernel fusion 이라는 멋진 이름으로 부르는데, 사실 아이디어 자체는 단순하다.
+	- 음식점에서 가위 주세요, 집게 주세요, 두 번 부르지 말고, 한 번에 가위랑 집게 주세요 하는 느낌
 
 ![[blog/images/Pasted image 20240221153808.png]]
 출처 : https://github.com/huggingface/transformers/issues/13845
