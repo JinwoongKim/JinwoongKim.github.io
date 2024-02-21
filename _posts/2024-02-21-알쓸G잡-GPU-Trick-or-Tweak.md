@@ -20,16 +20,18 @@ published: true
 출처 : https://github.com/huggingface/transformers/issues/13845
 
 ```c
-__global__ void f(int *c, int* a, int* b, int num){
+__global__ void f(int *off_chip_array, num){
     int i = blockDim.x * blockIdx.x + threadIdx.x;
 	
 	// load sth
-	__shared__ int on_chip_array[i] = off_chip_array[i];
+	__shared__ int on_chip_array[num];
+	on_chip_array[i] = off_chip_array[i];
 	 
 	// do sth
 	on_chip_array[i] = on_chip_array[i] * on_chip_array[i];
 	
 	// store sth
+	off_chip_array[i] = on_chip_array[i];
 	
 }
 __global__ void g(int *c, int* a, int* b, int num){
