@@ -168,18 +168,16 @@ struct student_SoA {
   int id[32];
 }
 
-struct student_SoA students[32];
+struct student_SoA students;
 
-__global__ void access_with_AoS(){
+__global__ void access_with_SoA(){
   int i = blockDim.x * blockIdx.x + threadIdx.x;
 
-  if ( students[i].age > 19) {
-    printf("id is %d\n", students[i].id);
+  if ( students.age[i] > 19) {
+    printf("id is %d\n", students.id[i]);
   }
 }
 ```
-
-- 위와 같이 구현 했을때, 
 
 <p align="center">
 <img width="900" alt="image" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/b6c5c2f0-db48-47e8-888a-8bee81d5bd95">
