@@ -168,7 +168,7 @@ struct student_SoA {
   int id[32];
 }
 
-struct student_AoS students[32];
+struct student_SoA students[32];
 
 __global__ void access_with_AoS(){
   int i = blockDim.x * blockIdx.x + threadIdx.x;
