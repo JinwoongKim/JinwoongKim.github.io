@@ -189,6 +189,10 @@ int main() {
 <img width="900" alt="image" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/b6c5c2f0-db48-47e8-888a-8bee81d5bd95">
 </p>
 
+<p align="center">
+<img width="900" alt="image" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/0ff378b9-4cb5-42de-b925-a305b7f027bd">
+</p>
+
 ### 3.B. Distributed Shared Memory
 
 <p align="center">
