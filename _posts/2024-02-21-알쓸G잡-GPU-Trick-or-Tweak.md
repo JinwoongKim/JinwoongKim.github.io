@@ -20,6 +20,41 @@ published: true
 출처 : https://github.com/huggingface/transformers/issues/13845
 
 ```c
+__global__ void f(int *c, int* a, int* b, int num){
+  int i = blockDim.x * blockIdx.x + threadIdx.x;
+
+  if i%2 == 0 {
+    // do something
+  } else {
+    // do something else
+  }
+}
+__global__ void g(int *c, int* a, int* b, int num){
+  int i = blockDim.x * blockIdx.x + threadIdx.x;
+
+  if i%2 == 0 {
+    // do something
+  } else {
+    // do something else
+  }
+}
+
+__global__ void f_and_g(int *c, int* a, int* b, int num){
+  int i = blockDim.x * blockIdx.x + threadIdx.x;
+
+  if i%2 == 0 {
+    // do something
+  } else {
+    // do something else
+  }
+}
+
+
+int main() {
+  // blah blah
+  f<<<1,1>>>(d_c, d_a, d_b, 1); // 블럭 1개, 쓰레드 32개 생성
+  // blah blah..
+}
 ```
 
 
