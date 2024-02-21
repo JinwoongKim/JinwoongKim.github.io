@@ -9,6 +9,8 @@ tags:
 published: true
 ---
 
+
+
 ## 1. Minimizing GPU Kernel Launch Overhead
 - GPU 프로그래밍에서는 GPU 메모리로 데이터를 옮기는 것 뿐만 아니라, GPU 함수 (GPU Kernel 함수) 를 수행하는 것 또한 성능 저하의 요인이다.
 - 그렇기 때문에 이를 해결하기 위해 다양한 최적화 기법이 존재하는데, 그 중 두 가지를 소개 하겠다.
