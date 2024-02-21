@@ -101,7 +101,7 @@ int main() {
 - 이때, 논리적 사고로는 나뉘어야 하는 코드가 실제 하드웨어에서는 비슷한 역할을 하게 되는 경우를 캐치하여 `kernel fusion` 을 하는 것이 일반적이다. 
 - 보통 `kernel fusion` 을 하면 불필요한 Off-chip 메모리 접근이 사라지므로 성능이 매우 많이 올라가게 된다.
 - 이러한 `kernel fusion` 도 단점이 있는데, 한 번 합쳤던 코드를 다시 나누기 어려워, 향후 상황에 맞게 기존 코드를 유동적으로 변경하긴 힘들다는 것이다. 또한 하드웨어 및 워크로드 종속적인 코드들을 작성해야해서, 주어진 상황에 맞게 `kernel fusion` 을 다 다르게 해야 하는 경우가 많다.
-- 따라서 다시 나누지 않을 것 같은, 폭넓게 적용되는 파트를 `kernel fusion` 하는 것이 일반적이고, 소프트웨어가 어느 정도 성숙하게 되면 `kernel fusion` 
+- 따라서 다시 나누지 않을 것 같은, 폭넓게 적용되는 파트를 `kernel fusion` 하는 것이 일반적이고, 소프트웨어가 어느 정도 성숙하게 되면 `kernel fusion`의 빈도는 점점 낮아지게 된다. 
 
 ### 1.B. Dynamic Parallelism
 - 또 다른 기법 중 하나는 GPU 커널 함수 안에서 또 다른 커널 함수를 호출 할 수 있게 한 것이다. CPU에서 GPU 커널 함수를 부르는 것 보단, GPU 커널 함수 내에서 다른 GPU 커널 함수를 부르는 것이 오버헤드가 적다.
@@ -110,7 +110,7 @@ int main() {
 <br>
 출처 : https://www.sciencedirect.com/topics/computer-science/dynamic-parallelism
 </p>
-
+- https://developer.download.nvidia.com/assets/cuda/files/CUDADownloads/TechBrief_Dynamic_Parallelism_in_CUDA.pdf
 
 ## 2. Avoid Warp Divergence
 - 앞서 설명 했듯이 GPU는 32개의 쓰레드가 그룹핑되어 Warp라고 불린다.
