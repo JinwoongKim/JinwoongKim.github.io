@@ -18,6 +18,11 @@ published: true
 
 ![[blog/images/Pasted image 20240221153808.png]]
 출처 : https://github.com/huggingface/transformers/issues/13845
+
+```c
+```
+
+
 ### 1.B. Dynamic Parallelism
 - 또 다른 기법 중 하나는 GPU 커널 함수 안에서 또 다른 커널 함수를 호출 할 수 있게 한 것이다. CPU에서 GPU 커널 함수를 부르는 것 보단, GPU 커널 함수 내에서 다른 GPU 커널 함수를 부르는 것이 오버헤드가 적다.
 <p align="center">
