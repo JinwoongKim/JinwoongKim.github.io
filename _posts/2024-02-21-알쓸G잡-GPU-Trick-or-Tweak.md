@@ -160,14 +160,21 @@ __global__ void access_with_AoS(){
     printf("id is %d\n", students[i].id);
   }
 }
+```
 
-__global__ void parallel(){
+```c
+struct student_SoA {
+  int age[32];
+  int id[32];
+}
+
+struct student_AoS students[32];
+
+__global__ void access_with_AoS(){
   int i = blockDim.x * blockIdx.x + threadIdx.x;
 
-  if (i < 32 ) {
-    // do something
-  } else {
-    // do something else in parallel
+  if ( students[i].age > 19) {
+    printf("id is %d\n", students[i].id);
   }
 }
 ```
