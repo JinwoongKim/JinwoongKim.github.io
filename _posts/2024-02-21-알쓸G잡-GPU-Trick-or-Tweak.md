@@ -160,9 +160,7 @@ __global__ void access_with_AoS(){
     printf("id is %d\n", students[i].id);
   }
 }
-```
 
-```c
 struct student_SoA {
   int age[32];
   int id[32];
@@ -177,6 +175,14 @@ __global__ void access_with_SoA(){
     printf("id is %d\n", students.id[i]);
   }
 }
+
+int main() {
+  // blah blah
+  access_with_AoS<<<1,32>>>();
+  access_with_SoA<<<1,32>>>();
+  // blah blah..
+}
+
 ```
 
 <p align="center">
