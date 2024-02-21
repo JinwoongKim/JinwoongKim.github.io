@@ -129,19 +129,21 @@ int main() {
 (좌) 일반적으로 생각하는 병렬화 (우) Warp divergence가 발생한 상황 (점선은 아무것도 하지 않는 쓰레드를 뜻함)
 </p>
 ```c
-__global__ void test(int *c, int* a, int* b, int num){
+__global__ void test(){
   int i = blockDim.x * blockIdx.x + threadIdx.x;
 
-  if i < 32 == 0 {
+  if (i < 32) == 0 {
     // do something
-  } else if ( i < ) {
+  } else if ( i < 64 ) {
     // do something else
+  } else {
+    // do something else 2
   }
 }
 
 int main() {
   // blah blah
-  test<<<1,32>>>(d_c, d_a, d_b, 1); // 블럭 1개, 쓰레드 32개 생성
+  test<<<1,32>>>(); // 블럭 1개, 쓰레드 32개 생성
   // blah blah..
 }
 ```
