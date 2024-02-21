@@ -146,18 +146,18 @@ int main() {
 - 예를 들어 아래와 같이 `student` 이라는 구조체가 있고, `age`, `id` 를 변수로 갖고 있다고 생각해보자.
 
 ```c
-struct student {
+struct student_AoS {
   int age;
   int id;
 }
 
-struct student students[32];
-
+struct student_AoS students[32];
 
 __global__ void access_with_AoS(){
   int i = blockDim.x * blockIdx.x + threadIdx.x;
 
-  if ( students[i].age > 10) {
+  if ( students[i].age > 19) {
+    printf("id is %d\n", students[i].id);
   }
 }
 
