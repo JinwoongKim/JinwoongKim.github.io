@@ -115,7 +115,7 @@ int main() {
 ## 2. Avoid Warp Divergence
 - [앞서 설명](http://jinwoongkim.net/gpu/%EC%95%8C%EC%93%B8G%EC%9E%A1-GPU-%EB%A9%94%EB%AA%A8%EB%A6%AC-%EB%B0%8F-%EC%93%B0%EB%A0%88%EB%93%9C-%EA%B5%AC%EC%A1%B0/#3-gpu-thread-hierarchy) 했듯이 GPU는 32개의 쓰레드가 그룹핑되어 Warp라고 불리고, 각 warp는 하나의 명령어를 처리 한다. 
 - 이러한 구조를 SIMT (Single Instruction Multiple Threads) 라고 부르는데, 여러 쓰레드가 있어도 warp 당 하나의 명령어 밖에 수행 할 수 없기 때문에, 사실 쓰레드 보다 warp 를 최소 단위로 보는 경우도 많다.
-	- ㄷ
+	- 다만 volta 부터는 각각의 thread
 
 ```c
 __global__ void non_parallel(){
