@@ -10,7 +10,7 @@ published: true
 ---
 
 - 앞서 다른 글에서도 언급 했듯이 GPU는 구조적으로 CPU와 매우 다르다. [참조](http://jinwoongkim.net/gpu/%EC%95%8C%EC%93%B8G%EC%9E%A1-GPU-%EB%A9%94%EB%AA%A8%EB%A6%AC-%EB%B0%8F-%EC%93%B0%EB%A0%88%EB%93%9C-%EA%B5%AC%EC%A1%B0/#cpu-vs-gpu-%EA%B5%AC%EC%A1%B0-%EB%B9%84%EA%B5%90)
-- 따라서, 기존의 전통적인 
+- 따라서, 기존의 CPU 기반 
 
 ## 1. Minimizing GPU Kernel Launch Overhead
 - GPU 프로그래밍에서는 GPU 메모리로 데이터를 옮기는 것 뿐만 아니라, GPU 함수 (GPU Kernel 함수) 를 수행하는 것 또한 성능 저하의 요인이다.
