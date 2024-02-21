@@ -118,9 +118,9 @@ int main() {
 	- 다만 volta 아키텍쳐 부터는 각각의 thread 가 독립적으로 업무를 수행 할 수 있도록 패치가 되었지만, warp divergence 의 비용이 0이 된 것은 아니다 ([참고](https://forums.developer.nvidia.com/t/warp-divergence-in-independent-thread-scheduling/188557/2)). 그리고 쓰레드 하나하나 다른 업무 줄 거면 GPU 같은 매니 코어 아키텍쳐에서 동작하는게 맞는지 부터 확인해보아야 한다.
 - 아래 코드는 64개의 쓰레드를 생성(Warp 2개)하고 쓰레드 ID 에 따른 분기를 태운 코드이다.
 	- 단순화를 위해 블럭은 1개로 고정했다.
--`non_parallel` 함수는 쓰레드 ID 의 홀짝을 구분하여 업무를 할당하고, `parallel` 함수는 쓰레드 ID
+- `non_parallel` 함수는 쓰레드 ID 의 홀짝을 구분하여 업무를 할당하고, `parallel` 함수는 쓰레드 ID가 32보다 적은지 구분하여 업무를 할당하고 있다.
 ```c
-__global__ void non_parallel(){
+__global__ void A(){
   int i = threadIdx.x;
 
   if ( i%2 == 0 ) {
@@ -130,7 +130,7 @@ __global__ void non_parallel(){
   }
 }
 
-__global__ void parallel(){
+__global__ void B(){
   int i = threadIdx.x;
 
   if (i < 32 ) {
@@ -142,12 +142,13 @@ __global__ void parallel(){
 
 int main() {
   // blah blah
-  non_parallel<<<1,64>>>(); // 블럭 1개, 쓰레드 64개 생성
-  parallel<<<1,64>>>(); // 블럭 1개, 쓰레드 64개 생성
+  A<<<1,64>>>(); // 블럭 1개, 쓰레드 64개 생성
+  B<<<1,64>>>(); // 블럭 1개, 쓰레드 64개 생성
   // blah blah..
 }
 ```
 
+- 
 - 따라서 위와 같이 홀수번(검은색), 짝수번(빨간색) 쓰레드 ID 를 가지는 녀석들을 분기문을 태운다면, 아래 처럼 일부 쓰레드가 코드를 수행할때 나머지 쓰레드가 다른 구문을 수행하는게 아니라, 기다리는 상황이 발생한다.
 
 <p align="center">
