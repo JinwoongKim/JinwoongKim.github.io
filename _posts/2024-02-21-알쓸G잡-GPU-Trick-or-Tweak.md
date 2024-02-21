@@ -21,16 +21,14 @@ published: true
 
 ```c
 
-∕∕ Shared memory size
-block size
+∕∕ thread num
+#define THREAD_NUM 32
 
-#define BLOCK_SIZE 16
-
-__global__ void f(int *off_chip_array, num){
+__global__ void f(int *off_chip_array){
     int i = blockDim.x * blockIdx.x + threadIdx.x;
 	
 	// load sth
-	__shared__ int on_chip_array[num];
+	__shared__ int on_chip_array[THREAD_NUM];
 	on_chip_array[i] = off_chip_array[i];
 	 
 	// do sth
