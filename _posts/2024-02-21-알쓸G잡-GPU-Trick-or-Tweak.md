@@ -141,7 +141,9 @@ int main() {
 </p>
 
 ## 3. Access Memory Efficiently
-### 3.A. How to achieve memory coalescing?
+### 3.A. How to achieve memory coalescing
+- 할당 : 모던 CPU, GPU는 128, 256 
+- 접근
 
 <p align="center">
 <img width="900" alt="image" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/b6c5c2f0-db48-47e8-888a-8bee81d5bd95">
