@@ -144,6 +144,11 @@ int main() {
 ### 3.A. How to achieve memory coalescing
 - 모던 CPU, GPU는 128, 256 바이트로 정렬되어서 할당되기 때문에 메모리 할당은 이슈가 아니다. 하지만, 기존 시퀀셜 메모리 엑세스 패턴이 변형 없이 매니 코어 시스템 사용 될 때 성능 저하가 일어난다.
 
+```c
+struct two
+```
+
+
 
 <p align="center">
 <img width="900" alt="image" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/b6c5c2f0-db48-47e8-888a-8bee81d5bd95">
