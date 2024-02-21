@@ -143,15 +143,15 @@ int main() {
 ## 3. Access Memory Efficiently
 ### 3.A. How to achieve memory coalescing
 - 모던 CPU, GPU는 128, 256 바이트로 정렬되어서 할당되기 때문에 메모리 할당은 이슈가 아니다. 하지만, 기존 시퀀셜 메모리 엑세스 패턴이 변형 없이 매니 코어 시스템 사용 될 때 성능 저하가 일어난다.
-- 예를 들어 아래와 같이 `line` 이라는 구조체가 있고, `x`, `y` 를 정수형 변수로 갖고 있다고 생각해보자.
+- 예를 들어 아래와 같이 `student` 이라는 구조체가 있고, `age`, `id` 를 변수로 갖고 있다고 생각해보자.
 
 ```c
-struct line {
-  int x;
-  int y;
+struct student {
+  int age;
+  int id;
 }
 
-struct line lines[10];
+struct student students[10];
 ```
 
 - 위와 같이 구현 했을때, 
