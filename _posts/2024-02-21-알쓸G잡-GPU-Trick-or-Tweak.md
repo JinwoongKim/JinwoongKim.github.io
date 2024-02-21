@@ -21,7 +21,7 @@ published: true
 
 ```c
 
-∕∕ thread num
+
 #define THREAD_NUM 32
 
 __global__ void f(int *off_chip_array){
