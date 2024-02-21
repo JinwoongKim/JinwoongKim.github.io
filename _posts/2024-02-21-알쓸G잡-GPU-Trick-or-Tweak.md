@@ -62,7 +62,7 @@ __global__ void f_and_g(int *off_chip_array){
 	// do sth
 	on_chip_array[i] = on_chip_array[i] * on_chip_array[i];
 	
-	// do sth
+	// do sth more
 	on_chip_array[i] = on_chip_array[i] ** on_chip_array[i];
 	
 	// store sth
