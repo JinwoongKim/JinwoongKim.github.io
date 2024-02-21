@@ -20,6 +20,12 @@ published: true
 출처 : https://github.com/huggingface/transformers/issues/13845
 
 ```c
+
+∕∕ Shared memory size
+block size
+
+#define BLOCK_SIZE 16
+
 __global__ void f(int *off_chip_array, num){
     int i = blockDim.x * blockIdx.x + threadIdx.x;
 	
