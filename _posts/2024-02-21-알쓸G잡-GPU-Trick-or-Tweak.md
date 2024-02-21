@@ -70,12 +70,13 @@ __global__ void f_and_g(int *off_chip_array){
 }
 
 
-
-
-
 int main() {
   // blah blah
-  f<<<1,1>>>(d_c, d_a, d_b, 1); // 블럭 1개, 쓰레드 32개 생성
+  f<<<1,THREAD_NUM>>>(off_chip_array); // 블럭 1개, 쓰레드 32개 생성
+  g<<<1,THREAD_NUM>>>(off_chip_array); // 블럭 1개, 쓰레드 32개 생성
+
+  // fusion
+  f_and_g<<<1,THREAD_NUM>>>(off_chip_array); // 블럭 1개, 쓰레드 32개 생성
   // blah blah..
 }
 ```
