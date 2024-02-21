@@ -21,13 +21,13 @@ published: true
 
 ```c
 __global__ void f(int *c, int* a, int* b, int num){
-  int i = blockDim.x * blockIdx.x + threadIdx.x;
-
-  if i%2 == 0 {
-    // do something
-  } else {
-    // do something else
-  }
+    int i = blockDim.x * blockIdx.x + threadIdx.x;
+	
+	// load sth
+	int my_[i] = array[i] 
+	// do sth
+	// store sth
+	
 }
 __global__ void g(int *c, int* a, int* b, int num){
   int i = blockDim.x * blockIdx.x + threadIdx.x;
