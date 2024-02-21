@@ -103,7 +103,17 @@ int main() {
 - Warp 는 안에 32개의 쓰레드가 있어도 동시에 하나의 명령어 밖에 수행 할 수 없기 때문에, 사실 쓰레드 보다 warp 를 최소 단위로 보는 경우가 많다
 
 ```c
-__global__ void test(int *c, int* a, int* b, int num){
+__global__ void non_parallel(){
+  int i = blockDim.x * blockIdx.x + threadIdx.x;
+
+  if i%2 == 0 {
+    // do something
+  } else {
+    // do something else
+  }
+}
+
+__global__ void parallel(){
   int i = blockDim.x * blockIdx.x + threadIdx.x;
 
   if i%2 == 0 {
@@ -115,7 +125,7 @@ __global__ void test(int *c, int* a, int* b, int num){
 
 int main() {
   // blah blah
-  test<<<1,32>>>(d_c, d_a, d_b, 1); // 블럭 1개, 쓰레드 32개 생성
+  test<<<1,32>>>(); // 블럭 1개, 쓰레드 32개 생성
   // blah blah..
 }
 ```
