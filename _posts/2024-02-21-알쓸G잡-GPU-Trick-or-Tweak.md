@@ -24,8 +24,11 @@ __global__ void f(int *c, int* a, int* b, int num){
     int i = blockDim.x * blockIdx.x + threadIdx.x;
 	
 	// load sth
-	int my_[i] = array[i] 
+	__shared__ int on_chip_array[i] = off_chip_array[i];
+	 
 	// do sth
+	on_chip_array[i] = on_chip_array[i] * on_chip_array[i];
+	
 	// store sth
 	
 }
