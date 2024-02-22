@@ -108,7 +108,7 @@ int main() {
 <br>
 출처 : https://www.sciencedirect.com/topics/computer-science/dynamic-parallelism
 </p>
-- Dynamic parallelism의 또다른 장점은 병렬화 레벨을 다양하게 설정 할 수 있다는 것이다.
+- Dynamic parallelism의 또 다른 장점은 병렬화 레벨을 다양하게 설정 할 수 있다는 것이다. 이 부분은 직접 써보진 않아서 잘 모르겠지만 
 
 <p align="center">
 <img width="400" alt="image" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/47b0361a-fdf3-48a5-8f67-cf46ba65de96">
@@ -226,12 +226,9 @@ int main() {
 }
 ```
 
-
-
-
-
 ### 3.B. Distributed Shared Memory
-- Hopper 부터 [Thread block cluster](http://jinwoongkim.net/gpu/알쓸G잡-GPU-메모리-및-쓰레드-구조/#3-gpu-thread-hierarchy) 라는 개념이 새로 생겼는데, 같은 SM 안에 있는 쓰레드 뿐만 아니라 같은 thread block cluster 에 있는 쓰레드 끼리는 shared memory 
+- Hopper 부터 [Thread block cluster](http://jinwoongkim.net/gpu/알쓸G잡-GPU-메모리-및-쓰레드-구조/#3-gpu-thread-hierarchy) 라는 개념이 새로 생겼는데, 같은 SM 안에 있는 쓰레드 뿐만 아니라 같은 thread block cluster 에 있는 쓰레드 끼리는 shared memory 끼리 통신이 된다는 개념인데, H100 오면 써보고 더 자세히 공유 드리겠다.
+- 다만, 이러한 개념이 있다는 것만 기억하시면 될 것 같다.
 <p align="center">
 <img width="700" alt="image" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/ee38e738-6ae4-4852-8fab-a88c4cb971f6">
 </p>
