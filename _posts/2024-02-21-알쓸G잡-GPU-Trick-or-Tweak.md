@@ -169,6 +169,17 @@ struct student_AoS {
   int age;
   int id;
 }
+```
+
+```
+
+- 이러한 코드 구조는 매우 일반적인 패턴이다.
+
+```cuda
+struct student_AoS {
+  int age;
+  int id;
+}
 
 struct student_AoS students[32];
 
@@ -204,12 +215,14 @@ int main() {
 
 ```
 
-<p align="center">
-<img width="900" alt="image" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/b6c5c2f0-db48-47e8-888a-8bee81d5bd95">
-</p>
+
 
 <p align="center">
 <img width="900" alt="image" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/0ff378b9-4cb5-42de-b925-a305b7f027bd">
+</p>
+
+<p align="center">
+<img width="900" alt="image" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/b6c5c2f0-db48-47e8-888a-8bee81d5bd95">
 </p>
 
 ### 3.B. Distributed Shared Memory
