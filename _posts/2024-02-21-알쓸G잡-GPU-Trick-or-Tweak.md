@@ -35,8 +35,6 @@ published: true
 - 위의 그림을 간단한 CUDA pseudo-code 로 서술한 것이 아래 코드이다.
 
 ```cuda
-
-
 #define THREAD_NUM 32
 
 __global__ void f(int *off_chip_array){
@@ -174,7 +172,7 @@ struct student_AoS {
 
 struct student_AoS students[32];
 
-__global__ void access_with_AoS(){
+__global__ void access_with_AoS(){
   int i = blockDim.x * blockIdx.x + threadIdx.x;
 
   if ( students[i].age > 19) {
@@ -189,7 +187,7 @@ struct student_SoA {
 
 struct student_SoA students;
 
-__global__ void access_with_SoA(){
+__global__ void access_with_SoA(){
   int i = blockDim.x * blockIdx.x + threadIdx.x;
 
   if ( students.age[i] > 19) {
