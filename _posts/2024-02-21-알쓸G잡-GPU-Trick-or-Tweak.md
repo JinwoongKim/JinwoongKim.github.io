@@ -152,10 +152,10 @@ int main() {
 - 하지만, GPU 에선 `A` 함수는 `if` 문과 `else` 문이 순차적으로 실행 되고, `B` 함수는  `if` 문과 `else` 문이 동시에 수행될 것이다.
 - 아래 그림에서 홀수번 ID는 검은색, 짝수번 ID 의 쓰레드는 빨간색으로 표현해보았다.
 - 일반적으로 우리는 좌측과 같이 동시에 처리 될 것이라고 생각하지만, 앞서 설명했듯이 하나의 warp는 하나의 명령어만 수행하기 때문에 짝수번 ID를 가지는 쓰레드가 작업을 수행할때, 홀수번 ID를 가지는 쓰레드는 상대방을 기다리게 된다.
-- warp로 묶어서 그림 표현현
+
 <p align="center">
 
-<img width="900" alt="image" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/53604d19-09df-4859-98b4-1881963299ac">
+<img width="900" alt="image" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/bf5722eb-b17c-4ef5-88b8-b3d36a67029b">
 
 (좌) 일반적으로 생각하는 병렬화 (우) Warp divergence가 발생한 상황 (점선은 idle 상태를 의미함)
 </p>
