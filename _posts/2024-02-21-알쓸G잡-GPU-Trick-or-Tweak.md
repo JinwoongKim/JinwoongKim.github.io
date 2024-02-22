@@ -13,8 +13,7 @@ published: true
 - 따라서, 기존의 CPU 기반 설계에선 문제가 되지 않았던 코드들이 GPU 에서 동작하면서 예기치 못한 성능 저하를 일으키는 경우가 종종 있다.
 - 본 글에서는 그러한 성능 저하를 일으키는 여러 현상, 요소들을 어떻게 해결해야 하는지 몇 가지를 꼽아 소개하려고 한다.
 	- 처음에 접하면서도 성능에 많은 영향을 주는 것들로 선별하였다. 
-- 이해를 돕기 위해 CUDA 코드를 같이 첨부하였는데, 단순 Pseudo-code 라서 복붙한다고 돌아가지는 않는다 ^^
-	- 전체 코드를 작성하면 복잡도가 올라가서 이해를 해칠 수 있을 것 같아 단순 하게 작성하였다.
+- 이해를 돕기 위해 CUDA 코드를 같이 첨부하였는데, 단순 Pseudo-code 라서 복붙한다고 돌아가지는 않는다 . 전체 코드를 작성하면 복잡도가 올라가서 이해를 해칠 수 있을 것 같아 단순 하게 작성하였다.
 
 ## 1. Minimizing GPU Kernel Launch Overhead
 - GPU 프로그래밍에서는 GPU 메모리로 데이터를 옮기는 것 뿐만 아니라, GPU 함수 (GPU Kernel 함수) 를 수행하는 것 또한 성능 저하의 요인이다.
@@ -157,7 +156,7 @@ int main() {
 
 <img width="900" alt="image" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/bf5722eb-b17c-4ef5-88b8-b3d36a67029b">
 
-(좌) 일반적으로 생각하는 병렬화 (우) Warp divergence가 발생한 상황 (점선은 idle 상태를 의미함)
+(좌) 일반적으로 생각하는 병렬화 (우) 같은 warp 내 쓰레드는 분기가 될 수 없는 상황 (점선은 idle 상태를 의미함)
 </p>
 
 ## 3. Access Memory Efficiently
