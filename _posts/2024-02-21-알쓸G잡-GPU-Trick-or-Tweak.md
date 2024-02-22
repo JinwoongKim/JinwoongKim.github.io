@@ -173,9 +173,13 @@ struct student {
 struct student students[32];
 ```
 
-- 이러한 코드 구조체는 매우 흔하며, 이러한 구조체의 배열 (Array of Struct) 또한 일반적인 방식이다.
-- 이러한 
+- 이러한 코드 구조체는 매우 흔하며, 이러한 구조체의 배열 (Array of Structure) 또한 일반적인 방식이다.
+- 하지만, 병렬 프로세싱에서 이러한 구조는 대역폭을 저하시키는데, 아래와 같이 
 
+
+<p align="center">
+<img width="900" alt="image" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/b6c5c2f0-db48-47e8-888a-8bee81d5bd95">
+</p>
 
 
 ```cuda
@@ -222,10 +226,6 @@ int main() {
 
 <p align="center">
 <img width="900" alt="image" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/0ff378b9-4cb5-42de-b925-a305b7f027bd">
-</p>
-
-<p align="center">
-<img width="900" alt="image" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/b6c5c2f0-db48-47e8-888a-8bee81d5bd95">
 </p>
 
 ### 3.B. Distributed Shared Memory
