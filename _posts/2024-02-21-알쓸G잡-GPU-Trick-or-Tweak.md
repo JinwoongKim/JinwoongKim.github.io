@@ -37,7 +37,7 @@ published: true
 ```cuda
 #define THREAD_NUM 32
 
-__global__ void f(int *off_chip_array){
+__global__ void f(int *off_chip_array){
     int i = blockDim.x * blockIdx.x + threadIdx.x;
 	
 	// load sth
@@ -51,7 +51,7 @@ __global__ void f(int *off_chip_array){
 	off_chip_array[i] = on_chip_array[i];
 }
 
-__global__ void g(int *off_chip_array){
+__global__ void g(int *off_chip_array){
     int i = blockDim.x * blockIdx.x + threadIdx.x;
 	
 	// load sth
@@ -65,7 +65,7 @@ __global__ void g(int *off_chip_array){
 	off_chip_array[i] = on_chip_array[i];
 }
 
-__global__ void f_and_g(int *off_chip_array){
+__global__ void f_and_g(int *off_chip_array){
     int i = blockDim.x * blockIdx.x + threadIdx.x;
 	
 	// load sth
@@ -118,7 +118,7 @@ int main() {
 	- 단순화를 위해 블럭은 1개로 고정했다.
 - `A` 함수는 쓰레드 ID 의 홀짝을 구분하여 업무를 할당하고, `B` 함수는 쓰레드 ID가 32보다 적은지 구분하여 업무를 할당하고 있다.
 
-```c
+```cuda
 __global__ void A(){
   int i = threadIdx.x;
 
