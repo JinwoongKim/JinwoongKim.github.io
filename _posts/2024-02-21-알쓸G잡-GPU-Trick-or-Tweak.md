@@ -108,8 +108,7 @@ int main() {
 <br>
 출처 : https://www.sciencedirect.com/topics/computer-science/dynamic-parallelism
 </p>
-- Dynamic parallelism의 또 다른 장점은 병렬화 레벨을 다양하게 설정 할 수 있다는 것이다. 이 부분은 직접 써보진 않아서 잘 모르겠다.
-- Dynamic parallelism in deep learning 등으로 검색해봐도 잘 안 나온다..
+- Dynamic parallelism의 또 다른 장점은 병렬화 레벨을 다양하게 설정 할 수 있다는 것이다. 이 부분은 직접 써보진 않아서 잘 모르겠다. Dynamic parallelism in deep learning 등으로 검색해봐도 잘 안 나와서 그렇게 적극적으로 사용되는 기술은 아닌 것 같다고 생각한다.
 
 <p align="center">
 <img width="400" alt="image" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/47b0361a-fdf3-48a5-8f67-cf46ba65de96">
