@@ -165,15 +165,18 @@ int main() {
 - 예를 들어 아래와 같이 `student` 이라는 구조체가 있고, `age`, `id` 를 변수로 갖고 있다고 생각해보자.
 
 ```c
-struct student_AoS {
+struct student {
   int age;
   int id;
 }
+
+struct student students[32];
 ```
 
-```
+- 이러한 코드 구조체는 매우 흔하며, 이러한 구조체의 배열 (Array of Struct) 또한 일반적인 방식이다.
+- 이러한 
 
-- 이러한 코드 구조는 매우 일반적인 패턴이다.
+
 
 ```cuda
 struct student_AoS {
