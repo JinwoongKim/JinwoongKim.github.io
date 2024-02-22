@@ -110,6 +110,7 @@ int main() {
 </p>
 - https://developer.download.nvidia.com/assets/cuda/files/CUDADownloads/TechBrief_Dynamic_Parallelism_in_CUDA.pdf
 - https://hayunjong83.tistory.com/22
+- ![[blog/images/Pasted image 20240222134604.png]]
 ```cuda
 __global__ ChildKernel(void* data){
 //Operate on data
