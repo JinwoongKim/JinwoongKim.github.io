@@ -182,26 +182,11 @@ struct student students[32];
 <img width="900" alt="image" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/0ff378b9-4cb5-42de-b925-a305b7f027bd">
 </p>
 
-- 따라서 병렬 프로세싱에선 위 그림의 오른쪽과 같이 Structure of Array 의 형태로 변환하는게 일반적이다.
-
+- 따라서 병렬 프로세싱에선 위 그림의 아래 같이 Structure of Array 의 형태로 변환하는게 일반적이다.
+- 아래는 SoA로 변환한 구조체를 접근하는 예제 코드
 
 
 ```cuda
-struct student_AoS {
-  int age;
-  int id;
-}
-
-struct student_AoS students[32];
-
-__global__ void access_with_AoS(){
-  int i = blockDim.x * blockIdx.x + threadIdx.x;
-
-  if ( students[i].age > 19) {
-    printf("id is %d\n", students[i].id);
-  }
-}
-
 struct student_SoA {
   int age[32];
   int id[32];
@@ -219,11 +204,9 @@ __global__ void access_with_SoA(){
 
 int main() {
   // blah blah
-  access_with_AoS<<<1,32>>>();
   access_with_SoA<<<1,32>>>();
   // blah blah..
 }
-
 ```
 
 
