@@ -108,7 +108,7 @@ int main() {
 <br>
 출처 : https://www.sciencedirect.com/topics/computer-science/dynamic-parallelism
 </p>
-- Dyna
+- Dynamic parallelism의 또다른 장점은 병렬화 레벨을 다양하게 설정 할 수 있다는 것이다.
 
 <p align="center">
 <img width="400" alt="image" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/47b0361a-fdf3-48a5-8f67-cf46ba65de96">
