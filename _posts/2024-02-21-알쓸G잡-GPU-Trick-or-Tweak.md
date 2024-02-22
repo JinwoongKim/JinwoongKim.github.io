@@ -157,7 +157,7 @@ int main() {
 
 <img width="900" alt="image" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/bf5722eb-b17c-4ef5-88b8-b3d36a67029b">
 
-(좌) 일반적으로 생각하는 병렬화 (우) 실제 GPU에서 동작하는 방식.같은 warp 내 쓰레드는 분기가 될 수 없는 상황 (점선은 idle 상태를 의미함)
+(좌) 일반적으로 생각하는 병렬화 (우) 실제 GPU에서 동작하는 방식. 같은 warp 내 쓰레드는 분기가 될 수 없는 상황을 보여준다. (점선은 idle 상태를 의미함)
 </p>
 
 ## 3. Access Memory Efficiently
