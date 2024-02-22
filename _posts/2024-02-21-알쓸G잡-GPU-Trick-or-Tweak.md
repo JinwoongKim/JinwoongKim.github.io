@@ -108,9 +108,14 @@ int main() {
 <br>
 출처 : https://www.sciencedirect.com/topics/computer-science/dynamic-parallelism
 </p>
-- https://developer.download.nvidia.com/assets/cuda/files/CUDADownloads/TechBrief_Dynamic_Parallelism_in_CUDA.pdf
-- https://hayunjong83.tistory.com/22
-- ![[blog/images/Pasted image 20240222134604.png]]
+- Dyna
+
+<p align="center">
+<img width="400" alt="image" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/47b0361a-fdf3-48a5-8f67-cf46ba65de96">
+<br>
+출처 : https://hayunjong83.tistory.com/22
+</p>
+
 ```cuda
 __global__ ChildKernel(void* data){
 //Operate on data
@@ -121,7 +126,7 @@ ChildKernel<<<16, 1>>>(data);
 // In Host Code
 ParentKernel<<<256, 64>>(data);
 ```
-
+출처 : https://developer.download.nvidia.com/assets/cuda/files/CUDADownloads/TechBrief_Dynamic_Parallelism_in_CUDA.pdf
 
 ## 2. Avoid Warp Divergence
 - [앞서 설명](http://jinwoongkim.net/gpu/%EC%95%8C%EC%93%B8G%EC%9E%A1-GPU-%EB%A9%94%EB%AA%A8%EB%A6%AC-%EB%B0%8F-%EC%93%B0%EB%A0%88%EB%93%9C-%EA%B5%AC%EC%A1%B0/#3-gpu-thread-hierarchy) 했듯이 GPU는 32개의 쓰레드가 그룹핑되어 Warp라고 불리고, 각 warp는 하나의 명령어를 처리 한다. 
