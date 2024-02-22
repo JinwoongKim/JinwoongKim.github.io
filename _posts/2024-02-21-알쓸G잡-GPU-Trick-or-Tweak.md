@@ -231,7 +231,7 @@ int main() {
 
 
 ### 3.B. Distributed Shared Memory
-- Hopper 부터 [Thread block cluster](http://jinwoongkim.net/gpu/알쓸G잡-GPU-메모리-및-쓰레드-구조/#3-gpu-thread-hierarchy) 라는 개념이 새로 생겼는데, 같은 SM 안에 있는 쓰레드 뿐만 아니라 같은 thread block cluster 에 있는 
+- Hopper 부터 [Thread block cluster](http://jinwoongkim.net/gpu/알쓸G잡-GPU-메모리-및-쓰레드-구조/#3-gpu-thread-hierarchy) 라는 개념이 새로 생겼는데, 같은 SM 안에 있는 쓰레드 뿐만 아니라 같은 thread block cluster 에 있는 쓰레드 끼리는 shared memory 
 <p align="center">
 <img width="700" alt="image" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/ee38e738-6ae4-4852-8fab-a88c4cb971f6">
 </p>
