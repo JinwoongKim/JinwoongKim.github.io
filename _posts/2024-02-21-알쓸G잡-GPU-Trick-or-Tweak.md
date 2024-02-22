@@ -231,7 +231,7 @@ int main() {
 
 
 ### 3.B. Distributed Shared Memory
-
+- Hopper부Thread block cluster
 <p align="center">
 <img width="700" alt="image" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/ee38e738-6ae4-4852-8fab-a88c4cb971f6">
 </p>
