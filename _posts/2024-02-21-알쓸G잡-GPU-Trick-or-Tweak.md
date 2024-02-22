@@ -109,6 +109,7 @@ int main() {
 출처 : https://www.sciencedirect.com/topics/computer-science/dynamic-parallelism
 </p>
 - https://developer.download.nvidia.com/assets/cuda/files/CUDADownloads/TechBrief_Dynamic_Parallelism_in_CUDA.pdf
+- https://hayunjong83.tistory.com/22
 
 ## 2. Avoid Warp Divergence
 - [앞서 설명](http://jinwoongkim.net/gpu/%EC%95%8C%EC%93%B8G%EC%9E%A1-GPU-%EB%A9%94%EB%AA%A8%EB%A6%AC-%EB%B0%8F-%EC%93%B0%EB%A0%88%EB%93%9C-%EA%B5%AC%EC%A1%B0/#3-gpu-thread-hierarchy) 했듯이 GPU는 32개의 쓰레드가 그룹핑되어 Warp라고 불리고, 각 warp는 하나의 명령어를 처리 한다. 
@@ -149,8 +150,7 @@ int main() {
 
 - 만약 위의 함수들의 로직이 CPU 에서 동작한다면 두 함수 모두 병렬처리가 될 것이다.
 - 하지만, GPU 에선 `A` 함수는 `if` 문과 `else` 문이 순차적으로 실행 되고, `B` 함수는  `if` 문과 `else` 문이 동시에 수행될 것이다.
-- 아래 그림에  
-- 따라서 위와 같이 홀수번(검은색), 짝수번(빨간색) 쓰레드 ID 를 가지는 녀석들을 분기문을 태운다면, 아래 처럼 일부 쓰레드가 코드를 수행할때 나머지 쓰레드가 다른 구문을 수행하는게 아니라, 기다리는 상황이 발생한다.
+- 아래 그림에서 홀수번 ID는 검은색, 짝수번 ID 의 쓰레드는 빨간색) 쓰레드 ID 를 가지는 녀석들을 분기문을 태운다면, 아래 처럼 일부 쓰레드가 코드를 수행할때 나머지 쓰레드가 다른 구문을 수행하는게 아니라, 기다리는 상황이 발생한다.
 
 <p align="center">
 
