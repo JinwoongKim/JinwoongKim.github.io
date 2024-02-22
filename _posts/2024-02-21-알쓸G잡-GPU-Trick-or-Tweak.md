@@ -110,6 +110,7 @@ int main() {
 </p>
 - https://developer.download.nvidia.com/assets/cuda/files/CUDADownloads/TechBrief_Dynamic_Parallelism_in_CUDA.pdf
 - https://hayunjong83.tistory.com/22
+- 
 
 ## 2. Avoid Warp Divergence
 - [앞서 설명](http://jinwoongkim.net/gpu/%EC%95%8C%EC%93%B8G%EC%9E%A1-GPU-%EB%A9%94%EB%AA%A8%EB%A6%AC-%EB%B0%8F-%EC%93%B0%EB%A0%88%EB%93%9C-%EA%B5%AC%EC%A1%B0/#3-gpu-thread-hierarchy) 했듯이 GPU는 32개의 쓰레드가 그룹핑되어 Warp라고 불리고, 각 warp는 하나의 명령어를 처리 한다. 
