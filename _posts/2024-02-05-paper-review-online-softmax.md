@@ -57,7 +57,7 @@ Flash Attention2 논문을 읽다 보니 이해가 안 되는 부분이 많았�
 <em> 코드 1. Softmax </em>
 </p>
 
-이러한 메모리 엑세스 횟수는 O(C)라고 할 수 있지만, GPU 에서는 3C를 2C로 줄이면 
+이러한 메모리 엑세스 횟수는 상수로 표현 할 수 있지만 O(3N)을 O(2N)으로 
 ## 3. Safe Softmax
 
 앞서 기본 형태의 softmax는 오버플로우 문제가 있다고 언급했고, 그걸 해결하기 위한 것이 이 safe softmax 라는 것을 말했다. 아래 수식을 보면 Safe softmax 는 오버플로우 문제를 해결하기 위해 단순히 최댓값을 빼주어서 scale down 해준다.
