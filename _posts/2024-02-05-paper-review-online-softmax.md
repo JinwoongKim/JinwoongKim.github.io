@@ -61,7 +61,7 @@ Flash Attention2 논문을 읽다 보니 이해가 안 되는 부분이 많았�
 
 ## 3. Safe Softmax
 
-앞서 기본 형태의 softmax는 오버플로우 문제가 있다고 언급했고, 그걸 해결하기 위한 것이 이 safe softmax 라는 것을 말했다. 아래 수식을 보면 Safe softmax 는 오버플로우 문제를 해결하기 위해 단순히 최댓값을 빼주어서 scale down 해준다.
+앞서 기본 형태의 softmax는 오버플로우 문제가 있다고 언급했고, 또한 그것을 해결하기 위한 것이 이 safe softmax 라는 것을 말했다. 아래 수식을 보면 Safe softmax 는 오버플로우 문제를 해결하기 위해 단순히 최댓값을 빼주어서 scale down 해준다.
 
 
 왜 최댓값일까? : 사실 난 이 부분이 직관적으로 이해가 되진 않았다. 그런데 후에 곰곰이 생각해보니, 결국 오버플로우가 발생하는 이유는 상대적으로 큰 수치 때문이니까 그럴 것 같다는 생각이 들었다. (누군가에게는 당연 할 수 있지만, 난 헤맸어서 기록해 본다)
@@ -69,7 +69,7 @@ Flash Attention2 논문을 읽다 보니 이해가 안 되는 부분이 많았�
 
 
 <p align="center">
-<img width="200" alt="image" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/d823cdbd-61a8-4e71-b609-48a8deb5d2d1">
+<img width="300" alt="image" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/d823cdbd-61a8-4e71-b609-48a8deb5d2d1">
 <br>
 <em>수식 3. Safe Softmax</em>
 </p>
@@ -81,7 +81,7 @@ Flash Attention2 논문을 읽다 보니 이해가 안 되는 부분이 많았�
 <em>코드 2. Safe Softmax</em>
 </p>
 
-메모리 한 번 더 접근하는 게 무슨 큰 이슈일까? -> 사실 GPU에선 매우 큰 이슈이다.
+앞서 설명했듯이, 단ㅅ메모리 한 번 더 접근하는 게 무슨 큰 이슈일까? → 사실 GPU에선 매우 큰 이슈이다.
 
 아래 `<그림1>`은 FlashAttention 논문에서 가져온 그림인데, GPU는 **작지만 빠른 SRAM**과 **크지만 느린 HBM** 으로 메모리가 구성되어있다. 그리고, softmax matrix는 너무 커서 SRAM에 모두 두기 힘들다. 따라서 크지만 느린 HBM 으로의 메모리 연산이 하나 더 증가하는 것은 전체 성능에 많은 영향을 끼친다.
 
