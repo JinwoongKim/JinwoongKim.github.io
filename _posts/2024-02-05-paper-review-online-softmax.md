@@ -83,7 +83,7 @@ Flash Attention2 논문을 읽다 보니 이해가 안 되는 부분이 많았�
 
 앞서 설명했듯이 메모리 접근 횟수가 한 번 늘어난 상황이지만 (3번에서 4번), 성능은 25% 저하 됐다. 특히나 GPU 에서는 이러한 성능 저하가 더욱 두드러진다. 
 
-아래 `<그림1>`은 FlashAttention 논문에서 가져온 그림인데, GPU는 **작지만 빠른 SRAM**과 **크지만 느린 HBM** 으로 메모리가 구성되어있다. 그리고, softmax matrix는 너무 커서 SRAM에 모두 두기 힘들다. 따라서 크지만 느린 HBM 으로의 메모리 연산이 하나 더 증가하는 것은 전체 성능에 많은 영향을 끼친다.
+아래 `<그림1>`은 FlashAttention 논문에서 가져온 그림인데, GPU는 **작지만 빠른 SRAM**과 **크지만 느린 HBM** 으로 메모리가 구성되어있다. 이때, 우리가 다루고 있는 softmax matrix는 너무 커서 SRAM에 모두 두기 힘들다. 따라서 크지만 느린 HBM 으로의 메모리 연산이 하나 더 증가하는 것은 전체 성능에 많은 영향을 끼친다.
 
 <p align="center">
 <img width="450" alt="image" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/b37fe3d2-6095-469a-a947-379980acf627">
