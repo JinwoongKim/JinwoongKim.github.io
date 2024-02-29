@@ -188,5 +188,5 @@ $$
 끝.
 
 
-참고
-- https://www.youtube.com/watch?v=lpBJHUU4w6k
+#### 참고
+- https://www.youtube.com/watch?v=lpBJHUU4w6k 내가 하고 있는 고민은 항사아 어떤 인도 아재가 먼저 해 설명해주는 동영상
