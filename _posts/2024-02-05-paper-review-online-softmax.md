@@ -35,7 +35,7 @@ Flash Attention2 논문을 읽다 보니 이해가 안 되는 부분이 많았�
 
 ## 2. Potential Problem of Standard(Naive) Softmax
 
-먼저, 기본 Softmax 수식을 살펴보겠다. 아래 수식은 수학적으로는 \아무런 문제가 없을 수 있으나, _**실제로 컴퓨터에서 동작을 하면 오버/언더플로우가 발생 할 수 있다.**_ 따라서 `TensorFlow`, `PyTorch` 등은 뒤에서 설명할 `Safe Softmax` 를 사용한다. (편의상 앞으론 오버/언더플로우를 오버플로우라고만 표현하겠다.)
+먼저, 기본 Softmax 수식을 살펴보겠다. 아래 수식은 수학적으로는 아무런 문제가 없을 수 있으나, _**실제로 컴퓨터에서 동작을 하면 분모가 너무 커져서 오버/언더플로우가 발생 할 수 있다.**_ 따라서 `TensorFlow`, `PyTorch` 등은 뒤에서 설명할 `Safe Softmax` 를 사용한다. (편의상 앞으론 오버/언더플로우를 오버플로우라고만 표현하겠다.)
 
 <p align="center">
 <img width="200" alt="image" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/c936ec0b-fa65-4e78-a0f1-860935199bec">
@@ -56,6 +56,7 @@ Flash Attention2 논문을 읽다 보니 이해가 안 되는 부분이 많았�
 <br>
 <em> 코드 1. Softmax </em>
 </p>
+
 
 ## 3. Safe Softmax
 
