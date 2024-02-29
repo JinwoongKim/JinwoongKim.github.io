@@ -185,10 +185,8 @@ $$
 
 이를 이용해서 local softmax를 구하고, 마지막에 리스케일링(전체 최댓값으로 나눠주는 행위)를 함으로써 선형 메모리를 사용하며 safe softmax 를 병렬로 진행 할 수 있다.
 
-## 6. 실험
-TBU
+끝.
 
 
-
-참고 :
+참고
 - https://www.youtube.com/watch?v=lpBJHUU4w6k
