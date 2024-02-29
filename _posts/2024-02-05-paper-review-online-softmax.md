@@ -188,8 +188,8 @@ $$
 ## 6. Summary
 - Softmax 연산은 시간, 공간 복잡도가 N의 제곱이다. → 매우 비싸고 느림
 - Online softmax 를 사용하면 softmax 를 병렬화 할 수 있다. → 매우 비싸고 빠름
-- GPU 메모리 엑세스 최적화로 더욱 빠르게 softmax 를 할 수 있다. → 비싸고 빠름 (매우가 빠짐. 중요)
+- GPU 메모리 엑세스 최적화로 더욱 효율적이게 softmax 를 할 수 있다. → 비싸고 빠름 (매우가 빠짐. 중요)
 
 
 #### 참고
-- https://www.youtube.com/watch?v=lpBJHUU4w6k 내가 하고 있는 고민은 항상 누군가 먼저 하고 있다!
+- https://www.youtube.com/watch?v=lpBJHUU4w6k 내가 하고 있는 고민은 항상 (인도의) 누군가가 먼저 하고 있다!
