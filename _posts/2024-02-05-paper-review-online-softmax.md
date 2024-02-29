@@ -185,8 +185,10 @@ $$
 
 이를 이용해서 local softmax를 구하고, 마지막에 리스케일링(전체 최댓값으로 나눠주는 행위)를 함으로써 선형 메모리를 사용하며 safe softmax 를 병렬로 진행 할 수 있다.
 
-끝.
+## 6. Summary
+- Softmax 연산은 시간, 공간 복잡도가 N의 제곱이다.
+- 하지만 online softmax 를 사용하면 공간 복잡도를 낮출 수 있다.
 
 
 #### 참고
-- https://www.youtube.com/watch?v=lpBJHUU4w6k 내가 하고 있는 고민은 항사아 어떤 인도 아재가 먼저 해 설명해주는 동영상
+- https://www.youtube.com/watch?v=lpBJHUU4w6k 내가 하고 있는 고민은 항상 누군가 먼저 하고 있다!
