@@ -187,7 +187,8 @@ $$
 
 ## 6. Summary
 - Softmax 연산은 시간, 공간 복잡도가 N의 제곱이다.
-- 하지만 online softmax 를 사용하면 공간 복잡도를 낮출 수 있다.
+- 하지만 online softmax 를 사용하면 softmax 를 병렬화 할 수 있다.
+- 이러한 병렬화 + 메모리 엑세스 최적화로 더욱 빠르게 softmax를 할 수있
 
 
 #### 참고
