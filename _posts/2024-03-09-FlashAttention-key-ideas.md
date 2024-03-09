@@ -30,9 +30,11 @@ FlashAttention 1 의 풀네임은 "FlashAttention: Fast and Memory-Efficient Exa
 - long sequence
 	- requires time, memory O(N^2
 - approximation some how leads / may causes problems
-- 
 
 ### 원인
+![[blog/images/Pasted image 20240309102829.png]]
+![[blog/images/Pasted image 20240309102820.png]]
+
 
 ### 해결
 
