@@ -56,7 +56,15 @@ FlashAttention 1 의 풀네임은 "FlashAttention: Fast and Memory-Efficient Exa
 - recomputation
 - kernel fusion
 
-flash 2
+# 결과
+스피드업
+메모리 세이빙
+
+![[blog/images/Pasted image 20240309110044.png]]
+![[blog/images/스크린샷 2024-03-09 11.00.57.png]]
+
+![[blog/images/Pasted image 20240309110131.png]]
+## flash 2
 
 tweak
 more blocks
