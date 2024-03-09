@@ -70,7 +70,9 @@ FlashAttention 1 의 풀네임은 "FlashAttention: Fast and Memory-Efficient Exa
 ![[blog/images/Pasted image 20240309110230.png]]
 
 
-
+#####  참고
+- https://www.youtube.com/watch?v=FThvfkXWqtE 
+- https://www.youtube.com/watch?v=gMOAud7hZg4
 
 
 
@@ -82,5 +84,3 @@ tweak
 more blocks
 warp 순서 바꾸기
 
-#####  참고
-- https://www.youtube.com/watch?v=FThvfkXWqtE 
