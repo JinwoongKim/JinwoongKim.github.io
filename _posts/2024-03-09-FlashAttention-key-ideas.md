@@ -32,9 +32,10 @@ FlashAttention 1 의 풀네임은 "FlashAttention: Fast and Memory-Efficient Exa
 - approximation some how leads / may causes problems
 
 ### 원인
-![[blog/images/Pasted image 20240309102829.png]]
-![[blog/images/Pasted image 20240309102820.png]]
-
+- attention 은 매우 핵심
+- ![[blog/images/Pasted image 20240309102820.png]]
+- GPU는 matmal 에 최적화, 근데 실제론 다른 곳에서 시간을 더 쓰고 있음
+- 
 
 ### 해결
 
