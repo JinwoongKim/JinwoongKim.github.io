@@ -37,7 +37,7 @@ FlashAttention 1 의 풀네임은 "FlashAttention: Fast and Memory-Efficient Exa
 - ![[blog/images/Pasted image 20240309102820.png]]
 - 그러다보니, GPU는 matmal 에 최적화, 근데 실제론 다른 곳에서 시간을 더 쓰고 있음
 - ![[blog/images/Pasted image 20240309103137.png|200]]
-
+- 그게 메모리 엑세스임
 
 ### 해결
 
