@@ -43,8 +43,9 @@ FlashAttention 1 의 풀네임은 "FlashAttention: Fast and Memory-Efficient Exa
 
 ### 해결
 - tiling
-	- restructure 
+	- restructure algorithm to load block by block from HBM to SRAM to compute attention
 - recomputation
+	- don't store attn, matrix from forward, recompute 
 
 
 - Online normalizer softmax
