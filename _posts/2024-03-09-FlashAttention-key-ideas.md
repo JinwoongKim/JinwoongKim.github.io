@@ -64,6 +64,18 @@ FlashAttention 1 의 풀네임은 "FlashAttention: Fast and Memory-Efficient Exa
 ![[blog/images/스크린샷 2024-03-09 11.00.57.png]]
 
 ![[blog/images/Pasted image 20240309110131.png]]
+![[blog/images/Pasted image 20240309110150.png]]
+
+![[blog/images/Pasted image 20240309110209.png]]
+![[blog/images/Pasted image 20240309110230.png]]
+
+
+
+
+
+
+
+
 ## flash 2
 
 tweak
