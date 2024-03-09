@@ -20,7 +20,9 @@ GPU-aware한 최적화 논문들은 GPU도 알아야 하고, 딥러닝도 알아
 
 ## FlashAttention 1
 
-FlashAttention 1 
+FlashAttention 1 의 풀네임은 "FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness" 이다. 프린스턴 대학의 조교수로 취임한 Tri Dao
+
+제목에서 알 수 있다시피 IO, read/write 관련 최적화 논문이며 
 
 ### 문제
 
