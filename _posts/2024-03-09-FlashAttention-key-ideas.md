@@ -84,3 +84,8 @@ tweak
 more blocks
 warp 순서 바꾸기
 
+
+참고
+https://www.youtube.com/watch?v=IoMSGuiwV3g
+https://www.youtube.com/watch?v=foG0ebzuw34&t=4080s
+https://www.youtube.com/watch?v=IoMSGuiwV3g
