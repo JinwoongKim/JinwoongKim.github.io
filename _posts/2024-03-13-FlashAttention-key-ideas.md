@@ -20,11 +20,11 @@ GPU-aware한 최적화 논문들은 GPU도 알아야 하고, 딥러닝도 알아
 
 ## FlashAttention 1
 
-FlashAttention 1 의 풀네임은 "FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness" 이다. 지금은 프린스턴 대학의 조교수로 취임한 Tri Dao가 박사일때 2022 년에 낸 논문이며 500회 이상의 인용수를 기록하고 있다.
+FlashAttention 1 의 풀네임은 "FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness" 이다. 지금은 프린스턴 대학의 조교수로 취임한 Tri Dao가 박사일때 2022 년에 낸 논문이며 500회 이상의 인용수를 기록하고 있다. ~~(내 전체 논문 인용수를 합쳐야 500이 넘는데..눈물..)~~
 
-논문 자체는 ICML workshop 등, 워크샵에만 등재되어 있지만 실제 코드를 구현하여 대부분의 상황에서 잘 작동하게 만들었기 때문에 다양하게 활용되며 입소문이 퍼지게 된 케이스이다. 요즘 Song han도 그렇고 tri dao도 [github 에 코드를 공개](https://github.com/Dao-AILab/flash-attention/issues)하고 활동을 열심히 하는 모습을 볼 수 있다. 시스템 분야와는 다르게 '내부적으로 어'
+논문 자체는 ICML workshop 등, 워크샵에만 등재되어 있지만 실제 코드를 구현하여 대부분의 상황에서 잘 작동하게 만들었기 때문에 다양하게 활용되며 입소문이 퍼지게 된 케이스이다. 요즘 MIT의 song han 교수도 그렇고 tri dao도 [github 에 코드를 공개](https://github.com/Dao-AILab/flash-attention/issues)하고 활동을 열심히 하는 모습을 볼 수 있다. 시스템 분야와는 다르게 '내부적으로 어떻게 돌아가는지는 모르겠고, 그래서 내가 써 볼 수 있어? 쉽게?'가 중요한 분야 같다.
 
-제목에서 알 수 있다시피 IO, read/write 관련 최적화 논문이며 
+사설이 길었는데, 이 논문은 제목에서 알 수 있다시피 IO, read/write 관련 최적화 논문이며 
 
 ### 문제
 
