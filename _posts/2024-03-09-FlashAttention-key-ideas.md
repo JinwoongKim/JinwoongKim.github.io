@@ -33,8 +33,9 @@ FlashAttention 1 의 풀네임은 "FlashAttention: Fast and Memory-Efficient Exa
 
 ### 원인
 - attention 은 매우 핵심
+- 근데 앞서 말했듯이 sequence length에 N*N임
 - ![[blog/images/Pasted image 20240309102820.png]]
-- GPU는 matmal 에 최적화, 근데 실제론 다른 곳에서 시간을 더 쓰고 있음
+- 그러다보니, GPU는 matmal 에 최적화, 근데 실제론 다른 곳에서 시간을 더 쓰고 있음
 - ![[blog/images/Pasted image 20240309103137.png|200]]
 
 
