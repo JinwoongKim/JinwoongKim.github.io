@@ -18,7 +18,7 @@ GPU-aware한 최적화 논문들은 GPU도 알아야 하고, 딥러닝도 알아
 논문의 코드나 그래프를 하나하나 설명하기 보단, 이 논문들에서 어떤 문제들을 파악하였고, 그것의 원인이 무엇이며, 어떻게 해결하려고 하는지를 정리하여 공유하겠다.
 {: .notice--info} 
 
-## FlashAttention 1
+# FlashAttention 1
 
 FlashAttention 1 의 풀네임은 "FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness" 이다. 지금은 프린스턴 대학의 조교수로 취임한 Tri Dao가 박사일때 2022 년에 낸 논문이며 500회 이상의 인용수를 기록하고 있다. ~~(내 전체 논문 인용수를 합쳐야 500이 넘는데..눈물..)~~
 
@@ -26,12 +26,12 @@ FlashAttention 1 의 풀네임은 "FlashAttention: Fast and Memory-Efficient Exa
 
 사설이 길었는데, 이 논문은 제목에서 알 수 있다시피 IO, read/write 관련 최적화 논문이며 
 
-### 문제
+## 문제
 - long sequence
 	- requires time, memory O(N^2
 - approximation some how leads / may causes problems
 
-### 원인
+## 원인
 - attention 은 매우 핵심
 - 근데 앞서 말했듯이 sequence length에 N*N임
 - ![[blog/images/Pasted image 20240309102820.png]]
@@ -41,7 +41,7 @@ FlashAttention 1 의 풀네임은 "FlashAttention: Fast and Memory-Efficient Exa
 - 예전 자료에서도 설명했지만..
 ![[blog/images/Pasted image 20240309103611.png]]
 
-### 해결
+## 해결
 - tiling
 	- restructure algorithm to load block by block from HBM to SRAM to compute attention
 - recomputation
@@ -56,7 +56,7 @@ FlashAttention 1 의 풀네임은 "FlashAttention: Fast and Memory-Efficient Exa
 - recomputation
 - kernel fusion
 
-# 결과
+## 결과
 스피드업
 메모리 세이빙
 
@@ -78,11 +78,18 @@ FlashAttention 1 의 풀네임은 "FlashAttention: Fast and Memory-Efficient Exa
 
 
 
-## flash 2
+# flash 2
 
+## 문제
+
+## 원인
+
+## 해결
 tweak
 more blocks
 warp 순서 바꾸기
+
+## 결과
 
 
 참고
