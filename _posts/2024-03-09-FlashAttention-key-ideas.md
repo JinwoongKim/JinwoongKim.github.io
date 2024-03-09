@@ -43,6 +43,7 @@ FlashAttention 1 의 풀네임은 "FlashAttention: Fast and Memory-Efficient Exa
 
 ### 해결
 - tiling
+	- restructure 
 - recomputation
 
 
