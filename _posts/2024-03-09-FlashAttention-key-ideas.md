@@ -42,7 +42,8 @@ FlashAttention 1 의 풀네임은 "FlashAttention: Fast and Memory-Efficient Exa
 ![[blog/images/Pasted image 20240309103611.png]]
 
 ### 해결
-
+- tiling
+- recomputation
 
 
 - Online normalizer softmax
