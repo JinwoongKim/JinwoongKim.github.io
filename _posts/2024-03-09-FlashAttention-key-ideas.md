@@ -27,6 +27,10 @@ FlashAttention 1 의 풀네임은 "FlashAttention: Fast and Memory-Efficient Exa
 사설이 길었는데, 이 논문은 제목에서 알 수 있다시피 IO, read/write 관련 최적화 논문이며 
 
 ### 문제
+- long sequence
+	- requires time, memory O(N^2
+- approximation some how leads / may causes problems
+- 
 
 ### 원인
 
