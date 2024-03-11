@@ -27,8 +27,7 @@ FlashAttention 1 의 풀네임은 "FlashAttention: Fast and Memory-Efficient Exa
 사설이 길었는데, 이 논문은 제목에서 알 수 있다시피 IO, read/write 관련 최적화 논문이며, 그 중에서도 GPU의 메모리 구조를 파악하고 최적화 한 논문이다. [앞선 글](http://jinwoongkim.net/gpu/%EC%95%8C%EC%93%B8G%EC%9E%A1-GPU-%EB%A9%94%EB%AA%A8%EB%A6%AC-%EB%B0%8F-%EC%93%B0%EB%A0%88%EB%93%9C-%EA%B5%AC%EC%A1%B0/#gpu-%EB%82%B4%EB%B6%80-%EA%B5%AC%EC%A1%B0) 에서 설명했듯이 GPU의 메모리는 (단순화하면) 작지만 빠른 on-chip과 느리지만 큰 off-chip 으로 구성되어 있다. 저자는 이러한 구조를 이해하지 않고 GPU 프로그래밍을 하면 최대 성능을 이끌어 낼 수 없다고 하며, 이러한 구조에 최적화된 형태의 알고리즘을 제안한다.
 
 ## 문제
-- long sequence
-	- requires time, memory O(N^2
+- attention 기반의 트랜스포머의 경우, long sequence 학습, 인퍼런스를 수행시 attention matrix가 long sequence requires time, memory O(N^2
 - approximation some how leads / may causes problems
 
 ## 원인
