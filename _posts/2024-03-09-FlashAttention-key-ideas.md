@@ -28,11 +28,12 @@ FlashAttention 1 의 풀네임은 "FlashAttention: Fast and Memory-Efficient Exa
 
 ## 문제
 - attention 기반의 트랜스포머의 경우, long sequence 학습, 인퍼런스를 수행시 attention matrix가 시간, 공간 복잡도가 N<sup>2</sup> 를 요구해 scale out 하기 어렵다고 지적하고 있다.
+	![[blog/images/Pasted image 20240309102820.png]]
 - Approximate attention methods의 경우 잠재적인 문제를 야기 할 수 있다고 지적하고 있다.
 ## 원인
 - attention 은 매우 핵심
 - 근데 앞서 말했듯이 sequence length에 N*N임
-- ![[blog/images/Pasted image 20240309102820.png]]
+- 
 - 그러다보니, GPU는 matmal 에 최적화, 근데 실제론 다른 곳에서 시간을 더 쓰고 있음
 - ![[blog/images/Pasted image 20240309103137.png|200]]
 - 그게 메모리 엑세스임
