@@ -31,7 +31,7 @@ FlashAttention 1 의 풀네임은 "FlashAttention: Fast and Memory-Efficient Exa
 	![[blog/images/Pasted image 20240309102820.png]]
 - 이러한 문제를 해소 할 수 있는 방법 중 하나인 approximate attention methods의 경우 잠재적인 문제를 야기 할 수 있다고 지적하고 있다.
 ## 원인
-- attention 은 매우 핵심
+- Attention 은 매우 핵심
 - 근데 앞서 말했듯이 sequence length에 N*N임
 - 
 - 그러다보니, GPU는 matmal 에 최적화, 근데 실제론 다른 곳에서 시간을 더 쓰고 있음
