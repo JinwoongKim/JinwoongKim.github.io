@@ -46,7 +46,7 @@ FlashAttention 1 의 풀네임은 "FlashAttention: Fast and Memory-Efficient Exa
 - recomputation
 	- don't store attn, matrix from forward, recompute it in the backward
 
-## tiling
+## Tiling (speed up)
 ![[blog/images/Pasted image 20240309105731.png]]
 
 - Online normalizer softmax
