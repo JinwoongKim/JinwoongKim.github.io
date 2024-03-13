@@ -92,6 +92,10 @@ FlashAttention 1 의 풀네임은 "FlashAttention: Fast and Memory-Efficient Exa
 
 
 ## 결과
+### A100
+![[blog/images/Pasted image 20240314082805.png]]
+### H100
+![[blog/images/Pasted image 20240314082823.png]]
 
 
 참고
