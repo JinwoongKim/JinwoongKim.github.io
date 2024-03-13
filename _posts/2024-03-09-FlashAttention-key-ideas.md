@@ -41,16 +41,9 @@ FlashAttention 1 의 풀네임은 "FlashAttention: Fast and Memory-Efficient Exa
 	- don't store attn, matrix from forward, recompute it in the backward
 	- 
 - One more, kernel fusioni
-	- - 그러다보니, GPU는 matmal 에 최적화, 근데 실제론 다른 곳에서 시간을 더 쓰고 있음
-- ![[blog/images/Pasted image 20240309103137.png|200]]
-
-
-
-- Online normalizer softmax
-- tiling
-- recomputation
-- kernel fusion
-
+	- GPU는 matmal 에 최적화, 근데 실제론 다른 곳에서 시간을 더 쓰고 있음
+	- 이러한 연산..
+	- ![[blog/images/Pasted image 20240309103137.png|200]]
 ## 결과
 스피드업
 메모리 세이빙
