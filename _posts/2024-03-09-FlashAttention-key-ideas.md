@@ -37,7 +37,8 @@ FlashAttention 1 의 풀네임은 "FlashAttention: Fast and Memory-Efficient Exa
 - Tiling (소프트맥스 병렬화를 통한 속도 향상)
 	- SRAM 의 사이즈에 맞게 어텐션 행렬을 자른 후, SM에 할당, 블락 병렬로 수행
 	- ![[blog/images/Pasted image 20240309105731.png|500]]
-	- HBM 접근 횟수 감소
+	- HBM 접근 횟수 감소가 목표
+	- ![[blog/images/Pasted image 20240313174625.png]]
 - Recomputation
 	- don't store attn, matrix from forward, recompute it in the backward
 	- We store the softmax normalization factor from the forward pass to quickly recompute attention on-chip in the backward pass, which is faster than the standard approach of reading the intermediate attention matrix from HBM
