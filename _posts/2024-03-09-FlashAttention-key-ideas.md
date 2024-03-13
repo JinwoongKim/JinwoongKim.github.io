@@ -34,6 +34,7 @@ FlashAttention 1 의 풀네임은 "FlashAttention: Fast and Memory-Efficient Exa
 - 어텐션 행렬의 시간, 공간 복잡도가 N<sup>2</sup> (N = 토큰 갯 수) 라서, 문자열의 길이를 늘리기 어렵다. → Long latency, OOM
 	- ![[blog/images/Pasted image 20240309102820.png]]
 ## 해결
+- avoid reading and writing the attention matrix to and from HBM.
 - Tiling (소프트맥스 병렬화를 통한 속도 향상)
 	- SRAM 의 사이즈에 맞게 어텐션 행렬을 자른 후, SM에 할당, 블락 병렬로 수행
 	- ![[blog/images/Pasted image 20240309105731.png|500]]
