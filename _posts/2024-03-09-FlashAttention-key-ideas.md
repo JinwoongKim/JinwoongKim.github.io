@@ -71,6 +71,9 @@ FlashAttention 1 의 풀네임은 "FlashAttention: Fast and Memory-Efficient Exa
 ## 원인
 - 알고리즘적, 하드웨어(GPU)적 최적화가 덜 진행 됨
 - 자세한 건 아래에서 설명
+- A100
+	- 312 TFLOPS/s of FP16/BE16 matmul
+	- 19.5 TFLOPS/s of non-matmul FP32
 ## 해결
 - Tweak algorithm
 - 
