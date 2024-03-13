@@ -87,7 +87,8 @@ FlashAttention 1 의 풀네임은 "FlashAttention: Fast and Memory-Efficient Exa
 	- 두 번째 tweak
 		- <img width="1383" alt="Pasted image 20240313211551" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/7e2364a6-43d0-44eb-858a-c0d8db7ffc2a">
 - Parallelism
-	- 
+	- <img width="894" alt="image" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/6d78acd1-25e4-4736-abf3-63a47c82f4ec">
+
 - Work Partitioning Between Warps
 	- <img width="1381" alt="Pasted image 20240313211646" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/01d2f8f6-5059-4224-9e4d-85bcd91e0f0a">
 	- 
