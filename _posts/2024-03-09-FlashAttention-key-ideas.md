@@ -81,7 +81,9 @@ FlashAttention 1 의 풀네임은 "FlashAttention: Fast and Memory-Efficient Exa
 	- ![[blog/images/Pasted image 20240313202855.png]]
 	- FlashAttention 2
 	- ![[blog/images/Pasted image 20240313202910.png]]
-	- P<sup>(1)</sup>가 사라짐 
+	- P<sup>(1)</sup> 가 사라짐
+	- O<sup>(1)</sup> 를 P(softmax) 하지 않고 구함
+	- 
 tweak
 more blocks
 warp 순서 바꾸기
