@@ -34,13 +34,13 @@ FlashAttention 1 의 풀네임은 "FlashAttention: Fast and Memory-Efficient Exa
 - 어텐션 행렬의 시간, 공간 복잡도가 N<sup>2</sup> (N = 토큰 갯 수) 라서, 문자열의 길이를 늘리기 어렵다. → Long latency, OOM
 	- ![[blog/images/Pasted image 20240309102820.png]]
 ## 해결
-- avoid reading and writing the attention matrix to and from HBM.
 - Tiling (소프트맥스 병렬화를 통한 속도 향상)
 	- SRAM 의 사이즈에 맞게 어텐션 행렬을 자른 후, SM에 할당, 블락 병렬로 수행
 	- ![[blog/images/Pasted image 20240309105731.png|500]]
+	- HBM 접근 횟수 감소
 - Recomputation
 	- don't store attn, matrix from forward, recompute it in the backward
-	- 
+	- We store the softmax normalization factor from the forward pass to quickly recompute attention on-chip in the backward pass, which is faster than the standard approach of reading the intermediate attention matrix from HBM
 - One more, kernel fusioni
 	- GPU는 matmal 에 최적화, 근데 실제론 다른 곳에서 시간을 더 쓰고 있음
 	- 이러한 연산..
