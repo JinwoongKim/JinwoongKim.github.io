@@ -87,7 +87,7 @@ FlashAttention 1 의 풀네임은 "FlashAttention: Fast and Memory-Efficient Exa
 	- 두 번째 tweak
 		- <img width="600" alt="Pasted image 20240313211551" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/7e2364a6-43d0-44eb-858a-c0d8db7ffc2a">
 - Parallelism
-	- <img width="894" alt="image" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/6d78acd1-25e4-4736-abf3-63a47c82f4ec">
+	- <img width="600" alt="image" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/6d78acd1-25e4-4736-abf3-63a47c82f4ec">
 
 - Work Partitioning Between Warps
 	- <img width="700" alt="Pasted image 20240313211646" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/01d2f8f6-5059-4224-9e4d-85bcd91e0f0a">
@@ -95,11 +95,15 @@ FlashAttention 1 의 풀네임은 "FlashAttention: Fast and Memory-Efficient Exa
 ## 결과
 - A100, H100에서 실험
 	- H100은 코드 변경 없이 그냥 수행만
-	- [ ] GPU 몇개?
+	- [ ] GPU 몇개?쓴겨?
+- [ ] 전체 학습 성능이 아닌듯?
+- Triton 은 Nvidia Triton 이 아님.
+	- Harvar
 
 그래프 분석
 - X축은 문자열 길이
 - Y축은 학습 성능. 클 수록 좋음
+- 
 ### A100
 
 
