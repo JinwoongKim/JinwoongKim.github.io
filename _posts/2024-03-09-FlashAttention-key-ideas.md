@@ -70,9 +70,11 @@ FlashAttention 1 의 풀네임은 "FlashAttention: Fast and Memory-Efficient Exa
 		- Forward pass 이론 최대 FLOPs/s의 30-50%, backward pass는 25-35%
 ## 원인
 - 불필요한 연산
-- 
+- GPU 튜닝 덜 됨
 
 ## 해결
+- Tweak algorithm
+- 
 tweak
 more blocks
 warp 순서 바꾸기
