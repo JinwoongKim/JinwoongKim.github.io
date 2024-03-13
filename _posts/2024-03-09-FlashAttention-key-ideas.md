@@ -109,9 +109,9 @@ FlashAttention 1 의 풀네임은 "FlashAttention: Fast and Memory-Efficient Exa
 
 
 <img width="930" alt="Pasted image 20240314082805" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/56029e54-29ff-4adf-a7af-ba48a0120776">
+<img width="962" alt="image" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/6ac0d496-6eb0-4181-8677-ca59d78d6ce3">
 ### H100
 <img width="941" alt="Pasted image 20240314082823" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/e5420a48-de02-4d37-bf62-7c0a7dcc9fdf">
-
 
 
 
