@@ -31,7 +31,7 @@ FlashAttention 1 의 풀네임은 "FlashAttention: Fast and Memory-Efficient Exa
 - 트랜스포머 기반 LLM 모델의 경우 문자열의 길이가 매우 제한적이다.
 - 문자열의 길이가 제한적이라 더 긴 문장이나 이미지 등을 학습 할 수 없다.
 ## 원인
-- 어텐션 행렬의 시간, 공간 복잡도가 N<sup>2</sup> (N = 토큰 갯 수) 라서, 문자열의 길이를 늘리는게 어렵다.
+- 어텐션 행렬의 시간, 공간 복잡도가 N<sup>2</sup> (N = 토큰 갯 수) 라서, 문자열의 길이를 늘리면, 시간은 제곱 배 
 	- ![[blog/images/Pasted image 20240309102820.png]]
 ## 해결
 - Tiling (소프트맥스 병렬화를 통한 속도 향상)
