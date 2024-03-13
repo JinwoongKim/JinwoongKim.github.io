@@ -64,12 +64,11 @@ FlashAttention 1 의 풀네임은 "FlashAttention: Fast and Memory-Efficient Exa
 - https://www.youtube.com/watch?v=gMOAud7hZg4
 
 
+# FlashAttention 2
 
-
-
-# flash 2
 
 ## 문제
+
 
 ## 원인
 
