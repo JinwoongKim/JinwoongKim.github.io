@@ -33,9 +33,6 @@ FlashAttention 1 의 풀네임은 "FlashAttention: Fast and Memory-Efficient Exa
 ## 원인
 - 어텐션 행렬의 시간, 공간 복잡도가 N<sup>2</sup> (N = 토큰 갯 수) 라서, 문자열의 길이를 늘리는게 어렵다.
 	- ![[blog/images/Pasted image 20240309102820.png]]
-
-- 그게 메모리 엑세스임
-- 예전 자료에서도 설명했지만..
 ![[blog/images/Pasted image 20240309103611.png]]
 
 ## 해결
