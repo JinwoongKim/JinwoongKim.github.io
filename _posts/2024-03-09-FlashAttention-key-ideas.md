@@ -81,6 +81,7 @@ FlashAttention 1 의 풀네임은 "FlashAttention: Fast and Memory-Efficient Exa
 	- ![[blog/images/Pasted image 20240313202855.png]]
 	- FlashAttention 2
 	- ![[blog/images/Pasted image 20240313202910.png]]
+	- P<sup>(1)</sup>가 사라짐 
 tweak
 more blocks
 warp 순서 바꾸기
