@@ -91,15 +91,15 @@ FlashAttention 1 의 풀네임은 "FlashAttention: Fast and Memory-Efficient Exa
 
 - Work Partitioning Between Warps
 	- <img width="700" alt="Pasted image 20240313211646" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/01d2f8f6-5059-4224-9e4d-85bcd91e0f0a">
-	- 
-
 
 ## 결과
 - A100, H100에서 실험
 	- H100은 코드 변경 없이 그냥 수행만
 	- [ ] GPU 몇개?
-- 
-- Y축이 클 수록 좋음
+
+그래프 분석
+- X축은 문자열 길이
+- Y축은 학습 성능. 클 수록 좋음
 ### A100
 
 
