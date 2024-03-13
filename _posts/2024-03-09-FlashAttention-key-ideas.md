@@ -35,14 +35,13 @@ FlashAttention 1 의 풀네임은 "FlashAttention: Fast and Memory-Efficient Exa
 	- ![[blog/images/Pasted image 20240309102820.png]]
 ## 해결
 - Tiling (소프트맥스 병렬화를 통한 속도 향상)
-	- restructure algorithm to load block by block from HBM to SRAM to compute attention
-	- ## Tiling (speed up)
-![[blog/images/Pasted image 20240309105731.png]]
-- recomputation
+	- SRAM 의 사이즈에 맞게 어텐션 행렬을 자른 후, SM에 할당, 블락이 수행하게 함
+	- ![[blog/images/Pasted image 20240309105731.png|500]]
+- Recomputation
 	- don't store attn, matrix from forward, recompute it in the backward
 	- 
-- 
-- 그러다보니, GPU는 matmal 에 최적화, 근데 실제론 다른 곳에서 시간을 더 쓰고 있음
+- One more, kernel fusioni
+	- - 그러다보니, GPU는 matmal 에 최적화, 근데 실제론 다른 곳에서 시간을 더 쓰고 있음
 - ![[blog/images/Pasted image 20240309103137.png|200]]
 
 
