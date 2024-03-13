@@ -33,11 +33,11 @@ FlashAttention 1 의 풀네임은 "FlashAttention: Fast and Memory-Efficient Exa
 ## 원인
 - 어텐션 행렬의 시간, 공간 복잡도가 N<sup>2</sup> (N = 토큰 갯 수) 라서, 문자열의 길이를 늘리는게 어렵다.
 	- ![[blog/images/Pasted image 20240309102820.png]]
-![[blog/images/Pasted image 20240309103611.png]]
-
 ## 해결
 - tiling
 	- restructure algorithm to load block by block from HBM to SRAM to compute attention
+	- ## Tiling (speed up)
+![[blog/images/Pasted image 20240309105731.png]]
 - recomputation
 	- don't store attn, matrix from forward, recompute it in the backward
 	- 
@@ -45,8 +45,7 @@ FlashAttention 1 의 풀네임은 "FlashAttention: Fast and Memory-Efficient Exa
 - 그러다보니, GPU는 matmal 에 최적화, 근데 실제론 다른 곳에서 시간을 더 쓰고 있음
 - ![[blog/images/Pasted image 20240309103137.png|200]]
 
-## Tiling (speed up)
-![[blog/images/Pasted image 20240309105731.png]]
+
 
 - Online normalizer softmax
 - tiling
