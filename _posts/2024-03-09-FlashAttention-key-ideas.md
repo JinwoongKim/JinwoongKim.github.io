@@ -76,7 +76,7 @@ FlashAttention 1 의 풀네임은 "FlashAttention: Fast and Memory-Efficient Exa
 	- 19.5 TFLOPS/s of non-matmul FP32
 ## 해결
 - Tweak algorithm
-- 
+	- 
 tweak
 more blocks
 warp 순서 바꾸기
