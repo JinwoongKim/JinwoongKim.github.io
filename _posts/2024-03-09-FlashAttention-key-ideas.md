@@ -28,16 +28,12 @@ FlashAttention 1 의 풀네임은 "FlashAttention: Fast and Memory-Efficient Exa
 사설이 길었는데, 이 논문은 제목에서 알 수 있다시피 IO, read/write 관련 최적화 논문이며, 그 중에서도 GPU의 메모리 구조를 파악하고 최적화 한 논문이다. [앞선 글](http://jinwoongkim.net/gpu/%EC%95%8C%EC%93%B8G%EC%9E%A1-GPU-%EB%A9%94%EB%AA%A8%EB%A6%AC-%EB%B0%8F-%EC%93%B0%EB%A0%88%EB%93%9C-%EA%B5%AC%EC%A1%B0/#gpu-%EB%82%B4%EB%B6%80-%EA%B5%AC%EC%A1%B0) 에서 설명했듯이 GPU의 메모리는 (단순화하면) 작지만 빠른 on-chip과 느리지만 큰 off-chip 으로 구성되어 있다. 저자는 이러한 구조를 이해하지 않고 GPU 프로그래밍을 하면 최대 성능을 이끌어 낼 수 없다고 하며, 이러한 구조에 최적화된 형태의 알고리즘을 제안한다.
 
 ## 문제
-- 트랜스포머 기반 LLM 모델의 경우 문자열의 길이가 제한적이다. (이때는 더더욱)
+- 트랜스포머 기반 LLM 모델의 경우 문자열의 길이가 매우 제한적이다.
 - 문자열의 길이가 제한적이라 더 긴 문장이나 이미지 등을 학습 할 수 없다.
 ## 원인
-![[blog/images/Pasted image 20240309102820.png]]
-- 트랜스포머 기반 LLM 모델의 경우 어텐션 행렬의 시간, 공간 복잡도가 N<sup>2</sup> (N = 토큰 갯 수) 라서, 문자열의 길이를 늘리는게 어렵다고 합니다.
-- Attention 은 매우 핵심
-- 근데 앞서 말했듯이 sequence length에 N*N임
-- 
-- 그러다보니, GPU는 matmal 에 최적화, 근데 실제론 다른 곳에서 시간을 더 쓰고 있음
-- ![[blog/images/Pasted image 20240309103137.png|200]]
+- 어텐션 행렬의 시간, 공간 복잡도가 N<sup>2</sup> (N = 토큰 갯 수) 라서, 문자열의 길이를 늘리는게 어렵다.
+	- ![[blog/images/Pasted image 20240309102820.png]]
+
 - 그게 메모리 엑세스임
 - 예전 자료에서도 설명했지만..
 ![[blog/images/Pasted image 20240309103611.png]]
@@ -47,6 +43,10 @@ FlashAttention 1 의 풀네임은 "FlashAttention: Fast and Memory-Efficient Exa
 	- restructure algorithm to load block by block from HBM to SRAM to compute attention
 - recomputation
 	- don't store attn, matrix from forward, recompute it in the backward
+	- 
+- 
+- 그러다보니, GPU는 matmal 에 최적화, 근데 실제론 다른 곳에서 시간을 더 쓰고 있음
+- ![[blog/images/Pasted image 20240309103137.png|200]]
 
 ## Tiling (speed up)
 ![[blog/images/Pasted image 20240309105731.png]]
