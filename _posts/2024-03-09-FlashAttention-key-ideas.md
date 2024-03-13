@@ -84,8 +84,10 @@ FlashAttention 1 의 풀네임은 "FlashAttention: Fast and Memory-Efficient Exa
 		- FlashAttention 2
 		- ![[blog/images/Pasted image 20240313202910.png]]
 	- 두 번째 tweak
-		- 
-tweak
+		- ![[blog/images/Pasted image 20240313211551.png]]
+- parallelism
+- Work Partitioning Between Warps
+	- 
 more blocks
 warp 순서 바꾸기
 
