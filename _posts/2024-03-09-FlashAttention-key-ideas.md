@@ -69,9 +69,8 @@ FlashAttention 1 의 풀네임은 "FlashAttention: Fast and Memory-Efficient Exa
 	- 아직 GPU 를 많이 못 쓰고 있다.
 		- Forward pass 이론 최대 FLOPs/s의 30-50%, backward pass는 25-35%
 ## 원인
-- 불필요한 연산
-- GPU 튜닝 덜 됨
-
+- GPU 는 matmul 연산을 잘 하는데, 알고리즘 튜닝이 덜 됐다.
+- GPU 쓰레드 및 컨셉이 ...?
 ## 해결
 - Tweak algorithm
 - 
