@@ -63,7 +63,7 @@ FlashAttention 1 의 풀네임은 "FlashAttention: Fast and Memory-Efficient Exa
 
 
 # FlashAttention 2 (23.07.18)
-- FlashAttention, Forward pass 30-50% of the
+- FlashAttention, Forward pass 이론 최대 FLOPs/s의 30-50%, backward pass는 25-35%
 
 ## 문제
 
