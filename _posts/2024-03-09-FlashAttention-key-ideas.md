@@ -51,7 +51,8 @@ FlashAttention 1 의 풀네임은 "FlashAttention: Fast and Memory-Efficient Exa
 
 - Recomputation (어탠션 행렬을 저장하지 않고, backward 일때 다시 계산)
 	- We store the softmax normalization factor from the forward pass to quickly recompute attention on-chip in the backward pass, which is faster than the standard approach of reading the intermediate attention matrix from HBM
-- One more, kernel fusioni
+- One more, kernel fusion
+	- 첫 번째로 지적하는 것은, performance breakdown
 	- GPU는 matmal 에 최적화, 근데 실제론 다른 곳에서 시간을 더 쓰고 있음
 	- <img width="261" alt="Pasted image 20240309103011" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/122e8fd1-8948-4777-bb56-0ac4333465c6">
 
