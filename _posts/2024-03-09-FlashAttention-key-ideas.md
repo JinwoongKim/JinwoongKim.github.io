@@ -95,10 +95,10 @@ FlashAttention 1 의 풀네임은 "FlashAttention: Fast and Memory-Efficient Exa
 ## 결과
 - A100, H100에서 실험
 	- H100은 코드 변경 없이 그냥 수행만
-	- [ ] GPU 몇개?쓴겨?
+	- GPU는 각 1개씩 쓴듯
 - Triton 은 Nvidia Triton 이 아님.
 	- Harvard에서 나온 OpenAI 꺼
-- Causal mask
+- Causal mask 유무, head dimension 수 차이에 딸
 
 그래프 분석
 - X축은 문자열 길이
