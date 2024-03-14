@@ -86,8 +86,8 @@ FlashAttention 1 의 풀네임은 "FlashAttention: Fast and Memory-Efficient Exa
 	- 312 TFLOPS/s of FP16/BE16 matmul
 	- 19.5 TFLOPS/s of non-matmul FP32
 ## 해결
-- Tweak algorithm
-	- non-matmul 연산 최소화
+### 1. Tweak algorithm
+non-matmul 연산 최소화
 <img width="700" alt="Pasted image 20240313204524" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/0093e4eb-a873-4109-aecd-7805786d1bdc">
 첫 번째 tweak
 FlashAttention 1
@@ -99,12 +99,17 @@ FlashAttention 2
  <img width="600" alt="Pasted image 20240313202910" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/84b54db7-cd97-4242-80fa-1fa6540db34c">
 
 두 번째 tweak
-		- <img width="600" alt="Pasted image 20240313211551" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/7e2364a6-43d0-44eb-858a-c0d8db7ffc2a">
-- Parallelism
-	- <img width="600" alt="image" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/6d78acd1-25e4-4736-abf3-63a47c82f4ec">
 
-- Work Partitioning Between Warps
-	- <img width="700" alt="Pasted image 20240313211646" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/01d2f8f6-5059-4224-9e4d-85bcd91e0f0a">
+<img width="600" alt="Pasted image 20240313211551" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/7e2364a6-43d0-44eb-858a-c0d8db7ffc2a">
+
+### Parallelism
+
+<img width="600" alt="image" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/6d78acd1-25e4-4736-abf3-63a47c82f4ec">
+
+
+### Work Partitioning Between Warps
+
+<img width="700" alt="Pasted image 20240313211646" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/01d2f8f6-5059-4224-9e4d-85bcd91e0f0a">
 
 ## 결과
 - A100, H100에서 실험
@@ -118,7 +123,6 @@ Graph reading guide
 - X축은 문자열 길이
 - Y축은 학습 성능. 클 수록 좋음
 ### A100
-
 
 <img width="930" alt="Pasted image 20240314082805" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/56029e54-29ff-4adf-a7af-ba48a0120776">
 <img width="962" alt="image" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/6ac0d496-6eb0-4181-8677-ca59d78d6ce3">
