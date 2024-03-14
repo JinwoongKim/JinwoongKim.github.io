@@ -65,20 +65,10 @@ FlashAttention 1 의 풀네임은 "FlashAttention: Fast and Memory-Efficient Exa
 <img width="1174" alt="Pasted image 20240309110131" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/6eb6117f-37fc-450b-9d65-4a53876e8fdc">
 <img width="1259" alt="Pasted image 20240309110150" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/f3868427-8c2a-4420-aced-9e3927479e7b">
 <img width="1235" alt="Pasted image 20240309110203" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/9b69e3fc-25d6-4589-8d6f-cfe2906f2f85">
-<img width="1292" alt="Pasted image 20240309110209" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/b0c66bc2-f981-40f4-8033-f0387472131c">
-<img width="1265" alt="Pasted image 20240309110230" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/e5ada5c1-3c14-4ebd-94a2-dd7efd9788c8">
+<img width="600" alt="Pasted image 20240309110209" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/b0c66bc2-f981-40f4-8033-f0387472131c">
+<img width="600" alt="Pasted image 20240309110230" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/e5ada5c1-3c14-4ebd-94a2-dd7efd9788c8">
 
-
-
-![[blog/images/Pasted image 20240309110044.png]]
-![[blog/images/스크린샷 2024-03-09 11.00.57.png]]
-
-![[blog/images/Pasted image 20240309110131.png]]
-![[blog/images/Pasted image 20240309110150.png]]
-
-![[blog/images/Pasted image 20240309110209.png]]
-![[blog/images/Pasted image 20240309110230.png]]
-###  참고
+##  참고
 - https://www.youtube.com/watch?v=FThvfkXWqtE 
 - https://www.youtube.com/watch?v=gMOAud7hZg4
 
