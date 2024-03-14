@@ -32,7 +32,7 @@ FlashAttention 1 의 풀네임은 "FlashAttention: Fast and Memory-Efficient Exa
 - 문자열의 길이가 제한적이라 더 긴 문장이나 이미지 등을 학습 할 수 없다.
 ## 원인
 - 어텐션 행렬의 시간, 공간 복잡도가 N<sup>2</sup> (N = 토큰 갯 수) 라서, 문자열의 길이를 늘리기 어렵다. → Long latency, OOM
-	- <img width="600" alt="Pasted image 20240309102820" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/dae74d1b-0331-458e-b552-079df167ab30">
+<img width="600" alt="Pasted image 20240309102820" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/dae74d1b-0331-458e-b552-079df167ab30">
 
 ## 해결
 - Tiling (소프트맥스 병렬화를 통한 속도 향상)
