@@ -54,7 +54,8 @@ FlashAttention 1 의 풀네임은 "FlashAttention: Fast and Memory-Efficient Exa
 - One more, kernel fusion
 	- 첫 번째로 지적하는 것은, performance breakdown
 	- 두 번째는 위의 알고리즘이 커널 퓨전을 가능하게 하여 최적화
-	- <img width="261" alt="Pasted image 20240309103011" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/122e8fd1-8948-4777-bb56-0ac4333465c6">
+
+<img width="261" alt="Pasted image 20240309103011" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/122e8fd1-8948-4777-bb56-0ac4333465c6">
 
 ## 결과
 - 스피드업
@@ -79,12 +80,14 @@ FlashAttention 1 의 풀네임은 "FlashAttention: Fast and Memory-Efficient Exa
 - FlashAttention 이 아직 최적화가 덜 되었다.
 	- 아직 GPU 를 많이 못 쓰고 있다.
 		- Forward pass 이론 최대 FLOPs/s의 30-50%, backward pass는 25-35%
+
 ## 원인
 - 알고리즘적, 하드웨어(GPU)적 최적화가 덜 진행 됨
 - 자세한 건 아래에서 설명
 - 매우 큰 A100의 matmul/non-matmul 성능 차이
 	- 312 TFLOPS/s of FP16/BE16 matmul
 	- 19.5 TFLOPS/s of non-matmul FP32
+
 ## 해결
 ### 1. Tweak algorithm
 non-matmul 연산 최소화
