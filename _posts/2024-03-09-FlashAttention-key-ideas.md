@@ -98,12 +98,11 @@ FlashAttention 1 의 풀네임은 "FlashAttention: Fast and Memory-Efficient Exa
 	- GPU는 각 1개씩 쓴듯
 - Triton 은 Nvidia Triton 이 아님.
 	- Harvard에서 나온 OpenAI 꺼
-- Causal mask 유무, head dimension 수 차이에 딸
+- Causal mask 유무, head dimension 수 차이에 따른 실험함
 
-그래프 분석
+Graph reading guide
 - X축은 문자열 길이
 - Y축은 학습 성능. 클 수록 좋음
-- 
 ### A100
 
 
@@ -112,10 +111,10 @@ FlashAttention 1 의 풀네임은 "FlashAttention: Fast and Memory-Efficient Exa
 ### H100
 <img width="941" alt="Pasted image 20240314082823" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/e5420a48-de02-4d37-bf62-7c0a7dcc9fdf">
 
-
-
-
-
+# 결론
+- GPU의 on-chip 메모리를 최대한 활용해야 한다.
+- non-matmul 연산 줄어야 한다.
+- 아직도 할 거 많다.
 
 
 
