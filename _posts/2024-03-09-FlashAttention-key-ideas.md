@@ -105,12 +105,12 @@ FlashAttention 2
 
 <img width="600" alt="Pasted image 20240313211551" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/7e2364a6-43d0-44eb-858a-c0d8db7ffc2a">
 
-### Parallelism
+### 2. Parallelism
 
 <img width="600" alt="image" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/6d78acd1-25e4-4736-abf3-63a47c82f4ec">
 
 
-### Work Partitioning Between Warps
+### 3. Work Partitioning Between Warps
 
 <img width="700" alt="Pasted image 20240313211646" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/01d2f8f6-5059-4224-9e4d-85bcd91e0f0a">
 
