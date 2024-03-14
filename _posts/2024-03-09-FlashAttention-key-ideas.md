@@ -111,7 +111,8 @@ FlashAttention 2
 
 
 ### 3. Work Partitioning Between Warps
-
+- 간단하지만 효과적인 최적화 방법
+- 소프트맥스 값을 구하고 V를 곱해야 하는데 기존 방식(왼쪽)은 row-wise 한 최종
 <img width="700" alt="Pasted image 20240313211646" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/01d2f8f6-5059-4224-9e4d-85bcd91e0f0a">
 
 ## 결과
