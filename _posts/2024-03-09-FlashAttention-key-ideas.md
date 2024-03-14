@@ -32,15 +32,16 @@ FlashAttention 1 의 풀네임은 "FlashAttention: Fast and Memory-Efficient Exa
 - 문자열의 길이가 제한적이라 더 긴 문장이나 이미지 등을 학습 할 수 없다.
 ## 원인
 - 어텐션 행렬의 시간, 공간 복잡도가 N<sup>2</sup> (N = 토큰 갯 수) 라서, 문자열의 길이를 늘리기 어렵다. → Long latency, OOM
-	- <img width="1318" alt="Pasted image 20240309102820" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/dae74d1b-0331-458e-b552-079df167ab30">
+	- <img width="600" alt="Pasted image 20240309102820" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/dae74d1b-0331-458e-b552-079df167ab30">
 
 ## 해결
 - Tiling (소프트맥스 병렬화를 통한 속도 향상)
 	- SRAM 의 사이즈에 맞게 어텐션 행렬을 자른 후, SM에 할당, 블락 병렬로 수행
-	- <img src="images/Pasted image 20240309105731.png">
-	- ![[blog/images/Pasted image 20240309105731.png|500]]
+	- <img width="370" alt="Pasted image 20240309105731" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/339a849e-f250-4c02-bf39-70550026df00">
+
 	- HBM 접근 횟수 감소가 목표
-	- ![[blog/images/Pasted image 20240313174625.png]]
+<img width="283" alt="Pasted image 20240313174625" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/f7dba2ec-47ed-4672-9f26-4e947d823113">
+
 - Recomputation (어탠션 행렬을 저장하지 않고, backward 일때 다시 계산)
 	- We store the softmax normalization factor from the forward pass to quickly recompute attention on-chip in the backward pass, which is faster than the standard approach of reading the intermediate attention matrix from HBM
 - One more, kernel fusioni
