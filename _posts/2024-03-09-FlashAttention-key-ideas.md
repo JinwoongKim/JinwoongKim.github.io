@@ -112,7 +112,8 @@ FlashAttention 2
 
 ### 3. Work Partitioning Between Warps
 - 간단하지만 효과적인 최적화 방법
-- 소프트맥스 값을 구하고 V를 곱해야 하는데 기존 방식(왼쪽)은 warp 1 이 연산을 끝냈더라도, warp 2,3,4 가 모두 K 모두 끝나야 
+- Warp 1 입장에서 담당한 row에 대해서 소프트맥스 값을 구하고 V를 곱해야 하는데, 기존 방식(왼쪽)은 warp 1 이 연산을 끝냈더라도, warp 2,3,4 가 모두 K에 대한 연산을 끝내야 하므로 기다렸어야 함
+- 하지만 오른쪽은 아
 <img width="700" alt="Pasted image 20240313211646" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/01d2f8f6-5059-4224-9e4d-85bcd91e0f0a">
 
 ## 결과
