@@ -38,8 +38,10 @@ FlashAttention 1 의 풀네임은 "FlashAttention: Fast and Memory-Efficient Exa
 
 ## 해결
 - Tiling (소프트맥스 병렬화를 통한 속도 향상)
-	- SRAM 의 사이즈에 맞게 어텐션 행렬을 자른 후 여러 개의 쓰레드 블럭으로 병블락 병렬로 수행
-	- <img width="370" alt="Pasted image 20240309105731" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/339a849e-f250-4c02-bf39-70550026df00">
+	- SRAM 의 사이즈에 맞게 어텐션 행렬을 자른 후 여러 개의 쓰레드 블럭으로 병렬 수행
+	- 각 블럭 병렬 수행 후 리스케일링을 통해 정확한 소프트맥스 값 도출
+
+<img width="700" alt="Pasted image 20240309105731" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/339a849e-f250-4c02-bf39-70550026df00">
 
 	- HBM 접근 횟수 감소가 목표
 <img width="283" alt="Pasted image 20240313174625" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/f7dba2ec-47ed-4672-9f26-4e947d823113">
