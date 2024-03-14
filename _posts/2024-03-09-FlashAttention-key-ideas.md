@@ -45,7 +45,8 @@ FlashAttention 1 의 풀네임은 "FlashAttention: Fast and Memory-Efficient Exa
 <img width="700" alt="Pasted image 20240309105731" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/339a849e-f250-4c02-bf39-70550026df00">
 
 - 아래 그래프는 블럭 사이즈(갯수 같음)를 늘리며 HBM 접근 횟수가 얼마나 줄어드는가를 실험한 그래프
-	- 블럭 갯수를 늘리면, SM 활용도가 올라가고, SRAM 활용도도 같이 올라감. 하지만 SM이 홀딩 할 수 있는 블럭의 갯수가 한계가 있으므로 그 이상으론 ㅂ
+	- 블럭 갯수를 늘리면, SM 활용도가 올라가고, SRAM 활용도도 같이 올라감.
+	- 하지만 SM이 갯수가 제한적이고, 결국 최후에 커뮤니케이션 홀딩 할 수 있는 블럭의 갯수가 한계가 있으므로 그 이상으론 블럭을 만들어도 성능이 좋아지진 않음.
 <img width="500" alt="Pasted image 20240313174625" src="https://github.com/JinwoongKim/JinwoongKim.github.io/assets/12505517/f7dba2ec-47ed-4672-9f26-4e947d823113">
 
 - Recomputation (어탠션 행렬을 저장하지 않고, backward 일때 다시 계산)
