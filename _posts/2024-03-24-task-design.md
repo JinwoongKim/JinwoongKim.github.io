@@ -1,6 +1,6 @@
 ---
 title: Task design
-categories: 
+categories: thought
 tags: 
 published: false
 ---
