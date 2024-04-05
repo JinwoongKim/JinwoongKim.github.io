@@ -1,7 +1,9 @@
 ---
-title: 템플릿
-categories: 
-tags: 
+title: Task management & planning
+categories: thought
+tags:
+  - task_management
+  - task_planning
 published: false
 ---
 측정 할 수 없으면 관리 할 수 없고, 관리 할 수 없으면 개선 할 수 없다
