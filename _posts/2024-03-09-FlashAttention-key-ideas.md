@@ -1,10 +1,11 @@
 ---
 title: "[논문리뷰] FlashAttention 주요 아이디어 공유"
-categories: review
+categories: papers
 tags:
   - FlashAttention
   - GPU
   - Optimization
+  - 논문리뷰
 published: true
 ---
 앞선 글들에서 [GPU 구조](http://jinwoongkim.net/gpu/알쓸G잡-GPU-메모리-및-쓰레드-구조/) 및 [최적화](http://jinwoongkim.net/gpu/알쓸G잡-GPU-Trick-or-Tweak/), [소프트맥스 병렬화](http://jinwoongkim.net/papers/paper-review-online-softmax/) 등을 다루어 보았다. 이러한 글들을 다루게 된 계기는 여럿 있었지만 그 중 하나는 **GPU-aware 한 딥러닝 최적화 논문들을 리뷰하기 위함**이었다.
