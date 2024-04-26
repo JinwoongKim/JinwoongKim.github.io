@@ -3,11 +3,11 @@ title: 엔지니어 레벨 분류
 categories: archive
 tags:
   - 엔지니어레벨분류
-published: false
+published: true
 ---
 프론트 엔드 핸드북을 보다가 (https://frontendmasters.com/guides/front-end-handbook/2024/), 공감이 가는 엔지니어 레벨 분류가 있어서 퍼옴
 
-꼭 프론트가 ㅇㄴ
+꼭 프론트가 아니더라도 맞는 것 같아서.
 
 | Level                           | Description                                                                                                 |
 | ------------------------------- | ----------------------------------------------------------------------------------------------------------- |
