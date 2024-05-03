@@ -8,3 +8,5 @@ published: false
 
 > I cannot remember the books I've read any more than the meals I have eaten; even so, they have made me.
 > - Ralph Waldo Emerson
+
+https://news.hada.io/topic?id=14506&utm_source=slack&utm_medium=bot&utm_campaign=T03FE7QJV
