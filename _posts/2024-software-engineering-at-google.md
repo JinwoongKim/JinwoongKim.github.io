@@ -16,4 +16,4 @@ published: false
 ## Chapter 1 : 소프트웨어 엔지니어링이란?
 - 프로그래밍과 소프트웨어 엔지니어링의 차이
 	- time, scale, trade-offs at play
-	- 
+		- tlrksdml gmfmarhk djswpsrk qusrudehlf rksm
