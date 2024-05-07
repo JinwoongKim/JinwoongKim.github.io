@@ -16,4 +16,6 @@ published: false
 ## Chapter 1 : 소프트웨어 엔지니어링이란?
 - 프로그래밍과 소프트웨어 엔지니어링의 차이
 	- time, scale, trade-offs at play
-		- tlrksdml gmfmarhk djswpsrk qusrudehlf rksm
+		- 시간의 흐름과 언젠가 변경될 가능성에 신경
+		- 소프트웨어 자체뿐 아니라 조직까지 확장과 효율에 집중
+		- 수명과 성장 속도를 측정하기 어려운 상황에서 결과에 영향주는 결정
