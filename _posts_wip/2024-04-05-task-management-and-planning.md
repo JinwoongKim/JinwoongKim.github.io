@@ -6,6 +6,10 @@ tags:
   - task_planning
 published: false
 ---
+2단계 
+한주 40포인트
+어떻게 쓸지 계획하는 단계
+
 
 기억과 기록이 얼마나 맞는지 → 1단계
 
