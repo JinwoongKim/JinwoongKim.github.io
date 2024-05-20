@@ -39,6 +39,5 @@ published: false
 				- 하지만, 아예 할 역량이 없다면?
 					- 미친짓?ㅋ
 	- scale
-		- At the beginning, software engineering is "The multiperson development of multiversion programs"
-		- 여러 버전의 프로그램을 여러 사람이 참여해 개발하는 것
-		- 
+		- 몇 명이 참여하는가?
+		- +time 시간에 따라 
