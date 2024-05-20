@@ -39,4 +39,4 @@ published: false
 				- 하지만, 아예 할 역량이 없다면?
 					- 미친짓?ㅋ
 	- scale
-	- 
+		- At the beginning, software engineering is "The multiperson de"
