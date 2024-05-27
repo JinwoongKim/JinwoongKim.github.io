@@ -6,4 +6,4 @@ tags:
   - cheatsheet
 published: true
 ---
-https://devhints.io/bash
+[https://devhints.io/bash](https://devhints.io/bash)
