@@ -11,10 +11,12 @@ vLLM 논문 리뷰
 SOSP에 등재되었다고 해서 찾아봄
 Ion Stoica, AMPLab,... 아주 쟁쟁하네 하며 봤는데 novelty가 엄청 높진 않다..
 
-# 1. Goals
-# 2. Problems
+# 1. Goal
+- Main goal은 GPU 메모리 효율을 높여서 배치 사이즈를 늘리는 것
+- 부차적으론, 여러가지 최적화 기법을 통해 latency도 낮추
+# 2. Problem
 
-# 3. Causes
+# 3. Cause
 
 # 4. Proposal
 
