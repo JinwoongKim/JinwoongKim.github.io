@@ -1,8 +1,12 @@
 ---
-title: "[논문리뷰] FlashAttention 주요 아이디어 공유"
+title: "[논문리뷰] Efficient Memory Management for Large Language Model Serving with PagedAttention"
 categories: papers
 tags:
   - vLLM
   - 논문리뷰
 published: false
 ---
+vLLM 논문 리뷰
+별생각 없었는데 써보는 사람들이 생각보다 호환이 잘 된다고 하고
+SOSP에 등재되었다고 해서 찾아봄
+Ion Stoica, amplab.
