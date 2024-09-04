@@ -13,11 +13,13 @@ Ion Stoica, AMPLab,... 아주 쟁쟁하네 하며 봤는데 novelty가 엄청 �
 
 # 1. Goal
 - Main goal은 GPU 메모리 효율을 높여서 배치 사이즈를 늘리는 것
-- 부차적으론, 여러가지 최적화 기법을 통해 latency도 낮췄다.
+	- 부차적으론, 여러가지 최적화 기법을 통해 latency도 낮췄다.
 # 2. Problem
-- KV cache 를 사용하는 LLM 기반의 인퍼런스의 경우 배치 사이즈를 쉬이 키우지 못하는 것을 문제로 지적하고 있다.
+- KV cache 를 사용하는 LLM 기반의 인퍼런스의 경우 배치 사이즈를 쉬이 키우지 못하는 것
+
+![[blog/images/Pasted image 20240904212513.png]]
 # 3. Cause
-- 이러한 문제를 야기하는 원인으로는 KV cache 의 비효율적인 메
+- 이러한 문제를 야기하는 원인으로는 KV cache 
 - 
 
 # 4. Proposal
