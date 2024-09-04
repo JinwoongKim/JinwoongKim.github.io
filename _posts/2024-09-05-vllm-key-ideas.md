@@ -15,7 +15,7 @@ Ion Stoica, AMPLab,... 아주 쟁쟁하네 하며 봤는데 novelty가 엄청 �
 - Main goal은 GPU 메모리 효율을 높여서 배치 사이즈를 늘리는 것
 - 부차적으론, 여러가지 최적화 기법을 통해 latency도 낮췄다.
 # 2. Problem
-- 본 논문에서는, GPU 메모리가 관리가 그다지 효율적이지 않다는 점을 문제로 삼고 있다.
+- 배치사이즈를 키웠을때 KV 캐시 사이즈가 
 - 그러다 보니 낭비가 되는 메모리가 많고, 그것을 reserved, inter-frag, out-frag로 나누어 설명하고 있다.
 - 
 # 3. Cause
