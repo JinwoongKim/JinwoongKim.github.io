@@ -11,9 +11,15 @@ vLLM 논문 리뷰
 SOSP에 등재되었다고 해서 찾아봄
 Ion Stoica, AMPLab,... 아주 쟁쟁하네 하며 봤는데 novelty가 엄청 높진 않다..
 
-# 1. 목표
-# 2. 문제
+# 1. Goals
+# 2. Problems
 
-# 3. 원인
+# 3. Causes
 
-# 
+# 4. Proposal
+
+# 5. Implementation
+
+# 6. Evaluation
+
+# 7. Discussion
