@@ -6,6 +6,10 @@ tags:
   - 논문리뷰
 published: false
 ---
+https://medium.com/cj-express-tech-tildi/how-does-vllm-optimize-the-llm-serving-system-d3713009fb73
+https://docs.vllm.ai/en/latest/
+
+
 vLLM 논문 리뷰
 별생각 없었는데 써보는 사람들이 생각보다 호환이 잘 된다고 하고
 SOSP에 등재되었다고 해서 찾아봄
