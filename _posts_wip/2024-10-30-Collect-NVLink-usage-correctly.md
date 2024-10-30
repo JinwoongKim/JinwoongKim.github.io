@@ -22,4 +22,6 @@ published: false
 - 아래 코드는 CUDA로 구현한, 1GB 통신하는 코드임
 - 요 코드를 수행후, 해당 지표를 보면 아래와 같이 나옴
 - 그리고 2GB로 늘리고 지표를 봐도 아래처럼 나옴
-- 
+-
+
+https://grafana-service.tossinvest.bz/d/edxcekwheb4zkb/kubeflow-namespace-monitoring?orgId=1&refresh=5s&var-phase=k2_N-t34z&var-namespace=seonghyunkim&var-Service=seonghyunkim-h100-train-2&var-ib_local_name=All
