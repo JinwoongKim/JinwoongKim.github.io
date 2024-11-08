@@ -6,7 +6,8 @@ tags:
   - Efficient-Memory-Management-for-Large-Language-Model-Serving-with-PagedAttention
 published: false
 ---
-**Efficient Memory Management for Large Language Model Serving with PagedAttention**
+
+주위에서 하도 vLLM, vLLM 해서, 뭔가 하고 읽어 봤다. 키 아이디어만 빠르게 읽고 정리해 보았다.
 
 # 1. Problem
 
