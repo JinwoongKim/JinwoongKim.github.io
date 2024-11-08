@@ -8,7 +8,7 @@ published: true
 
 주위에서 하도 vLLM, vLLM 해서, 뭔가 하고 읽어 봤다. 키 아이디어만 빠르게 읽고 정리해 보았다.
 
-논문제목 : Efficient Memory Management for Large Language Model Serving with PagedAttention
+논문 제목 : Efficient Memory Management for Large Language Model Serving with PagedAttention
 
 # 1. 문제
 KV cache 를 사용하는 LLM 기반의 인퍼런스의 경우, 배치 사이즈를 키웠을때 KV cache가 필요로 하는 메모리의 양이 크게 증가하여 **배치사이즈 키우는데 많은 제약이 걸린다.**
@@ -20,7 +20,7 @@ KV cache 를 사용하는 LLM 기반의 인퍼런스의 경우, 배치 사이즈
 이러한 문제를 야기하는 **원인으로는 KV cache 의 비효율적인 메모리 관리**를 꼽는다.
 
 크게 두 가지 특성이 이러한 것들을 야기하는데,
-첫째 연속성, 하나의 request를 위해 꼭 **연속**된 주소의 메모리를 할당 받는다는 것
+첫째 하나의 request를 위해 꼭 **연속**된 주소의 메모리를 할당 받는 연속성,
 둘째 점유성, 할당받은 메모리를 하나의 request가 잠시라도 공유하지 않고 **독점** 하는 것
 를 꼽는다.
 
@@ -86,8 +86,7 @@ KV cache 를 기존처럼 연속된 주소에 할당하지 않고, GPU 메모리
 위에서 제안한 PagedAttention 알고리즘을 통해 동작하는 서빙 엔진을 뜻한다.
 
 다만 vLLM이 극복해야 할 문제들이 아직 남아 있는데,
-
-첫째로 미리 메모리를 할당받지 않아서 생기는 OOM 문제는 스케쥴링 알고리즘으로 해결하였는데, 아래 서술하였다.
+첫째로 미리 메모리를 할당받지 않아서 생기는 OOM 문제는 스케쥴링 알고리즘으로 해결하였다.
 Scheduling and Preemption (논문 4.5 섹션)
 	- swapping : CPU로 evict 했다가 다시 가져오는 방식
 		- evict 하는 단위는 request 내 모든 KV block들. 어차피 한 번에 접근해야 하므로..
