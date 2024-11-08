@@ -88,14 +88,7 @@ block 11이랑 12의 경우 block 0, 1, 3, 7 의 KV 값이 필요한데, 기존 
 
 첫째로 미리 메모리를 할당받지 않아서 생기는 OOM 문제가 있다. 좀 더 자세히 설명하면, vLLM은 그때그때 메모리를 할당 받기 때문에 만약, request가 우연치않게 모두 최대치만큼 토큰을  생성한다면 OOM이 발생 할 수 있다. 이를 해결하기 위해 vLLM은 스케쥴링 알고리즘을 제안하였다.
 
-스케쥴링 알고리즘은 크게 swapping과 recomputation을 
-다.
-Scheduling and Preemption (논문 4.5 섹션)
-	- swapping : CPU로 evict 했다가 다시 가져오는 방식
-		- evict 하는 단위는 request 내 모든 KV block들. 어차피 한 번에 접근해야 하므로..
-		- 이 방식은 하드웨어 성능에 의존적임
-	- recomputation
-		- 다시 계산하는 방식
+스케쥴링 알고리즘은 크게 swapping과 recomputation을 제안하고 있는데, swapping은 CPU로 evict 했다가 다시 가져오는 방식이고, evict 하는 단위는 request 내 모든 KV block들 이다. 이는 어차피 한 번에 접근해야 하기 때문이다. 물론 이 방식은 하드웨어 성능에 의존적이다. recomputation은 말 그대로 다시 계산하는 방식
 		- 다만, 10개의 토큰을 생성하다가 evict 된 경우, 기존 프롬프트에 생성된 토큰을 연결하여 프롬프트로 처리. 해당 10개의 토큰에 대해선 또 다시 생성을 안해도 되는 장점이 있어, evict 횟수만큼 처리 시간이 증가하진 않는다.
 
 둘째로 스케쥴러, 매핑 테이블 등 운영비용과 이로인한 불규칙한 메모리 접근 패턴 등은 GPU 커널 최적화로 해결하였다. 논문에선  섹션 `4. Implementation, kernel-level optimization`을 보면 되는데, 자세한 설명은 되어 있지 않다.
