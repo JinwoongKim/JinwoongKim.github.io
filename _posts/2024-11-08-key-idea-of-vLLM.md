@@ -16,10 +16,8 @@ published: true
 
 <p align="center"> <img width="400" src="https://github.com/user-attachments/assets/386da356-a5ce-4e86-a24d-cb99b59aa961"></p>
 # 2. Cause
-
-- 이러한 문제를 야기하는 **원인으로는 KV cache 의 비효율적인 메모리 관리**를 꼽는다.
-    
-    - 크게 두 가지 특성이 이러한 것들을 야기하는데,
+이러한 문제를 야기하는 **원인으로는 KV cache 의 비효율적인 메모리 관리**를 꼽는다.
+- 크게 두 가지 특성이 이러한 것들을 야기하는데,
     
     1. 연속성 : 하나의 request를 위해 꼭 **연속**된 주소의 메모리를 할당 받는다는 것
     2. 점유성: 할당받은 메모리를 하나의 request가 잠시라도 공유하지 않고 **독점** 하는 것
@@ -47,37 +45,32 @@ published: true
         - 그럼에도 불구하고 기존 방식들은 새로운 토큰을 생성하기 위해, 기존 프롬프트나 토큰들의 KV 값이 연속된 메모리에 있어야 하기 때문에, 각자 복사를 해서 사용했다고 함
 
 # 3. Proposal
-
 - 이러한 문제는 여기서 처음 발생한게 아니다. 대부분의 메모리를 직접 관리해야하는 시스템에서는 흔하게 발생한 일이고, 우리가 아는 보편적인 OS에서는 이를 가상 메모리와 페이징으로 이를 해결 했다.
 - vLLM은 여기서 영감을 받아 KV cache를 **비연속적 paged 메모리에 저장하는 PagedAttention** 알고리즘을 제안하고, 이를 기반으로 동작하는 **분산서빙엔진 vLLM**를 디자인하고 구현함
 
-### **PagedAttention 알고리즘**
-
-- chunking
-    - KV cache 를 기존처럼 연속된 주소에 할당하지 않고, GPU 메모리의 이곳저곳에 저장함
-    - 기존에는 N만큼의 공간이 필요할때, N만큼의 메모리가 연속되어 비어 있지 않으면 할당을 못했는데, 이젠 파편화 되었더라도 N만큼의 메모리가 있다면 할당 가능
-        - 엄밀히 말하면 파편화된 각 메모리가 KV block 보단 커야됨
-    - 대신, 해당 KV cache 들을 접근할때 이를 연결해줄 매핑 테이블이 필요.
-    - 이를 여기선 KV block 테이블이라고 함
-
+## **PagedAttention 알고리즘**
+### chunking
+- KV cache 를 기존처럼 연속된 주소에 할당하지 않고, GPU 메모리의 이곳저곳에 저장함
+- 기존에는 N만큼의 공간이 필요할때, N만큼의 메모리가 연속되어 비어 있지 않으면 할당을 못했는데, 이젠 파편화 되었더라도 N만큼의 메모리가 있다면 할당 가능
+	- 엄밀히 말하면 파편화된 각 메모리가 KV block 보단 커야됨
+- 대신, 해당 KV cache 들을 접근할때 이를 연결해줄 매핑 테이블이 필요.
+- 이를 여기선 KV block 테이블이라고 함
 <p align="center"> <img width="600" src="https://github.com/user-attachments/assets/0b04f51f-e8c7-48ca-b278-2d721c1253e5"></p>
+### sharing
+- Parallel sampling 예시
+	- 기존 시스템에선, 프롬프트가 같은 경우에도, 해당 프롬프트의 KV 값을 복사를 해서 진행해었다고 함
+	- 여기선 logical block은 각자 소유하되, physical block은 하나만 두어 해결
+	- 만약 블럭의 마지막에 다른 토큰이 들어가게 된다면, 그때 블럭을 하나 더 복사하여 해결
 
-- sharing
-    - Parallel sampling 예시
-        - 기존 시스템에선, 프롬프트가 같은 경우에도, 해당 프롬프트의 KV 값을 복사를 해서 진행해었다고 함
-        - 여기선 logical block은 각자 소유하되, physical block은 하나만 두어 해결
-        - 만약 블럭의 마지막에 다른 토큰이 들어가게 된다면, 그때 블럭을 하나 더 복사하여 해결
+<p align="center"> <img width="600" src="https://github.com/user-attachments/assets/5f349f48-d451-47f5-9792-4faea7812d9a"></p>
     
-    <p align="center"> <img width="600" src="https://github.com/user-attachments/assets/5f349f48-d451-47f5-9792-4faea7812d9a"></p>
-    
-    - Beam search 예시
-        - block 11이랑 12의 경우 block 0, 1, 3, 7 의 KV 값이 필요한데, 기존 시스템에선 각각 복사본이 필요했다면, 여기선 같은 블럭을 같이 참조
-    
-    <p align="center"> <img width="600" src="https://github.com/user-attachments/assets/fa11a8c1-82b6-4f16-b18a-80b88db72287"></p>
+- Beam search 예시
+	- block 11이랑 12의 경우 block 0, 1, 3, 7 의 KV 값이 필요한데, 기존 시스템에선 각각 복사본이 필요했다면, 여기선 같은 블럭을 같이 참조
+
+<p align="center"> <img width="600" src="https://github.com/user-attachments/assets/fa11a8c1-82b6-4f16-b18a-80b88db72287"></p>
     
 
 ### **vLLM**
-
 - 위에서 제안한 PagedAttention 알고리즘을 통해 동작하는 서빙 엔진
 	<p align="center"> <img width="600" src="https://github.com/user-attachments/assets/4f3e3e0e-3520-4684-91ac-cd2b9f948d4d"></p>    
 
@@ -93,7 +86,6 @@ published: true
     - 둘째로 스케쥴러, 매핑 테이블 등 운영비용과 이로인한 irregular memory access patterns GPU 커널 최적화로 해결하였다.
 	    - 논문에선 `4. Implementation, kernel-level optimization`을 보면 된다.
     - 마지막으로 적절한 KV block 사이즈를 찾는 것은, 경험적 실험 결과 공유 및 유저가 변경 가능하도록 파라미터화하였다.
-
 
 # 4. Conclusion
 - 엄청 자세히 읽진 않았고, 키 아이디어만 공유하여 약간은 어설픈 글이 되었다.
