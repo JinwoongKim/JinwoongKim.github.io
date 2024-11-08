@@ -38,9 +38,8 @@ published: true
         - `external fragmentation`은 **메모리 할당 사이사이의 뜨는 공간**을 칭한다.
         - 예를 들어, 6인 테이블이 하나 있는데 5명의 손님이 예약을 하고 한 명씩 10분 간격으로 등장을 하고 2명이 노쇼를 했다고 생각해보자.
             - 그렇다면, 아무도 올 가능성이 없는 빈자리 하나는 `external fragmentation` . 올 수 있었지만, 안 온 노쇼 2자리는 `internal fragmentation`, 모두 오긴 하지만 하나씩 자리가 채워지는 3자리는 `reserved` 가 된다.
-<p align="center"> <img width="600" src="https://github.com/user-attachments/assets/114c5a69-2bfa-4fd5-a886-fb1f9e8fea83"></p>
+			<p align="center"> <img width="600" src="https://github.com/user-attachments/assets/114c5a69-2bfa-4fd5-a886-fb1f9e8fea83"></p>
 			- 본 논문에서는 이러한 비효율적인 메모리 관리 체계를 지적하며, 이러한 메모리 낭비가 상당하다고 보여주고 있다. 아래 그림 참조
-			- 
 		 <p align="center"> <img width="400" src="https://github.com/user-attachments/assets/dfc72af7-1936-4ce8-a851-3eec2beb4046"></p>
             
     2. 잦은 메모리 복사
@@ -64,7 +63,6 @@ published: true
 <p align="center"> <img width="600" src="https://github.com/user-attachments/assets/0b04f51f-e8c7-48ca-b278-2d721c1253e5"></p>
 
 - sharing
-    
     - Parallel sampling 예시
         - 기존 시스템에선, 프롬프트가 같은 경우에도, 해당 프롬프트의 KV 값을 복사를 해서 진행해었다고 함
         - 여기선 logical block은 각자 소유하되, physical block은 하나만 두어 해결
@@ -84,7 +82,6 @@ published: true
 	<p align="center"> <img width="600" src="https://github.com/user-attachments/assets/4f3e3e0e-3520-4684-91ac-cd2b9f948d4d"></p>    
 
 - 다만 vLLM이 극복해야 할 문제들이 아직 남아 있는데,
-    
     - 첫째로 미리 메모리를 할당받지 않아서 생기는 OOM 문제는 스케쥴링 알고리즘으로 해결하였는데, 아래 서술하였다.
 	    -  Scheduling and Preemption (논문 4.5 섹션)
 		    - swapping : CPU로 evict 했다가 다시 가져오는 방식
