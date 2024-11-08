@@ -75,17 +75,18 @@ KV cache 를 기존처럼 연속된 주소에 할당하지 않고, 나누어서 
 <p align="center"> <img width="600" src="https://github.com/user-attachments/assets/5f349f48-d451-47f5-9792-4faea7812d9a"></p>
     
 **Beam search 예시** 
-block 11이랑 12의 경우 block 0, 1, 3, 7 의 KV 값이 필요한데, 기존 시스템에선 각각 복사본이 필요했다면, 여기선 같은 블럭을 같이 참조
+block 11이랑 12의 경우 block 0, 1, 3, 7 의 KV 값이 필요한데, 기존 시스템에선 각각 복사본이 필요했다면, 여기선 같은 블럭을 같이 참조 한다.
 
 <p align="center"> <img width="600" src="https://github.com/user-attachments/assets/fa11a8c1-82b6-4f16-b18a-80b88db72287"></p>
     
 
-## **vLLM**
+## **vLLM** (분산서빙엔진)
 
 위에서 제안한 PagedAttention 알고리즘을 통해 동작하는 서빙 엔진을 뜻한다.
 
-다만 vLLM이 극복해야 할 문제들이 아직 남아 있는데,
-첫째로 미리 메모리를 할당받지 않아서 생기는 OOM 문제는 스케쥴링 알고리즘으로 해결하였다.
+다만 vLLM이 극복해야 할 문제들이 아직 남아 있다.
+
+첫째로 미리 메모리를 할당받지 않아서 생기는 OOM 문제가 있다. 좀 더 자세히 설명하면, vLLM은 그때그때 메모리를 할당 받기 때문에 만약, request가 우연치않게 모두 최대치만큼 토큰을  생성는 스케쥴링 알고리즘으로 해결하였다.
 Scheduling and Preemption (논문 4.5 섹션)
 	- swapping : CPU로 evict 했다가 다시 가져오는 방식
 		- evict 하는 단위는 request 내 모든 KV block들. 어차피 한 번에 접근해야 하므로..
