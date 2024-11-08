@@ -1,7 +1,146 @@
 ---
-title: vLLM () 주요 아이디어
+title: vLLM (Efficient Memory Management for Large Language Model Serving with PagedAttention) 주요 아이디어
 categories: papers
 tags:
   - vLLM
+  - Efficient-Memory-Management-for-Large-Language-Model-Serving-with-PagedAttention
 published: false
 ---
+**Efficient Memory Management for Large Language Model Serving with PagedAttention**
+
+# 1. Problem
+
+- KV cache 를 사용하는 LLM 기반의 인퍼런스의 경우, 배치 사이즈를 키웠을때 KV cache가 필요로 하는 메모리의 양이 크게 증가하여 배치사이즈 키우는데 많은 제약이 걸림
+
+![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/a4ca4921-89c4-4c26-9777-1813ff0540b0/2920cd00-494b-4907-98c6-9064185ec5b0/image.png)
+
+# 2. Cause
+
+- 이러한 문제를 야기하는 **원인으로는 KV cache 의 비효율적인 메모리 관리**를 꼽는다.
+    
+    - 크게 두 가지 특성이 이러한 것들을 야기하는데,
+    
+    1. 연속성 : 하나의 request를 위해 꼭 **연속**된 주소의 메모리를 할당 받는다는 것
+    2. 점유성: 할당받은 메모리를 하나의 request가 잠시라도 공유하지 않고 **독점** 하는 것
+    
+    이 있다.
+    
+    - 예를 들어, 2048개의 토큰을 ‘생성할 수 도’있는 모델은, 2048개의 토큰을 저장 할 수 있는 ‘**연속된 메모리’**를 할당받고, request의 전체 생애 동안 해당 메모리(2048개를 저장 할 ‘수도 있는’ 공간)를 자신만이 **‘독점’ 점유**한다.
+        - 만약 parallel sampling을 하거나 beam search를 하게 된다면 더욱 메모리 사용량이 증가한다.
+- 이러한 관리체계가 메모리 효율을 어떻게 떨어뜨릴까?
+    
+    1. 파편화
+        
+        - 이러한 메모리 관리 체계는 크게 3가지의 메모리 낭비(파편화)를 일으키는데, 각각 `reserved`, `internal fragmentation`, `external fragmentation` 라 부른다.
+        - `reserved` 은 **최종적으로 사용되긴 하지만, 그전엔 아무도 못쓰는 공간**을 칭한다. 우리가 실제로 토큰을 생성하더라도 한번에 모든 토큰이 생성되는 것이 아니기 때문에, 마지막으로 생성되는 토큰의 경우 마지막 순간에만 잠시 토큰을 GPU 메모리에 저장하기 위해 자신의 자리를 계속 ‘예약’하고 있기 때문에 이렇게 부르고 있다.
+        - `internal fragmentation` 은 **할당 받았지만 쓰지 않고 릴리즈 하는 공간**을 의미한다. 예를 들어 출력 길이가 2k인 모델인 경우, 2k 만큼의 공간을 미리 할당 받았지만, 상황에 따라서 2k까지 토큰이 생성되지 않을 수도 있다. 이때 이렇게 할당 받았지만 안 쓰여지고 릴리즈 되는 공간을 말한다.
+        - `external fragmentation`은 **메모리 할당 사이사이의 뜨는 공간**을 칭한다.
+        - 예를 들어, 6인 테이블이 하나 있는데 5명의 손님이 예약을 하고 한 명씩 10분 간격으로 등장을 하고 2명이 노쇼를 했다고 생각해보자.
+            - 그렇다면, 아무도 올 가능성이 없는 빈자리 하나는 `external fragmentation` . 올 수 있었지만, 안 온 노쇼 2자리는 `internal fragmentation`, 모두 오긴 하지만 하나씩 자리가 채워지는 3자리는 `reserved` 가 된다.
+        
+        ![스크린샷 2024-09-04 21.34.13.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/a4ca4921-89c4-4c26-9777-1813ff0540b0/09e0e677-c69b-41d1-a486-efa9d6265146/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2024-09-04_21.34.13.png)
+        
+        - 본 논문에서는 이러한 비효율적인 메모리 관리 체계를 지적하며, 이러한 메모리 낭비가 상당하다고 보여주고 있다. 아래 그림 참조
+            
+            ![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/a4ca4921-89c4-4c26-9777-1813ff0540b0/7bf6e854-6197-4251-a949-9a8747671d9a/image.png)
+            
+    2. 잦은 메모리 복사
+        
+        - Parallel sampling 및 beam search의 경우, 프롬프트 또는 기존 생성한 토큰들의 KV 값이 같은 경우가 종종 있다고 함
+        - 그럼에도 불구하고 기존 방식들은 새로운 토큰을 생성하기 위해, 기존 프롬프트나 토큰들의 KV 값이 연속된 메모리에 있어야 하기 때문에, 각자 복사를 해서 사용했다고 함
+
+# 3. Proposal
+
+- 이러한 문제는 여기서 처음 발생한게 아니다. 대부분의 메모리를 직접 관리해야하는 시스템에서는 흔하게 발생한 일이고, 우리가 아는 보편적인 OS에서는 이를 가상 메모리와 페이징으로 이를 해결 했다.
+- vLLM은 여기서 영감을 받아 KV cache를 **비연속적 paged 메모리에 저장하는 PagedAttention** 알고리즘을 제안하고, 이를 기반으로 동작하는 **분산서빙엔진 vLLM**를 디자인하고 구현함
+
+### **PagedAttention 알고리즘**
+
+- chunking
+    - KV cache 를 기존처럼 연속된 주소에 할당하지 않고, GPU 메모리의 이곳저곳에 저장함
+    - 기존에는 N만큼의 공간이 필요할때, N만큼의 메모리가 연속되어 비어 있지 않으면 할당을 못했는데, 이젠 파편화 되었더라도 N만큼의 메모리가 있다면 할당 가능
+        - 엄밀히 말하면 파편화된 각 메모리가 KV block 보단 커야됨
+    - 대신, 해당 KV cache 들을 접근할때 이를 연결해줄 매핑 테이블이 필요.
+    - 이를 여기선 KV block 테이블이라고 함
+
+![스크린샷 2024-09-05 08.50.31.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/a4ca4921-89c4-4c26-9777-1813ff0540b0/45865244-5dc2-419a-a0a4-63d6e8cbed89/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2024-09-05_08.50.31.png)
+
+- sharing
+    
+    - Parallel sampling 예시
+        - 기존 시스템에선, 프롬프트가 같은 경우에도, 해당 프롬프트의 KV 값을 복사를 해서 진행해었다고 함
+        - 여기선 logical block은 각자 소유하되, physical block은 하나만 두어 해결
+        - 만약 블럭의 마지막에 다른 토큰이 들어가게 된다면, 그때 블럭을 하나 더 복사하여 해결
+    
+    ![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/a4ca4921-89c4-4c26-9777-1813ff0540b0/d0a7db2b-8331-426e-b5fe-1b88522079b0/image.png)
+    
+    - Beam search 예시
+        - block 11이랑 12의 경우 block 0, 1, 3, 7 의 KV 값이 필요한데, 기존 시스템에선 각각 복사본이 필요했다면, 여기선 같은 블럭을 같이 참조
+    
+    ![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/a4ca4921-89c4-4c26-9777-1813ff0540b0/51f97bcf-3e1a-4338-819d-513b8417a5f5/image.png)
+    
+
+### **vLLM**
+
+- 위에서 제안한 PagedAttention 알고리즘을 통해 동작하는 서빙 엔진
+    
+    ![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/a4ca4921-89c4-4c26-9777-1813ff0540b0/d4ce7fae-7f1c-43a1-b626-165ecbe3cef4/image.png)
+    
+- 다만 vLLM이 극복해야 할 문제들이 아직 남아 있는데,
+    
+    - 첫째로 미리 메모리를 할당받지 않아서 생기는 OOM 문제 → [**스케쥴링 알고리즘 제안**](https://www.notion.so/vLLM-c4b0b27462be467cad28c4825b8f43d4?pvs=21)
+    - 둘째로 스케쥴러, 매핑 테이블 등 운영비용과 이로인한 irregular memory access patterns → [**GPU 커널 최적화로 해결**](https://www.notion.so/vLLM-c4b0b27462be467cad28c4825b8f43d4?pvs=21)
+    - 마지막으로 적절한 KV block 사이즈를 찾는 것 → 실험적, 근데 유저가 변경 가능, **[관련 실험](https://www.notion.so/vLLM-c4b0b27462be467cad28c4825b8f43d4?pvs=21)**
+- Scheduling and Preemption (Section 4.5)
+    
+    - swapping : CPU로 evict 했다가 다시 가져오는 방식
+        - evict 하는 단위는 request 내 모든 KV block들. 어차피 한 번에 접근해야 하므로..
+        - 이 방식은 하드웨어 성능에 의존적임
+    - recomputation
+        - 다시 계산하는 방식
+        - 다만, 10개의 토큰을 생성하다가 evict 된 경우, 기존 프롬프트에 생성된 토큰을 연결하여 프롬프트로 처리. 해당 10개의 토큰에 대해선 또 다시 생성을 안해도 되는 장점이 있어, evict 횟수만큼 처리 시간이 증가하진 않는다.
+
+# 4. Implementation
+
+- code
+    - 8.5K python
+    - 2K C++/CUDA
+- Kernel-level optimization
+    - Fused reshape and block write
+    - Fusing block read and attention
+    - Fused block copy.
+
+# 5. Evaluation (잘 이해가 안댐;)
+
+- End-to-end latency with different block sizes
+
+![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/a4ca4921-89c4-4c26-9777-1813ff0540b0/bb5fe27d-c47e-4442-8896-bbb1913c90bf/image.png)
+
+# 6. Discussion (우리가 논의한 것 정리 예정)
+
+- [vllm은 ttft-no-warmup이 매우 빠르다. 왜지?](https://www.notion.so/vllm-ttft-no-warmup-fffa360d33e380648e48ed6a71cc6469?pvs=21)
+    - 진웅의견) 메모리를 그때그때 할당해서 그럴까요? 위의 경우 context length가 얼마였나요? 1로 셋업했을때도 성능 차이가 나나 궁금합니다.
+- chunking과 sharing 차이가…?
+    - chunking 되어야 sharing
+
+- 한솔님 : ChatGPT랑 비교했을때 체감이?
+    - 민규님 : 비슷하다
+
+# 7. Next step (논의를 통해 진웅이 추가적으로 알아보면 좋은 것들 정리)
+
+- 실습
+    
+- 파라미터 파악해보기 : gpu_memory_utilization
+    
+    - [https://github.com/vllm-project/vllm/blob/e39ebf5cf5ec8f7449d633b6428333a99a206a1c/vllm/engine/arg_utils.py#L370](https://github.com/vllm-project/vllm/blob/e39ebf5cf5ec8f7449d633b6428333a99a206a1c/vllm/engine/arg_utils.py#L370)
+    - [https://github.com/vllm-project/vllm/blob/e39ebf5cf5ec8f7449d633b6428333a99a206a1c/vllm/executor/executor_base.py#L14](https://github.com/vllm-project/vllm/blob/e39ebf5cf5ec8f7449d633b6428333a99a206a1c/vllm/executor/executor_base.py#L14)
+- 이거.. vLLM를 썼을때, 서비스를 할 수 있나?
+    
+    - 고배치성.. 작업에 적합할듯
+- 허깅페이스보다 인퍼런스 속도가 빠르다..
+    
+- TensorRT-LLM 보다 쓰기 편하다..
+    
+- 베이스라인으로 안 할 이유가 없다..
+    
+- 내부용 챗GPT로 vLLM로 띄워서.. 하면서.. 배치성..?
