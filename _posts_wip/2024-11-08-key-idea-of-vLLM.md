@@ -14,7 +14,7 @@ published: false
 - KV cache 를 사용하는 LLM 기반의 인퍼런스의 경우, 배치 사이즈를 키웠을때 KV cache가 필요로 하는 메모리의 양이 크게 증가하여 배치사이즈 키우는데 많은 제약이 걸림
 
 
-<p align="center"> <img width="400" src=""></p>
+<p align="center"> <img width="400" src="https://github.com/user-attachments/assets/386da356-a5ce-4e86-a24d-cb99b59aa961"></p>
 # 2. Cause
 
 - 이러한 문제를 야기하는 **원인으로는 KV cache 의 비효율적인 메모리 관리**를 꼽는다.
@@ -38,12 +38,11 @@ published: false
         - `external fragmentation`은 **메모리 할당 사이사이의 뜨는 공간**을 칭한다.
         - 예를 들어, 6인 테이블이 하나 있는데 5명의 손님이 예약을 하고 한 명씩 10분 간격으로 등장을 하고 2명이 노쇼를 했다고 생각해보자.
             - 그렇다면, 아무도 올 가능성이 없는 빈자리 하나는 `external fragmentation` . 올 수 있었지만, 안 온 노쇼 2자리는 `internal fragmentation`, 모두 오긴 하지만 하나씩 자리가 채워지는 3자리는 `reserved` 가 된다.
-        
-        ![스크린샷 2024-09-04 21.34.13.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/a4ca4921-89c4-4c26-9777-1813ff0540b0/09e0e677-c69b-41d1-a486-efa9d6265146/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2024-09-04_21.34.13.png)
+	     <p align="center"> <img width="400" src=""></p>
         
         - 본 논문에서는 이러한 비효율적인 메모리 관리 체계를 지적하며, 이러한 메모리 낭비가 상당하다고 보여주고 있다. 아래 그림 참조
+		 <p align="center"> <img width="400" src=""></p>
             
-            ![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/a4ca4921-89c4-4c26-9777-1813ff0540b0/7bf6e854-6197-4251-a949-9a8747671d9a/image.png)
             
     2. 잦은 메모리 복사
         
@@ -64,7 +63,7 @@ published: false
     - 대신, 해당 KV cache 들을 접근할때 이를 연결해줄 매핑 테이블이 필요.
     - 이를 여기선 KV block 테이블이라고 함
 
-![스크린샷 2024-09-05 08.50.31.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/a4ca4921-89c4-4c26-9777-1813ff0540b0/45865244-5dc2-419a-a0a4-63d6e8cbed89/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2024-09-05_08.50.31.png)
+<p align="center"> <img width="400" src=""></p>
 
 - sharing
     
