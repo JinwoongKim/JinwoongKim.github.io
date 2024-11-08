@@ -1,20 +1,20 @@
 ---
-title: vLLM (Efficient Memory Management for Large Language Model Serving with PagedAttention) 주요 아이디어
+title: vLLM 주요 아이디어
 categories: papers
 tags:
   - vLLM
-  - Efficient-Memory-Management-for-Large-Language-Model-Serving-with-PagedAttention
 published: true
 ---
 
 주위에서 하도 vLLM, vLLM 해서, 뭔가 하고 읽어 봤다. 키 아이디어만 빠르게 읽고 정리해 보았다.
 
-# 1. Problem
-KV cache 를 사용하는 LLM 기반의 인퍼런스의 경우, 배치 사이즈를 키웠을때 KV cache가 필요로 하는 메모리의 양이 크게 증가하여 배치사이즈 키우는데 많은 제약이 걸림
+논문제목 : Efficient Memory Management for Large Language Model Serving with PagedAttention
 
+# 1. 문제
+KV cache 를 사용하는 LLM 기반의 인퍼런스의 경우, 배치 사이즈를 키웠을때 KV cache가 필요로 하는 메모리의 양이 크게 증가하여 배치사이즈 키우는데 많은 제약이 걸린다.
 
 <p align="center"> <img width="400" src="https://github.com/user-attachments/assets/386da356-a5ce-4e86-a24d-cb99b59aa961"></p>
-# 2. Cause
+# 2. 원인
 이러한 문제를 야기하는 **원인으로는 KV cache 의 비효율적인 메모리 관리**를 꼽는다.
 
 크게 두 가지 특성이 이러한 것들을 야기하는데,
@@ -40,7 +40,7 @@ KV cache 를 사용하는 LLM 기반의 인퍼런스의 경우, 배치 사이즈
 	- Parallel sampling 및 beam search의 경우, 프롬프트 또는 기존 생성한 토큰들의 KV 값이 같은 경우가 종종 있다고 함
 		- 그럼에도 불구하고 기존 방식들은 새로운 토큰을 생성하기 위해, 기존 프롬프트나 토큰들의 KV 값이 연속된 메모리에 있어야 하기 때문에, 각자 복사를 해서 사용했다고 함
 
-# 3. Proposal
+# 3. 제안
 - 이러한 문제는 여기서 처음 발생한게 아니다. 대부분의 메모리를 직접 관리해야하는 시스템에서는 흔하게 발생한 일이고, 우리가 아는 보편적인 OS에서는 이를 가상 메모리와 페이징으로 이를 해결 했다.
 - vLLM은 여기서 영감을 받아 KV cache를 **비연속적 paged 메모리에 저장하는 PagedAttention** 알고리즘을 제안하고, 이를 기반으로 동작하는 **분산서빙엔진 vLLM**를 디자인하고 구현함
 
