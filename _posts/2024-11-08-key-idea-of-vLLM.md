@@ -11,7 +11,9 @@ published: true
 논문제목 : Efficient Memory Management for Large Language Model Serving with PagedAttention
 
 # 1. 문제
-KV cache 를 사용하는 LLM 기반의 인퍼런스의 경우, 배치 사이즈를 키웠을때 KV cache가 필요로 하는 메모리의 양이 크게 증가하여 배치사이즈 키우는데 많은 제약이 걸린다.
+KV cache 를 사용하는 LLM 기반의 인퍼런스의 경우, 배치 사이즈를 키웠을때 KV cache가 필요로 하는 메모리의 양이 크게 증가하여 **배치사이즈 키우는데 많은 제약이 걸린다.**
+
+즉, 본 논문은 단일 추론 속도를 빠르게 하는데 초점이 맞춰져 있기 보단 (메인 아이디어만 생각하면 오히려 느려질 수 있다.) 메모리 효율화를 통해 배치사이즈를 늘리는데 있다.
 
 <p align="center"> <img width="400" src="https://github.com/user-attachments/assets/386da356-a5ce-4e86-a24d-cb99b59aa961"></p>
 # 2. 원인
