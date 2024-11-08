@@ -13,8 +13,8 @@ published: false
 
 - KV cache 를 사용하는 LLM 기반의 인퍼런스의 경우, 배치 사이즈를 키웠을때 KV cache가 필요로 하는 메모리의 양이 크게 증가하여 배치사이즈 키우는데 많은 제약이 걸림
 
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/a4ca4921-89c4-4c26-9777-1813ff0540b0/2920cd00-494b-4907-98c6-9064185ec5b0/image.png)
 
+<p align="center"> <img width="400" src=""></p>
 # 2. Cause
 
 - 이러한 문제를 야기하는 **원인으로는 KV cache 의 비효율적인 메모리 관리**를 꼽는다.
