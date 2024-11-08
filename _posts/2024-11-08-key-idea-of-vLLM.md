@@ -25,14 +25,14 @@ published: true
 	- 만약 parallel sampling을 하거나 beam search를 하게 된다면 더욱 메모리 사용량이 증가한다.
 - 이러한 관리체계가 메모리 효율을 어떻게 떨어뜨릴까?
 	1. 파편화
-	- 이러한 메모리 관리 체계는 크게 3가지의 메모리 낭비(파편화)를 일으키는데, 각각 `reserved`, `internal fragmentation`, `external fragmentation` 라 부른다.
-	- `reserved` 은 **최종적으로 사용되긴 하지만, 그전엔 아무도 못쓰는 공간**을 칭한다. 우리가 실제로 토큰을 생성하더라도 한번에 모든 토큰이 생성되는 것이 아니기 때문에, 마지막으로 생성되는 토큰의 경우 마지막 순간에만 잠시 토큰을 GPU 메모리에 저장하기 위해 자신의 자리를 계속 ‘예약’하고 있기 때문에 이렇게 부르고 있다.
-	- `internal fragmentation` 은 **할당 받았지만 쓰지 않고 릴리즈 하는 공간**을 의미한다. 예를 들어 출력 길이가 2k인 모델인 경우, 2k 만큼의 공간을 미리 할당 받았지만, 상황에 따라서 2k까지 토큰이 생성되지 않을 수도 있다. 이때 이렇게 할당 받았지만 안 쓰여지고 릴리즈 되는 공간을 말한다.
-	- `external fragmentation`은 **메모리 할당 사이사이의 뜨는 공간**을 칭한다.
-	- 예를 들어, 6인 테이블이 하나 있는데 5명의 손님이 예약을 하고 한 명씩 10분 간격으로 등장을 하고 2명이 노쇼를 했다고 생각해보자.
-		- 그렇다면, 아무도 올 가능성이 없는 빈자리 하나는 `external fragmentation` . 올 수 있었지만, 안 온 노쇼 2자리는 `internal fragmentation`, 모두 오긴 하지만 하나씩 자리가 채워지는 3자리는 `reserved` 가 된다.
-		<p align="center"> <img width="600" src="https://github.com/user-attachments/assets/114c5a69-2bfa-4fd5-a886-fb1f9e8fea83"></p>
-		- 본 논문에서는 이러한 비효율적인 메모리 관리 체계를 지적하며, 이러한 메모리 낭비가 상당하다고 보여주고 있다. 아래 그림 참조
+		- 이러한 메모리 관리 체계는 크게 3가지의 메모리 낭비(파편화)를 일으키는데, 각각 `reserved`, `internal fragmentation`, `external fragmentation` 라 부른다.
+		- `reserved` 은 **최종적으로 사용되긴 하지만, 그전엔 아무도 못쓰는 공간**을 칭한다. 우리가 실제로 토큰을 생성하더라도 한번에 모든 토큰이 생성되는 것이 아니기 때문에, 마지막으로 생성되는 토큰의 경우 마지막 순간에만 잠시 토큰을 GPU 메모리에 저장하기 위해 자신의 자리를 계속 ‘예약’하고 있기 때문에 이렇게 부르고 있다.
+		- `internal fragmentation` 은 **할당 받았지만 쓰지 않고 릴리즈 하는 공간**을 의미한다. 예를 들어 출력 길이가 2k인 모델인 경우, 2k 만큼의 공간을 미리 할당 받았지만, 상황에 따라서 2k까지 토큰이 생성되지 않을 수도 있다. 이때 이렇게 할당 받았지만 안 쓰여지고 릴리즈 되는 공간을 말한다.
+		- `external fragmentation`은 **메모리 할당 사이사이의 뜨는 공간**을 칭한다.
+		- 예를 들어, 6인 테이블이 하나 있는데 5명의 손님이 예약을 하고 한 명씩 10분 간격으로 등장을 하고 2명이 노쇼를 했다고 생각해보자.
+			- 그렇다면, 아무도 올 가능성이 없는 빈자리 하나는 `external fragmentation` . 올 수 있었지만, 안 온 노쇼 2자리는 `internal fragmentation`, 모두 오긴 하지만 하나씩 자리가 채워지는 3자리는 `reserved` 가 된다.
+			<p align="center"> <img width="600" src="https://github.com/user-attachments/assets/114c5a69-2bfa-4fd5-a886-fb1f9e8fea83"></p>
+			- 본 논문에서는 이러한 비효율적인 메모리 관리 체계를 지적하며, 이러한 메모리 낭비가 상당하다고 보여주고 있다. 아래 그림 참조
 	 <p align="center"> <img width="400" src="https://github.com/user-attachments/assets/dfc72af7-1936-4ce8-a851-3eec2beb4046"></p>
 	2.  잦은 메모리 복사
 		- Parallel sampling 및 beam search의 경우, 프롬프트 또는 기존 생성한 토큰들의 KV 값이 같은 경우가 종종 있다고 함
@@ -64,7 +64,7 @@ published: true
 <p align="center"> <img width="600" src="https://github.com/user-attachments/assets/fa11a8c1-82b6-4f16-b18a-80b88db72287"></p>
     
 
-### **vLLM**
+## **vLLM**
 - 위에서 제안한 PagedAttention 알고리즘을 통해 동작하는 서빙 엔진
 	<p align="center"> <img width="600" src="https://github.com/user-attachments/assets/4f3e3e0e-3520-4684-91ac-cd2b9f948d4d"></p>    
 
