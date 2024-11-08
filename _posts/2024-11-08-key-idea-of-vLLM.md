@@ -85,16 +85,17 @@ published: true
 
 - 다만 vLLM이 극복해야 할 문제들이 아직 남아 있는데,
     
-    - 첫째로 미리 메모리를 할당받지 않아서 생기는 OOM 문제 → [**스케쥴링 알고리즘 제안**](https://www.notion.so/vLLM-c4b0b27462be467cad28c4825b8f43d4?pvs=21)
+    - 첫째로 미리 메모리를 할당받지 않아서 생기는 OOM 문제는 스케쥴링 알고리즘
+	    -  Scheduling and Preemption (Section 4.5)
+		    - swapping : CPU로 evict 했다가 다시 가져오는 방식
+		        - evict 하는 단위는 request 내 모든 KV block들. 어차피 한 번에 접근해야 하므로..
+		        - 이 방식은 하드웨어 성능에 의존적임
+		    - recomputation
+		        - 다시 계산하는 방식
+		        - 다만, 10개의 토큰을 생성하다가 evict 된 경우, 기존 프롬프트에 생성된 토큰을 연결하여 프롬프트로 처리. 해당 10개의 토큰에 대해선 또 다시 생성을 안해도 되는 장점이 있어, evict 횟수만큼 처리 시간이 증가하진 않는다.
     - 둘째로 스케쥴러, 매핑 테이블 등 운영비용과 이로인한 irregular memory access patterns → GPU 커널 최적화로 해결하였다. (논문에선 `4. Implementation, kernel-level optimization`을 보면 된다.)
     - 마지막으로 적절한 KV block 사이즈를 찾는 것은 → 실험 + 유저가 변경 가능하게 하였다.
-- Scheduling and Preemption (Section 4.5)
-    - swapping : CPU로 evict 했다가 다시 가져오는 방식
-        - evict 하는 단위는 request 내 모든 KV block들. 어차피 한 번에 접근해야 하므로..
-        - 이 방식은 하드웨어 성능에 의존적임
-    - recomputation
-        - 다시 계산하는 방식
-        - 다만, 10개의 토큰을 생성하다가 evict 된 경우, 기존 프롬프트에 생성된 토큰을 연결하여 프롬프트로 처리. 해당 10개의 토큰에 대해선 또 다시 생성을 안해도 되는 장점이 있어, evict 횟수만큼 처리 시간이 증가하진 않는다.
+
 
 # 4. Implementation
 
