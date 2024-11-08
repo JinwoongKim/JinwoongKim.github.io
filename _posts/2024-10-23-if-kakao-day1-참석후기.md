@@ -19,7 +19,7 @@ published: true
 
 4시반에 6시전 셔틀이 모두 조기마감되어서 돌아가지 못하는 상황이라던지, 집에서 10분이면 가는데 자차를 이용 못해서 미금에서 판교로, 판교에서 다시 용인으로 가는 거라든지..
 
-하지만 처음이니까 그럴 수 있다고 생각이 들었다. 다음에는 개선이 되기를~
+하지만 처음이니까 그럴 수 있다고 생각이 들었다. 다음에는 개선이 되기를~
 
 <img width="687" alt="image" src="https://github.com/user-attachments/assets/e564b832-a33a-46eb-8894-eb1717456226">
 <img width="680" alt="image" src="https://github.com/user-attachments/assets/f5099750-ec2a-46ae-bb01-b4bdbcfc0b5e">
