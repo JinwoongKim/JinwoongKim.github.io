@@ -34,7 +34,7 @@ Parallel sampling 및 beam search의 경우, 프롬프트 또는 기존 생성�
 이러한 잦은 메모리 복사는 메모리 뿐만 아니라 복사 시간도 소요되므로, 시간과 공간을 모두 소모하게 된다.
 ## 야기되는 문제#2: 파편화
 
-잦은 메모리 복사보다 더 심각한 것은 메모리 파편화인데, 크게 3가지의 메모리 파편화를 일으키는데, 각각 `reserved`, `internal fragmentation`, `external fragmentation` 라 부른다.
+잦은 메모리 복사보다 더 심각한 것은 메모리 파편화인데, 기존 방식은 크게 3가지의 메모리 파편화를 일으킨다. 이를 각각 `reserved`, `internal fragmentation`, `external fragmentation` 라 부른다.
 
 `reserved` 은 **최종적으로 사용되긴 하지만, 그전엔 아무도 못쓰는 공간**을 칭한다. 우리가 실제로 토큰을 생성하더라도 한번에 모든 토큰이 생성되는 것이 아니기 때문에, 마지막으로 생성되는 토큰의 경우 마지막 순간에만 잠시 토큰을 GPU 메모리에 저장하기 위해 자신의 자리를 계속 ‘예약’하고 있기 때문에 이렇게 부르고 있다.
 
@@ -47,10 +47,10 @@ Parallel sampling 및 beam search의 경우, 프롬프트 또는 기존 생성�
  그렇다면, 아무도 올 가능성이 없는 빈자리 하나는 `external fragmentation` . 올 수 있었지만, 안 온 노쇼 2자리는 `internal fragmentation`, 모두 오긴 하지만 하나씩 자리가 채워지는 3자리는 `reserved` 가 된다.
 <p align="center"> <img width="800" src="https://github.com/user-attachments/assets/114c5a69-2bfa-4fd5-a886-fb1f9e8fea83"></p>
 
-본 논문에서는 이러한 비효율적인 메모리 관리 체계를 지적하며, 이러한 메모리 낭비가 상당하다고 보여주고 있다. (아래 그림 참조)
+본 논문에서는 이러한 비효율적인 메모리 관리 체계를 지적하며, 이러한 메모리 낭비가 상당하다고 보여주고 있다.
+
  <p align="center"> <img width="400" src="https://github.com/user-attachments/assets/dfc72af7-1936-4ce8-a851-3eec2beb4046"></p>
-
-
+ 
 
 # 3. 제안
 
