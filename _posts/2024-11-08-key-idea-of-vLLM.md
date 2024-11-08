@@ -63,10 +63,11 @@ PagedAttention 알고리즘의 주요 아이디어 두 가지를 설명하겠다
 ### 주요 아이디어#1 : chunking
 KV cache 를 기존처럼 연속된 주소에 할당하지 않고, 나누어서 GPU 메모리의 이곳저곳에 저장하는 것을 말한다. 즉, 기존에는 N만큼의 공간이 필요할때, N만큼의 메모리가 연속되어 비어 있지 않으면 할당을 못했는데, 이젠 연속되어 있지 않더라도, N만큼의 메모리가 있다면 KV cache를 분할하여 저장한다.
 
-대신, 해당 KV cache 들을 접근할때 이를 연결해줄 매핑 테이블이 필요하다. 이를 KV block 테이블이라 부른다.
+대신, 해당 KV cache 들을 접근할때 이를 연결해줄 매핑 테이블이 필요하다. 이를 논문에선 KV block 테이블이라 부른다.
 
 <p align="center"> <img width="600" src="https://github.com/user-attachments/assets/0b04f51f-e8c7-48ca-b278-2d721c1253e5"></p>
-### sharing
+### 주요 아이디어#2: sharing
+위에서 설명한 KV block 테이블이 있어서 가능해진 것 중 하나인데, parallel sampling이나 beam search가 같은 값들을 공유할때, 최대한 복사하지 않고 같이 레퍼런스
 - Parallel sampling 예시
 	- 기존 시스템에선, 프롬프트가 같은 경우에도, 해당 프롬프트의 KV 값을 복사를 해서 진행해었다고 함
 	- 여기선 logical block은 각자 소유하되, physical block은 하나만 두어 해결
