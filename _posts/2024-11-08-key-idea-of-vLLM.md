@@ -85,59 +85,16 @@ published: true
 
 - 다만 vLLM이 극복해야 할 문제들이 아직 남아 있는데,
     
-    - 첫째로 미리 메모리를 할당받지 않아서 생기는 OOM 문제는 스케쥴링 알고리즘
-	    -  Scheduling and Preemption (Section 4.5)
+    - 첫째로 미리 메모리를 할당받지 않아서 생기는 OOM 문제는 스케쥴링 알고리즘으로 해결하였는데, 아래 서술하였다.
+	    -  Scheduling and Preemption (논문 4.5 섹션)
 		    - swapping : CPU로 evict 했다가 다시 가져오는 방식
 		        - evict 하는 단위는 request 내 모든 KV block들. 어차피 한 번에 접근해야 하므로..
 		        - 이 방식은 하드웨어 성능에 의존적임
 		    - recomputation
 		        - 다시 계산하는 방식
 		        - 다만, 10개의 토큰을 생성하다가 evict 된 경우, 기존 프롬프트에 생성된 토큰을 연결하여 프롬프트로 처리. 해당 10개의 토큰에 대해선 또 다시 생성을 안해도 되는 장점이 있어, evict 횟수만큼 처리 시간이 증가하진 않는다.
-    - 둘째로 스케쥴러, 매핑 테이블 등 운영비용과 이로인한 irregular memory access patterns → GPU 커널 최적화로 해결하였다. (논문에선 `4. Implementation, kernel-level optimization`을 보면 된다.)
-    - 마지막으로 적절한 KV block 사이즈를 찾는 것은 → 실험 + 유저가 변경 가능하게 하였다.
+    - 둘째로 스케쥴러, 매핑 테이블 등 운영비용과 이로인한 irregular memory access patterns GPU 커널 최적화로 해결하였다.
+	    - 논문에선 `4. Implementation, kernel-level optimization`을 보면 된다.
+    - 마지막으로 적절한 KV block 사이즈를 찾는 것은, 경험적 실험 결과 공유 및 유저가 변경 가능하도록 파라미터화하였다.
 
 
-# 4. Implementation
-
-- code
-    - 8.5K python
-    - 2K C++/CUDA
-- Kernel-level optimization
-    - Fused reshape and block write
-    - Fusing block read and attention
-    - Fused block copy.
-
-# 5. Evaluation (잘 이해가 안댐;)
-
-- End-to-end latency with different block sizes
-
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/a4ca4921-89c4-4c26-9777-1813ff0540b0/bb5fe27d-c47e-4442-8896-bbb1913c90bf/image.png)
-
-# 6. Discussion (우리가 논의한 것 정리 예정)
-
-- [vllm은 ttft-no-warmup이 매우 빠르다. 왜지?](https://www.notion.so/vllm-ttft-no-warmup-fffa360d33e380648e48ed6a71cc6469?pvs=21)
-    - 진웅의견) 메모리를 그때그때 할당해서 그럴까요? 위의 경우 context length가 얼마였나요? 1로 셋업했을때도 성능 차이가 나나 궁금합니다.
-- chunking과 sharing 차이가…?
-    - chunking 되어야 sharing
-
-- 한솔님 : ChatGPT랑 비교했을때 체감이?
-    - 민규님 : 비슷하다
-
-# 7. Next step (논의를 통해 진웅이 추가적으로 알아보면 좋은 것들 정리)
-
-- 실습
-    
-- 파라미터 파악해보기 : gpu_memory_utilization
-    
-    - [https://github.com/vllm-project/vllm/blob/e39ebf5cf5ec8f7449d633b6428333a99a206a1c/vllm/engine/arg_utils.py#L370](https://github.com/vllm-project/vllm/blob/e39ebf5cf5ec8f7449d633b6428333a99a206a1c/vllm/engine/arg_utils.py#L370)
-    - [https://github.com/vllm-project/vllm/blob/e39ebf5cf5ec8f7449d633b6428333a99a206a1c/vllm/executor/executor_base.py#L14](https://github.com/vllm-project/vllm/blob/e39ebf5cf5ec8f7449d633b6428333a99a206a1c/vllm/executor/executor_base.py#L14)
-- 이거.. vLLM를 썼을때, 서비스를 할 수 있나?
-    
-    - 고배치성.. 작업에 적합할듯
-- 허깅페이스보다 인퍼런스 속도가 빠르다..
-    
-- TensorRT-LLM 보다 쓰기 편하다..
-    
-- 베이스라인으로 안 할 이유가 없다..
-    
-- 내부용 챗GPT로 vLLM로 띄워서.. 하면서.. 배치성..?
