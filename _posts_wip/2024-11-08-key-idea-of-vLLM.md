@@ -40,11 +40,10 @@ published: false
             - 그렇다면, 아무도 올 가능성이 없는 빈자리 하나는 `external fragmentation` . 올 수 있었지만, 안 온 노쇼 2자리는 `internal fragmentation`, 모두 오긴 하지만 하나씩 자리가 채워지는 3자리는 `reserved` 가 된다.
 <p align="center"> <img width="800" src="https://github.com/user-attachments/assets/114c5a69-2bfa-4fd5-a886-fb1f9e8fea83"></p>
 			- 본 논문에서는 이러한 비효율적인 메모리 관리 체계를 지적하며, 이러한 메모리 낭비가 상당하다고 보여주고 있다. 아래 그림 참조
+			- 
 		 <p align="center"> <img width="400" src="https://github.com/user-attachments/assets/dfc72af7-1936-4ce8-a851-3eec2beb4046"></p>
             
-            
     2. 잦은 메모리 복사
-        
         - Parallel sampling 및 beam search의 경우, 프롬프트 또는 기존 생성한 토큰들의 KV 값이 같은 경우가 종종 있다고 함
         - 그럼에도 불구하고 기존 방식들은 새로운 토큰을 생성하기 위해, 기존 프롬프트나 토큰들의 KV 값이 연속된 메모리에 있어야 하기 때문에, 각자 복사를 해서 사용했다고 함
 
@@ -62,7 +61,7 @@ published: false
     - 대신, 해당 KV cache 들을 접근할때 이를 연결해줄 매핑 테이블이 필요.
     - 이를 여기선 KV block 테이블이라고 함
 
-<p align="center"> <img width="400" src=""></p>
+<p align="center"> <img width="600" src="https://github.com/user-attachments/assets/0b04f51f-e8c7-48ca-b278-2d721c1253e5"></p>
 
 - sharing
     
@@ -71,20 +70,19 @@ published: false
         - 여기선 logical block은 각자 소유하되, physical block은 하나만 두어 해결
         - 만약 블럭의 마지막에 다른 토큰이 들어가게 된다면, 그때 블럭을 하나 더 복사하여 해결
     
-    ![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/a4ca4921-89c4-4c26-9777-1813ff0540b0/d0a7db2b-8331-426e-b5fe-1b88522079b0/image.png)
+    <p align="center"> <img width="600" src="https://github.com/user-attachments/assets/0b04f51f-e8c7-48ca-b278-2d721c1253e5"></p>
     
     - Beam search 예시
         - block 11이랑 12의 경우 block 0, 1, 3, 7 의 KV 값이 필요한데, 기존 시스템에선 각각 복사본이 필요했다면, 여기선 같은 블럭을 같이 참조
     
-    ![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/a4ca4921-89c4-4c26-9777-1813ff0540b0/51f97bcf-3e1a-4338-819d-513b8417a5f5/image.png)
+    <p align="center"> <img width="600" src="https://github.com/user-attachments/assets/0b04f51f-e8c7-48ca-b278-2d721c1253e5"></p>
     
 
 ### **vLLM**
 
 - 위에서 제안한 PagedAttention 알고리즘을 통해 동작하는 서빙 엔진
-    
-    ![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/a4ca4921-89c4-4c26-9777-1813ff0540b0/d4ce7fae-7f1c-43a1-b626-165ecbe3cef4/image.png)
-    
+	<p align="center"> <img width="600" src="https://github.com/user-attachments/assets/0b04f51f-e8c7-48ca-b278-2d721c1253e5"></p>    
+
 - 다만 vLLM이 극복해야 할 문제들이 아직 남아 있는데,
     
     - 첫째로 미리 메모리를 할당받지 않아서 생기는 OOM 문제 → [**스케쥴링 알고리즘 제안**](https://www.notion.so/vLLM-c4b0b27462be467cad28c4825b8f43d4?pvs=21)
