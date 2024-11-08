@@ -4,7 +4,7 @@ categories: papers
 tags:
   - vLLM
   - Efficient-Memory-Management-for-Large-Language-Model-Serving-with-PagedAttention
-published: false
+published: true
 ---
 
 주위에서 하도 vLLM, vLLM 해서, 뭔가 하고 읽어 봤다. 키 아이디어만 빠르게 읽고 정리해 보았다.
@@ -38,7 +38,7 @@ published: false
         - `external fragmentation`은 **메모리 할당 사이사이의 뜨는 공간**을 칭한다.
         - 예를 들어, 6인 테이블이 하나 있는데 5명의 손님이 예약을 하고 한 명씩 10분 간격으로 등장을 하고 2명이 노쇼를 했다고 생각해보자.
             - 그렇다면, 아무도 올 가능성이 없는 빈자리 하나는 `external fragmentation` . 올 수 있었지만, 안 온 노쇼 2자리는 `internal fragmentation`, 모두 오긴 하지만 하나씩 자리가 채워지는 3자리는 `reserved` 가 된다.
-<p align="center"> <img width="800" src="https://github.com/user-attachments/assets/114c5a69-2bfa-4fd5-a886-fb1f9e8fea83"></p>
+<p align="center"> <img width="600" src="https://github.com/user-attachments/assets/114c5a69-2bfa-4fd5-a886-fb1f9e8fea83"></p>
 			- 본 논문에서는 이러한 비효율적인 메모리 관리 체계를 지적하며, 이러한 메모리 낭비가 상당하다고 보여주고 있다. 아래 그림 참조
 			- 
 		 <p align="center"> <img width="400" src="https://github.com/user-attachments/assets/dfc72af7-1936-4ce8-a851-3eec2beb4046"></p>
@@ -70,18 +70,18 @@ published: false
         - 여기선 logical block은 각자 소유하되, physical block은 하나만 두어 해결
         - 만약 블럭의 마지막에 다른 토큰이 들어가게 된다면, 그때 블럭을 하나 더 복사하여 해결
     
-    <p align="center"> <img width="600" src="https://github.com/user-attachments/assets/0b04f51f-e8c7-48ca-b278-2d721c1253e5"></p>
+    <p align="center"> <img width="600" src="https://github.com/user-attachments/assets/5f349f48-d451-47f5-9792-4faea7812d9a"></p>
     
     - Beam search 예시
         - block 11이랑 12의 경우 block 0, 1, 3, 7 의 KV 값이 필요한데, 기존 시스템에선 각각 복사본이 필요했다면, 여기선 같은 블럭을 같이 참조
     
-    <p align="center"> <img width="600" src="https://github.com/user-attachments/assets/0b04f51f-e8c7-48ca-b278-2d721c1253e5"></p>
+    <p align="center"> <img width="600" src="https://github.com/user-attachments/assets/fa11a8c1-82b6-4f16-b18a-80b88db72287"></p>
     
 
 ### **vLLM**
 
 - 위에서 제안한 PagedAttention 알고리즘을 통해 동작하는 서빙 엔진
-	<p align="center"> <img width="600" src="https://github.com/user-attachments/assets/0b04f51f-e8c7-48ca-b278-2d721c1253e5"></p>    
+	<p align="center"> <img width="600" src="https://github.com/user-attachments/assets/4f3e3e0e-3520-4684-91ac-cd2b9f948d4d"></p>    
 
 - 다만 vLLM이 극복해야 할 문제들이 아직 남아 있는데,
     
