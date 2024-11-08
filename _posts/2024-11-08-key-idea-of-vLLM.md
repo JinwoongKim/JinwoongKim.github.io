@@ -67,16 +67,15 @@ KV cache 를 기존처럼 연속된 주소에 할당하지 않고, 나누어서 
 
 <p align="center"> <img width="600" src="https://github.com/user-attachments/assets/0b04f51f-e8c7-48ca-b278-2d721c1253e5"></p>
 ### 주요 아이디어#2: sharing
-위에서 설명한 KV block 테이블이 있어서 가능해진 것 중 하나인데, parallel sampling이나 beam search가 같은 값들을 공유할때, 최대한 복사하지 않고 같이 레퍼런스
-- Parallel sampling 예시
-	- 기존 시스템에선, 프롬프트가 같은 경우에도, 해당 프롬프트의 KV 값을 복사를 해서 진행해었다고 함
-	- 여기선 logical block은 각자 소유하되, physical block은 하나만 두어 해결
-	- 만약 블럭의 마지막에 다른 토큰이 들어가게 된다면, 그때 블럭을 하나 더 복사하여 해결
+위에서 설명한 KV block 테이블이 있어서 가능해진 것 중 하나인데, parallel sampling이나 beam search가 같은 값들을 공유할때, 최대한 복사하지 않고 같이 레퍼런스 하여 이용하다가 달라진 값이 나올때 분기를 태우는 것을 말한다.
+
+**Parallel sampling 예시**
+ 기존 시스템에선, 프롬프트가 같은 경우에도, 해당 프롬프트의 KV 값을 복사를 해서 진행했었다. 하지만, 본 논문에선 logical block은 각자 소유하되, physical block은 하나만 두어 해결한다. 만약 블럭의 마지막에 다른 토큰이 들어가게 된다면, 그때 블럭을 하나 더 복사하여 해결한다.
 
 <p align="center"> <img width="600" src="https://github.com/user-attachments/assets/5f349f48-d451-47f5-9792-4faea7812d9a"></p>
     
-- Beam search 예시
-	- block 11이랑 12의 경우 block 0, 1, 3, 7 의 KV 값이 필요한데, 기존 시스템에선 각각 복사본이 필요했다면, 여기선 같은 블럭을 같이 참조
+**Beam search 예시** 
+block 11이랑 12의 경우 block 0, 1, 3, 7 의 KV 값이 필요한데, 기존 시스템에선 각각 복사본이 필요했다면, 여기선 같은 블럭을 같이 참조
 
 <p align="center"> <img width="600" src="https://github.com/user-attachments/assets/fa11a8c1-82b6-4f16-b18a-80b88db72287"></p>
     
