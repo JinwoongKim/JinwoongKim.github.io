@@ -60,17 +60,12 @@ Parallel sampling 및 beam search의 경우, 프롬프트 또는 기존 생성�
 vLLM은 여기서 영감을 받아 KV cache를 **비연속적 paged 메모리에 저장하는 PagedAttention** 알고리즘을 제안하고, 이를 기반으로 동작하는 **분산서빙엔진 vLLM**를 디자인하고 구현함
 
 ## **PagedAttention 알고리즘**
-### 1. chunking
-
+### chunking
 KV cache 를 기존처럼 연속된 주소에 할당하지 않고, GPU 메모리의 이곳저곳에 저장함
-
-기존에는 N만큼의 공간이 필요할때, N만큼의 메모리가 연속되어 비어 있지 않으면 할당을 못했는데, 이젠 파편화 되었더라도 N만큼의 메모리가 있다면 할당 가능
-
- 엄밀히 말하면 파편화된 각 메모리가 KV block 보단 커야됨
-
- 대신, 해당 KV cache 들을 접근할때 이를 연결해줄 매핑 테이블이 필요.
-
- 이를 여기선 KV block 테이블이라고 함
+- 기존에는 N만큼의 공간이 필요할때, N만큼의 메모리가 연속되어 비어 있지 않으면 할당을 못했는데, 이젠 파편화 되었더라도 N만큼의 메모리가 있다면 할당 가능
+	- 엄밀히 말하면 파편화된 각 메모리가 KV block 보단 커야됨
+- 대신, 해당 KV cache 들을 접근할때 이를 연결해줄 매핑 테이블이 필요.
+- 이를 여기선 KV block 테이블이라고 함
 <p align="center"> <img width="600" src="https://github.com/user-attachments/assets/0b04f51f-e8c7-48ca-b278-2d721c1253e5"></p>
 ### sharing
 - Parallel sampling 예시
@@ -87,18 +82,19 @@ KV cache 를 기존처럼 연속된 주소에 할당하지 않고, GPU 메모리
     
 
 ## **vLLM**
-- 위에서 제안한 PagedAttention 알고리즘을 통해 동작하는 서빙 엔진
-	<p align="center"> <img width="600" src="https://github.com/user-attachments/assets/4f3e3e0e-3520-4684-91ac-cd2b9f948d4d"></p>    
 
-- 다만 vLLM이 극복해야 할 문제들이 아직 남아 있는데,
-    - 첫째로 미리 메모리를 할당받지 않아서 생기는 OOM 문제는 스케쥴링 알고리즘으로 해결하였는데, 아래 서술하였다.
-	    -  Scheduling and Preemption (논문 4.5 섹션)
-		    - swapping : CPU로 evict 했다가 다시 가져오는 방식
-		        - evict 하는 단위는 request 내 모든 KV block들. 어차피 한 번에 접근해야 하므로..
-		        - 이 방식은 하드웨어 성능에 의존적임
-		    - recomputation
-		        - 다시 계산하는 방식
-		        - 다만, 10개의 토큰을 생성하다가 evict 된 경우, 기존 프롬프트에 생성된 토큰을 연결하여 프롬프트로 처리. 해당 10개의 토큰에 대해선 또 다시 생성을 안해도 되는 장점이 있어, evict 횟수만큼 처리 시간이 증가하진 않는다.
+위에서 제안한 PagedAttention 알고리즘을 통해 동작하는 서빙 엔진을 뜻한다.
+
+다만 vLLM이 극복해야 할 문제들이 아직 남아 있는데,
+
+첫째로 미리 메모리를 할당받지 않아서 생기는 OOM 문제는 스케쥴링 알고리즘으로 해결하였는데, 아래 서술하였다.
+Scheduling and Preemption (논문 4.5 섹션)
+	- swapping : CPU로 evict 했다가 다시 가져오는 방식
+		- evict 하는 단위는 request 내 모든 KV block들. 어차피 한 번에 접근해야 하므로..
+		- 이 방식은 하드웨어 성능에 의존적임
+	- recomputation
+		- 다시 계산하는 방식
+		- 다만, 10개의 토큰을 생성하다가 evict 된 경우, 기존 프롬프트에 생성된 토큰을 연결하여 프롬프트로 처리. 해당 10개의 토큰에 대해선 또 다시 생성을 안해도 되는 장점이 있어, evict 횟수만큼 처리 시간이 증가하진 않는다.
     - 둘째로 스케쥴러, 매핑 테이블 등 운영비용과 이로인한 irregular memory access patterns GPU 커널 최적화로 해결하였다.
 	    - 논문에선 `4. Implementation, kernel-level optimization`을 보면 된다.
     - 마지막으로 적절한 KV block 사이즈를 찾는 것은, 경험적 실험 결과 공유 및 유저가 변경 가능하도록 파라미터화하였다.
