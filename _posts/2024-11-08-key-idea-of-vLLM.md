@@ -1,5 +1,5 @@
 ---
-title: "vLLM \x1d키 아이디어 설명"
+title: "[논문리뷰] vLLM \x1d키 아이디어 설명"
 categories: papers
 tags:
   - vLLM
