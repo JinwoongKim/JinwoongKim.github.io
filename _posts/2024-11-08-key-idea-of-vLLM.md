@@ -1,5 +1,5 @@
 ---
-title: vLLM 주요 아이디어
+title: "vLLM \x1d키 아이디어 설명"
 categories: papers
 tags:
   - vLLM
@@ -56,9 +56,10 @@ Parallel sampling 및 beam search의 경우, 프롬프트 또는 기존 생성�
 
 이러한 문제는 여기서 처음 발생한게 아니다. 대부분의 메모리를 직접 관리해야하는 시스템에서는 흔하게 발생한 일이고, 우리가 아는 보편적인 OS에서는 이를 가상 메모리와 페이징으로 이를 해결 했다.
 
-vLLM은 여기서 영감을 받아 KV cache를 **비연속적 paged 메모리에 저장하는 PagedAttention** 알고리즘을 제안하고, 이를 기반으로 동작하는 **분산서빙엔진 vLLM**를 디자인하고 구현함
+vLLM은 여기서 영감을 받아 KV cache를 **비연속적 paged 메모리에 저장하는 PagedAttention** 알고리즘을 제안하고, 이를 기반으로 동작하는 **분산서빙엔진 vLLM**를 디자인하고 구현하였다.
 
 ## **PagedAttention 알고리즘**
+
 ### chunking
 KV cache 를 기존처럼 연속된 주소에 할당하지 않고, GPU 메모리의 이곳저곳에 저장함
 - 기존에는 N만큼의 공간이 필요할때, N만큼의 메모리가 연속되어 비어 있지 않으면 할당을 못했는데, 이젠 파편화 되었더라도 N만큼의 메모리가 있다면 할당 가능
