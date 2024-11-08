@@ -61,13 +61,10 @@ vLLM은 여기서 영감을 받아 KV cache를 **비연속적 paged 메모리에
 ## **PagedAttention 알고리즘**
 PagedAttention 알고리즘의 주요 아이디어 두 가지를 설명하겠다.
 ### 주요 아이디어#1 : chunking
-KV cache 를 기존처럼 연속된 주소에 할당하지 않고, 나누어서 GPU 메모리의 이곳저곳에 저장하는 것을 말한다.
+KV cache 를 기존처럼 연속된 주소에 할당하지 않고, 나누어서 GPU 메모리의 이곳저곳에 저장하는 것을 말한다. 즉, 기존에는 N만큼의 공간이 필요할때, N만큼의 메모리가 연속되어 비어 있지 않으면 할당을 못했는데, 이젠 연속되어 있지 않더라도, N만큼의 메모리가 있다면 KV cache를 분할하여 저장한다.
 
-기존에는 N만큼의 공간이 필요할때, N만큼의 메모리가 연속되어 비어 있지 않으면 할당을 못했는데, 이젠 N만큼의 메모리가 있다면 이를 분할해서 할당 할 수 있게 되었다.
+대신, 해당 KV cache 들을 접근할때 이를 연결해줄 매핑 테이블이 필요하다. 이를 KV block 테이블이라 부른다.
 
-
-- 대신, 해당 KV cache 들을 접근할때 이를 연결해줄 매핑 테이블이 필요.
-- 이를 여기선 KV block 테이블이라고 함
 <p align="center"> <img width="600" src="https://github.com/user-attachments/assets/0b04f51f-e8c7-48ca-b278-2d721c1253e5"></p>
 ### sharing
 - Parallel sampling 예시
