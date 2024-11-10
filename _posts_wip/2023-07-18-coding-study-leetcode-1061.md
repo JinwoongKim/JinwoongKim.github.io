@@ -1,10 +1,13 @@
 ---
-title:  "오랜만의 코딩 스터디(WIP)"
-categories: "coding_study"
-tag: [coding study, leetcode]
-toc: true   #Table Of Contents 목차 
+title: 오랜만의 코딩 스터디(WIP)
+categories: coding study
+tags:
+  - coding
+  - study
+  - leetcode
+toc: true
 toc_sticky: true
-published : false
+published: false
 ---
 
 https://leetcode.com/problems/lexicographically-smallest-equivalent-string/description/

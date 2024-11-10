@@ -1,7 +1,9 @@
 ---
-title:  "예전의 나와 현재 나의 DP 풀이 차이"
-categories: "coding_study"
-tag: [dynamic programing]
+title: 예전의 나와 현재 나의 DP 풀이 차이
+categories: coding study
+tags:
+  - dynamic
+  - programing
 ---
 
 [예전 글](http://jinwoongkim.net/diary/coding-study-start/) 에서 언급했듯이 최근 코딩 테스트에서 자꾸 떨어져서 공부중인데, 공교롭게도 떨어진 문제들이 죄다 DP 였다.. 
