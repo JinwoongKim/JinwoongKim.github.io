@@ -22,7 +22,9 @@ published: true
 
 ### **`dp` 네임스페이스 사용자에게 `log-analyzer` Secret 조회 & 수정 권한 부여**하는 방법
 
-# 1️⃣ Role: 특정 네임스페이스에서 Secret 조회 및 수정 권한 부여
+### 1. 권한부여 rol
+
+```yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
@@ -33,8 +35,10 @@ rules:
     resources: ["secrets"]
     resourceNames: ["log-analyzer"]  # 특정 Secret만 적용
     verbs: ["get", "list", "watch", "update", "patch", "delete"]
+```
 
-# 2️⃣ RoleBinding: 특정 사용자에게 위 Role 적용
+
+```yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
@@ -48,11 +52,9 @@ roleRef:
   kind: Role
   name: secret-editor  # 위에서 만든 Role을 참조
   apiGroup: rbac.authorization.k8s.io
+```
 
-
-yaml
-
-복사편집
+y
 
 `apiVersion: rbac.authorization.k8s.io/v1 kind: Role metadata:   namespace: dp   name: secret-editor rules:   - apiGroups: [""]     resources: ["secrets"]     resourceNames: ["log-analyzer"]  # 특정 Secret만 적용     verbs: ["get", "list", "watch", "update", "patch", "delete"]`
 
