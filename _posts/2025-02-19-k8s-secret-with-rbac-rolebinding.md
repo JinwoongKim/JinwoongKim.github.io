@@ -5,7 +5,7 @@ tags:
   - kubernetes
   - k8s
   - secret
-published: true
+published: false
 ---
 
 [이전 글](https://jinwoongkim.net/kubernetes/k8s-secret/)에서 쿠버네티스에서 시크릿을 만들고 사용하는 방법에 대해서 다루어 보았다.
