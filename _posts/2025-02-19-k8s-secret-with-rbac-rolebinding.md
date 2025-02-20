@@ -55,14 +55,6 @@ roleRef:
 ```
 
 
-2️⃣ **RoleBinding으로 사용자 연결**
-
-yaml
-
-복사편집
-
-`apiVersion: rbac.authorization.k8s.io/v1 kind: RoleBinding metadata:   namespace: dp   name: secret-editor-binding subjects:   - kind: User     name: target-user  # dp 네임스페이스 사용자 (변경 필요)     apiGroup: rbac.authorization.k8s.io roleRef:   kind: Role   name: secret-editor   apiGroup: rbac.authorization.k8s.io`
-
 ### **RBAC 개념 비교 테이블**
 
 | 개념                     | 적용 범위     | 권한 정의        | 대상 지정                     | 네임스페이스 제한        |
