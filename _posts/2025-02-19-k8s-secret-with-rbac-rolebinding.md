@@ -12,7 +12,7 @@ published: true
 
 다만, 이름이 무색하게 이렇게 시크릿을 만들면 누구나 조회 수정이 가능하다.
 
-즉, 시크릿이 전혀 시크릿(?)하지 않은 상황 ㅎㅎ
+**즉, 시크릿이 전혀 시크릿(?)하지 않은 상황 ㅎㅎ**
 
 이럴때 ETCD에서 시크릿을 암호화하는 등 보안정책을 적용 할 수도 있지만, 보다 단순하게
 쿠버네티스의 RBAC과 Rolebinding을 이용해서 특정 네임스페이스만 시크릿을 조회 수정하게 할 수 있다.
@@ -20,9 +20,35 @@ published: true
 참고로 RBAC이란? 쿠버네티스에서... 리소스에 권한 설정을 하는 룰이라고 것이고
 이렇게 만든 루을 Rolebinding을 통해 적용한다고 생각하면 된다.
 
-### **`dp` 네임스페이스 사용자에게 `log-analyzer` Secret 조회 & 수정 권한 부여**
+### **`dp` 네임스페이스 사용자에게 `log-analyzer` Secret 조회 & 수정 권한 부여**하는 방법
 
-1️⃣ **Role 생성 (dp 네임스페이스에서 Secret 읽기 + 수정 가능)**
+# 1️⃣ Role: 특정 네임스페이스에서 Secret 조회 및 수정 권한 부여
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: dp
+  name: secret-editor
+rules:
+  - apiGroups: [""]
+    resources: ["secrets"]
+    resourceNames: ["log-analyzer"]  # 특정 Secret만 적용
+    verbs: ["get", "list", "watch", "update", "patch", "delete"]
+
+# 2️⃣ RoleBinding: 특정 사용자에게 위 Role 적용
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  namespace: dp
+  name: secret-editor-binding
+subjects:
+  - kind: User
+    name: target-user  # 권한을 부여할 사용자 (변경 가능)
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: Role
+  name: secret-editor  # 위에서 만든 Role을 참조
+  apiGroup: rbac.authorization.k8s.io
+
 
 yaml
 
