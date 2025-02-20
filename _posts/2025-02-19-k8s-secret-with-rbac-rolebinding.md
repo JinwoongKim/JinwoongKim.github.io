@@ -30,7 +30,8 @@ published: true
 | **ClusterRole**        | 클러스터 전체   | 리소스 접근 권한 정의 | X                         | ❌ (모든 네임스페이스 포함) |
 | **ClusterRoleBinding** | 클러스터 전체   | X            | ✅ ClusterRole을 사용자/그룹에 연결 | ❌ (모든 네임스페이스 포함) |
 
-참고로 ClusterRole 은 네임스페이스와 무관한 리소스도 관리 가능
+**
+* ClusterRole 은 클러스터 전체 적용이라, 네임스페이스와 무관한 리소스(노드, PV, SC)도 관리 가능
 
 
 업무상 쿠버네티스(K8s)를 많이 쓰는데 `secret` 을 직접 만들어 써본적은 없었다.
