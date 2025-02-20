@@ -72,6 +72,21 @@ roleRef:
 /* ClusterRole 은 클러스터 전체 적용이라, 네임스페이스와 무관한 리소스(노드, PV, SC)도 관리 가능
 
 
+
+`kubectl get secret`을 `abc` 네임스페이스의 사용자 권한으로 실행
+kubectl get secret -n dp --as=system:serviceaccount:abc:default
+
+
+
+
+
+
+
+
+
+
+
+---
 업무상 쿠버네티스(K8s)를 많이 쓰는데 `secret` 을 직접 만들어 써본적은 없었다.
 
 이번에 만들일이 생겨서 `secret` 을 어떻게 만들고, 사용하는지 정리해봤다.
