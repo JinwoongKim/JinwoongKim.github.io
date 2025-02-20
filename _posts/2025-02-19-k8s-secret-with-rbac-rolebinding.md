@@ -20,6 +20,24 @@ published: true
 참고로 RBAC이란? 쿠버네티스에서... 리소스에 권한 설정을 하는 룰이라고 것이고
 이렇게 만든 루을 Rolebinding을 통해 적용한다고 생각하면 된다.
 
+### **`dp` 네임스페이스 사용자에게 `log-analyzer` Secret 조회 & 수정 권한 부여**
+
+1️⃣ **Role 생성 (dp 네임스페이스에서 Secret 읽기 + 수정 가능)**
+
+yaml
+
+복사편집
+
+`apiVersion: rbac.authorization.k8s.io/v1 kind: Role metadata:   namespace: dp   name: secret-editor rules:   - apiGroups: [""]     resources: ["secrets"]     resourceNames: ["log-analyzer"]  # 특정 Secret만 적용     verbs: ["get", "list", "watch", "update", "patch", "delete"]`
+
+2️⃣ **RoleBinding으로 사용자 연결**
+
+yaml
+
+복사편집
+
+`apiVersion: rbac.authorization.k8s.io/v1 kind: RoleBinding metadata:   namespace: dp   name: secret-editor-binding subjects:   - kind: User     name: target-user  # dp 네임스페이스 사용자 (변경 필요)     apiGroup: rbac.authorization.k8s.io roleRef:   kind: Role   name: secret-editor   apiGroup: rbac.authorization.k8s.io`
+
 ### **RBAC 개념 비교 테이블**
 
 | 개념                     | 적용 범위     | 권한 정의        | 대상 지정                     | 네임스페이스 제한        |
@@ -33,7 +51,7 @@ published: true
 /* Binding이 필요한 이유? 하나의 롤을 만들고 여러 네임스페이스에 바인딩 가능
 
 	Role은 권한 정의
-	RoleBinding
+	RoleBinding은 권한 적용
 /* ClusterRole 은 클러스터 전체 적용이라, 네임스페이스와 무관한 리소스(노드, PV, SC)도 관리 가능
 
 
