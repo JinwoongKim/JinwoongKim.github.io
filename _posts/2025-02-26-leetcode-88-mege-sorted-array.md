@@ -40,8 +40,7 @@ class Solution:
 ```
 
 
-## 결과
-Wrong Answer
+## 결과 : Wrong Answer
 
 
 ---
