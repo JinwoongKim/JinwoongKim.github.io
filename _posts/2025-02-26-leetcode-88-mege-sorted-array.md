@@ -39,6 +39,11 @@ class Solution:
                 i2 -= 1
 ```
 
+복잡하게 생각을 하지 않고,
+그냥 two pointers를 썼다.
+
+하나는 nums1의 제일 마지막을 가르키고
+나머지 다른 하나는 nums2의 제일 끝을 가르키게 하고 ㅂ
 
 ## 결과 : Wrong Answer
 
