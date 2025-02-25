@@ -1,9 +1,9 @@
 ---
-title: 다시, 코딩 스터디
+title: "[Leetcode] 88. Merge Sorted Array"
 categories: coding study
 tags:
-  - coding
-published: true
+  - leetcode
+published: false
 ---
 다시, 코딩 스터디를 하려고 한다.
 
