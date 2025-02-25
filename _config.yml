@@ -204,7 +204,7 @@ incremental: false
 # Markdown Processing
 kramdown:
   input: GFM
-  hard_wrap: false
+  hard_wrap: true # 줄바꿈 유지
   auto_ids: true
   footnote_nr: 1
   entity_output: as_char
