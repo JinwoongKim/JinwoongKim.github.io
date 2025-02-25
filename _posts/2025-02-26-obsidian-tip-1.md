@@ -25,11 +25,9 @@ published: true
 줄 끝에 공백 두 번 혹은 `<br>` 추가 하기 이고
 
 영구 적인 조치는 (사실 이걸 말하기 위함)
-`_config.yml` 파일에서 다음 옵션을 추가하면 돼.
+`_config.yml` 파일에서 다음 옵션을 추가 혹은 변경 하면 된다.
 
 ```yaml
-
-복사편집
-
-`kramdown:   input: GFM   hard_wrap: true`
+kramdown:   
+  hard_wrap: true
 ```
