@@ -3,7 +3,7 @@ title: 다시, 코딩 스터디
 categories: coding study
 tags:
   - coding
-published: false
+published: true
 ---
 다시, 코딩 스터디를 하려고 한다.
 
