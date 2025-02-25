@@ -8,11 +8,62 @@ published: false
 https://leetcode.com/problems/merge-sorted-array/description/
 
 
-## 제출 답안지 (소요시간 : ㅇㅇ분)
+## 제출 답안지 (소요시간 : 20분)
+(이때는 20분으로 시간 제한을 해서..)
+
+```python
+class Solution:
+
+def merge(self, nums1: List[int], m: int, nums2: List[int], n: int) -> None:
+
+"""
+
+Do not return anything, modify nums1 in-place instead.
+
+"""
+
+i0, i1, i2 = m+n-1, m-1, n-1
+
+  
+
+if m == 0:
+
+nums1[:] = nums2
+
+elif n == 0:
+
+pass
+
+else:
+
+while i1 >= 0 and i2 >= 0:
+
+if nums1[i1] < nums2[i2]:
+
+nums1[i0] = nums2[i2]
+
+i2 -= 1
+
+elif nums1[i1] >= nums2[i2]:
+
+nums1[i0] = nums1[i1]
+
+nums1[i1] = 0
+
+i1 -= 1
+
+i0 -= 1
+
+while i2 >= 0:
+
+nums1[i0] = nums2[i2]
+
+i2 -= 1
+```
 
 
 ## 결과
-Accepted / Wrong Answer
+Wrong Answer
 
 
 ---
