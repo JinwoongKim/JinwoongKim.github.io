@@ -47,6 +47,7 @@ class Solution:
 나머지 마지막 하나로 nums2의 마지막을 가르키도록 하였다.
 
 ![[blog/images/Pasted image 20250226091255.png]]
+![](/images/Pasted image 20250226091255.png)
 메인 알고리즘은 매우 단순
 i1과 i2를 비교하여 보다 큰 숫자를
 i0에 넣고
