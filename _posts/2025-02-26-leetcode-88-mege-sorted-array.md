@@ -53,7 +53,7 @@ i1을 넣었으면 i1을 왼쪽으로 한 칸
 i2를 넣었으면 I2를 왼쪽으로 한 칸
 옮기는 것이었다.
 
-![](blog/images/Pasted image 20250226085915.png]]
+![](blog/images/Pasted image 20250226085915.png)
 
 ## 결과 : Wrong Answer
 
