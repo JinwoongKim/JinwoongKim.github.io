@@ -46,6 +46,7 @@ class Solution:
 다른 하나는 nums1의 0이전 숫자 중 마지막을,
 나머지 마지막 하나로 nums2의 마지막을 가르키도록 하였다.
 
+![[blog/images/Pasted image 20250226091255.png]]
 메인 알고리즘은 매우 단순
 i1과 i2를 비교하여 보다 큰 숫자를
 i0에 넣고
@@ -53,7 +54,6 @@ i1을 넣었으면 i1을 왼쪽으로 한 칸
 i2를 넣었으면 I2를 왼쪽으로 한 칸
 옮기는 것이었다.
 
-![](blog/images/Pasted image 20250226085915.png)
 
 ## 결과 : Wrong Answer
 
