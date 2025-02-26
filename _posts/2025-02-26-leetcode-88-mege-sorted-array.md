@@ -5,14 +5,11 @@ tags:
   - leetcode
 published: true
 ---
+### LeetCode - Merge Sorted Array
+🔗 [문제 링크](https://leetcode.com/problems/merge-sorted-array/description/)
+## **제출 답안지 (소요시간: 20분)**
 
-
-
-https://leetcode.com/problems/merge-sorted-array/description/
-
-
-## 제출 답안지 (소요시간 : 20분)
-(이때는 20분으로 시간 제한을 해서..)
+_(이때는 20분 제한을 두고 풀었다.)_
 
 ```python
 class Solution:
