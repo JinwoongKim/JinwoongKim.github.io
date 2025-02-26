@@ -3,7 +3,7 @@ title: "[Leetcode] 88. Merge Sorted Array"
 categories: coding study
 tags:
   - leetcode
-published: false
+published: true
 ---
 https://leetcode.com/problems/merge-sorted-array/description/
 
