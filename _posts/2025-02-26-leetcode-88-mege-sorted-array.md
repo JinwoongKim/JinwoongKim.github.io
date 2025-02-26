@@ -48,7 +48,8 @@ class Solution:
 
 ![[blog/images/Pasted image 20250226091255.png]]
 ![](/blog/images/Pasted_image_20250226085915.png)
-
+![[blog/images/Pasted image 20250226091255.png]]
+![](blog/images/blog/_posts/2025-02-26-leetcode-88-mege-sorted-array/IMG-20250226092447865.png)
 메인 알고리즘은 매우 단순
 i1과 i2를 비교하여 보다 큰 숫자를
 i0에 넣고
