@@ -46,9 +46,6 @@ class Solution:
 다른 하나는 nums1의 0이전 숫자 중 마지막을,
 나머지 마지막 하나로 nums2의 마지막을 가르키도록 하였다.
 
-![[blog/images/Pasted image 20250226091255.png]]
-![](/blog/images/Pasted_image_20250226085915.png)
-![[blog/images/Pasted image 20250226091255.png]]
 ![](blog/images/blog/_posts/2025-02-26-leetcode-88-mege-sorted-array/IMG-20250226092447865.png)
 메인 알고리즘은 매우 단순
 i1과 i2를 비교하여 보다 큰 숫자를
