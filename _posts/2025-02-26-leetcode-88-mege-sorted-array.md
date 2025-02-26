@@ -45,7 +45,7 @@ class Solution:
 - 하나는 **nums1의 마지막 숫자 이전 값을**,
 - 나머지 하나는 **nums2의 마지막 값을 가리키도록** 설정했다.
 
-<img src="blog/images/blog/_posts/2025-02-26-leetcode-88-mege-sorted-array/IMG-20250226092629238.png" width="600">
+<img src="blog/images/blog/_posts/2025-02-26-leetcode-88-mege-sorted-array/IMG-20250226092629238.png" width="200">
 
 메인 알고리즘은 매우 단순하다.
 
@@ -53,8 +53,11 @@ class Solution:
 2. **i1을 넣었으면 한 칸 왼쪽으로 이동**
 3. **i2를 넣었으면 한 칸 왼쪽으로 이동**
 
-
 ## 결과 : Wrong Answer
+
+오랜만 + 20분 안에 풀려고 해서 힘들긴 했지만
+이거 예전에 한 번 풀었던 문제인데.. 당황스러웠다 ㅠ
+
 
 
 ---
