@@ -3,6 +3,7 @@ title: "[Leetcode] 88. Merge Sorted Array"
 categories: coding study
 tags:
   - leetcode
+  - merge
 published: true
 ---
 ### LeetCode - Merge Sorted Array
@@ -58,8 +59,7 @@ class Solution:
 오랜만 + 20분 안에 풀려고 해서 힘들긴 했지만
 이거 예전에 한 번 풀었던 문제인데.. 당황스러웠다 ㅠ
 
-솔루션을 보자
-
+솔루션을 보자 [링크](https://leetcode.com/problems/merge-sorted-array/solutions/5714203/video-simple-solution-coding-exercise)
 
 ```python
 class Solution:
@@ -78,7 +78,6 @@ class Solution:
 
             right -= 1
 ```
-
 
 와우.. 놀라우리 만치 단순..
 내가 너무 어렵게 생각했나 싶다가도, 생각보다 까다로운 케이스가 있었던 듯
@@ -110,7 +109,7 @@ class Solution:
 
 Beat 100%? 말이 되나 이게..?ㅋㅋ
 
-![[blog/images/blog/_posts/2025-02-26-leetcode-88-mege-sorted-array/IMG-20250227090036180.png]]
+![[blog/images/blog/_posts/2025-02-27-leetcode-88-mege-sorted-array/IMG-20250227091134723.png]]
 
 2020년에 제출한 솔루션을 보자
 
