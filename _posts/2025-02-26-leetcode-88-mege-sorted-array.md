@@ -60,6 +60,25 @@ class Solution:
 
 솔루션을 보자
 
+```python
+class Solution:
+    def merge(self, nums1: List[int], m: int, nums2: List[int], n: int) -> None:
+        midx = m - 1
+        nidx = n - 1 
+        right = m + n - 1
+
+        while nidx >= 0:
+            if midx >= 0 and nums1[midx] > nums2[nidx]:
+                nums1[right] = nums1[midx]
+                midx -= 1
+            else:
+                nums1[right] = nums2[nidx]
+                nidx -= 1
+
+            right -= 1
+```
+
+
 와우.. 놀라우리 만치 단순..
 내가 너무 어렵게 생각했나 싶다가도, 생각보다 까다로운 케이스가 있었던 듯
 
@@ -129,6 +148,6 @@ class Solution:
 확실히 풀긴 했는데, 상당히 복잡한 듯
 
 ## 느낀점
-- 이번에 느낀점은, 생각보다 설계가 중요하다는 것
-- 그리고 손으로 검산하는게 생각보다 중요하다는 것
-- 특별히 배운 자료 구조는 없다!
+이번에 느낀점은, 생각보다 설계가 중요하다는 것
+그리고 손으로 검산하는게 생각보다 중요하다는 것
+특별히 배운 자료 구조는 없다!
