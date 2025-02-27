@@ -47,7 +47,7 @@ class Solution:
 - 하나는 **nums1의 마지막 숫자 이전 값을**,
 - 나머지 하나는 **nums2의 마지막 값을 가리키도록** 설정했다.
 
-<img src="/blog/images/blog/_posts/2025-02-26-leetcode-88-mege-sorted-array/IMG-20250226092629238.png" width="200">
+<img src="images/blog/_posts/2025-02-26-leetcode-88-mege-sorted-array/IMG-20250226092447865.png" width="200">
 
 메인 알고리즘은 매우 단순하다.
 
