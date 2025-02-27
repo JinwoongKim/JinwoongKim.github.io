@@ -65,8 +65,28 @@ class Solution:
 
 솔루션 공부 후 다시 풀고, 10분만에 제출 완료
 
+```python
+class Solution:
+    def merge(self, nums1: List[int], m: int, nums2: List[int], n: int) -> None:
+        """
+        Do not return anything, modify nums1 in-place instead.
+        """
+        dest = m+n-1
+        n1_idx = m-1
+        n2_idx = n-1
+        
+        # until nums2 moves all its elements
+        while n2_idx >= 0:
+            # if nums1 has larger one, move it to dest
+            if nums1[n1_idx] > nums2[n2_idx] and n1_idx >= 0:
+                nums1[dest] = nums1[n1_idx]
+                n1_idx -= 1
+            # otherwise, move nums2's element even if they are the same
+            else:
+                nums1[dest] = nums2[n2_idx]
+                n2_idx -= 1
+            dest -= 1
 ```
-
 
 Beat 100%? 말이 되나 이게..?ㅋㅋ
 
