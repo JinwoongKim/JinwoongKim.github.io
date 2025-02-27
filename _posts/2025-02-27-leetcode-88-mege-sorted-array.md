@@ -110,7 +110,13 @@ class Solution:
 
 Beat 100%? 말이 되나 이게..?ㅋㅋ
 
-![[blog/images/blog/_posts/2025-02-27-leetcode-88-mege-sorted-array/IMG-20250227091134723.png]]
+
+
+<img src="blog/images/blog/_posts/2025-02-27-leetcode-88-mege-sorted-array/IMG-20250227091134723.png" width="600">
+
+
+<img src="blog/images/blog/_posts/2025-02-27-leetcode-88-mege-sorted-array/IMG-20250227091134723.png" width="600">
+
 
 
 2020년에 제출한 솔루션을 보자
