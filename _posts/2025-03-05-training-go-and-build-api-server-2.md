@@ -333,9 +333,7 @@ func main() {
 이제 **`r.POST()`를 사용해서 API 요청을 처리할 때 주의해야 할 점과 활용법을 알았어!**  
 이해됐으면 다음 단계로 가자 🚀
 
-##### 나의 말:
-
-쿼리파라미터는 언제 써?
+> 쿼리파라미터는 언제 써?
 
 ###### ChatGPT의 말:
 
@@ -351,11 +349,16 @@ func main() {
 🔹 **예제:** `/products?category=electronics&brand=apple`  
 🔹 **설명:** 특정 카테고리나 브랜드로 상품을 필터링할 때 사용
 
-go
+```go
+func searchProducts(c *gin.Context) {
+    category := c.Query("category") // 기본값 없음 ("" 반환)
+    brand := c.Query("brand")
 
-복사편집
+    c.JSON(http.StatusOK, gin.H{"message": "Filtering", "category": category, "brand": brand})
+}
 
-`func searchProducts(c *gin.Context) {     category := c.Query("category") // 기본값 없음 ("" 반환)     brand := c.Query("brand")      c.JSON(http.StatusOK, gin.H{"message": "Filtering", "category": category, "brand": brand}) }`
+```
+
 
 ✔️ **언제 사용?**  
 ✅ 사용자가 검색 옵션을 선택할 때 (`/search?query=golang`)  
@@ -368,11 +371,17 @@ go
 🔹 **예제:** `/articles?sort=latest&page=2&limit=10`  
 🔹 **설명:** 최신순으로 정렬하고, 2페이지에서 10개만 가져옴
 
-go
+```go
+func getArticles(c *gin.Context) {
+    sort := c.DefaultQuery("sort", "latest") // 기본값 설정 가능
+    page := c.DefaultQuery("page", "1")
+    limit := c.DefaultQuery("limit", "10")
 
-복사편집
+    c.JSON(http.StatusOK, gin.H{"message": "Fetching articles", "sort": sort, "page": page, "limit": limit})
+}
 
-`func getArticles(c *gin.Context) {     sort := c.DefaultQuery("sort", "latest") // 기본값 설정 가능     page := c.DefaultQuery("page", "1")     limit := c.DefaultQuery("limit", "10")      c.JSON(http.StatusOK, gin.H{"message": "Fetching articles", "sort": sort, "page": page, "limit": limit}) }`
+```
+
 
 ✔️ **언제 사용?**  
 ✅ 정렬 옵션 (`/posts?sort=desc`)  
@@ -385,11 +394,16 @@ go
 🔹 **예제:** `/download?format=pdf&quality=high`  
 🔹 **설명:** 특정 파일 형식과 품질 옵션을 추가
 
-go
+```go
+func downloadFile(c *gin.Context) {
+    format := c.DefaultQuery("format", "pdf")
+    quality := c.DefaultQuery("quality", "medium")
 
-복사편집
+    c.JSON(http.StatusOK, gin.H{"message": "Downloading file", "format": format, "quality": quality})
+}
 
-`func downloadFile(c *gin.Context) {     format := c.DefaultQuery("format", "pdf")     quality := c.DefaultQuery("quality", "medium")      c.JSON(http.StatusOK, gin.H{"message": "Downloading file", "format": format, "quality": quality}) }`
+```
+
 
 ✔️ **언제 사용?**  
 ✅ 응답 형식 선택 (`/export?format=json`)  
