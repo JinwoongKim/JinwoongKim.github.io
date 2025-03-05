@@ -1059,4 +1059,63 @@ curl -X POST "http://localhost:8080/search" \
 바로 실행해서 동작 확인해봐! 🚀
 
 
-GET으로 구현했는데 curl로는 POST 주고.. 또 정신 못차리길래 일단 내 코드 줌
+`GET`으로 구현했는데 `curl`로는 `POST` 주고.. 또 정신 못차리길래 일단 내 코드 줌
+
+
+```go
+package main
+
+import (
+    "net/http"
+    "github.com/gin-gonic/gin"
+)
+
+func helloWorld(c *gin.Context){
+    c.JSON(http.StatusOK, gin.H{"message" : "Hello, world!"})
+}
+
+func ping(c *gin.Context){
+    c.JSON(http.StatusOK, gin.H{"message" : "pong"})
+}
+
+func echo(c *gin.Context){
+    var jsonData map[string]interface{}
+    // var jsonData gin.H, same with above?
+    if err := c.BindJSON(&jsonData); err != nil {
+        c.JSON(http.StatusBadRequest, gin.H{"error" : "Invalid JSON"})
+        return
+    }
+    c.JSON(http.StatusOK, gin.H{"received": jsonData})
+}
+
+func greet(c *gin.Context) {
+    name := c.Param("name")
+    c.JSON(http.StatusOK, gin.H{"message": "Hello" + name})
+}
+
+func search(c *gin.Context) {
+    query := c.Query("query")
+    if query == "" {
+        query = "default"
+    }
+    c.JSON(http.StatusOK, gin.H{"message": "Searching for" + query})
+}
+
+func main() {
+    r := gin.Default()
+    r.GET("/hello", helloWorld)
+    r.GET("/ping", ping)
+    r.GET("/greet/:name", greet)
+    r.GET("/search", search)
+    r.POST("/echo", echo)
+    r.Run(":8080")
+}
+```
+
+### **🚨 수정해야 할 점**
+
+1. **`"Hello" + name` → `"Hello, " + name`**
+    - 문자열을 붙일 때 **공백이 빠져있음** → `Hello, ChatGPT` 이렇게 나오게 수정.
+2. **`"Searching for" + query` → `"Searching for: " + query`**
+    - 마찬가지로 **공백 추가** 필요.
+    - `"Searching for golang"` → `"Searching for: golang"`
