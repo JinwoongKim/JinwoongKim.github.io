@@ -127,6 +127,8 @@ curl -X GET "http://localhost:8080/auth" -H "Authorization: Bearer my-secret-key
 
 완성된 코드를 올리면 검토해줄게! 😃
 
+아래 코드 전달함!!
+
 ```go
 package main
 
