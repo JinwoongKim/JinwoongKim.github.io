@@ -148,3 +148,26 @@ func main() {
     - `gin.H`는 맵이라서 `()`가 아니라 `{}`를 써야 해.
 4. `r := r.GET("/hello")` → `r.GET("/hello", helloWorld)`
     - `r.GET()`은 핸들러 함수를 받아야 해.
+
+위에 힌트들 보고 수정함
+
+```go
+package main
+
+import (
+    "net/http"
+    "github.com/gin-gonic/gin"
+)
+
+func helloWorld(c *gin.Context()){
+    c.JSON(http.StatusOK, gin.H{"message" : "Hello, world!"})
+}
+
+func main() {
+    r := gin.Default()
+    r.GET("/hello", helloWorld)
+    r.Run(":8080")
+}
+```
+
+수정은 했지만, 
