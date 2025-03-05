@@ -188,7 +188,6 @@ func handler(c *gin.Context) {
     body := c.PostForm("name") // POST 데이터에서 "name" 값 읽기
     c.String(http.StatusOK, "Hello, " + body)
 }
-
 ```
 
 ---
@@ -210,8 +209,8 @@ c.JSON(http.StatusOK, gin.H{"message": "Hello!"})
     
     - `map[string]interface{}` 타입의 **JSON 데이터 생성 도우미**
     - `{}` 안에 키-값을 넣어서 JSON 응답을 만들 때 편해.
-    
-   ```bash
+
+```go
 gin.H{
     "name": "Alice",
     "age": 25,
@@ -219,10 +218,9 @@ gin.H{
 
 ```
 
-    
     **동일한 코드**
     
- ```python
+```go
 map[string]interface{}{
     "name": "Alice",
     "age": 25,
