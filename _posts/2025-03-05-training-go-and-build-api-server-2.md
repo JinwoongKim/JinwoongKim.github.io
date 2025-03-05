@@ -1219,3 +1219,129 @@ func main() {
     - 응답 본문을 **안전하게 닫아 메모리 누수 방지**
 이제 `http.NewRequest()` 기반으로 API 호출이 개선됐어!  
 이제 이 코드가 **더 확장 가능하고 유지보수하기 좋은 구조**야. 🚀
+
+
+# 8단계 : Gin 미들웨어 이해하기 → 인증/로깅 미들웨어 추가
+
+이제 `Gin`의 **미들웨어(Middleware)** 를 다룰 거야.  
+미들웨어는 **요청이 라우트 핸들러에 도달하기 전에 실행되는 함수**야.
+
+---
+
+## **💡 목표**
+
+1. **API 키 인증 미들웨어 추가** → 특정 API 경로에 **인증 요구**
+2. **요청 로깅 미들웨어 추가** → 요청이 올 때마다 **로그 출력**
+3. **미들웨어가 실행되는 순서 이해**
+
+---
+
+## **✅ 1단계: 기본 미들웨어 구조 이해**
+
+Gin에서 미들웨어는 `func(c *gin.Context)` 형태로 정의돼.  
+요청이 들어오면 **미들웨어 → 핸들러 실행 → 응답 반환** 순서로 처리돼.
+
+```go
+func ExampleMiddleware(c *gin.Context) {
+    fmt.Println("🔹 미들웨어 실행됨!")
+    c.Next() // 다음 핸들러 실행
+}
+
+```
+
+
+> `c.Next()`가 실행되면 다음 핸들러로 넘어감.  
+> `c.Abort()`를 사용하면 **핸들러 실행을 중단**할 수도 있어.
+
+---
+
+## **✅ 2단계: API 키 인증 미들웨어 추가**
+
+🔹 **API 키를 검증하는 미들웨어를 추가하자.**  
+아래처럼 `AuthMiddleware`를 만들어 특정 경로에 적용하면 돼.
+
+go
+
+복사편집
+
+`func AuthMiddleware() gin.HandlerFunc {     return func(c *gin.Context) {         apiKey := c.GetHeader("Authorization")         if apiKey == "" || !strings.HasPrefix(apiKey, "Bearer ") {             c.JSON(http.StatusUnauthorized, gin.H{"error": "Missing or invalid API Key"})             c.Abort() // ❌ 요청 중단 (핸들러 실행 안 됨)             return         }         c.Next() // ✅ 인증 성공 → 다음 핸들러 실행     } }`
+
+이제 특정 엔드포인트에 적용하면 돼.
+
+go
+
+복사편집
+
+`r := gin.Default() r.Use(AuthMiddleware()) // 모든 요청에 적용`
+
+> **✔️ 특정 라우트에만 적용하고 싶다면?**
+
+go
+
+복사편집
+
+`r.POST("/secure-endpoint", AuthMiddleware(), secureHandler)`
+
+---
+
+## **✅ 3단계: 요청 로깅 미들웨어 추가**
+
+요청이 올 때마다 **메서드, 경로, 응답 코드**를 로깅하자.
+
+go
+
+복사편집
+
+`func LoggerMiddleware() gin.HandlerFunc {     return func(c *gin.Context) {         fmt.Printf("📥 요청: %s %s\n", c.Request.Method, c.Request.URL.Path)         c.Next() // 다음 핸들러 실행         fmt.Printf("📤 응답: %d\n", c.Writer.Status())     } }`
+
+모든 요청에 적용:
+
+go
+
+복사편집
+
+`r := gin.Default() r.Use(LoggerMiddleware()) // 모든 요청 로깅`
+
+---
+
+## **✅ 4단계: 미들웨어 적용된 최종 코드**
+
+아래는 **인증 & 로깅 미들웨어가 적용된 코드**야.
+
+go
+
+복사편집
+
+`package main  import ( 	"bytes" 	"encoding/json" 	"fmt" 	"io" 	"net/http" 	"strings"  	"github.com/gin-gonic/gin" )  // **🔹 API 키 인증 미들웨어** func AuthMiddleware() gin.HandlerFunc { 	return func(c *gin.Context) { 		apiKey := c.GetHeader("Authorization") 		if apiKey == "" || !strings.HasPrefix(apiKey, "Bearer ") { 			c.JSON(http.StatusUnauthorized, gin.H{"error": "Missing or invalid API Key"}) 			c.Abort() 			return 		} 		c.Next() 	} }  // **🔹 요청 로깅 미들웨어** func LoggerMiddleware() gin.HandlerFunc { 	return func(c *gin.Context) { 		fmt.Printf("📥 요청: %s %s\n", c.Request.Method, c.Request.URL.Path) 		c.Next() 		fmt.Printf("📤 응답: %d\n", c.Writer.Status()) 	} }  // **🔹 API 엔드포인트** func securedEndpoint(c *gin.Context) { 	c.JSON(http.StatusOK, gin.H{"message": "Secure Data"}) }  func main() { 	r := gin.Default()  	// **🚀 미들웨어 적용** 	r.Use(LoggerMiddleware()) // 모든 요청 로깅  	// 인증 미들웨어 적용 (특정 엔드포인트) 	r.GET("/secure", AuthMiddleware(), securedEndpoint)  	r.Run(":8080") }`
+
+---
+
+## **🛠️ 5단계: 테스트 (cURL)**
+
+1️⃣ **API 키 없이 요청** (❌ 401 Unauthorized)
+
+sh
+
+복사편집
+
+`curl -X GET http://localhost:8080/secure`
+
+2️⃣ **올바른 API 키 포함 요청** (✅ 200 OK)
+
+sh
+
+복사편집
+
+`curl -X GET http://localhost:8080/secure \      -H "Authorization: Bearer valid-api-key"`
+
+---
+
+## **🎯 최종 정리**
+
+- **`c.Next()`** → 미들웨어 실행 후 다음 핸들러 실행
+- **`c.Abort()`** → 이후 핸들러 실행 중단
+- **인증 미들웨어** → 특정 요청만 허용
+- **로깅 미들웨어** → 모든 요청 로깅
+
+이제 Gin 미들웨어 개념을 확실히 잡았어! 🔥  
+9단계(에러 핸들링)로 넘어갈 준비됐어? 🚀
