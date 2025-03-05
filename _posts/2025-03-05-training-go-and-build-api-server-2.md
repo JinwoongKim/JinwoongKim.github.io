@@ -793,7 +793,8 @@ type Reader interface {
 > // 응답 읽기 body, err := io.ReadAll(resp.Body)
 > if err != nil {
 >   fmt.Println("Error reading response:", err)
->   return } 이 블록도 설명해줘
+>   return
+> } 이 블록도 설명해줘
 
 ###### ChatGPT의 말:
 
@@ -872,3 +873,4 @@ io.Copy(os.Stdout, resp.Body)
 
 
 즉, **작은 JSON 응답이면 `io.ReadAll()`이 적절하고, 큰 데이터라면 `io.Copy()`를 고려해야 해.**
+
