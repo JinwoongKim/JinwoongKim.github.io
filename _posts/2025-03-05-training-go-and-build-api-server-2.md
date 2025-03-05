@@ -1376,12 +1376,7 @@ func main() {
 
 💡 **즉, `r.Use()`에 등록한 미들웨어는 모든 요청에 대해 실행됨** 🚀
 
-
-
 ---
-
->
-
 ## **✅ 2단계: API 키 인증 미들웨어 추가**
 
 🔹 **API 키를 검증하는 미들웨어를 추가하자.**  
@@ -1437,11 +1432,11 @@ func LoggerMiddleware() gin.HandlerFunc {
 
 모든 요청에 적용:
 
-go
+```go
+r := gin.Default()
+r.Use(LoggerMiddleware()) // 모든 요청 로깅
+```
 
-복사편집
-
-`r := gin.Default() r.Use(LoggerMiddleware()) // 모든 요청 로깅`
 
 ---
 
@@ -1449,11 +1444,60 @@ go
 
 아래는 **인증 & 로깅 미들웨어가 적용된 코드**야.
 
-go
+```go
+package main
 
-복사편집
+import (
+	"bytes"
+	"encoding/json"
+	"fmt"
+	"io"
+	"net/http"
+	"strings"
 
-`package main  import ( 	"bytes" 	"encoding/json" 	"fmt" 	"io" 	"net/http" 	"strings"  	"github.com/gin-gonic/gin" )  // **🔹 API 키 인증 미들웨어** func AuthMiddleware() gin.HandlerFunc { 	return func(c *gin.Context) { 		apiKey := c.GetHeader("Authorization") 		if apiKey == "" || !strings.HasPrefix(apiKey, "Bearer ") { 			c.JSON(http.StatusUnauthorized, gin.H{"error": "Missing or invalid API Key"}) 			c.Abort() 			return 		} 		c.Next() 	} }  // **🔹 요청 로깅 미들웨어** func LoggerMiddleware() gin.HandlerFunc { 	return func(c *gin.Context) { 		fmt.Printf("📥 요청: %s %s\n", c.Request.Method, c.Request.URL.Path) 		c.Next() 		fmt.Printf("📤 응답: %d\n", c.Writer.Status()) 	} }  // **🔹 API 엔드포인트** func securedEndpoint(c *gin.Context) { 	c.JSON(http.StatusOK, gin.H{"message": "Secure Data"}) }  func main() { 	r := gin.Default()  	// **🚀 미들웨어 적용** 	r.Use(LoggerMiddleware()) // 모든 요청 로깅  	// 인증 미들웨어 적용 (특정 엔드포인트) 	r.GET("/secure", AuthMiddleware(), securedEndpoint)  	r.Run(":8080") }`
+	"github.com/gin-gonic/gin"
+)
+
+// **🔹 API 키 인증 미들웨어**
+func AuthMiddleware() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		apiKey := c.GetHeader("Authorization")
+		if apiKey == "" || !strings.HasPrefix(apiKey, "Bearer ") {
+			c.JSON(http.StatusUnauthorized, gin.H{"error": "Missing or invalid API Key"})
+			c.Abort()
+			return
+		}
+		c.Next()
+	}
+}
+
+// **🔹 요청 로깅 미들웨어**
+func LoggerMiddleware() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		fmt.Printf("📥 요청: %s %s\n", c.Request.Method, c.Request.URL.Path)
+		c.Next()
+		fmt.Printf("📤 응답: %d\n", c.Writer.Status())
+	}
+}
+
+// **🔹 API 엔드포인트**
+func securedEndpoint(c *gin.Context) {
+	c.JSON(http.StatusOK, gin.H{"message": "Secure Data"})
+}
+
+func main() {
+	r := gin.Default()
+
+	// **🚀 미들웨어 적용**
+	r.Use(LoggerMiddleware()) // 모든 요청 로깅
+
+	// 인증 미들웨어 적용 (특정 엔드포인트)
+	r.GET("/secure", AuthMiddleware(), securedEndpoint)
+
+	r.Run(":8080")
+}
+
+```
 
 ---
 
@@ -1461,19 +1505,18 @@ go
 
 1️⃣ **API 키 없이 요청** (❌ 401 Unauthorized)
 
-sh
+```bash
+curl -X GET http://localhost:8080/secure
+```
 
-복사편집
-
-`curl -X GET http://localhost:8080/secure`
 
 2️⃣ **올바른 API 키 포함 요청** (✅ 200 OK)
 
-sh
+```bash
+curl -X GET http://localhost:8080/secure \
+     -H "Authorization: Bearer valid-api-key"
+```
 
-복사편집
-
-`curl -X GET http://localhost:8080/secure \      -H "Authorization: Bearer valid-api-key"`
 
 ---
 
