@@ -266,9 +266,7 @@ Gin의 `Context` 정의를 보면, `JSON()` 메서드가 있어.
 func (c *Context) JSON(code int, obj interface{}) {
     c.Render(code, render.JSON{Data: obj})
 }
-
 ```
-
 
 즉, `Context` 객체(`c`)가 `JSON()` 메서드를 가지고 있어서,  
 클라이언트에게 JSON 형식의 응답을 보낼 수 있는 거야! 🚀
