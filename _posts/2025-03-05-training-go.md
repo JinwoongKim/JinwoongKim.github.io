@@ -628,7 +628,8 @@ func main() {
 ✔ `GET /hello` 요청 → `{"message": "Hello, world!"}` 응답 반환 ✅
 
 ```bash
-curl -X GET "http://localhost:8080/hello"
+# curl -X GET "http://localhost:8080/hello"
+{"message":"Hello, world!"}
 ```
 
 ---
@@ -643,11 +644,29 @@ curl -X GET "http://localhost:8080/hello"
 
 👉 **빈칸을 채워서 코드 완성해봐!**
 
-go
+```go
+package main
 
-복사편집
+import (
+    "net/http"
+    "github.com/gin-gonic/gin"
+)
 
-`package main  import (     "net/http"     "github.com/gin-gonic/gin" )  func helloWorld(c *gin.Context) {     c.JSON(http.StatusOK, gin.H{"message": "Hello, world!"}) }  func ping(___ ____) {  // ① (빈칸: 파라미터)     c.____(___, gin.H{"message": "pong"})  // ② (빈칸: 응답) }  func main() {     r := gin.Default()     r.GET("/hello", helloWorld)     r.GET("/ping", ___)  // ③ (빈칸: 핸들러 등록)     r.Run(":8080") }`
+func helloWorld(c *gin.Context) {
+    c.JSON(http.StatusOK, gin.H{"message": "Hello, world!"})
+}
+
+func ping(___ ____) {  // ① (빈칸: 파라미터)
+    c.____(___, gin.H{"message": "pong"})  // ② (빈칸: 응답)
+}
+
+func main() {
+    r := gin.Default()
+    r.GET("/hello", helloWorld)
+    r.GET("/ping", ___)  // ③ (빈칸: 핸들러 등록)
+    r.Run(":8080")
+}
+```
 
 📌 **힌트**  
 1️⃣ `ping` 함수의 파라미터는 `gin.Context` 객체야.  
