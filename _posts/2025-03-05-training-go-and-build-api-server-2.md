@@ -1246,7 +1246,6 @@ func ExampleMiddleware(c *gin.Context) {
     fmt.Println("🔹 미들웨어 실행됨!")
     c.Next() // 다음 핸들러 실행
 }
-
 ```
 
 
