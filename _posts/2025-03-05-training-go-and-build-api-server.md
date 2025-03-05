@@ -4,6 +4,7 @@ categories: study
 tags:
   - ChatGPT
   - Go
+  - API
 published: true
 ---
 
@@ -20,7 +21,7 @@ ChatGPT를 이용해 코드를 구현 할 수는 있지만, 사이트를 찾아�
 참고로 모델은 GPT-4o를 사용함
 바로 1단계 시작
 
-## **🔥 단계 1: Gin 서버 기본 설정 및 실행**
+# 단계 1: Gin 서버 기본 설정 및 실행**
 
 **목표:** Gin을 사용해 **기본 웹 서버를 띄우기**
 
@@ -96,7 +97,7 @@ func main() {
 ```
 
 
-### ✅ **2단계: "Hello, World!" API 추가하기**
+# **2단계: "Hello, World!" API 추가하기**
 
 이제 `/hello` 엔드포인트를 추가해 보자.  
 이 엔드포인트를 호출하면 `"Hello, World!"`를 JSON으로 반환해야 해.
