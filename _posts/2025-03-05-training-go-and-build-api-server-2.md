@@ -459,11 +459,18 @@ func handler(c *gin.Context) {
 
 ### ✅ **2. `c.ShouldBindJSON()` → 직접 에러 핸들링 가능**
 
-go
+```go
+func handler(c *gin.Context) {
+    var reqBody RequestStruct
+    if err := c.ShouldBindJSON(&reqBody); err != nil {
+        c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+        return
+    }
+    c.JSON(http.StatusOK, gin.H{"data": reqBody})
+}
 
-복사편집
+```
 
-`func handler(c *gin.Context) {     var reqBody RequestStruct     if err := c.ShouldBindJSON(&reqBody); err != nil {         c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})         return     }     c.JSON(http.StatusOK, gin.H{"data": reqBody}) }`
 
 ✔ **특징:**
 
@@ -482,13 +489,6 @@ go
 
 ✅ **`c.BindJSON()`** → 단순한 API에서 사용 (자동 400 응답)  
 ✅ **`c.ShouldBindJSON()`** → 에러 핸들링이 필요할 때 사용 (직접 처리 가능)
-
-
-
-
-
-
-
 
 
 # 7단계 : 외부 API 호출 및 응답 처리하기
