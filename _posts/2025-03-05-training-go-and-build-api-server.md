@@ -981,7 +981,6 @@ func search(c *gin.Context) {
     }
     c.JSON(http.StatusOK, gin.H{"result": "Searching for " + query})
 }
-
 ```
 
 
@@ -993,11 +992,16 @@ func search(c *gin.Context) {
 
 위에서 만든 `greet`과 `search` 함수를 **라우터에 추가**해봐.
 
-go
+```go
+func main() {
+    r := gin.Default()
 
-복사편집
+    r.GET("/greet/:name", ____)
+    r.GET("/search", ____)
 
-`func main() {     r := gin.Default()      r.GET("/greet/:name", ____)     r.GET("/search", ____)      r.Run(":8080") }`
+    r.Run(":8080")
+}
+```
 
 ---
 
