@@ -100,3 +100,40 @@ func main() {
     r.Run(":8080")
 }
 ```
+
+
+### ✅ **2단계: "Hello, World!" API 추가하기**
+
+이제 `/hello` 엔드포인트를 추가해 보자.  
+이 엔드포인트를 호출하면 `"Hello, World!"`를 JSON으로 반환해야 해.
+
+#### **📌 힌트**
+
+1. `r.GET()`을 사용해서 `"/hello"` 경로를 추가해야 해.
+2. `gin.Context`를 사용해서 `c.JSON()`으로 응답을 보내야 해.
+3. `c.JSON(http.StatusOK, gin.H{"message": "Hello, World!"})` 형식으로 응답을 보내면 돼.
+
+
+처음 내 답변. 역시 보는 것과 쓰는 것은 다르다.
+여러 번 봤는데도 
+
+```go
+package main
+
+import (
+    "http"
+    "github.com/gin-gonic/gin"
+)
+
+func helloWorld(p gin.Context()){
+    c.JSON(http.StatusOK, gin.H({"message" : "Hello, world!"}))
+}
+
+func main() {
+    r := gin.Default()
+    r := r.GET("/hello")
+
+    r.Run(":8080")
+}
+```
+
