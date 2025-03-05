@@ -599,3 +599,30 @@ func runV1(c *gin.Context) {
 3. `defer resp.Body.Close()`가 없으면 어떤 문제가 발생할까?
 
 🚀 **빈칸을 채우고, 질문에 대한 답을 고민한 후 알려줘!**
+
+
+> 1차 코드 작성을 했어
+
+```go
+func callExternalAPI() {
+  url := "https://example.com/api"
+
+  requestBody := strings.NewReader({"key":"value"})
+  resp, err := http.POST(url, "application/json", requestBody)
+  if err != nil {
+    fmt.Println("Error:", err)
+    return
+  }
+  defer resp.Body.close()
+
+  body, err := io.ReadAll(resp.Body)
+  if err != nil {
+    fmt.Println("Error reading response:", err)
+    return
+  }
+
+  fmt.Println("Response:",string(body))
+}
+ChatGPT의 말:
+
+```
