@@ -789,7 +789,7 @@ func echo(c *gin.Context){
                 c.JSON(http.StatusBadRequest, gin.H{"error" : "Invalid JSON"})
                 return
         }
-        c.JSON(http.StatusOK, gin.H{"received": jsonData})
+        c.JSON(http.StatusOK, gin.H{"message": jsonData}) // 형식 통일
 }
 
 func main() {
