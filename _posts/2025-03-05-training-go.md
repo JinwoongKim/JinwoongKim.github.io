@@ -84,4 +84,19 @@ func main() {
     - 포트 앞에 `:`가 필요해.
     - `Run()` 메서드는 첫 글자를 **대문자**로 써야 해.
 
+오, 생각보다 머리에 쏙쏙 들어온다.
+바로 고침
 
+```go
+package main
+
+import (
+    "github.com/gin-gonic/gin"
+)
+
+func main() {
+    r := gin.Default()
+
+    r.Run(":8080")
+}
+```
