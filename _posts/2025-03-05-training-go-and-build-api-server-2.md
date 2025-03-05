@@ -697,7 +697,7 @@ func callExternalAPI() {
 
 1,2번이야 오탈자인데, 3번은 지가 알려준대로 했는데 어이가 없네;;
 
-bytes.NewBuffer(requestBody)랑 resp.Body.Close() 가 이해가 잘 안 
+> bytes.NewBuffer(requestBody)랑 resp.Body.Close() 가 이해가 잘 안돼
 
 ###### ChatGPT의 말:
 
@@ -711,11 +711,17 @@ bytes.NewBuffer(requestBody)랑 resp.Body.Close() 가 이해가 잘 안
 
 #### 📌 **비교**
 
-go
+```go
+requestBody, _ := json.Marshal(map[string]string{"key": "value"})
 
-복사편집
+// ❌ 이렇게 하면 오류 (io.Reader 타입이 아님)
+// http.Post(url, "application/json", requestBody)
 
-`requestBody, _ := json.Marshal(map[string]string{"key": "value"})  // ❌ 이렇게 하면 오류 (io.Reader 타입이 아님) // http.Post(url, "application/json", requestBody)  // ✅ 올바른 사용법 http.Post(url, "application/json", bytes.NewBuffer(requestBody))`
+// ✅ 올바른 사용법
+http.Post(url, "application/json", bytes.NewBuffer(requestBody))
+
+```
+
 
 `bytes.NewBuffer()`는 `[]byte` 데이터를 `io.Reader` 인터페이스를 구현하는 객체로 변환해 줘서  
 `http.Post()`에서 사용할 수 있게 해.
@@ -732,18 +738,26 @@ go
 
 #### 📌 **비교**
 
-go
+```go
+resp, err := http.Post(url, "application/json", bytes.NewBuffer(requestBody))
+if err != nil {
+    fmt.Println("Error:", err)
+    return
+}
 
-복사편집
+// ❌ Close() 안 하면 메모리 누수 발생 가능
+body, _ := io.ReadAll(resp.Body)
+fmt.Println(string(body))
 
-`resp, err := http.Post(url, "application/json", bytes.NewBuffer(requestBody)) if err != nil {     fmt.Println("Error:", err)     return }  // ❌ Close() 안 하면 메모리 누수 발생 가능 body, _ := io.ReadAll(resp.Body) fmt.Println(string(body))  // ✅ defer로 Close() 예약 (안전한 방법) defer resp.Body.Close()`
+// ✅ defer로 Close() 예약 (안전한 방법)
+defer resp.Body.Close()
+```
+
 
 응답 본문을 다 읽고 나면 반드시 `Close()`를 호출해야 리소스가 정리돼.  
 특히 `defer resp.Body.Close()`를 쓰면 함수가 끝날 때 자동으로 닫혀서 안전해.
 
-##### 나의 말:
-
-왜 http.Post()의 세 번째 인자는 io.Reader 타입을 요구해? 그리고 io.Reader가 뭐야?
+> 왜 http.Post()의 세 번째 인자는 io.Reader 타입을 요구해? 그리고 io.Reader가 뭐야?
 
 ###### ChatGPT의 말:
 
@@ -767,10 +781,10 @@ Go의 표준 라이브러리에서는 HTTP 요청의 본문을 **스트림(strea
 `io.Reader`는 Go의 **인터페이스(interface)** 중 하나야.  
 이 인터페이스를 구현한 타입은 **읽기 기능(Read method)**을 제공해야 해.
 
-go
-
-복사편집
-
-`type Reader interface {     Read(p []byte) (n int, err error) }`
+```go
+type Reader interface {
+    Read(p []byte) (n int, err error)
+}
+```
 
 📌 **즉, `Read()` 메서드를 가진 타입은 모두 `io.Reader`로 쓸 수 있어.**
