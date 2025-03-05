@@ -1,5 +1,5 @@
 ---
-title: ChatGPT를 이용해 Go언어 배워서 API 서버 개발 하기
+title: ChatGPT를 이용해 Go언어 배워서 API 서버 개발 하기 (1/2)
 categories: study
 tags:
   - ChatGPT
@@ -1376,3 +1376,5 @@ func main() {
 }
 
 ```
+
+너무 길어져서 2편에서 계속..
