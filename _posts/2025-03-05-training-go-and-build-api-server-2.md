@@ -1016,3 +1016,6 @@ fmt.Println(jsonResponse.Message) // 특정 필드만 사용 가능
 - `defer resp.Body.Close()`가 없으면? → **메모리 누수가 아니라, 파일 핸들 누수 문제!**
 
 🔥 **"메모리 누수?" 대신 "파일 핸들 누수!"라고 기억하면 돼.**
+
+> 위의 http.NewRequest로 기존 코드를 다시 짜서 줘봐
+
