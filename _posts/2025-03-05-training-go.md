@@ -571,7 +571,10 @@ map[string]string{"age": 30} // ❌ 오류 발생 (int는 string이 아님)
 이 코드를
 
 ```go
-    c.JSON(http.StatusOK, gin.H{"message" : "Hello, world!"})
+    c.JSON(http.StatusOK, map[string]string{"message" : "Hello, world!"})
 ```
 
-이렇게도 변경될듯. 물
+이렇게도 변경될듯. 물론 이 경우에 해당하는 거지만..
+
+자 이제 3단계로 고!!
+
