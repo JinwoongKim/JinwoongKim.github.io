@@ -138,3 +138,19 @@ func main() {
 }
 ```
 
+
+### ❌ **틀린 부분 & 수정해야 할 것**
+
+1. `"http"` → `"net/http"`
+    
+    - `http.StatusOK`를 사용하려면 `"net/http"` 패키지를 불러와야 해.
+2. `helloWorld(p gin.Context())` → `helloWorld(c *gin.Context)`
+    
+    - `gin.Context`는 **포인터로 받아야 해 (`*gin.Context`)**
+    - `p` 대신 `c`를 쓰는 게 일반적이야.
+3. `gin.H({"message": "Hello, world!"})` → `gin.H{"message": "Hello, world!"}`
+    
+    - `gin.H`는 맵이라서 `()`가 아니라 `{}`를 써야 해.
+4. `r := r.GET("/hello")` → `r.GET("/hello", helloWorld)`
+    
+    - `r.GET()`은 핸들러 함수를 받아야 해.
