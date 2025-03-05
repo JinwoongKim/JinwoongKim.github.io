@@ -958,11 +958,12 @@ c.JSON(http.StatusOK, gin.H{"data": jsonData})
 
 아래 코드에서 **빈칸을 채워서** URL 파라미터를 처리해봐.
 
-go
-
-복사편집
-
-`func greet(c *gin.Context) {     name := __________ // URL 파라미터 "name" 가져오기     c.JSON(http.StatusOK, gin.H{"message": "Hello " + name}) }`
+```go
+func greet(c *gin.Context) {
+    name := __________ // URL 파라미터 "name" 가져오기
+    c.JSON(http.StatusOK, gin.H{"message": "Hello " + name})
+}
+```
 
 힌트: `c.Param("name")`을 활용!
 
@@ -972,11 +973,17 @@ go
 
 아래 코드에서 **빈칸을 채워서** 쿼리 파라미터를 처리해봐.
 
-go
+```go
+func search(c *gin.Context) {
+    query := __________ // "query"라는 쿼리 파라미터 가져오기
+    if query == "" {
+        query = "default"
+    }
+    c.JSON(http.StatusOK, gin.H{"result": "Searching for " + query})
+}
 
-복사편집
+```
 
-`func search(c *gin.Context) {     query := __________ // "query"라는 쿼리 파라미터 가져오기     if query == "" {         query = "default"     }     c.JSON(http.StatusOK, gin.H{"result": "Searching for " + query}) }`
 
 힌트: `c.Query("query")`을 활용!
 
