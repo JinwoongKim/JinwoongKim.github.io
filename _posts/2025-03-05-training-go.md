@@ -509,11 +509,14 @@ Go에서는 **모든 타입이 하나 이상의 인터페이스를 구현**해.
 
 📌 **예제**
 
-go
+```go
+var anything interface{}
+anything = 42         // 정수
+anything = "Hello"    // 문자열
+anything = true       // 불리언
+anything = 3.14       // 실수
 
-복사편집
-
-`var anything interface{} anything = 42         // 정수 anything = "Hello"    // 문자열 anything = true       // 불리언 anything = 3.14       // 실수`
+```
 
 ➡ `interface{}`에 **정수, 문자열, 불리언, 실수** 등 모든 타입을 넣을 수 있어.
 
@@ -526,11 +529,15 @@ go
 
 📌 **예제**
 
-go
+```go
+gin.H{
+    "name":  "Alice",      // 문자열 (string)
+    "age":   30,           // 숫자 (int)
+    "admin": true,         // 불리언 (bool)
+    "scores": []int{90, 85, 88},  // 배열 (slice)
+}
 
-복사편집
-
-`gin.H{     "name":  "Alice",      // 문자열 (string)     "age":   30,           // 숫자 (int)     "admin": true,         // 불리언 (bool)     "scores": []int{90, 85, 88},  // 배열 (slice) }`
+```
 
 ➡ 값의 타입이 제각각이므로 **모든 타입을 저장할 수 있는 `interface{}`를 사용**해야 해.
 
