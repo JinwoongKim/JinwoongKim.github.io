@@ -606,14 +606,30 @@ func helloWorld(c *gin.Context()){
 
 우리가 만든 코드는 이거야 👇
 
+```go
+package main
 
-go
+import (
+    "net/http"
+    "github.com/gin-gonic/gin"
+)
 
-복사편집
+func helloWorld(c *gin.Context) {
+    c.JSON(http.StatusOK, gin.H{"message": "Hello, world!"})
+}
 
-`package main  import (     "net/http"     "github.com/gin-gonic/gin" )  func helloWorld(c *gin.Context) {     c.JSON(http.StatusOK, gin.H{"message": "Hello, world!"}) }  func main() {     r := gin.Default()     r.GET("/hello", helloWorld)     r.Run(":8080") }`
+func main() {
+    r := gin.Default()
+    r.GET("/hello", helloWorld)
+    r.Run(":8080")
+}
+```
 
 ✔ `GET /hello` 요청 → `{"message": "Hello, world!"}` 응답 반환 ✅
+
+```bash
+curl -X GET "http://localhost:8080/hello"
+```
 
 ---
 
