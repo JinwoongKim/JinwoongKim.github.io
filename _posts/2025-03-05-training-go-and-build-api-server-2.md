@@ -790,17 +790,23 @@ type Reader interface {
 📌 **즉, `Read()` 메서드를 가진 타입은 모두 `io.Reader`로 쓸 수 있어.**
 
 
-> // 응답 읽기 body, err := io.ReadAll(resp.Body) if err != nil { fmt.Println("Error reading response:", err) return } 이 블록도 설명해줘
+> // 응답 읽기 body, err := io.ReadAll(resp.Body)
+> if err != nil {
+>   fmt.Println("Error reading response:", err)
+>   return } 이 블록도 설명해줘
 
 ###### ChatGPT의 말:
 
 ### **📌 `io.ReadAll(resp.Body)` 블록 설명**
 
-go
+```go
+body, err := io.ReadAll(resp.Body)
+if err != nil {
+    fmt.Println("Error reading response:", err)
+    return
+}
 
-복사편집
-
-`body, err := io.ReadAll(resp.Body) if err != nil {     fmt.Println("Error reading response:", err)     return }`
+```
 
 이 블록은 **HTTP 응답(response) 본문을 읽어오는 코드**야.
 
@@ -808,11 +814,11 @@ go
 
 ### **1️⃣ `io.ReadAll()`이 하는 일**
 
-go
+```go
+func ReadAll(r io.Reader) ([]byte, error)
 
-복사편집
+```
 
-`func ReadAll(r io.Reader) ([]byte, error)`
 
 - `io.ReadAll()`은 **`io.Reader`에서 모든 데이터를 읽고 `[]byte`로 반환**해.
 - 즉, `resp.Body`(HTTP 응답 본문)를 **한 번에 다 읽어서** `body` 변수에 저장해.
@@ -822,11 +828,11 @@ go
 
 ### **2️⃣ `resp.Body`가 `io.Reader`인 이유**
 
-go
+```go
+resp, err := http.Post(url, "application/json", bytes.NewBuffer(requestBody))
+defer resp.Body.Close()
 
-복사편집
-
-`resp, err := http.Post(url, "application/json", bytes.NewBuffer(requestBody)) defer resp.Body.Close()`
+```
 
 - `http.Post()`를 호출하면 `resp.Body`는 `io.Reader` 타입이야.
 - **즉, 응답 본문을 스트리밍 방식으로 읽어야 해.**
@@ -836,11 +842,14 @@ go
 
 ### **3️⃣ 에러 핸들링 (`err != nil` 체크)**
 
-go
+```go
+if err != nil {
+    fmt.Println("Error reading response:", err)
+    return
+}
 
-복사편집
+```
 
-`if err != nil {     fmt.Println("Error reading response:", err)     return }`
 
 - **네트워크 장애** 또는 **서버 오류**로 인해 응답을 읽지 못하면 `err`가 발생.
 - 예를 들어, 서버가 **응답을 보내기 전에 연결이 끊어지면** 오류가 나.
@@ -855,10 +864,11 @@ go
 
 예제:
 
-go
+```go
+// 스트리밍 방식으로 읽고 바로 출력
+io.Copy(os.Stdout, resp.Body)
 
-복사편집
+```
 
-`// 스트리밍 방식으로 읽고 바로 출력 io.Copy(os.Stdout, resp.Body)`
 
 즉, **작은 JSON 응답이면 `io.ReadAll()`이 적절하고, 큰 데이터라면 `io.Copy()`를 고려해야 해.**
