@@ -558,3 +558,20 @@ map[string]string{"age": 30} // ❌ 오류 발생 (int는 string이 아님)
 ✔ `interface{}`는 **Go에서 모든 타입을 저장할 수 있는 빈 인터페이스**야.  
 ✔ `gin.H`에서 다양한 타입의 데이터를 JSON 응답으로 반환하려고 사용해.  
 ✔ 만약 `map[string]string`처럼 타입을 제한하면 **숫자나 배열을 못 넣음!** 🚀
+
+
+오 이해가 됐음
+
+결국
+
+```go
+    c.JSON(http.StatusOK, gin.H{"message" : "Hello, world!"})
+```
+
+이 코드를
+
+```go
+    c.JSON(http.StatusOK, gin.H{"message" : "Hello, world!"})
+```
+
+이렇게도 변경될듯. 물
