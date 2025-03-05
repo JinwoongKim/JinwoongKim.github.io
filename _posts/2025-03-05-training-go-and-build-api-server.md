@@ -1,5 +1,5 @@
 ---
-title: ChatGPT를 이용해 Go언어 배우기
+title: ChatGPT를 이용해 Go언어 배워서 API 서버 개발 하기
 categories: study
 tags:
   - ChatGPT
@@ -935,3 +935,6 @@ c.JSON(http.StatusOK, gin.H{"data": jsonData})
 ✅ 맞아!  
 `c.JSON(..)`이 실행되면 클라이언트에게 응답이 가지만, 함수 실행이 끝나는 게 아니야.  
 `return`이 없으면 **다음 코드까지 실행될 위험이 있어서** 명확하게 종료해야 해.
+
+오케이, 다음 단계 고고!
+
