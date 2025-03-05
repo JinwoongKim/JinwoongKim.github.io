@@ -9,7 +9,7 @@ published: true
 ---
 이전 포스트에서 이어서..
 
-### 6단계: 헤더(Header) 및 쿼리 스트링 활용하기
+# 6단계: 헤더(Header) 및 쿼리 스트링 활용하기
 
 이번 단계에서는 **HTTP 헤더(Header)와 쿼리 스트링(Query String)** 을 다룬다.  
 이를 통해 **API Key 인증** 같은 작업을 처리할 수 있다.
@@ -222,3 +222,50 @@ if query == "" {
 
 쳇 하나 틀림
 
+ 외부 API 호출 및 응답 처리하기**
+
+> Nova LLM 또는 OpenAI API를 호출하는 코드를 이해하고 직접 구현해보기
+
+#### **📌 목표**
+
+1. `http.Post()`와 `http.NewRequest()` 차이 이해하기
+2. 외부 API 요청을 만들고 응답을 파싱하는 과정 학습
+
+---
+
+### **📝 1차 코드 작성 (빈칸 포함)**
+
+go
+
+복사편집
+
+``func callExternalAPI() {     url := "https://example.com/api"      requestBody := strings.NewReader(`{"key": "value"}`)     resp, err := http._____(url, "application/json", requestBody)     if err != nil {         fmt.Println("Error:", err)         return     }     defer resp.Body._____      body, err := io.ReadAll(resp.Body)     if err != nil {         fmt.Println("Error reading response:", err)         return     }      fmt.Println("Response:", string(body)) }``
+
+✔ **힌트**
+
+1. `http._____(url, "application/json", requestBody)` → `http.Post()` 또는 `http.NewRequest()` 중 어느 걸 써야 할까?
+2. `defer resp.Body._____` → 빈칸에 들어갈 함수는?
+3. `io.ReadAll(resp.Body)`는 무엇을 하는 코드일까?
+
+---
+
+### **📝 2차 코드 작성 (Nova LLM 호출)**
+
+Nova LLM API를 호출하는 `runV1` 함수가 어떻게 동작하는지 직접 분석하고,  
+아래 질문에 답을 해봐.
+
+go
+
+복사편집
+
+`func runV1(c *gin.Context) {     apiKey, err := getAPIKey(c)     if err != nil {         c.JSON(http.StatusUnauthorized, gin.H{"error": err.Error()})         return     }      var openAIRequest map[string]interface{}     if err := c.ShouldBindJSON(&openAIRequest); err != nil {         c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid request format"})         return     }      novaReq := map[string]interface{}{         "id":           "generated-uuid",         "service_name": "test-service",         "request":      openAIRequest,     }      requestBody, err := json.Marshal(novaReq)     if err != nil {         c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to encode request"})         return     }      resp, err := http.Post("http://nova-llm-gateway.alpha.tossinvest.bz/api/v1/openai/chat/completions",         "application/json", bytes.NewBuffer(requestBody))      if err != nil {         c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to call Nova LLM"})         return     }     defer resp.Body.Close()      body, err := io.ReadAll(resp.Body)     if err != nil {         c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to read response"})         return     }      var novaResponse map[string]interface{}     if err := json.Unmarshal(body, &novaResponse); err != nil {         c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to parse response"})         return     }      c.JSON(resp.StatusCode, novaResponse) }`
+
+---
+
+### **💡 질문**
+
+1. `http.Post()`와 `http.NewRequest()`의 차이는?
+2. `json.Marshal(novaReq)`가 하는 역할은?
+3. `defer resp.Body.Close()`가 없으면 어떤 문제가 발생할까?
+
+🚀 **빈칸을 채우고, 질문에 대한 답을 고민한 후 알려줘!**
