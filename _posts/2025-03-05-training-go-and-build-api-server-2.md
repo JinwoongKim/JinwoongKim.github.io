@@ -272,21 +272,28 @@ func createUser(c *gin.Context) {
 > `c.Query("key")`를 사용해서 쿼리 파라미터를 읽을 수 있어.  
 > 예를 들어 `/search?query=golang` 같은 요청이 오면 `query` 값을 가져올 수 있어.
 
-go
+```go
+func search(c *gin.Context) {
+    query := c.Query("query") // 없으면 "" 반환
+    if query == "" {
+        query = "default"
+    }
 
-복사편집
+    c.JSON(http.StatusOK, gin.H{"message": "Searching for " + query})
+}
+```
 
-`func search(c *gin.Context) {     query := c.Query("query") // 없으면 "" 반환     if query == "" {         query = "default"     }      c.JSON(http.StatusOK, gin.H{"message": "Searching for " + query}) }`
 
 #### **(3) URL 파라미터 (`/path/:value`)**
 
 > `c.Param("key")`를 사용해서 URL 경로에 포함된 값을 가져올 수 있어.
 
-go
-
-복사편집
-
-`func getUser(c *gin.Context) {     userID := c.Param("id") // /user/123 → userID = "123"     c.JSON(http.StatusOK, gin.H{"user_id": userID}) }`
+```go
+func getUser(c *gin.Context) {
+    userID := c.Param("id") // /user/123 → userID = "123"
+    c.JSON(http.StatusOK, gin.H{"user_id": userID})
+}
+```
 
 ---
 
@@ -302,11 +309,24 @@ go
 
 ### **💡 예제 코드 (모든 방식 포함)**
 
-go
+```go
+func main() {
+    r := gin.Default()
 
-복사편집
+    // Body에서 JSON 데이터 받기
+    r.POST("/users", createUser) 
 
-`func main() {     r := gin.Default()      // Body에서 JSON 데이터 받기     r.POST("/users", createUser)       // 쿼리 파라미터 받기     r.GET("/search", search)       // URL 파라미터 받기     r.GET("/users/:id", getUser)       r.Run(":8080") }`
+    // 쿼리 파라미터 받기
+    r.GET("/search", search) 
+
+    // URL 파라미터 받기
+    r.GET("/users/:id", getUser) 
+
+    r.Run(":8080")
+}
+
+```
+
 
 ---
 
