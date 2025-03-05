@@ -188,7 +188,7 @@ func handler(c *gin.Context) {
 
 ---
 
-1. **`c.JSON()`이란?**
+2. . **`c.JSON()`이란?**
     
     - 클라이언트에게 JSON 형식의 응답을 보내는 함수야.
     - 첫 번째 인자: HTTP 상태 코드
@@ -201,7 +201,7 @@ c.JSON(http.StatusOK, gin.H{"message": "Hello!"})
 
 ---
 
-1. **`gin.H`란?**
+2. **`gin.H`란?**
     
     - `map[string]interface{}` 타입의 **JSON 데이터 생성 도우미**
     - `{}` 안에 키-값을 넣어서 JSON 응답을 만들 때 편해.
