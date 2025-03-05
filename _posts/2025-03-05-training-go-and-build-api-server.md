@@ -1007,3 +1007,42 @@ func main() {
 
 🔹 **위 빈칸을 채워서 코드 작성하고 실행해봐!**  
 🔹 다 끝나면 `curl` 명령어도 알려줄게! 🚀
+
+바로 `greet`(GET)과 `search`(POST) 엔드포인트 테스트를 위한 **curl 명령어** 줄게.
+
+---
+
+### **1️⃣ `/greet` 엔드포인트 테스트 (GET 요청, 쿼리 파라미터 포함)**
+
+```go
+curl -X GET "http://localhost:8080/greet?name=ChatGPT"
+```
+
+
+💡 **기대 결과 (JSON 응답)**
+
+json
+
+복사편집
+
+`{   "message": "Hello, ChatGPT!" }`
+
+---
+
+### **2️⃣ `/search` 엔드포인트 테스트 (POST 요청, JSON 바디 포함)**
+
+bash
+
+복사편집
+
+`curl -X POST "http://localhost:8080/search" \      -H "Content-Type: application/json" \      -d '{"query": "golang"}'`
+
+💡 **기대 결과 (JSON 응답)**
+
+json
+
+복사편집
+
+`{   "results": [     "Golang official site",     "Golang tutorial",     "Golang best practices"   ] }`
+
+바로 실행해서 동작 확인해봐! 🚀
