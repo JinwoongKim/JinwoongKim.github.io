@@ -295,15 +295,14 @@ Go에서 `map[string]interface{}`는 **"문자열을 키로 하고, 값은 아�
 
 📌 **예제**
 
-go
-
-복사편집
+```go
 
 `data := map[string]interface{}{     "name": "Alice",     "age":  25,     "isAdmin": true, }`
 
 - `"name"` → 문자열 `"Alice"`
 - `"age"` → 정수 `25`
 - `"isAdmin"` → 불리언 `true`
+```
 - 값의 타입이 다 달라도 OK! (`interface{}`는 모든 타입을 받을 수 있음)
 
 ---
@@ -314,20 +313,14 @@ go
 
 📌 **Gin 내부 코드 (`gin.go`)**
 
-go
-
-복사편집
-
-`type H map[string]interface{}
+```go
+type H map[string]interface{}
 ```
 
 그냥 `map[string]interface{}`를 더 짧게 쓰려고 만든 거야! 🚀
 
 📌 **예제**
 
-go
-
-복사편집
 ```go
 c.JSON(200, gin.H{"message": "Hello!", "count": 5})
 ```
