@@ -13,7 +13,7 @@ published: true
 2️⃣ **JSON 요청과 응답 처리** → `c.JSON()`, `BindJSON()` 이해  
 3️⃣ **쿼리 파라미터와 URL 파라미터 다루기** → `c.Param()`, `c.Query()` 이해  
 4️⃣ **POST 요청을 받아서 처리하는 방법 익히기** → `c.ShouldBindJSON()` 익히기
-5단계: URL 파라미터 & 쿼리 스트링**
+5️⃣ **동적 라우팅 및 URL 패턴 이해** → `c.Param()`과 `c.Query()` 활용하여 동적 경로 및 검색 기능 추가
 6️⃣ **헤더 값 읽기 및 검증하기** → `c.GetHeader()`로 API 키 다루기
 7️⃣ **외부 API 호출 및 응답 처리하기** → `http.Post()`와 `http.NewRequest()` 이해
 8️⃣ **Gin 미들웨어 이해하기** → 인증/로깅 미들웨어 추가해보기
