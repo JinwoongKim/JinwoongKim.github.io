@@ -833,11 +833,13 @@ func main() {
 
 이걸 받으면 아래처럼 Go에서 사용할 수 있어.
 
-go
+```go
+var jsonData map[string]interface{}
+c.BindJSON(&jsonData)
+fmt.Println(jsonData["name"])  // "Alice"
 
-복사편집
+```
 
-`var jsonData map[string]interface{} c.BindJSON(&jsonData) fmt.Println(jsonData["name"])  // "Alice"`
 
 ---
 
@@ -845,11 +847,14 @@ go
 
 **이 문법은 Go의 단축 변수 선언 + 조건문을 조합한 구조야.**
 
-go
+```go
+if err := c.BindJSON(&jsonData); err != nil {
+    // 여기서 err가 nil이 아니면, 즉 에러가 발생하면 실행
+    fmt.Println("JSON 파싱 실패:", err)
+}
 
-복사편집
+```
 
-`if err := c.BindJSON(&jsonData); err != nil {     // 여기서 err가 nil이 아니면, 즉 에러가 발생하면 실행     fmt.Println("JSON 파싱 실패:", err) }`
 
 **동작 과정**
 
@@ -867,23 +872,27 @@ go
 
 ❌ **잘못된 코드 (return 없음)**
 
-go
+```go
+if err := c.BindJSON(&jsonData); err != nil {
+    c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid JSON"})
+    fmt.Println("이 코드는 실행될까?")  // 실행됨 (의도하지 않은 동작)
+}
 
-복사편집
+```
 
-`if err := c.BindJSON(&jsonData); err != nil {     c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid JSON"})     fmt.Println("이 코드는 실행될까?")  // 실행됨 (의도하지 않은 동작) }`
 
 ✔ **이런 문제가 생기지 않도록 `return`을 붙여줘야 해!**
 
 ✅ **올바른 코드 (`return` 추가)**
 
-go
+```go
+if err := c.BindJSON(&jsonData); err != nil {
+    c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid JSON"})
+    return  // 여기서 함수 종료!
+}
 
-복사편집
+```
 
-`if err := c.BindJSON(&jsonData); err != nil {     c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid JSON"})     return  // 여기서 함수 종료! }`
-
-`return`이 없으면 **다음 코드까지 실행될 위험이 있어서** 반드시 종료해줘야 해.
 
 ---
 
