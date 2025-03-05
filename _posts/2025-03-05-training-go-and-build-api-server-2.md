@@ -951,3 +951,23 @@ fmt.Println(jsonResponse.Message) // 특정 필드만 사용 가능
 ✅ **JSON 데이터를 구조체(`struct`)로 변환해서 타입 안정성을 유지하고 싶을 때**
 
 ❌ 단순히 응답을 콘솔에 찍어볼 때는 `string(body)`로 변환하면 됨.
+
+
+> 좋았어!
+> 1차 코드는 이제 이해했고
+> 아까 2차 코드에 대한 질문에 대한 답을 할께
+> 
+> ### **💡 질문**
+> 
+> 1. http.Post()와 http.NewRequest()의 차이는?
+> 코드에 없는걸 왜 물어봐?
+> 모름;;
+> 
+> 1.  json.Marshal(novaReq)가 하는 역할은?
+> novaReq에 들어있는 해시값, id, service_name, request(이건 유저가 보낸 바디)
+> 을 json 화 하는 것. 이것을 나중에 byte화하여 http post로 보냄
+> 
+> 1. defer resp.Body.Close()가 없으면 어떤 문제가 발생할까?
+> 메모리 누수?
+> 
+> 내가 틀린 부분이나 부족한 부분이 있다면 냉철하게 다 말해줘
