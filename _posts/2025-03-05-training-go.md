@@ -764,3 +764,44 @@ curl -X POST "http://localhost:8080/echo" -H "Content-Type: application/json" -d
 
 
 쉐끼.. 은근슬쩍 넘어갈라구 했네..
+
+암튼 참고해서 아래와 같이 작성함
+
+```go
+package main
+
+import (
+    "net/http"
+    "github.com/gin-gonic/gin"
+)
+
+func helloWorld(c *gin.Context){
+    c.JSON(http.StatusOK, gin.H{"message" : "Hello, world!"})
+}
+
+func ping(c *gin.Context){
+    c.JSON(http.StatusOK, gin.H{"message" : "pong"})
+}
+
+func echo(c *gin.Context){
+        var jsonData map[string]interface{}
+        if err := c.BindJSON(&jsonData); err != nil {
+                c.JSON(http.StatusBadRequest, gin.H{"error" : "Invalid JSON"})
+                return
+        }
+        c.JSON(http.StatusOK, gin.H{"received": jsonData})
+}
+
+func main() {
+    r := gin.Default()
+    r.GET("/hello", helloWorld)
+    r.GET("/ping", ping)
+    r.POST("/echo", echo)
+    r.Run(":8080")
+}
+```
+
+작성하고 보니, 
+
+1. BindJSON 이 뭐지?
+2. if statement; err != ni
