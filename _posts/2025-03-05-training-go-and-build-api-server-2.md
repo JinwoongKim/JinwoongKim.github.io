@@ -1271,11 +1271,29 @@ func ExampleMiddleware(c *gin.Context) {
 
 ### **🔹 예제 코드**
 
-go
+```go
+func LoggerMiddleware(c *gin.Context) {
+    fmt.Println("🔹 요청 들어옴!")
+    c.Next() // 다음 핸들러로 진행
+    fmt.Println("🔹 응답 반환됨!")
+}
 
-복사편집
+func helloWorld(c *gin.Context) {
+    c.JSON(http.StatusOK, gin.H{"message": "Hello, world!"})
+}
 
-`func LoggerMiddleware(c *gin.Context) {     fmt.Println("🔹 요청 들어옴!")     c.Next() // 다음 핸들러로 진행     fmt.Println("🔹 응답 반환됨!") }  func helloWorld(c *gin.Context) {     c.JSON(http.StatusOK, gin.H{"message": "Hello, world!"}) }  func main() {     r := gin.Default()      // 미들웨어 적용     r.Use(LoggerMiddleware)      // 핸들러 등록     r.GET("/hello", helloWorld)      r.Run(":8080") }`
+func main() {
+    r := gin.Default()
+
+    // 미들웨어 적용
+    r.Use(LoggerMiddleware)
+
+    // 핸들러 등록
+    r.GET("/hello", helloWorld)
+
+    r.Run(":8080")
+}
+```
 
 ---
 
@@ -1288,7 +1306,16 @@ go
 3️⃣ 핸들러 실행 후 다시 미들웨어로 돌아옴  
 → `"🔹 응답 반환됨!"` 출력  
 4️⃣ 클라이언트에 응답 반환
+
+> 그럼 미들웨어를 등록할땐 r.Use 이런식으로 함수를 등록한다는 거지? 그럼 모든 핸들러에 대해서 미들웨어가 실행되는거야? 미들웨어가 3개 있으면 어떤 핸들러가 수행되든 미들웨어3개가 수행돼?
+
+
+
+
+
 ---
+
+>
 
 ## **✅ 2단계: API 키 인증 미들웨어 추가**
 
