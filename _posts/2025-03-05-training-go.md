@@ -75,10 +75,8 @@ func main() {
 
 1. **`import { ... }` → `import (...)`**
         - Go에서는 `{}` 대신 `()`를 사용해 여러 패키지를 import해.
-
 2. **`gin.default()` → `gin.Default()`**
     - Go에서는 함수나 구조체의 첫 글자가 **대문자**여야 호출 가능해.
-
 3. **`r.run("8080")` → `r.Run(":8080")`**
     
     - 포트 앞에 `:`가 필요해.
@@ -142,15 +140,11 @@ func main() {
 ### ❌ **틀린 부분 & 수정해야 할 것**
 
 1. `"http"` → `"net/http"`
-    
     - `http.StatusOK`를 사용하려면 `"net/http"` 패키지를 불러와야 해.
 2. `helloWorld(p gin.Context())` → `helloWorld(c *gin.Context)`
-    
     - `gin.Context`는 **포인터로 받아야 해 (`*gin.Context`)**
     - `p` 대신 `c`를 쓰는 게 일반적이야.
 3. `gin.H({"message": "Hello, world!"})` → `gin.H{"message": "Hello, world!"}`
-    
     - `gin.H`는 맵이라서 `()`가 아니라 `{}`를 써야 해.
 4. `r := r.GET("/hello")` → `r.GET("/hello", helloWorld)`
-    
     - `r.GET()`은 핸들러 함수를 받아야 해.
