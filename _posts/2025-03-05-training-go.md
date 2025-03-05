@@ -715,11 +715,10 @@ curl -X GET "http://localhost:8080/ping"
 
 이제 4단계로 넘어갈까? 🚀
 
-물어봄
+
+왜 POST 안하지? 물어봄
 
 > 잘돼, 근데 아까 3단계때 GET과 POST 요청 차이 이해하기 이거 목표라고 했는데?? POST 안해도 돼?
-
-쉐끼.. 은근슬쩍 넘어갈라구 했네..
 
 
 오 좋은 포인트야! 🔥  
@@ -759,3 +758,9 @@ func echo(c *gin.Context) {
 ```bash
 curl -X POST "http://localhost:8080/echo" -H "Content-Type: application/json" -d '{"name": "Gin", "message": "Hello!"}'
 ```
+
+**질문:**  
+실제로 GET과 POST 차이를 직접 실험해보고 어떤 차이가 있는지 말해줄 수 있어? 🤔
+
+
+쉐끼.. 은근슬쩍 넘어갈라구 했네..
