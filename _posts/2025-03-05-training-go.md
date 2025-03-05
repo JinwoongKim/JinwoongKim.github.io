@@ -678,3 +678,28 @@ func main() {
 
 빈칸 안채우고 그냥 내가 짠 코드 기반으로 작성함
 
+```go
+package main
+
+import (
+    "net/http"
+    "github.com/gin-gonic/gin"
+)
+
+func helloWorld(c *gin.Context){
+    c.JSON(http.StatusOK, gin.H{"message" : "Hello, world!"})
+}
+
+func ping(c *gin.Context){
+    c.JSON(http.StatusOK, gin.H{"message" : "pong"})
+}
+
+func main() {
+    r := gin.Default()
+    r.GET("/hello", helloWorld)
+    r.GET("/ping", ping)
+    r.Run(":8080")
+}
+```
+
+근데, POST 차이 이해한다고 하지 않았나..?
