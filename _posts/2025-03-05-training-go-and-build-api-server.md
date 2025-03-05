@@ -1057,3 +1057,6 @@ curl -X POST "http://localhost:8080/search" \
 
 
 바로 실행해서 동작 확인해봐! 🚀
+
+
+GET으로 구현했는데 curl로는 POST 주고.. 또 정신 못차리길래 일단 내 코드 줌
