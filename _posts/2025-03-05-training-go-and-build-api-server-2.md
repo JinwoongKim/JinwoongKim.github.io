@@ -222,6 +222,7 @@ if query == "" {
 
 쳇 하나 틀림
 
+
 # 7단계 : 외부 API 호출 및 응답 처리하기
 
 > Nova LLM 또는 OpenAI API를 호출하는 코드를 이해하고 직접 구현해보기
@@ -235,11 +236,27 @@ if query == "" {
 
 ### **📝 1차 코드 작성 (빈칸 포함)**
 
-go
+```go
+func callExternalAPI() {
+    url := "https://example.com/api"
 
-복사편집
+    requestBody := strings.NewReader(`{"key": "value"}`)
+    resp, err := http._____(url, "application/json", requestBody)
+    if err != nil {
+        fmt.Println("Error:", err)
+        return
+    }
+    defer resp.Body._____
 
-``func callExternalAPI() {     url := "https://example.com/api"      requestBody := strings.NewReader(`{"key": "value"}`)     resp, err := http._____(url, "application/json", requestBody)     if err != nil {         fmt.Println("Error:", err)         return     }     defer resp.Body._____      body, err := io.ReadAll(resp.Body)     if err != nil {         fmt.Println("Error reading response:", err)         return     }      fmt.Println("Response:", string(body)) }``
+    body, err := io.ReadAll(resp.Body)
+    if err != nil {
+        fmt.Println("Error reading response:", err)
+        return
+    }
+
+    fmt.Println("Response:", string(body))
+}
+```
 
 ✔ **힌트**
 
@@ -254,11 +271,56 @@ go
 Nova LLM API를 호출하는 `runV1` 함수가 어떻게 동작하는지 직접 분석하고,  
 아래 질문에 답을 해봐.
 
-go
+```go
+func runV1(c *gin.Context) {
+    apiKey, err := getAPIKey(c)
+    if err != nil {
+        c.JSON(http.StatusUnauthorized, gin.H{"error": err.Error()})
+        return
+    }
 
-복사편집
+    var openAIRequest map[string]interface{}
+    if err := c.ShouldBindJSON(&openAIRequest); err != nil {
+        c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid request format"})
+        return
+    }
 
-`func runV1(c *gin.Context) {     apiKey, err := getAPIKey(c)     if err != nil {         c.JSON(http.StatusUnauthorized, gin.H{"error": err.Error()})         return     }      var openAIRequest map[string]interface{}     if err := c.ShouldBindJSON(&openAIRequest); err != nil {         c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid request format"})         return     }      novaReq := map[string]interface{}{         "id":           "generated-uuid",         "service_name": "test-service",         "request":      openAIRequest,     }      requestBody, err := json.Marshal(novaReq)     if err != nil {         c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to encode request"})         return     }      resp, err := http.Post("http://nova-llm-gateway.alpha.tossinvest.bz/api/v1/openai/chat/completions",         "application/json", bytes.NewBuffer(requestBody))      if err != nil {         c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to call Nova LLM"})         return     }     defer resp.Body.Close()      body, err := io.ReadAll(resp.Body)     if err != nil {         c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to read response"})         return     }      var novaResponse map[string]interface{}     if err := json.Unmarshal(body, &novaResponse); err != nil {         c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to parse response"})         return     }      c.JSON(resp.StatusCode, novaResponse) }`
+    novaReq := map[string]interface{}{
+        "id":           "generated-uuid",
+        "service_name": "test-service",
+        "request":      openAIRequest,
+    }
+
+    requestBody, err := json.Marshal(novaReq)
+    if err != nil {
+        c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to encode request"})
+        return
+    }
+
+    resp, err := http.Post("http://nova-llm-gateway.alpha.tossinvest.bz/api/v1/openai/chat/completions",
+        "application/json", bytes.NewBuffer(requestBody))
+
+    if err != nil {
+        c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to call Nova LLM"})
+        return
+    }
+    defer resp.Body.Close()
+
+    body, err := io.ReadAll(resp.Body)
+    if err != nil {
+        c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to read response"})
+        return
+    }
+
+    var novaResponse map[string]interface{}
+    if err := json.Unmarshal(body, &novaResponse); err != nil {
+        c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to parse response"})
+        return
+    }
+
+    c.JSON(resp.StatusCode, novaResponse)
+}
+```
 
 ---
 
