@@ -718,3 +718,44 @@ curl -X GET "http://localhost:8080/ping"
 물어봄
 
 > 잘돼, 근데 아까 3단계때 GET과 POST 요청 차이 이해하기 이거 목표라고 했는데?? POST 안해도 돼?
+
+쉐끼.. 은근슬쩍 넘어갈라구 했네..
+
+
+오 좋은 포인트야! 🔥  
+POST 요청을 추가해야 GET과 비교하면서 확실히 이해할 수 있어.  
+아래처럼 새로운 POST 핸들러를 추가해볼래?
+
+### **할 일**
+
+1. 새로운 `func echo(c *gin.Context)` 함수 추가
+2. POST 요청을 처리하도록 `r.POST("/echo", echo)` 추가
+3. `curl`로 GET과 POST 차이 실험
+
+---
+
+### **힌트**
+
+POST 요청은 보통 **클라이언트가 데이터를 서버로 보낼 때** 사용해.  
+반대로 GET은 **서버에서 데이터를 받아올 때** 쓰이고.
+
+아래 코드를 참고해서 `POST` 요청을 추가해봐! 🚀
+
+```go
+func echo(c *gin.Context) {
+    var jsonData map[string]interface{}  // JSON 데이터를 받을 변수
+    if err := c.BindJSON(&jsonData); err != nil {
+        c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid JSON"})
+        return
+    }
+    c.JSON(http.StatusOK, gin.H{"received": jsonData}) // 받은 데이터를 그대로 응답
+}
+
+```
+
+이제 `r.POST("/echo", echo)` 를 추가해보고 실행해봐!  
+그다음 `curl`로 테스트!
+
+```bash
+curl -X POST "http://localhost:8080/echo" -H "Content-Type: application/json" -d '{"name": "Gin", "message": "Hello!"}'
+```
