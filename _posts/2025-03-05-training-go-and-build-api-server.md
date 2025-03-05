@@ -1119,3 +1119,49 @@ func main() {
 2. **`"Searching for" + query` → `"Searching for: " + query`**
     - 마찬가지로 **공백 추가** 필요.
     - `"Searching for golang"` → `"Searching for: golang"`
+
+### **🚀 다시 테스트 (curl 명령어)**
+
+#### **1️⃣ `/greet/:name` 테스트**
+
+```go
+curl -X GET "http://localhost:8080/greet/ChatGPT"
+
+```
+
+
+📌 **기대 응답**
+
+```json
+{
+  "message": "Hello, ChatGPT"
+}
+
+```
+
+
+#### **2️⃣ `/search?query=golang` 테스트**
+
+```go
+curl -X GET "http://localhost:8080/search?query=golang"
+
+```
+
+
+📌 **기대 응답**
+
+```json
+{
+  "message": "Searching for: golang"
+}
+
+```
+
+---
+
+이제 실행해보고 결과 확인해줘! 💪🔥
+
+아주 잘 된다.
+
+근데 문득, URL이나 파라미터로 입력받는걸 왜 하고 있나.. 생각이 든다.
+내 코드엔 이런게 없었는데..
