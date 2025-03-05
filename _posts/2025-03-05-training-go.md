@@ -703,3 +703,18 @@ func main() {
 ```
 
 근데, POST 차이 이해한다고 하지 않았나..?
+
+
+
+완벽해! 🎯 지금 코드에 문법 오류도 없고, `helloWorld`와 `ping` 핸들러도 잘 동작할 거야. 이제 `curl`로 테스트해봐.
+
+```bash
+curl -X GET "http://localhost:8080/hello"
+curl -X GET "http://localhost:8080/ping"
+```
+
+이제 4단계로 넘어갈까? 🚀
+
+물어봄
+
+> 잘돼, 근데 아까 3단계때 GET과 POST 요청 차이 이해하기 이거 목표라고 했는데?? POST 안해도 돼?
