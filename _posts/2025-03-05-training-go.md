@@ -199,12 +199,10 @@ func handler(c *gin.Context) {
     - 첫 번째 인자: HTTP 상태 코드
     - 두 번째 인자: JSON으로 변환할 데이터 (`map`, `struct`, `gin.H` 등)
     
-    go
-    
-    복사편집
-    
-    `c.JSON(http.StatusOK, gin.H{"message": "Hello!"})`
-    
+```go
+c.JSON(http.StatusOK, gin.H{"message": "Hello!"})
+```
+
 
 ---
 
