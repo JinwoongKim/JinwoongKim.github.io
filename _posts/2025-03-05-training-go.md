@@ -365,11 +365,11 @@ Go는 타입을 명확하게 써야 하는 언어야.
 
 📌 **예제 (비교)**
 
-go
+```go
+c.JSON(200, map[string]interface{}{"message": "Hello!", "count": 5})  // 길다!
+c.JSON(200, gin.H{"message": "Hello!", "count": 5})  // 깔끔!
 
-복사편집
-
-`c.JSON(200, map[string]interface{}{"message": "Hello!", "count": 5})  // 길다! c.JSON(200, gin.H{"message": "Hello!", "count": 5})  // 깔끔!`
+```
 
 ✔ **`gin.H`를 쓰면 가독성이 좋아져!** 👀✨
 
@@ -382,19 +382,19 @@ Go는 반복적인 코드 작성을 최소화하려고 해.
 
 📌 **예제**
 
-go
+```go
+data := map[string]interface{}{"message": "Hello!"}
+c.JSON(200, data)
 
-복사편집
-
-`data := map[string]interface{}{"message": "Hello!"} c.JSON(200, data)`
+```
 
 위 코드에서 **`map[string]interface{}` 대신 `gin.H`를 쓰면 더 직관적**이야:
 
-go
+```go
+data := gin.H{"message": "Hello!"}
+c.JSON(200, data)
 
-복사편집
-
-`data := gin.H{"message": "Hello!"} c.JSON(200, data)`
+```
 
 ✔ **더 간결하고 직관적으로 JSON 데이터를 다룰 수 있어!** 🚀
 
@@ -407,11 +407,14 @@ Gin에서 JSON 응답을 만들 때 자주 쓰이기 때문에 **별칭을 제�
 
 📌 **예제**
 
-go
+```go
+c.JSON(http.StatusOK, gin.H{
+    "status":  "success",
+    "message": "Hello, world!",
+})
 
-복사편집
+```
 
-`c.JSON(http.StatusOK, gin.H{     "status":  "success",     "message": "Hello, world!", })`
 
 ✔ **Gin 스타일에 맞춰 더 일관된 코드 작성이 가능해!** ✨
 
@@ -439,11 +442,9 @@ go
 
 📌 **예제**
 
-go
-
-복사편집
-
-`gin.H{"message": "Hello", "status": "OK"}`
+```go
+gin.H{"message": "Hello", "status": "OK"}
+```
 
 ➡ **Key-Value 쌍을 저장하는 해시맵(HashMap) 같은 역할**을 해.
 
