@@ -1309,7 +1309,72 @@ func main() {
 
 > 그럼 미들웨어를 등록할땐 r.Use 이런식으로 함수를 등록한다는 거지? 그럼 모든 핸들러에 대해서 미들웨어가 실행되는거야? 미들웨어가 3개 있으면 어떤 핸들러가 수행되든 미들웨어3개가 수행돼?
 
+### 🔹 **미들웨어 등록과 실행 방식**
 
+✅ `r.Use()`를 사용하면 **모든 핸들러에 대해 미들웨어가 실행됨**  
+✅ **미들웨어가 여러 개** 등록되면 **등록된 순서대로 실행됨**
+
+---
+
+### **💡 예제 코드**
+
+```go
+func LoggerMiddleware(c *gin.Context) {
+    fmt.Println("🔹 요청 로깅 중...")
+    c.Next()
+    fmt.Println("🔹 응답 반환됨!")
+}
+
+func AuthMiddleware(c *gin.Context) {
+    token := c.GetHeader("Authorization")
+    if token != "valid-token" {
+        c.JSON(http.StatusUnauthorized, gin.H{"error": "Unauthorized"})
+        c.Abort()
+        return
+    }
+    fmt.Println("🔹 인증 성공!")
+    c.Next()
+}
+
+func helloWorld(c *gin.Context) {
+    c.JSON(http.StatusOK, gin.H{"message": "Hello, world!"})
+}
+
+func main() {
+    r := gin.Default()
+
+    // 🔥 모든 핸들러에 대해 실행되는 미들웨어
+    r.Use(LoggerMiddleware, AuthMiddleware)
+
+    r.GET("/hello", helloWorld)
+    r.Run(":8080")
+}
+```
+
+---
+
+### **🚀 실행 흐름**
+
+1️⃣ 클라이언트 `/hello` 요청  
+2️⃣ **LoggerMiddleware 실행** → `"🔹 요청 로깅 중..."` 출력  
+3️⃣ **AuthMiddleware 실행**
+
+- API 키 확인 (`"valid-token"` 아니면 **즉시 종료** → `401 Unauthorized`)
+- `"🔹 인증 성공!"` 출력  
+    4️⃣ **핸들러 실행 (`helloWorld`)**
+- `"Hello, world!"` 응답 생성  
+    5️⃣ **응답 반환 후** 다시 미들웨어 실행
+- `"🔹 응답 반환됨!"` 출력
+
+---
+
+### **📌 미들웨어 3개 등록하면?**
+
+✅ 핸들러가 실행될 때 **모든 미들웨어가 순서대로 실행됨**  
+✅ `c.Next()` 호출하면 **다음 미들웨어 실행 → 마지막에 핸들러 실행**  
+✅ `c.Abort()` 호출하면 **핸들러 실행 중단 (즉시 응답 반환)**
+
+💡 **즉, `r.Use()`에 등록한 미들웨어는 모든 요청에 대해 실행됨** 🚀
 
 
 
@@ -1322,27 +1387,36 @@ func main() {
 🔹 **API 키를 검증하는 미들웨어를 추가하자.**  
 아래처럼 `AuthMiddleware`를 만들어 특정 경로에 적용하면 돼.
 
-go
+```go
+func AuthMiddleware() gin.HandlerFunc {
+    return func(c *gin.Context) {
+        apiKey := c.GetHeader("Authorization")
+        if apiKey == "" || !strings.HasPrefix(apiKey, "Bearer ") {
+            c.JSON(http.StatusUnauthorized, gin.H{"error": "Missing or invalid API Key"})
+            c.Abort() // ❌ 요청 중단 (핸들러 실행 안 됨)
+            return
+        }
+        c.Next() // ✅ 인증 성공 → 다음 핸들러 실행
+    }
+}
 
-복사편집
+```
 
-`func AuthMiddleware() gin.HandlerFunc {     return func(c *gin.Context) {         apiKey := c.GetHeader("Authorization")         if apiKey == "" || !strings.HasPrefix(apiKey, "Bearer ") {             c.JSON(http.StatusUnauthorized, gin.H{"error": "Missing or invalid API Key"})             c.Abort() // ❌ 요청 중단 (핸들러 실행 안 됨)             return         }         c.Next() // ✅ 인증 성공 → 다음 핸들러 실행     } }`
 
 이제 특정 엔드포인트에 적용하면 돼.
 
-go
+```go
+r := gin.Default()
+r.Use(AuthMiddleware()) // 모든 요청에 적용
+```
 
-복사편집
-
-`r := gin.Default() r.Use(AuthMiddleware()) // 모든 요청에 적용`
 
 > **✔️ 특정 라우트에만 적용하고 싶다면?**
 
-go
+```go
+r.POST("/secure-endpoint", AuthMiddleware(), secureHandler)
+```
 
-복사편집
-
-`r.POST("/secure-endpoint", AuthMiddleware(), secureHandler)`
 
 ---
 
@@ -1350,11 +1424,16 @@ go
 
 요청이 올 때마다 **메서드, 경로, 응답 코드**를 로깅하자.
 
-go
+```go
+func LoggerMiddleware() gin.HandlerFunc {
+    return func(c *gin.Context) {
+        fmt.Printf("📥 요청: %s %s\n", c.Request.Method, c.Request.URL.Path)
+        c.Next() // 다음 핸들러 실행
+        fmt.Printf("📤 응답: %d\n", c.Writer.Status())
+    }
+}
+```
 
-복사편집
-
-`func LoggerMiddleware() gin.HandlerFunc {     return func(c *gin.Context) {         fmt.Printf("📥 요청: %s %s\n", c.Request.Method, c.Request.URL.Path)         c.Next() // 다음 핸들러 실행         fmt.Printf("📤 응답: %d\n", c.Writer.Status())     } }`
 
 모든 요청에 적용:
 
