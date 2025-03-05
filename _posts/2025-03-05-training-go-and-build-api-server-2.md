@@ -874,3 +874,67 @@ io.Copy(os.Stdout, resp.Body)
 
 즉, **작은 JSON 응답이면 `io.ReadAll()`이 적절하고, 큰 데이터라면 `io.Copy()`를 고려해야 해.**
 
+> body의 타입은 뭐야? 어떻게 읽고 표현해? unmarshal 해야하나?
+
+### **📌 `body`의 타입과 처리 방법**
+
+go
+
+복사편집
+
+`body, err := io.ReadAll(resp.Body)`
+
+이 코드에서 `body`의 타입은 `[]byte`(바이트 슬라이스)야.  
+즉, `body`는 **바이트 데이터로 된 JSON 응답 본문**이야.
+
+---
+
+### **1️⃣ 어떻게 읽고 표현할까?**
+
+`body`는 바이트 슬라이스(`[]byte`)라서, 일반적으로 **문자열로 변환해서 출력**할 수 있어.
+
+go
+
+복사편집
+
+`fmt.Println(string(body)) // JSON 응답을 문자열로 출력`
+
+하지만 **Go에서 JSON을 다룰 땐 `json.Unmarshal()`로 변환하는 게 더 좋다.**
+
+---
+
+### **2️⃣ `json.Unmarshal()`을 사용해야 하는 이유**
+
+서버 응답이 JSON 형식이라면, 이를 Go의 구조체(`struct`) 또는 맵(`map[string]interface{}`)으로 변환하는 게 일반적이야.
+
+#### **예제 1: `map[string]interface{}`로 변환 (유연한 방식)**
+
+go
+
+복사편집
+
+`var jsonResponse map[string]interface{} // 동적 JSON 파싱 err = json.Unmarshal(body, &jsonResponse) if err != nil {     fmt.Println("Error parsing JSON:", err)     return }  fmt.Println(jsonResponse) // 파싱된 JSON 출력`
+
+- `map[string]interface{}`를 사용하면 **키-값 쌍을 동적으로 저장**할 수 있어.
+- 단점: 타입 안정성이 없음 (값의 타입을 직접 확인해야 함).
+
+#### **예제 2: `struct`로 변환 (타입 안정성 보장)**
+
+go
+
+복사편집
+
+``type APIResponse struct {     Message string `json:"message"` }  var jsonResponse APIResponse err = json.Unmarshal(body, &jsonResponse) if err != nil {     fmt.Println("Error parsing JSON:", err)     return }  fmt.Println(jsonResponse.Message) // 특정 필드만 사용 가능``
+
+- 구조체(`struct`)를 사용하면 **타입이 정해져 있어서 안전**해.
+- 하지만 **JSON 필드가 변하면 코드도 수정해야 하는 단점**이 있음.
+
+---
+
+### **3️⃣ 언제 `json.Unmarshal()`을 써야 할까?**
+
+✅ **서버 응답이 JSON이고, 특정 필드를 다뤄야 할 때**  
+✅ **Go 코드에서 JSON 값을 쉽게 접근하고 조작하고 싶을 때**  
+✅ **JSON 데이터를 구조체(`struct`)로 변환해서 타입 안정성을 유지하고 싶을 때**
+
+❌ 단순히 응답을 콘솔에 찍어볼 때는 `string(body)`로 변환하면 됨.
