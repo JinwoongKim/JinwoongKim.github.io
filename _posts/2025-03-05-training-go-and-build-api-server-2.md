@@ -631,10 +631,8 @@ func callExternalAPI() {
 ### 🔴 **수정해야 할 부분**
 
 1. **`http.POST` → `http.Post` (대문자 오류)**
-    
     - Go의 `http` 패키지에서는 `Post` 함수가 소문자로 시작해야 해.
 2. **`defer resp.Body.close()` → `defer resp.Body.Close()` (대소문자 오류)**
-    
     - `Close()`는 대문자로 시작해야 해.
 3. **`requestBody := strings.NewReader(`{"key":"value"}`)`**
     
@@ -644,11 +642,48 @@ func callExternalAPI() {
 
 ### ✅ **수정된 코드**
 
-go
+```go
+package main
 
-복사편집
+import (
+	"bytes"
+	"encoding/json"
+	"fmt"
+	"io"
+	"net/http"
+)
 
-`package main  import ( 	"bytes" 	"encoding/json" 	"fmt" 	"io" 	"net/http" )  func callExternalAPI() { 	url := "https://example.com/api"  	// JSON 데이터 생성 	requestData := map[string]string{"key": "value"} 	requestBody, err := json.Marshal(requestData) 	if err != nil { 		fmt.Println("Error encoding JSON:", err) 		return 	}  	// HTTP POST 요청 보내기 	resp, err := http.Post(url, "application/json", bytes.NewBuffer(requestBody)) 	if err != nil { 		fmt.Println("Error:", err) 		return 	} 	defer resp.Body.Close() // 대문자 수정  	// 응답 읽기 	body, err := io.ReadAll(resp.Body) 	if err != nil { 		fmt.Println("Error reading response:", err) 		return 	}  	fmt.Println("Response:", string(body)) }`
+func callExternalAPI() {
+	url := "https://example.com/api"
+
+	// JSON 데이터 생성
+	requestData := map[string]string{"key": "value"}
+	requestBody, err := json.Marshal(requestData)
+	if err != nil {
+		fmt.Println("Error encoding JSON:", err)
+		return
+	}
+
+	// HTTP POST 요청 보내기
+	resp, err := http.Post(url, "application/json", bytes.NewBuffer(requestBody))
+	if err != nil {
+		fmt.Println("Error:", err)
+		return
+	}
+	defer resp.Body.Close() // 대문자 수정
+
+	// 응답 읽기
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		fmt.Println("Error reading response:", err)
+		return
+	}
+
+	fmt.Println("Response:", string(body))
+}
+
+```
+
 
 ---
 
