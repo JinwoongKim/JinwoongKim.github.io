@@ -234,7 +234,6 @@ if query == "" {
 
 ```go
 r.POST("/path", handlerFunction)
-
 ```
 
 
@@ -250,11 +249,23 @@ r.POST("/path", handlerFunction)
 > API 요청의 데이터는 보통 JSON 형태로 `Body`에 담겨서 전달돼.  
 > `c.ShouldBindJSON()`을 사용하면 자동으로 `struct` 또는 `map`으로 변환할 수 있어.
 
-go
+```go
+type RequestBody struct {
+    Name  string `json:"name"`
+    Email string `json:"email"`
+}
 
-복사편집
+func createUser(c *gin.Context) {
+    var body RequestBody
+    if err := c.ShouldBindJSON(&body); err != nil {
+        c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid JSON format"})
+        return
+    }
 
-``type RequestBody struct {     Name  string `json:"name"`     Email string `json:"email"` }  func createUser(c *gin.Context) {     var body RequestBody     if err := c.ShouldBindJSON(&body); err != nil {         c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid JSON format"})         return     }      c.JSON(http.StatusOK, gin.H{"message": "User created", "data": body}) }``
+    c.JSON(http.StatusOK, gin.H{"message": "User created", "data": body})
+}
+
+```
 
 #### **(2) 쿼리 파라미터 (`?key=value`)**
 
