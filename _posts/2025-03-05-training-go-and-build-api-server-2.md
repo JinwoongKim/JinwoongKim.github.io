@@ -878,11 +878,10 @@ io.Copy(os.Stdout, resp.Body)
 
 ### **📌 `body`의 타입과 처리 방법**
 
-go
+```go
+body, err := io.ReadAll(resp.Body)
+```
 
-복사편집
-
-`body, err := io.ReadAll(resp.Body)`
 
 이 코드에서 `body`의 타입은 `[]byte`(바이트 슬라이스)야.  
 즉, `body`는 **바이트 데이터로 된 JSON 응답 본문**이야.
@@ -893,11 +892,9 @@ go
 
 `body`는 바이트 슬라이스(`[]byte`)라서, 일반적으로 **문자열로 변환해서 출력**할 수 있어.
 
-go
-
-복사편집
-
-`fmt.Println(string(body)) // JSON 응답을 문자열로 출력`
+```go
+fmt.Println(string(body)) // JSON 응답을 문자열로 출력
+```
 
 하지만 **Go에서 JSON을 다룰 땐 `json.Unmarshal()`로 변환하는 게 더 좋다.**
 
@@ -909,22 +906,38 @@ go
 
 #### **예제 1: `map[string]interface{}`로 변환 (유연한 방식)**
 
-go
+```go
+var jsonResponse map[string]interface{} // 동적 JSON 파싱
+err = json.Unmarshal(body, &jsonResponse)
+if err != nil {
+    fmt.Println("Error parsing JSON:", err)
+    return
+}
 
-복사편집
+fmt.Println(jsonResponse) // 파싱된 JSON 출력
 
-`var jsonResponse map[string]interface{} // 동적 JSON 파싱 err = json.Unmarshal(body, &jsonResponse) if err != nil {     fmt.Println("Error parsing JSON:", err)     return }  fmt.Println(jsonResponse) // 파싱된 JSON 출력`
+```
+
 
 - `map[string]interface{}`를 사용하면 **키-값 쌍을 동적으로 저장**할 수 있어.
 - 단점: 타입 안정성이 없음 (값의 타입을 직접 확인해야 함).
 
 #### **예제 2: `struct`로 변환 (타입 안정성 보장)**
 
-go
+```go
+type APIResponse struct {
+    Message string `json:"message"`
+}
 
-복사편집
+var jsonResponse APIResponse
+err = json.Unmarshal(body, &jsonResponse)
+if err != nil {
+    fmt.Println("Error parsing JSON:", err)
+    return
+}
 
-``type APIResponse struct {     Message string `json:"message"` }  var jsonResponse APIResponse err = json.Unmarshal(body, &jsonResponse) if err != nil {     fmt.Println("Error parsing JSON:", err)     return }  fmt.Println(jsonResponse.Message) // 특정 필드만 사용 가능``
+fmt.Println(jsonResponse.Message) // 특정 필드만 사용 가능
+```
 
 - 구조체(`struct`)를 사용하면 **타입이 정해져 있어서 안전**해.
 - 하지만 **JSON 필드가 변하면 코드도 수정해야 하는 단점**이 있음.
