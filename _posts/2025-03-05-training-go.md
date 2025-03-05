@@ -749,7 +749,6 @@ func echo(c *gin.Context) {
     }
     c.JSON(http.StatusOK, gin.H{"received": jsonData}) // 받은 데이터를 그대로 응답
 }
-
 ```
 
 이제 `r.POST("/echo", echo)` 를 추가해보고 실행해봐!  
@@ -827,7 +826,6 @@ func main() {
     "name": "Alice",
     "age": 25
 }
-
 ```
 
 
@@ -837,7 +835,6 @@ func main() {
 var jsonData map[string]interface{}
 c.BindJSON(&jsonData)
 fmt.Println(jsonData["name"])  // "Alice"
-
 ```
 
 
@@ -852,7 +849,6 @@ if err := c.BindJSON(&jsonData); err != nil {
     // 여기서 err가 nil이 아니면, 즉 에러가 발생하면 실행
     fmt.Println("JSON 파싱 실패:", err)
 }
-
 ```
 
 
@@ -877,7 +873,6 @@ if err := c.BindJSON(&jsonData); err != nil {
     c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid JSON"})
     fmt.Println("이 코드는 실행될까?")  // 실행됨 (의도하지 않은 동작)
 }
-
 ```
 
 
@@ -890,7 +885,6 @@ if err := c.BindJSON(&jsonData); err != nil {
     c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid JSON"})
     return  // 여기서 함수 종료!
 }
-
 ```
 
 
@@ -903,26 +897,32 @@ if err := c.BindJSON(&jsonData); err != nil {
 
 **예제**
 
-go
+```go
+c.JSON(http.StatusOK, gin.H{"data": jsonData})
+```
 
-복사편집
-
-`c.JSON(http.StatusOK, gin.H{"data": jsonData})`
 
 만약 `jsonData`가 아래 JSON이라면?
 
-json
+```json
+{
+    "name": "Alice",
+    "age": 25
+}
+```
 
-복사편집
-
-`{     "name": "Alice",     "age": 25 }`
 
 그럼 최종 응답은 이렇게 돼.
 
-json
+```json
+{
+    "data": {
+        "name": "Alice",
+        "age": 25
+    }
+}
+```
 
-복사편집
-
-`{     "data": {         "name": "Alice",         "age": 25     } }`
 
 즉, **JSON 안에 JSON이 들어간 게 맞아!** ✅
+
