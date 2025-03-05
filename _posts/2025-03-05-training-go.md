@@ -787,7 +787,11 @@ func echo(c *gin.Context){
         var jsonData map[string]interface{}
         if err := c.BindJSON(&jsonData); err != nil {
                 c.JSON(http.StatusBadRequest, gin.H{"error" : "Invalid JSON"})
-                return
+                // 아래는 ChatGPT가 제안한 에러 메시지도 리턴하는 형태
+                // c.JSON(http.StatusBadRequest, gin.H{
+	            // "error": "Invalid JSON",
+	            // "details": err.Error(), })
+	            return
         }
         c.JSON(http.StatusOK, gin.H{"message": jsonData}) // 형식 통일
 }
@@ -807,3 +811,6 @@ func main() {
 2. `if err := statement; err != nil` 문법은 `statement`의 결과값이 `err`에 할당되고 `err != nil` 이 실행되는 구조인가? 그래서 `err`가 `nil`이 아니면, 즉, 에러면 아래 코드 수행?
 3. `c.JSON`은 리턴을 해주는건가? 그렇다면 `return`은 왜 있지?
 4. `gin.H{..: jsonData}`를 리턴하는데, 아무타입이 다 되니까 `json`안에 `json`이 들어간건가?
+
+궁금해서 물어보았다.
+
