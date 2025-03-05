@@ -623,6 +623,39 @@ func callExternalAPI() {
 
   fmt.Println("Response:",string(body))
 }
-ChatGPT의 말:
-
 ```
+
+
+코드에 몇 가지 문제가 있어. 수정해야 할 부분을 정리해 줄게.
+
+### 🔴 **수정해야 할 부분**
+
+1. **`http.POST` → `http.Post` (대문자 오류)**
+    
+    - Go의 `http` 패키지에서는 `Post` 함수가 소문자로 시작해야 해.
+2. **`defer resp.Body.close()` → `defer resp.Body.Close()` (대소문자 오류)**
+    
+    - `Close()`는 대문자로 시작해야 해.
+3. **`requestBody := strings.NewReader(`{"key":"value"}`)`**
+    
+    - 문자열을 `strings.NewReader`로 감싸는 건 괜찮지만, 만약 동적으로 JSON을 생성하려면 `json.Marshal`을 사용하는 게 더 좋아.
+
+---
+
+### ✅ **수정된 코드**
+
+go
+
+복사편집
+
+`package main  import ( 	"bytes" 	"encoding/json" 	"fmt" 	"io" 	"net/http" )  func callExternalAPI() { 	url := "https://example.com/api"  	// JSON 데이터 생성 	requestData := map[string]string{"key": "value"} 	requestBody, err := json.Marshal(requestData) 	if err != nil { 		fmt.Println("Error encoding JSON:", err) 		return 	}  	// HTTP POST 요청 보내기 	resp, err := http.Post(url, "application/json", bytes.NewBuffer(requestBody)) 	if err != nil { 		fmt.Println("Error:", err) 		return 	} 	defer resp.Body.Close() // 대문자 수정  	// 응답 읽기 	body, err := io.ReadAll(resp.Body) 	if err != nil { 		fmt.Println("Error reading response:", err) 		return 	}  	fmt.Println("Response:", string(body)) }`
+
+---
+
+### 🔥 **추가 팁**
+
+- `json.Marshal()`을 사용하면 `map[string]string`을 JSON으로 변환해 안전하게 처리할 수 있어.
+- `strings.NewReader`를 그대로 사용해도 되지만, 나중에 동적으로 데이터를 생성해야 한다면 `bytes.NewBuffer()`가 더 적절해.
+- `fmt.Println()`으로 에러 메시지를 출력하는 것도 괜찮지만, `log.Fatal()`을 쓰면 더 직관적일 수도 있어.
+
+🚀 **이제 실행해보고 정상 동작하는지 확인해봐!**
