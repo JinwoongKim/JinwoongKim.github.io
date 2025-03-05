@@ -215,7 +215,7 @@ gin.H{
 
 ```
 
-    **동일한 코드**
+동일한 코드
     
 ```go
 map[string]interface{}{
@@ -318,7 +318,8 @@ go
 
 복사편집
 
-`type H map[string]interface{}`
+`type H map[string]interface{}
+```
 
 그냥 `map[string]interface{}`를 더 짧게 쓰려고 만든 거야! 🚀
 
@@ -327,16 +328,15 @@ go
 go
 
 복사편집
-
-`c.JSON(200, gin.H{"message": "Hello!", "count": 5})`
+```go
+c.JSON(200, gin.H{"message": "Hello!", "count": 5})
+```
 
 위 코드는 사실 아래와 같아:
 
-go
-
-복사편집
-
-`c.JSON(200, map[string]interface{}{"message": "Hello!", "count": 5})`
+```go
+c.JSON(200, map[string]interface{}{"message": "Hello!", "count": 5})
+```
 
 ⚡ **즉, `gin.H`는 JSON 응답을 더 쉽게 만들도록 도와주는 문법적 설탕(Syntax Sugar)!** 🍬
 
