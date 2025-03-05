@@ -9,7 +9,7 @@ published: true
 ---
 이전 포스트에서 이어서..
 
-### **🔹 6단계: 헤더(Header) 및 쿼리 스트링 활용하기**
+### 6단계: 헤더(Header) 및 쿼리 스트링 활용하기
 
 이번 단계에서는 **HTTP 헤더(Header)와 쿼리 스트링(Query String)** 을 다룬다.  
 이를 통해 **API Key 인증** 같은 작업을 처리할 수 있다.
@@ -37,7 +37,6 @@ func authExample(c *gin.Context) {
     }
     c.JSON(http.StatusOK, gin.H{"message": "Authorized", "api_key": apiKey})
 }
-
 ```
 
 💡 **힌트**
@@ -67,7 +66,6 @@ func searchWithAuth(c *gin.Context) {
 
     c.JSON(http.StatusOK, gin.H{"message": "Searching for " + query, "api_key": apiKey})
 }
-
 ```
 
 
@@ -86,7 +84,6 @@ func main() {
 
     r.Run(":8080")
 }
-
 ```
 
 ---
@@ -95,31 +92,25 @@ func main() {
 
 ### ✅ API Key 없이 호출 (실패)
 
-bash
+```go
+curl -X GET "http://localhost:8080/auth"
+```
 
-복사편집
+```json
+{"error": "API Key missing"}
+```
 
-`curl -X GET "http://localhost:8080/auth"`
-
-json
-
-복사편집
-
-`{"error": "API Key missing"}`
 
 ### ✅ API Key 포함하여 호출 (성공)
 
-bash
+```go
+curl -X GET "http://localhost:8080/auth" -H "Authorization: Bearer my-secret-key"
+```
 
-복사편집
+```json
+{"message": "Authorized", "api_key": "Bearer my-secret-key"}
+```
 
-`curl -X GET "http://localhost:8080/auth" -H "Authorization: Bearer my-secret-key"`
-
-json
-
-복사편집
-
-`{"message": "Authorized", "api_key": "Bearer my-secret-key"}`
 
 ---
 
