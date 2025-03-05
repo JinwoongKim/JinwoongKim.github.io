@@ -171,3 +171,12 @@ func main() {
 ```
 
 수정은 했지만, `gin.Context`랑 `gin.H` 등이 이해가 잘 가지 않았다.
+그래서 아래와 같이 물어보았다.
+
+> 그런데, gin.Context랑 c.JSON, gin.H를 잘 모르겠거든. 설명해줄수있어?
+
+### 🔍 **이제 궁금한 개념들 정리해줄게!**
+
+1. **`gin.Context`란?**
+    
+    - `gin.Context`는 **요청(Request)과 응답(Response)** 을 관리하는 핵심 객체야.
