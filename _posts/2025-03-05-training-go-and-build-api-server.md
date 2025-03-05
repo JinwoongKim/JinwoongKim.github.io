@@ -1323,3 +1323,56 @@ GPT와 말싸움하는 남자..ㅋㅋ
 - **함수 호출 방식 (`r.GET("/greet")` ❌ → `r.GET("/greet/:name")` ✅)**
 - **return 안 넣어서 불필요한 코드 실행됨**
 - **문자열 연결 시 띄어쓰기 고려 안 함 (`"Hello" + name` → `"Hello, " + name"`)**
+
+5단계까지 진행했을때의 코드
+
+```go
+package main
+
+import (
+    "net/http"
+    "github.com/gin-gonic/gin"
+)
+
+func helloWorld(c *gin.Context){
+    c.JSON(http.StatusOK, gin.H{"message" : "Hello, world!"})
+}
+
+func ping(c *gin.Context){
+    c.JSON(http.StatusOK, gin.H{"message" : "pong"})
+}
+
+func echo(c *gin.Context){
+	var jsonData map[string]interface{}
+	// var jsonData gin.H, same with above?
+	if err := c.BindJSON(&jsonData); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error" : "Invalid JSON"})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"received": jsonData})
+}
+
+func greet(c *gin.Context) {
+    name := c.Param("name")
+    c.JSON(http.StatusOK, gin.H{"message": "Hello," + name})
+}
+
+func search(c *gin.Context) {
+    query := c.Query("query")
+    if query == "" {
+        query = "default"
+    }
+    c.JSON(http.StatusOK, gin.H{"message": "Searching for: " + query})
+}
+
+func main() {
+    r := gin.Default()
+    r.GET("/hello", helloWorld)
+    r.GET("/ping", ping)
+    r.GET("/greet/:name", greet)
+    r.GET("/search", search)
+    r.POST("/echo", echo)
+    r.Run(":8080")
+}
+
+```
