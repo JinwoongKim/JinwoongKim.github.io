@@ -126,3 +126,81 @@ curl -X GET "http://localhost:8080/auth" -H "Authorization: Bearer my-secret-key
 ### **🚀 직접 코드 작성해보고 실행해봐!**
 
 완성된 코드를 올리면 검토해줄게! 😃
+
+```go
+package main
+
+import (
+    "net/http"
+    "github.com/gin-gonic/gin"
+)
+
+func helloWorld(c *gin.Context){
+    c.JSON(http.StatusOK, gin.H{"message" : "Hello, world!"})
+}
+
+func ping(c *gin.Context){
+    c.JSON(http.StatusOK, gin.H{"message" : "pong"})
+}
+
+func echo(c *gin.Context){
+	var jsonData map[string]interface{}
+	// var jsonData gin.H, same with above?
+	if err := c.BindJSON(&jsonData); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error" : "Invalid JSON"})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"received": jsonData})
+}
+
+func greet(c *gin.Context) {
+    name := c.Param("name")
+    c.JSON(http.StatusOK, gin.H{"message": "Hello," + name})
+}
+
+func search(c *gin.Context) {
+    query := c.Query("query")
+    if query == "" {
+        query = "default"
+    }
+    c.JSON(http.StatusOK, gin.H{"message": "Searching for: " + query})
+}
+
+func authExample(c *gin.Context) {
+    apiKey := c.GetHeader("Authorization")
+    if apiKey == "" {
+        c.JSON(http.StatusUnauthorized, gin.H{"error message" : "API Key missing"})
+        return
+    }
+    c.JSON(http.StatusOK, gin.H{"message" : "Authorized", "api_key" : apiKey})
+}
+
+func searchWithAuth(c *gin.Context) {
+    apiKey := c.GetHeader("Authorization")
+    query := c.Query("query")
+
+    if apiKey == "" {
+        c.JSON(http.StatusUnauthorized, gin.H{"error message" : "API Key missing"})
+        return
+    }
+    if query == "" {
+        query = "default"
+        return
+    }
+
+    c.JSON(http.StatusOK, gin.H{"message" : "Searching for "+query, "api_key" : apiKey})
+}
+
+func main() {
+    r := gin.Default()
+    r.GET("/hello", helloWorld)
+    r.GET("/ping", ping)
+    r.GET("/greet/:name", greet)
+    r.GET("/search", search)
+    r.POST("/echo", echo)
+
+    r.GET("/auth", authExample)
+    r.GET("/searchAuth", searchWithAuth)
+    r.Run(":8080")
+}
+```
