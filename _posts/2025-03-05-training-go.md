@@ -466,3 +466,26 @@ gin.H{"message": "Hello", "status": "OK"}
 
 그런데, 아직 `map`이 이해가 안됐다.
 
+일반
+
+```go
+package main
+ 
+import "fmt"
+ 
+func main() {
+    sliceA := []int{1, 2, 3}
+    sliceB := []int{4, 5, 6}
+ 
+    sliceA = append(sliceA, sliceB...)
+    //sliceA = append(sliceA, 4, 5, 6)
+ 
+    fmt.Println(sliceA) // [1 2 3 4 5 6] 출력
+}
+```
+
+
+
+다시 질문
+
+> map[string]은 이해가 됐는데 interface{}가 뭐야?
