@@ -971,3 +971,48 @@ fmt.Println(jsonResponse.Message) // 특정 필드만 사용 가능
 > 메모리 누수?
 > 
 > 내가 틀린 부분이나 부족한 부분이 있다면 냉철하게 다 말해줘
+
+### **✅ 피드백 (틀린 부분 & 부족한 부분)**
+
+1️⃣ **❌ `http.Post()`와 `http.NewRequest()`의 차이**  
+➡ **코드에 없는 걸 왜 물어보냐고 했는데, 사실 네가 이해해야 할 중요한 개념이야.**  
+➡ **둘 다 HTTP 요청을 보내는 방법인데, `http.NewRequest()`는 더 유연함.**
+
+||`http.Post()`|`http.NewRequest()` + `client.Do(req)`|
+|---|---|---|
+|**사용 편의성**|간단한 요청에 적합|헤더, 메서드 설정 가능|
+|**헤더 추가 가능 여부**|❌ 직접 추가 불가|✅ `req.Header.Set()`으로 설정 가능|
+|**지원 HTTP 메서드**|**POST만 지원**|GET, POST, PUT 등 모든 메서드 지원|
+|**권장 사용 시점**|간단한 JSON API 요청|API 키, 인증 헤더 필요할 때|
+
+**🔥 네가 OpenAI API를 다루려면 `http.NewRequest()`가 더 적합할 수 있어!**  
+➡ `http.Post()`는 헤더 추가가 안되니까, API Key 인증이 필요한 OpenAI API와 맞지 않을 수도 있어.  
+➡ OpenAI API 호출할 때는 보통 `http.NewRequest()`를 써서 `Authorization` 헤더를 추가함.
+
+---
+
+2️⃣ **✅ `json.Marshal(novaReq)` 설명 → 정확함!**  
+➡ JSON으로 변환 후, `http.Post()`의 세 번째 인자인 `io.Reader`로 변환해야 함.  
+➡ `bytes.NewBuffer(jsonBytes)`를 사용해서 변환.
+
+✅ **네가 말한 대로 `novaReq`를 JSON 문자열로 바꾼 뒤, 바이트화하여 HTTP 요청 바디로 사용함.**  
+✔ 올바르게 이해했음! 🎯
+
+---
+
+3️⃣ **❌ `defer resp.Body.Close()`가 없으면? → "메모리 누수?" (부분적으로 맞음, 보충 필요!)**  
+➡ **메모리 누수는 아니고, 파일 핸들 누수(File Descriptor Leak) 문제야.**  
+➡ 네트워크 연결이 닫히지 않고 계속 유지되면, OS에서 열려 있는 파일 핸들 개수가 초과될 수 있음.
+
+💡 **올바른 설명:**  
+"응답 바디를 닫지 않으면 네트워크 리소스가 해제되지 않아, **파일 핸들 누수(File Descriptor Leak)** 문제가 발생할 수 있다."
+
+---
+
+### **📌 최종 피드백 요약**
+
+- `http.Post()` vs. `http.NewRequest()` 차이를 몰랐음 → `http.NewRequest()`를 이해해야 함!
+- `json.Marshal(novaReq)` → 정확하게 이해함!
+- `defer resp.Body.Close()`가 없으면? → **메모리 누수가 아니라, 파일 핸들 누수 문제!**
+
+🔥 **"메모리 누수?" 대신 "파일 핸들 누수!"라고 기억하면 돼.**
