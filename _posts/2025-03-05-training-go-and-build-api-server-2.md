@@ -204,3 +204,19 @@ func main() {
     r.Run(":8080")
 }
 ```
+
+아주 좋아! 🎉  
+거의 다 맞았는데, **`searchWithAuth` 함수에서 하나의 실수**가 있어!
+
+### **🔴 수정해야 할 부분**
+
+```go
+if query == "" {
+    query = "default"
+    return // ❌ 여기에 return 있으면 이후 JSON 응답이 실행되지 않음!
+}
+```
+
+
+쳇 하나 틀림
+
