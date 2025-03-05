@@ -7,7 +7,7 @@ tags:
   - API
 published: true
 ---
-이전 포스트에서 이어서..
+[이전 포스트](https://jinwoongkim.net/study/training-go-and-build-api-server-1/)에서 이어서..
 
 1️⃣ **기본적인 API 엔드포인트 만들기** → Gin의 기본 개념 익히기  
 2️⃣ **JSON 요청과 응답 처리** → `c.JSON()`, `BindJSON()` 이해  
