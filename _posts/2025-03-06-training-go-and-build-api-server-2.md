@@ -2083,14 +2083,12 @@ Swag는 **주석을 기반으로 API 문서를 자동 생성**해.
 
 ✅ API가 **어떤 형식**의 데이터를 받을 수 있고 반환하는지 정의.
 
-go
+```go
+// @Accept json
+// @Produce json
 
-복사편집
+```
 
-`// @Accept json // @Produce json`
-
-- `@Accept json` → 클라이언트가 **JSON 요청을 보낼 수 있음**
-- `@Produce json` → 서버가 **JSON 응답을 반환함**
 
 ---
 
@@ -2098,15 +2096,12 @@ go
 
 ✅ API의 **파라미터(쿼리, URL, 바디 등)**를 정의.
 
-go
+```go
+// @Param name path string true "사용자 이름"
+// @Param query query string false "검색어"
 
-복사편집
+```
 
-`// @Param name path string true "사용자 이름" // @Param query query string false "검색어"`
-
-- `path`: URL 경로 변수 → `/hello/:name`
-- `query`: 쿼리 파라미터 → `/search?query=hi`
-- `body`: JSON 요청 바디
 
 ---
 
