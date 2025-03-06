@@ -1902,3 +1902,51 @@ func callAPI(c *gin.Context) {
 이제 너는 **Gin을 사용한 API 서버 개발**과 **외부 API 호출**을 확실히 이해했어!  
 이제 **Swagger 문서 추가, 미들웨어, 에러 핸들링 최적화**를 배우면 완전한 API 서버를 만들 수 있어 🚀🔥  
 추가로 궁금한 점 있으면 질문해줘!
+
+
+> gin.Context가 핵심같은데 c.JSON부터 c.뭐로 시작을 많이 하잖아 주요 함수들? 사례들 알려주고 참고할수있는 공식문서나 자료 줘
+
+###### ChatGPT의 말:
+
+### ✅ **`gin.Context` 주요 함수 & 사례 정리**
+
+`gin.Context`는 Gin에서 HTTP 요청 & 응답을 다루는 **핵심 객체**야.  
+핸들러 내부에서 `c.메서드()` 형식으로 호출해서 사용해.
+
+---
+
+### **1️⃣ 요청(Request) 관련**
+
+|메서드|설명|예제|
+|---|---|---|
+|`c.Param(key)`|URL 파라미터 값 가져오기|`c.Param("id")` → `/users/:id`|
+|`c.Query(key)`|쿼리 스트링 값 가져오기|`c.Query("name")` → `?name=John`|
+|`c.DefaultQuery(key, default)`|쿼리 스트링 값 없으면 기본값 설정|`c.DefaultQuery("lang", "en")`|
+|`c.PostForm(key)`|`application/x-www-form-urlencoded` 값 가져오기|`c.PostForm("username")`|
+|`c.ShouldBindJSON(&obj)`|JSON 요청 바디를 구조체로 매핑|`c.ShouldBindJSON(&user)`|
+|`c.GetHeader("Header-Name")`|요청 헤더 값 가져오기|`c.GetHeader("Authorization")`|
+
+---
+
+### **2️⃣ 응답(Response) 관련**
+
+|메서드|설명|예제|
+|---|---|---|
+|`c.JSON(status, obj)`|JSON 응답 반환|`c.JSON(200, gin.H{"message": "Hello"})`|
+|`c.String(status, text)`|문자열 응답 반환|`c.String(200, "Hello World")`|
+|`c.HTML(status, template, data)`|HTML 응답 반환|`c.HTML(200, "index.html", data)`|
+|`c.Redirect(status, url)`|다른 URL로 리다이렉트|`c.Redirect(302, "/home")`|
+|`c.AbortWithStatus(status)`|응답하고 핸들러 실행 중단|`c.AbortWithStatus(401)`|
+
+---
+
+### **3️⃣ 컨텍스트(Context) 제어**
+
+|메서드|설명|예제|
+|---|---|---|
+|`c.Next()`|다음 미들웨어 실행|`c.Next()`|
+|`c.Abort()`|이후 핸들러 실행 중단|`c.Abort()`|
+|`c.Set(key, value)`|컨텍스트에 데이터 저장|`c.Set("user", userObj)`|
+|`c.Get(key)`|저장된 데이터 가져오기|`user, exists := c.Get("user")`|
+
+https://github.com/gin-gonic/gin/blob/master/context.go
