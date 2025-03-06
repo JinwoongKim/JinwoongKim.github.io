@@ -1102,8 +1102,13 @@ func main() {
 1. **`http.NewRequest()` 사용**
     - API 호출 시 **추가 헤더 설정 가능**
     - `http.Post()`보다 **더 유연한 방식**으로 요청 가능
+    - `http.Post()`는 단순 POST 요청만 가능하지만, `http.NewRequest()`는
+		- `PUT`, `DELETE`, `PATCH` 같은 다양한 HTTP 메서드도 설정 가능
+		- 추가적인 헤더 설정 가능 (`req.Header.Set(...)`)
 2. **`http.Client{}` 사용**
     - `http.Post()`보다 **더 세밀한 제어 가능** (예: 타임아웃 설정 가능)
+	- `http.Post()`는 내부적으로 `http.DefaultClient`를 사용해서 요청을 보냄.
+	- `http.NewRequest()`를 쓰면 **직접 HTTP 클라이언트를 설정**하고, 재사용 가능한 클라이언트를 활용할 수 있음.
 3. **`defer resp.Body.Close()` 추가**
     - 응답 본문을 **안전하게 닫아 메모리 누수 방지**
 이제 `http.NewRequest()` 기반으로 API 호출이 개선됐어!  
