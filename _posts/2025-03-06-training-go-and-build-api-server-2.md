@@ -2105,14 +2105,14 @@ Swag는 **주석을 기반으로 API 문서를 자동 생성**해.
 
 🔹 **형식**
 
-```undefined
+```
 @Router <경로> [<HTTP 메서드>]
 ```
 
 
 📌 **예시**
 
-```bash
+```go
 // @Router /v1/models/chat/completions [post]
 ```
 
