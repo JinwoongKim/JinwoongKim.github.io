@@ -2070,11 +2070,12 @@ Swag는 **주석을 기반으로 API 문서를 자동 생성**해.
 
 ✅ API의 **간단한 설명 & 상세 설명**을 추가할 때 사용.
 
-go
+```go
+// @Summary 사용자에게 "Hello, World!" 메시지 반환
+// @Description 이 API는 단순히 "Hello, World!" 메시지를 반환합니다.
 
-복사편집
+```
 
-`// @Summary 사용자에게 "Hello, World!" 메시지 반환 // @Description 이 API는 단순히 "Hello, World!" 메시지를 반환합니다.`
 
 ---
 
