@@ -1051,160 +1051,51 @@ import (
 	"fmt"
 	"io"
 	"net/http"
-	"strings"
-
-	"github.com/gin-gonic/gin"
 )
 
-// getServiceName retrieves the service name from CloudConfig based on API Key (Mocked)
-func getServiceName(apiKey string) (string, error) {
-	mockServiceNames := map[string]string{
-		"valid-api-key": "test-service",
-	}
-	serviceName, exists := mockServiceNames[apiKey]
-	if !exists {
-		return "", fmt.Errorf("invalid API key")
-	}
-	return serviceName, nil
-}
+func callExternalAPI() {
+	url := "https://example.com/api"
 
-// getAPIKey extracts API Key from Authorization header
-func getAPIKey(c *gin.Context) (string, error) {
-	authHeader := c.GetHeader("Authorization")
-	if authHeader == "" || !strings.HasPrefix(authHeader, "Bearer ") {
-		return "", fmt.Errorf("missing or invalid API Key")
-	}
-	return strings.TrimPrefix(authHeader, "Bearer "), nil
-}
-
-// **🔹 v1: Nova LLM을 거쳐서 OpenAI 호출**
-func runV1(c *gin.Context) {
-	apiKey, err := getAPIKey(c)
+	// JSON 데이터 생성
+	requestData := map[string]string{"key": "value"}
+	requestBody, err := json.Marshal(requestData)
 	if err != nil {
-		c.JSON(http.StatusUnauthorized, gin.H{"error": err.Error()})
+		fmt.Println("Error encoding JSON:", err)
 		return
 	}
 
-	serviceName, err := getServiceName(apiKey)
+	// HTTP 요청 객체 생성 (NewRequest 사용)
+	req, err := http.NewRequest("POST", url, bytes.NewBuffer(requestBody))
 	if err != nil {
-		c.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid API Key"})
+		fmt.Println("Error creating request:", err)
 		return
 	}
-
-	var openAIRequest map[string]interface{}
-	if err := c.ShouldBindJSON(&openAIRequest); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid request format"})
-		return
-	}
-
-	novaReq := map[string]interface{}{
-		"id":           "generated-uuid",
-		"service_name": serviceName,
-		"request":      openAIRequest,
-	}
-
-	requestBody, err := json.Marshal(novaReq)
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to encode request"})
-		return
-	}
-
-	// **Nova LLM 호출 (http.NewRequest 사용)**
-	client := &http.Client{}
-	req, err := http.NewRequest("POST", "http://nova-llm-gateway.alpha.tossinvest.bz/api/v1/openai/chat/completions",
-		bytes.NewBuffer(requestBody))
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to create request"})
-		return
-	}
-
 	req.Header.Set("Content-Type", "application/json")
 
+	// HTTP 클라이언트 생성 및 요청 실행
+	client := &http.Client{}
 	resp, err := client.Do(req)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to call Nova LLM"})
+		fmt.Println("Error sending request:", err)
 		return
 	}
 	defer resp.Body.Close()
 
-	body, err := io.ReadAll(resp.Body)
+	// 응답을 스트리밍 방식으로 읽기 (io.Copy 사용)
+	var responseBuffer bytes.Buffer
+	_, err = io.Copy(&responseBuffer, resp.Body)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to read response"})
+		fmt.Println("Error reading response:", err)
 		return
 	}
 
-	var novaResponse map[string]interface{}
-	if err := json.Unmarshal(body, &novaResponse); err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to parse response"})
-		return
-	}
-
-	c.JSON(resp.StatusCode, novaResponse)
+	fmt.Println("Response:", responseBuffer.String())
 }
 
-// **🔹 v2: OpenAI 직접 호출**
-func runV2(c *gin.Context) {
-	apiKey, err := getAPIKey(c)
-	if err != nil {
-		c.JSON(http.StatusUnauthorized, gin.H{"error": err.Error()})
-		return
-	}
-
-	var openAIRequest map[string]interface{}
-	if err := c.ShouldBindJSON(&openAIRequest); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid request format"})
-		return
-	}
-
-	requestBody, err := json.Marshal(openAIRequest)
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to encode request"})
-		return
-	}
-
-	// **OpenAI API 직접 호출 (http.NewRequest 사용)**
-	client := &http.Client{}
-	req, err := http.NewRequest("POST", "https://api.openai.com/v1/chat/completions",
-		bytes.NewBuffer(requestBody))
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to create request"})
-		return
-	}
-
-	req.Header.Set("Content-Type", "application/json")
-	req.Header.Set("Authorization", "Bearer "+apiKey)
-
-	resp, err := client.Do(req)
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to call OpenAI"})
-		return
-	}
-	defer resp.Body.Close()
-
-	body, err := io.ReadAll(resp.Body)
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to read response"})
-		return
-	}
-
-	var openAIResponse map[string]interface{}
-	if err := json.Unmarshal(body, &openAIResponse); err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to parse response"})
-		return
-	}
-
-	c.JSON(resp.StatusCode, openAIResponse)
-}
-
-// **🔹 Gin 서버 설정**
 func main() {
-	r := gin.Default()
-
-	r.POST("/v1/models/chat/completions", runV1) // Nova LLM 거치는 버전
-	r.POST("/v2/models/chat/completions", runV2) // OpenAI 직접 호출
-
-	r.Run(":8080")
+	callExternalAPI()
 }
+
 
 ```
 
