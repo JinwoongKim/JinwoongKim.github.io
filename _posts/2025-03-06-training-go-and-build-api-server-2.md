@@ -1466,3 +1466,220 @@ curl -X GET http://localhost:8080/secure \
 
 일단 고랭을 이해하기 위해선 미들웨어나 에러 핸들링을 하는게 맞지만 원래 목적은 그게 아니었으므로, 여기서 정리!
 
+기존 코드를 나와 학습한 개념으로 다시 구현해달라고 함
+
+```go
+package main
+
+import (
+	"bytes"
+	"encoding/json"
+	"fmt"
+	"io"
+	"net/http"
+	"strings"
+
+	"github.com/gin-gonic/gin"
+	"github.com/swaggo/files"
+	"github.com/swaggo/gin-swagger"
+	_ "app/docs"
+)
+
+// 🔹 CloudConfig에서 API Key 기반으로 Service Name 조회 (Mock 데이터)
+func getServiceName(apiKey string) (string, error) {
+	mockServiceNames := map[string]string{
+		"valid-api-key": "test-service",
+	}
+	serviceName, exists := mockServiceNames[apiKey]
+	if !exists {
+		return "", fmt.Errorf("invalid API key")
+	}
+	return serviceName, nil
+}
+
+// 🔹 API Key 추출 함수 (Authorization 헤더에서 "Bearer " 제거)
+func getAPIKey(c *gin.Context) (string, error) {
+	authHeader := c.GetHeader("Authorization")
+	if authHeader == "" || !strings.HasPrefix(authHeader, "Bearer ") {
+		return "", fmt.Errorf("missing or invalid API Key")
+	}
+	return strings.TrimPrefix(authHeader, "Bearer "), nil
+}
+
+// @Summary Proxy to Nova LLM API
+// @Description OpenAI 형식의 요청을 Nova LLM을 통해 전달
+// @Accept json
+// @Produce json
+// @Param request body map[string]interface{} true "Request Body"
+// @Success 200 {object} map[string]interface{} "Success"
+// @Failure 400 {object} map[string]string "Bad Request"
+// @Failure 500 {object} map[string]string "Internal Server Error"
+// @Router /v1/models/chat/completions [post]
+func runV1(c *gin.Context) {
+	// 1️⃣ API Key 검증 및 추출
+	apiKey, err := getAPIKey(c)
+	if err != nil {
+		c.JSON(http.StatusUnauthorized, gin.H{"error": err.Error()})
+		return
+	}
+
+	// 2️⃣ API Key를 기반으로 Service Name 조회
+	serviceName, err := getServiceName(apiKey)
+	if err != nil {
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid API Key"})
+		return
+	}
+
+	// 3️⃣ 요청 Body 파싱
+	var openAIRequest map[string]interface{}
+	if err := c.ShouldBindJSON(&openAIRequest); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid request format"})
+		return
+	}
+
+	// 4️⃣ Nova LLM이 요구하는 형식으로 변환
+	novaReq := map[string]interface{}{
+		"id":           "generated-uuid",
+		"service_name": serviceName,
+		"request":      openAIRequest,
+	}
+
+	// 5️⃣ JSON 변환
+	requestBody, err := json.Marshal(novaReq)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to encode request"})
+		return
+	}
+
+	// 6️⃣ Nova LLM으로 API 요청 보내기 (http.NewRequest 사용)
+	client := &http.Client{}
+	req, err := http.NewRequest("POST", "http://nova-llm-gateway.alpha.tossinvest.bz/api/v1/openai/chat/completions",
+		bytes.NewBuffer(requestBody))
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to create request"})
+		return
+	}
+	req.Header.Set("Content-Type", "application/json")
+
+	// 7️⃣ 요청 실행
+	resp, err := client.Do(req)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to call Nova LLM"})
+		return
+	}
+	defer resp.Body.Close()
+
+	// 8️⃣ 응답 읽기 (io.Copy 사용)
+	var buf bytes.Buffer
+	_, err = io.Copy(&buf, resp.Body)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to read response"})
+		return
+	}
+
+	// 9️⃣ JSON 변환 및 응답 반환
+	var novaResponse map[string]interface{}
+	if err := json.Unmarshal(buf.Bytes(), &novaResponse); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to parse response"})
+		return
+	}
+
+	c.JSON(resp.StatusCode, novaResponse)
+}
+
+// @Summary Proxy to OpenAI API
+// @Description OpenAI로 직접 요청 전달
+// @Accept json
+// @Produce json
+// @Param request body map[string]interface{} true "Request Body"
+// @Success 200 {object} map[string]interface{} "Success"
+// @Failure 400 {object} map[string]string "Bad Request"
+// @Failure 500 {object} map[string]string "Internal Server Error"
+// @Router /v2/models/chat/completions [post]
+func runV2(c *gin.Context) {
+	// 1️⃣ API Key 검증 및 추출
+	apiKey, err := getAPIKey(c)
+	if err != nil {
+		c.JSON(http.StatusUnauthorized, gin.H{"error": err.Error()})
+		return
+	}
+
+	// 2️⃣ 요청 Body 파싱
+	var openAIRequest map[string]interface{}
+	if err := c.ShouldBindJSON(&openAIRequest); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid request format"})
+		return
+	}
+
+	// 3️⃣ JSON 변환
+	requestBody, err := json.Marshal(openAIRequest)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to encode request"})
+		return
+	}
+
+	// 4️⃣ OpenAI로 API 요청 보내기 (http.NewRequest 사용)
+	client := &http.Client{}
+	req, err := http.NewRequest("POST", "https://api.openai.com/v1/chat/completions",
+		bytes.NewBuffer(requestBody))
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to create request"})
+		return
+	}
+	req.Header.Set("Content-Type", "application/json")
+	req.Header.Set("Authorization", "Bearer "+apiKey)
+
+	// 5️⃣ 요청 실행
+	resp, err := client.Do(req)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to call OpenAI"})
+		return
+	}
+	defer resp.Body.Close()
+
+	// 6️⃣ 응답 읽기 (io.Copy 사용)
+	var buf bytes.Buffer
+	_, err = io.Copy(&buf, resp.Body)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to read response"})
+		return
+	}
+
+	// 7️⃣ JSON 변환 및 응답 반환
+	var openAIResponse map[string]interface{}
+	if err := json.Unmarshal(buf.Bytes(), &openAIResponse); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to parse response"})
+		return
+	}
+
+	c.JSON(resp.StatusCode, openAIResponse)
+}
+
+// @Summary Hello World Endpoint
+// @Description 간단한 헬로 월드 API
+// @Accept json
+// @Produce json
+// @Success 200 {object} map[string]string "Success"
+// @Router /v1/hello [get]
+func helloWorld(c *gin.Context) {
+	c.JSON(http.StatusOK, gin.H{"message": "Hello, World!"})
+}
+
+// @title ML API Gateway
+// @version 1.0
+// @description MLP API Gateway
+// @host localhost:10100
+func main() {
+	r := gin.Default()
+
+	// Swagger UI 추가
+	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+
+	// 엔드포인트 등록
+	r.GET("/v1/hello", helloWorld)
+	r.POST("/v1/models/chat/completions", runV1) // Nova LLM 경유
+	r.POST("/v2/models/chat/completions", runV2) // OpenAI 직접 호출
+
+	r.Run(":8080")
+}
+```
