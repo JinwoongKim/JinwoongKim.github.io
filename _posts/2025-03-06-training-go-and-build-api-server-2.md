@@ -1706,11 +1706,25 @@ func main() {
 
 ✅ **기본적인 "Hello, World!" API**
 
-go
+```go
+package main
 
-복사편집
+import (
+    "net/http"
+    "github.com/gin-gonic/gin"
+)
 
-`package main  import (     "net/http"     "github.com/gin-gonic/gin" )  func helloWorld(c *gin.Context) {     c.JSON(http.StatusOK, gin.H{"message": "Hello, World!"}) }  func main() {     r := gin.Default()     r.GET("/hello", helloWorld)     r.Run(":8080") }`
+func helloWorld(c *gin.Context) {
+    c.JSON(http.StatusOK, gin.H{"message": "Hello, World!"})
+}
+
+func main() {
+    r := gin.Default()
+    r.GET("/hello", helloWorld)
+    r.Run(":8080")
+}
+```
+
 
 ✅ **핵심 개념**
 
@@ -1724,11 +1738,17 @@ go
 
 🔹 **POST 요청을 받아 JSON 데이터를 처리하기**
 
-go
+```go
+func echo(c *gin.Context) {
+    var jsonData map[string]interface{}  // JSON을 받을 변수
+    if err := c.BindJSON(&jsonData); err != nil {
+        c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid JSON"})
+        return
+    }
+    c.JSON(http.StatusOK, gin.H{"received": jsonData})
+}
+```
 
-복사편집
-
-`func echo(c *gin.Context) {     var jsonData map[string]interface{}  // JSON을 받을 변수     if err := c.BindJSON(&jsonData); err != nil {         c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid JSON"})         return     }     c.JSON(http.StatusOK, gin.H{"received": jsonData}) }`
 
 ✅ **핵심 개념**
 
@@ -1741,43 +1761,46 @@ go
 
 🔹 **URL 파라미터 (`/greet/:name`)**
 
-go
+```go
+func greet(c *gin.Context) {
+    name := c.Param("name")  // URL에서 name 값 가져오기
+    c.JSON(http.StatusOK, gin.H{"message": "Hello, " + name})
+}
+```
 
-복사편집
-
-`func greet(c *gin.Context) {     name := c.Param("name")  // URL에서 name 값 가져오기     c.JSON(http.StatusOK, gin.H{"message": "Hello, " + name}) }`
 
 요청 예시:
 
-sh
+```go
+curl -X GET "http://localhost:8080/greet/Alice"
+```
 
-복사편집
-
-`curl -X GET "http://localhost:8080/greet/Alice"`
 
 응답:
 
-json
+```json
+{"message": "Hello, Alice"}
+```
 
-복사편집
-
-`{"message": "Hello, Alice"}`
 
 🔹 **쿼리 파라미터 (`/search?query=golang`)**
 
-go
+```go
+func search(c *gin.Context) {
+    query := c.Query("query")  // "query" 파라미터 값 가져오기
+    if query == "" {
+        query = "default"
+    }
+    c.JSON(http.StatusOK, gin.H{"message": "Searching for: " + query})
+}
+```
 
-복사편집
-
-`func search(c *gin.Context) {     query := c.Query("query")  // "query" 파라미터 값 가져오기     if query == "" {         query = "default"     }     c.JSON(http.StatusOK, gin.H{"message": "Searching for: " + query}) }`
 
 요청 예시:
 
-sh
-
-복사편집
-
-`curl -X GET "http://localhost:8080/search?query=golang"`
+```go
+curl -X GET "http://localhost:8080/search?query=golang"
+```
 
 응답:
 
