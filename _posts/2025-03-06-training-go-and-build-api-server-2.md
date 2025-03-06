@@ -1039,7 +1039,7 @@ fmt.Println(jsonResponse.Message) // 특정 필드만 사용 가능
 
 ###### ChatGPT의 말:
 
-이전 `http.Post()`를 `http.NewRequest()` 기반으로 리팩토링한 코드야.  
+이전 `http.Post()`를 `http.NewRequest()`, `io.Copy()` 기반으로 리팩토링한 코드야.  
 **이제 API 호출 시 더 유연하게 헤더를 설정할 수 있어.**
 
 ```go
@@ -1095,8 +1095,6 @@ func callExternalAPI() {
 func main() {
 	callExternalAPI()
 }
-
-
 ```
 
 ### **🔹 개선된 점**
