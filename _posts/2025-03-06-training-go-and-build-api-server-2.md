@@ -2109,11 +2109,12 @@ Swag는 **주석을 기반으로 API 문서를 자동 생성**해.
 
 ✅ API가 **성공하면 어떤 응답을 반환하는지** 정의.
 
-go
+```go
+// @Success 200 {object} map[string]string "성공 시 반환 값"
+// @Failure 400 {object} map[string]string "잘못된 요청"
 
-복사편집
+```
 
-`// @Success 200 {object} map[string]string "성공 시 반환 값" // @Failure 400 {object} map[string]string "잘못된 요청"`
 
 - `@Success 200` → 성공했을 때 응답
 - `@Failure 400` → 잘못된 요청일 때 응답
