@@ -1990,3 +1990,15 @@ type Context struct {
 	sameSite http.SameSite
 }
 ```
+
+
+### 📌 **👉 8단계 진행 방법**
+
+1. **`swag --version`으로 Swag 설치 확인**
+2. **`swag init -g main.go` 실행 후 `docs/` 폴더 생성 확인**
+3. **Swagger UI에서 문서가 표시되는지 확인** (`http://localhost:8080/swagger/index.html`)
+
+🛠 **이걸 다 해보고 결과 알려줘!**  
+(설치 문제 있으면 해결해 줄게) 🚀
+
+##### 나의 말:
