@@ -1888,36 +1888,6 @@ func callAPI(c *gin.Context) {
 
 ---
 
-## **6️⃣ 전체 API 서버 코드 구조 정리**
-
-🔹 **폴더 구조 예시**
-
-```bash
-ml-platform-gateway
-├── cmd/               # 실행 코드
-│   └── api/
-│       └── main.go    # API 서버 엔트리 포인트
-├── internal/          # 내부 비즈니스 로직
-├── configs/           # 설정 파일
-├── scripts/           # 유틸리티 스크립트
-├── deployments/       # Docker, Kubernetes 관련 파일
-│   ├── Dockerfile.dev
-│   ├── Dockerfile.prod
-├── go.mod             # Go 모듈 설정
-├── README.md          # 프로젝트 설명
-
-```
-
-✅ **핵심 개념**
-
-- `cmd/` → 실행 코드 (main.go)
-- `internal/` → 내부 비즈니스 로직
-- `configs/` → 환경 설정
-- `scripts/` → 서버 실행 스크립트
-- `deployments/` → Docker & Kubernetes 관련 파일
-
----
-
 ## **💡 학습한 주요 개념 정리**
 
 ✅ **Gin 기본 개념**: `gin.Default()`, `c.JSON()`, `c.Param()`, `c.Query()`  
