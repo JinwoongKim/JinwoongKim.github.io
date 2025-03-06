@@ -2030,21 +2030,21 @@ swag --version
 
 출력 예시:
 
-nginx
+```bash
+swag version v1.16.4
 
-복사편집
+```
 
-`swag version v1.16.4`
 
 #### **3️⃣ Swag 문서 생성하기**
 
 Swag 주석을 코드에 작성한 후, 아래 명령어를 실행하면 Swagger 문서가 생성돼.
 
-bash
+```bash
+swag init -g main.go
 
-복사편집
+```
 
-`swag init -g main.go`
 
 실행하면 `docs/` 폴더가 생기고, `swagger.json`, `swagger.yaml`, `docs.go` 파일이 생성돼.
 
@@ -2058,3 +2058,77 @@ bash
 
 🛠 **이걸 다 해보고 결과 알려줘!**  
 (설치 문제 있으면 해결해 줄게) 🚀
+
+# 9️단계 : Swag 주석 이해하고 직접 작성하기
+
+Swag는 **주석을 기반으로 API 문서를 자동 생성**해.  
+아래 주석들을 하나씩 살펴보자. 👀
+
+---
+
+### **1️⃣ `@Summary` & `@Description`**
+
+✅ API의 **간단한 설명 & 상세 설명**을 추가할 때 사용.
+
+go
+
+복사편집
+
+`// @Summary 사용자에게 "Hello, World!" 메시지 반환 // @Description 이 API는 단순히 "Hello, World!" 메시지를 반환합니다.`
+
+---
+
+### **2️⃣ `@Accept` & `@Produce`**
+
+✅ API가 **어떤 형식**의 데이터를 받을 수 있고 반환하는지 정의.
+
+go
+
+복사편집
+
+`// @Accept json // @Produce json`
+
+- `@Accept json` → 클라이언트가 **JSON 요청을 보낼 수 있음**
+- `@Produce json` → 서버가 **JSON 응답을 반환함**
+
+---
+
+### **3️⃣ `@Param` (요청 값 설명)**
+
+✅ API의 **파라미터(쿼리, URL, 바디 등)**를 정의.
+
+go
+
+복사편집
+
+`// @Param name path string true "사용자 이름" // @Param query query string false "검색어"`
+
+- `path`: URL 경로 변수 → `/hello/:name`
+- `query`: 쿼리 파라미터 → `/search?query=hi`
+- `body`: JSON 요청 바디
+
+---
+
+### **4️⃣ `@Success`, `@Failure` (응답 설명)**
+
+✅ API가 **성공하면 어떤 응답을 반환하는지** 정의.
+
+go
+
+복사편집
+
+`// @Success 200 {object} map[string]string "성공 시 반환 값" // @Failure 400 {object} map[string]string "잘못된 요청"`
+
+- `@Success 200` → 성공했을 때 응답
+- `@Failure 400` → 잘못된 요청일 때 응답
+
+---
+
+### **📌 9단계 실습 목표**
+
+1️⃣ **기존 코드의 `helloWorld`, `ping`, `search`, `echo`에 Swag 주석 추가**  
+2️⃣ `swag init -g main.go` 실행해서 Swagger 문서 갱신  
+3️⃣ `http://localhost:8080/swagger/index.html` 에서 확인
+
+**🔹 직접 코드에 주석 추가해보고 결과 알려줘!**  
+(잘못된 부분 있으면 바로 잡아줄게 🚀)
