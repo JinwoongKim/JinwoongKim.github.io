@@ -1804,11 +1804,10 @@ curl -X GET "http://localhost:8080/search?query=golang"
 
 응답:
 
-json
+```json
+{"message": "Searching for: golang"}
+```
 
-복사편집
-
-`{"message": "Searching for: golang"}`
 
 ✅ **핵심 개념**
 
@@ -1821,27 +1820,31 @@ json
 
 🔹 **헤더에서 API Key 검증**
 
-go
+```go
+func authExample(c *gin.Context) {
+    apiKey := c.GetHeader("Authorization")  // 헤더에서 API 키 가져오기
+    if apiKey == "" {
+        c.JSON(http.StatusUnauthorized, gin.H{"error": "API Key missing"})
+        return
+    }
+    c.JSON(http.StatusOK, gin.H{"message": "Authorized", "api_key": apiKey})
+}
 
-복사편집
+```
 
-`func authExample(c *gin.Context) {     apiKey := c.GetHeader("Authorization")  // 헤더에서 API 키 가져오기     if apiKey == "" {         c.JSON(http.StatusUnauthorized, gin.H{"error": "API Key missing"})         return     }     c.JSON(http.StatusOK, gin.H{"message": "Authorized", "api_key": apiKey}) }`
 
 요청 예시:
 
-sh
+```go
+curl -X GET "http://localhost:8080/auth" -H "Authorization: Bearer valid-key"
+```
 
-복사편집
-
-`curl -X GET "http://localhost:8080/auth" -H "Authorization: Bearer valid-key"`
 
 응답:
 
-json
-
-복사편집
-
-`{"message": "Authorized", "api_key": "Bearer valid-key"}`
+```json
+{"message": "Authorized", "api_key": "Bearer valid-key"}
+```
 
 ✅ **핵심 개념**
 
@@ -1854,11 +1857,28 @@ json
 
 🔹 **외부 API 호출 및 응답 처리 (Nova LLM / OpenAI)**
 
-go
+```go
+func callAPI(c *gin.Context) {
+    url := "https://example.com/api"
+    requestBody, _ := json.Marshal(map[string]string{"key": "value"})
 
-복사편집
+    client := &http.Client{}
+    req, _ := http.NewRequest("POST", url, bytes.NewBuffer(requestBody))
+    req.Header.Set("Content-Type", "application/json")
 
-`func callAPI(c *gin.Context) {     url := "https://example.com/api"     requestBody, _ := json.Marshal(map[string]string{"key": "value"})      client := &http.Client{}     req, _ := http.NewRequest("POST", url, bytes.NewBuffer(requestBody))     req.Header.Set("Content-Type", "application/json")      resp, err := client.Do(req)     if err != nil {         c.JSON(http.StatusInternalServerError, gin.H{"error": "API call failed"})         return     }     defer resp.Body.Close()      var buf bytes.Buffer     io.Copy(&buf, resp.Body)  // 대용량 데이터 처리     c.JSON(resp.StatusCode, gin.H{"response": buf.String()}) }`
+    resp, err := client.Do(req)
+    if err != nil {
+        c.JSON(http.StatusInternalServerError, gin.H{"error": "API call failed"})
+        return
+    }
+    defer resp.Body.Close()
+
+    var buf bytes.Buffer
+    io.Copy(&buf, resp.Body)  // 대용량 데이터 처리
+    c.JSON(resp.StatusCode, gin.H{"response": buf.String()})
+}
+```
+
 
 ✅ **핵심 개념**
 
@@ -1872,11 +1892,21 @@ go
 
 🔹 **폴더 구조 예시**
 
-csharp
+```bash
+ml-platform-gateway
+├── cmd/               # 실행 코드
+│   └── api/
+│       └── main.go    # API 서버 엔트리 포인트
+├── internal/          # 내부 비즈니스 로직
+├── configs/           # 설정 파일
+├── scripts/           # 유틸리티 스크립트
+├── deployments/       # Docker, Kubernetes 관련 파일
+│   ├── Dockerfile.dev
+│   ├── Dockerfile.prod
+├── go.mod             # Go 모듈 설정
+├── README.md          # 프로젝트 설명
 
-복사편집
-
-`ml-platform-gateway ├── cmd/               # 실행 코드 │   └── api/ │       └── main.go    # API 서버 엔트리 포인트 ├── internal/          # 내부 비즈니스 로직 ├── configs/           # 설정 파일 ├── scripts/           # 유틸리티 스크립트 ├── deployments/       # Docker, Kubernetes 관련 파일 │   ├── Dockerfile.dev │   ├── Dockerfile.prod ├── go.mod             # Go 모듈 설정 ├── README.md          # 프로젝트 설명`
+```
 
 ✅ **핵심 개념**
 
