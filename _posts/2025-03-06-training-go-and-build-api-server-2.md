@@ -2161,6 +2161,36 @@ Swag는 **주석을 기반으로 API 문서를 자동 생성**해.
 - `@Success 200` → 성공했을 때 응답
 - `@Failure 400` → 잘못된 요청일 때 응답
 
+
+✅ `@Success 200 {object} map[string]interface{} "Success"` 설명
+
+// @Success 200 {object} map[string]interface{} "Success"
+
+1. **`@Success 200`**
+    
+    - HTTP 상태 코드 200을 의미 (성공적인 응답)
+2. **`{object}`**
+    
+    - 반환되는 데이터 타입이 객체(JSON)임을 의미
+    - `string`, `array`, `boolean` 같은 타입이면 `{string}`, `{array}` 사용
+3. **`map[string]interface{}`**
+    
+    - Go에서 실제 반환하는 타입
+    - key-value 형식의 JSON 객체를 의미
+    - 예: `{ "message": "Hello, World!" }`
+4. **`"Success"`**
+    
+    - Swagger UI에서 API 응답 설명
+    - `"Success"`는 이 응답이 정상적인 성공 응답임을 의미
+
+---
+
+📝 **예제**
+
+// @Success 200 {object} map[string]interface{} "요청이 성공하면 JSON 객체 반환"
+
+📌 위 주석이 Swagger 문서에 나타나면,  
+📌 응답이 `{ "message": "Hello, World!" }` 같은 JSON 객체임을 알 수 있음
 ---
 
 ### **📌 9단계 실습 목표**
