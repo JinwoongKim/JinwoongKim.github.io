@@ -47,10 +47,8 @@ def removeElement(self, nums: List[int], val: int) -> int:
 ![](blog/images/blog/_posts/2025-03-07-leetcode-27-remove-element/IMG-20250307094724630.png)
 ![](../images/blog/_posts/2025-03-07-leetcode-27-remove-element/IMG-20250307094724630.png)
 ![[blog/images/blog/_posts/2025-03-07-leetcode-27-remove-element/IMG-20250307094733194.png]]
-
-개 같이 틀림
-
-
+![[blog/images/blog/_posts/2025-03-07-leetcode-27-remove-element/IMG-20250307094733194.png]]
+<img src="images/blog/_posts/2025-03-07-leetcode-27-remove-element/IMG-20250307094733194.png" width=300>
 ## 결과 : Wrong Answer
 
 오랜만 + 20분 안에 풀려고 해서 힘들긴 했지만
