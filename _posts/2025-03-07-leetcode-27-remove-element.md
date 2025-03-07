@@ -10,7 +10,11 @@ published: true
 🔗 [문제 링크](https://leetcode.com/problems/merge-sorted-array/description/)
 
 ## **설계 (소요시간: 15분)**
-- 
+- two pointers
+- T= O(N)
+- S=O(1)
+- edge case : # of V > # of !V
+- termination condition : lp >= rp
 ## **제출 답안지 (소요시간: 20분)**
 
 _(이때는 20분 제한을 두고 풀었다.)_
