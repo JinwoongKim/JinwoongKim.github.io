@@ -50,6 +50,7 @@ def removeElement(self, nums: List[int], val: int) -> int:
 ![[blog/images/blog/_posts/2025-03-07-leetcode-27-remove-element/IMG-20250307094733194.png]]
 <img src="/images/blog/_posts/2025-03-07-leetcode-27-remove-element/IMG-20250307094733194.png" width=300>
 <img src="/images/IMG_3744.jpeg" width=300>
+<img src="/images/퀴즈1등.PNG" width=200>
 ## 결과 : Wrong Answer
 
 
