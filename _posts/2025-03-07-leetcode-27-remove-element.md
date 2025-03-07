@@ -44,7 +44,7 @@ def removeElement(self, nums: List[int], val: int) -> int:
 
 ## 제출
 
-![[blog/images/blog/_posts/2025-03-07-leetcode-27-remove-element/IMG-20250307094724630.png]]
+![](blog/images/blog/_posts/2025-03-07-leetcode-27-remove-element/IMG-20250307094724630.png]]
 ![[blog/images/blog/_posts/2025-03-07-leetcode-27-remove-element/IMG-20250307094733194.png]]
 
 개 같이 틀림
