@@ -17,12 +17,10 @@ published: true
 - termination condition : lp >= rp
 ## **제출 답안지 (소요시간: 5분)**
 
-
 ```python
 def removeElement(self, nums: List[int], val: int) -> int:
 	lp = 0
 	rp = len(nums)-1
-	k = len(nums)
 
 	while lp < rp:
 		while nums[lp] != val:
@@ -39,10 +37,10 @@ def removeElement(self, nums: List[int], val: int) -> int:
 		if nums[lp] == val and nums[rp] != val:
 			nums[lp] = nums[rp]
 			nums[rp] = '_'
-			k-=1
 	
-	return k
+	return rp+1
 ```
+
 ## **검산 (소요시간: 13분)**
 
 복잡하게 생각하지 않고, **포인터를 세 개 사용**했다.
