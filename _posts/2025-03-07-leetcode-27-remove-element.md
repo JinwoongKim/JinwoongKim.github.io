@@ -15,36 +15,33 @@ published: true
 - S=O(1)
 - edge case : # of V > # of !V
 - termination condition : lp >= rp
-## **제출 답안지 (소요시간: 20분)**
+## **제출 답안지 (소요시간: 5분)**
 
-_(이때는 20분 제한을 두고 풀었다.)_
 
 ```python
-class Solution:
-    def merge(self, nums1: List[int], m: int, nums2: List[int], n: int) -> None:
-        """
-        Do not return anything, modify nums1 in-place instead.
-        """
-        i0, i1, i2 = m+n-1, m-1, n-1
+def removeElement(self, nums: List[int], val: int) -> int:
+	lp = 0
+	rp = len(nums)-1
+	k = len(nums)
 
-        if m == 0:
-            nums1[:] = nums2
-        elif n == 0:
-            pass
-        else:
-            while i1 >= 0 and i2 >= 0:
-                if nums1[i1] < nums2[i2]:
-                    nums1[i0] = nums2[i2] 
-                    i2 -= 1
-                elif nums1[i1] >= nums2[i2]:
-                    nums1[i0] = nums1[i1] 
-                    nums1[i1] = 0
-                    i1 -= 1
-                i0 -= 1
-            
-            while i2 >= 0:
-                nums1[i0] = nums2[i2]
-                i2 -= 1
+	while lp < rp:
+		while nums[lp] != val:
+			lp+=1
+			if lp == len(nums)-1:
+				break
+
+
+		while nums[rp] == val:
+			rp-=1
+			if rp == 0:
+				break
+		
+		if nums[lp] == val and nums[rp] != val:
+			nums[lp] = nums[rp]
+			nums[rp] = '_'
+			k-=1
+	
+	return k
 ```
 
 복잡하게 생각하지 않고, **포인터를 세 개 사용**했다.
