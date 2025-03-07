@@ -6,8 +6,7 @@ tags:
   - easy
 published: true
 ---
-### LeetCode - Merge Sorted Array
-🔗 [문제 링크](https://leetcode.com/problems/merge-sorted-array/description/)
+https://leetcode.com/problems/remove-element/description/
 
 ## 설계 (소요시간: 15분)
 - two pointers
