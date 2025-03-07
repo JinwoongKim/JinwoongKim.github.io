@@ -4,7 +4,7 @@ categories: coding study
 tags:
   - leetcode
   - easy
-published: false
+published: true
 ---
 https://leetcode.com/problems/remove-element/description/
 
