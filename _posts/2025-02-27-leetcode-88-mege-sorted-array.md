@@ -5,6 +5,7 @@ tags:
   - leetcode
   - merge
   - array
+  - easy
 published: true
 ---
 ### LeetCode - Merge Sorted Array
@@ -110,9 +111,9 @@ class Solution:
 
 Beat 100%? 말이 되나 이게..?ㅋㅋ
 
-![[blog/images/blog/_posts/2025-03-07-leetcode-88-mege-sorted-array 1/IMG-20250307091003457.png]]
+![[blog/images/blog/_posts/2025-03-07-leetcode-27-remove-element/IMG-20250307091024932.png]]
 
-![](blog/images/blog/_posts/2025-03-07-leetcode-88-mege-sorted-array%201/IMG-20250307091003457.png)
+![](blog/images/blog/_posts/2025-03-07-leetcode-27-remove-element/IMG-20250307091024932.png)
 
 <img src="blog/images/blog/_posts/2025-02-27-leetcode-88-mege-sorted-array/IMG-20250227091134723.png" width="600">
 
