@@ -4,7 +4,7 @@ categories: coding study
 tags:
   - leetcode
   - easy
-published: true
+published: false
 ---
 https://leetcode.com/problems/remove-element/description/
 
@@ -44,26 +44,12 @@ def removeElement(self, nums: List[int], val: int) -> int:
 
 ## 제출
 
-![](blog/images/blog/_posts/2025-03-07-leetcode-27-remove-element/IMG-20250307094724630.png]]
+![](blog/images/blog/_posts/2025-03-07-leetcode-27-remove-element/IMG-20250307094724630.png)
+![](../images/blog/_posts/2025-03-07-leetcode-27-remove-element/IMG-20250307094724630.png)
 ![[blog/images/blog/_posts/2025-03-07-leetcode-27-remove-element/IMG-20250307094733194.png]]
 
 개 같이 틀림
 
-
-
-복잡하게 생각하지 않고, **포인터를 세 개 사용**했다.
-
-- 하나는 **nums1의 제일 마지막 인덱스**를 가리키고,
-- 하나는 **nums1의 마지막 숫자 이전 값을**,
-- 나머지 하나는 **nums2의 마지막 값을 가리키도록** 설정했다.
-
-<img src="images/blog/_posts/2025-02-26-leetcode-88-mege-sorted-array/IMG-20250226092629238.png" width="200">
-
-메인 알고리즘은 매우 단순하다.
-
-1. **i1과 i2를 비교하여 더 큰 숫자를 i0에 넣는다.**
-2. **i1을 넣었으면 한 칸 왼쪽으로 이동**
-3. **i2를 넣었으면 한 칸 왼쪽으로 이동**
 
 ## 결과 : Wrong Answer
 
