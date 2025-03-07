@@ -9,13 +9,13 @@ published: true
 ### LeetCode - Merge Sorted Array
 🔗 [문제 링크](https://leetcode.com/problems/merge-sorted-array/description/)
 
-## **설계 (소요시간: 15분)**
+## 설계 (소요시간: 15분)
 - two pointers
 - T= O(N)
 - S=O(1)
 - edge case : # of V > # of !V
 - termination condition : lp >= rp
-## **제출 답안지 (소요시간: 5분)**
+## 제출 답안지 (소요시간: 5분)
 
 ```python
 def removeElement(self, nums: List[int], val: int) -> int:
@@ -41,7 +41,16 @@ def removeElement(self, nums: List[int], val: int) -> int:
 	return rp+1
 ```
 
-## **검산 (소요시간: 13분)**
+## 검산 (소요시간: 13분)
+
+## 제출
+
+![[blog/images/blog/_posts/2025-03-07-leetcode-27-remove-element/IMG-20250307094724630.png]]
+![[blog/images/blog/_posts/2025-03-07-leetcode-27-remove-element/IMG-20250307094733194.png]]
+
+개 같이 틀림
+
+
 
 복잡하게 생각하지 않고, **포인터를 세 개 사용**했다.
 
