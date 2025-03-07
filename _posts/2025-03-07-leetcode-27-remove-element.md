@@ -43,6 +43,7 @@ def removeElement(self, nums: List[int], val: int) -> int:
 	
 	return k
 ```
+## **검산 (소요시간: 13분)**
 
 복잡하게 생각하지 않고, **포인터를 세 개 사용**했다.
 
