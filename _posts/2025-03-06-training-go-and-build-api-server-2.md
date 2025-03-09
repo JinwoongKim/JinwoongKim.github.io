@@ -2183,7 +2183,7 @@ Swag는 **주석을 기반으로 API 문서를 자동 생성**해.
     - Swagger UI에서 API 응답 설명
     - `"Success"`는 이 응답이 정상적인 성공 응답임을 의미
 
-![[blog/images/blog/_posts/2025-03-06-training-go-and-build-api-server-2/IMG-20250306120503985.png]]
+![[blog/images/IMG-20250306120503985.png]]
 ---
 
 📝 **예제**
