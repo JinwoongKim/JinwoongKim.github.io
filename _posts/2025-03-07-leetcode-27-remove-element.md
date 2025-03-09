@@ -44,13 +44,8 @@ def removeElement(self, nums: List[int], val: int) -> int:
 
 ## 결과 : Wrong Answer
 
-<img src="/images/test.png" width=300>
 <img src="/images/IMG-20250307094724630.png" width=300>
-![[blog/images/Pasted image 20250309204338.png]]![[blog/images/Pasted image 20250309204442.png]]
-![[blog/images/Pasted image 20250309204507.png]]
-
-![[blog/images/2025-03-07-leetcode-27-remove-element/IMG-20250309204528353.png]]
-
+<img src="/images/2025-03-07-leetcode-27-remove-element/IMG-20250309204528353.png" width=300>
 
 
 
