@@ -44,12 +44,21 @@ def removeElement(self, nums: List[int], val: int) -> int:
 
 ## 결과 : Wrong Answer
 
-솔루션
-```go
-https://jinwoongkim.net/images/2025-03-07-leetcode-27-remove-element/IMG-20250309204528353.png
+## 솔루션
+
+```python
+class Solution:
+    def removeElement(self, nums: List[int], val: int) -> int:
+        index = 0
+        for i in range(len(nums)):
+            if nums[i] != val:
+                nums[index] = nums[i]
+                index += 1
+        return index
 ```
 
-
+- 와, 결국 왼쪽부터 val이 아닌 애들을 채워주는 방식..
+- 만약 안 채웠으면 그냥 0 리턴..
 
 ## 느낀점
 - 저 정도의 시간을 투자하고도 이런 쉬운 문제를 틀리다니... 내가 코테 면접관으로 들어갈 자격이 있나 생각하고 ㅠ
