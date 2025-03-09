@@ -44,15 +44,6 @@ def removeElement(self, nums: List[int], val: int) -> int:
 
 ## 결과 : Wrong Answer
 
-x
-<img src="/images/test/test.png" width=300>
-<img src="/images/IMG-20250307094724630.png" width=300>
-<img src="/images/2025-03-07-leetcode-27-remove-element/IMG-20250309204528353.png" width=300>
-
-
-
-
-
 
 ## 느낀점
 - 저 정도의 시간을 투자하고도 이런 쉬운 문제를 틀리다니... 내가 코테 면접관으로 들어갈 자격이 있나 생각하고 ㅠ
