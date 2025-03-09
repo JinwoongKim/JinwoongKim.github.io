@@ -5,8 +5,9 @@ tags:
   - ChatGPT
   - Go
   - API
-published: true
+published: false
 ---
 이전 포스트들에서 ChatGPT를 이용해서 Go 및 API 서버를 익혀보았다.
 
 사내 공유용으로 학습한건데, 저렇게 많고 지저분한 내용을 그대로 발표 할 수는 없어서
+또 ChatGPT를 이용해서 정리해보았다.
