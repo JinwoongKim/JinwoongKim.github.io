@@ -47,7 +47,7 @@ def removeElement(self, nums: List[int], val: int) -> int:
 ## 제출
 
 <img src="/images/test.png" width=300>
-<img src="/images/test.png" width=300>
+<img src="/images/IMG-20250307094724630.png" width=300>
 
 
 ## 느낀점
