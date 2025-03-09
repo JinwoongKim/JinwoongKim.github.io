@@ -58,6 +58,3 @@ obsidian://open?vault=Life&file=blog%2Fimages%2Fblog%2F_posts%2F2025-03-07-leetc
 
 
 ## 느낀점
-이번에 느낀점은, 생각보다 설계가 중요하다는 것
-그리고 손으로 검산하는게 생각보다 중요하다는 것
-특별히 배운 자료 구조는 없다!
