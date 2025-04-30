@@ -234,3 +234,108 @@ published: true
 - **confidence / network effect**: 인기에서 나오는 부가적인 이점
     
 - **evaporate by 20s**: 시간이 지나면 가치가 사라짐
+
+### ✅ **11문단 (00:06:26)**
+
+> **영문:**  
+> _The popular crowd. It's basically the kids who are at the top of the social hierarchy. Usually in movies, they're displayed as both popular and mean, you know, like Mean Girls, for example, my favorite movies._
+
+> **번역:**  
+> 이른바 '인기 많은 무리'.  
+> 대체로 사회적 위계질서의 꼭대기에 있는 아이들을 말해.  
+> 영화에서는 보통 이들이 인기도 많고 동시에 못되게 그려지지.  
+> 예를 들면 _Mean Girls_ 같은 영화, 내가 제일 좋아하는 영화야.
+
+**핵심 표현:**
+
+- **popular crowd**: 인기 있는 무리
+    
+- **social hierarchy**: 사회적 위계
+    
+- **popular and mean**: 인기 있지만 못된  
+    → 인기가 단순히 긍정적인 게 아님을 보여줌
+    
+
+---
+
+### ✅ **12문단 (00:06:54)**
+
+> **영문:**  
+> _There's another kind of popular, though, that Mitch Prinstein wants to argue is the good kind of popular. And that is like the person who's likable, right? And if you want to get at these kids, you can't ask other children who's popular. You have to say like, who do you like? Sometimes it's called sociometric popularity — not very catchy._
+
+> **번역:**  
+> 그런데 Mitch Prinstein은 또 다른 종류의 '좋은 인기'가 있다고 말하고 싶어 해.  
+> 그건 바로 **호감 가는 사람(likable)**이야.  
+> 이런 아이들을 알아내고 싶다면, '누가 인기 있어?'라고 묻지 말고  
+> **'누가 좋아?'(Who do you like?)**라고 물어야 해.  
+> 이걸 가리켜 _sociometric popularity_라고 하는데, 이름은 별로 세련되진 않아.
+
+**핵심 표현:**
+
+- **likable**: 호감 가는
+    
+- **who do you like?**: 진짜 인기(좋아함)를 측정하는 질문
+    
+- **sociometric popularity**: 사회적 지지 기반의 인기  
+    → '호감형 인기'와 '지위형 인기'의 구분
+    
+
+---
+
+### ✅ **13문단 (00:07:23)**
+
+> **영문:**  
+> _So likability is a desirable trait or a positive trait, but pecking order is more like, who can I push around when I'm young?_
+
+> **번역:**  
+> 결국 **호감 가는 성격(likability)**은 바람직하고 긍정적인 특성이야.  
+> 하지만 **위계형 인기(pecking order)**는 '내가 누구를 밀어붙일 수 있을까' 같은 개념에 가까워.
+
+**핵심 표현:**
+
+- **likability = desirable trait**: 호감은 좋은 성향
+    
+- **pecking order**: 서열 중심의 위계 질서
+    
+- **push around**: 지배하거나 군림하다  
+    → 인기의 질적 차이를 강조
+    
+
+---
+
+### ✅ **14문단 (00:07:51)**
+
+> **영문:**  
+> _I think the parenting style that has by far the most scientific evidence of it being a good parenting style is called the authoritative parenting style._
+
+> **번역:**  
+> 지금까지 과학적으로 가장 많은 뒷받침을 받는 좋은 양육 방식은  
+> **authoritative parenting style (권위 있는 양육 방식)**이야.
+
+**핵심 표현:**
+
+- **authoritative parenting**: 따뜻하지만 기준이 명확한 양육
+    
+- **most scientific evidence**: 가장 많은 과학적 근거  
+    → 이후의 부모 역할 논의의 중심축
+    
+
+---
+
+### ✅ **15문단 (00:08:25)**
+
+> **영문:**  
+> _And there is a term in parenting research called authoritarian, and that is very demanding and very low on warmth and low on respect for autonomy..._
+
+> **번역:**  
+> 양육 연구에는 **authoritarian (권위주의적)**이라는 용어도 있어.  
+> 이건 **기대 수준은 매우 높지만**,  
+> **정서적 따뜻함은 거의 없고**,  
+> 아이의 **자율성도 존중하지 않는** 양육 방식이야.
+
+**핵심 표현:**
+
+- **authoritarian**: 권위주의적인
+    
+- **very demanding / low warmth / low autonomy**: 높은 통제, 낮은 애정, 자율성 부족  
+    → authoritative(이상적)와 authoritarian(문제적) 구분이 핵심
