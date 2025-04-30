@@ -1,13 +1,10 @@
 ---
-title: 바이브 코딩에 대한 짧은 견해
+title: "[No stupid questions] Episode 18 - script and note"
 categories: study
 tags:
   - English
-published: false
+published: true
 ---
-No stupid questions
-episode 18
-
 ### **1문단 (00:00:00)**
 
 > _If you're not a tiger parent, what animal parent are you? Maybe a mongoose or something? How about a rabbit? I'm Angela Duckworth. I'm Stephen Dubner. And you're listening to No Stupid Questions. Today on the show, do bratty kids become bratty adults? When I was growing up, if anybody asked me..._
