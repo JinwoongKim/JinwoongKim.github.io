@@ -358,3 +358,86 @@ published: true
 - **warm and respectful of autonomy**: 따뜻하면서도 자율성 존중
     
 - **the trick is ~**: 핵심은 ~이다 → 대비되는 요소 강조
+
+### ✅ **17문단 (00:09:44)**
+
+> **영문:**  
+> I think you know what I mean, though. I do, because a lot of Jewish families are like that also. There's a very high level of expectation and engagement and encouragement. Sometimes, you know, encouragement that feels more like authoritarianism. Or could be perceived as such from the outside. Yes, exactly. But it's also countered with a kind of deep, unconditional love and sense of belonging.
+
+> **번역:**  
+> 무슨 말인지 알지? 유대인 가정도 비슷한 경우가 많아.  
+> 기대치도 높고, 관심과 격려도 많지.  
+> 그 격려가 가끔은 **권위주의처럼 느껴지기도** 하고,  
+> 밖에서 보면 정말 그렇게 보일 수도 있어.  
+> 하지만 동시에, **깊은 무조건적 사랑과 소속감**이 함께 있어.
+
+> **핵심 표현:**
+
+- **high level of expectation / engagement / encouragement**: 높은 기대와 관여
+    
+- **feels like authoritarianism**: 권위주의처럼 느껴질 수 있음
+    
+- **unconditional love and belonging**: 무조건적 사랑과 소속감
+    
+
+---
+
+### ✅ **18문단 (00:10:06)**
+
+> **영문:**  
+> And what about autonomy? You don’t have to speak for all Jews, but like for your own family, how much autonomy do you allow your two kids?
+
+> **번역:**  
+> 그럼 **자율성(autonomy)**은 어때? 유대인 전체를 대표할 필요는 없고,  
+> 네 가족 얘기만 하자면, 아이 둘에게 자율성을 얼마나 허용했어?
+
+> **핵심 표현:**
+
+- **autonomy**: 자율성
+    
+- **speak for**: ~을 대표해서 말하다
+    
+- **how much do you allow ~**: 얼마나 허용했는가?
+    
+
+---
+
+### ✅ **19문단 (00:10:20)**
+
+> **영문:**  
+> Much more than would have been allowed two generations ago. But I think that’s more a factor of society than our internal compasses, because I think our internal compasses want to go back to the circumstances under which we were raised, where there was less autonomy. But it feels very, very out of step with our kids’ social cohort.
+
+> **번역:**  
+> 두 세대 전보다는 훨씬 많이 허용했지.  
+> 그건 우리 내부 가치관보단 사회적인 영향이 큰 것 같아.  
+> 사실 우리는 예전에 자라온 방식대로 돌아가려는 경향이 있잖아.  
+> 하지만 지금 아이들이 속한 사회적 분위기와는 너무 맞지 않아.
+
+> **핵심 표현:**
+
+- **internal compass**: 내면의 기준/가치
+    
+- **out of step with**: ~와 어울리지 않다, 어긋나다
+    
+- **social cohort**: 같은 시대의 또래 집단
+    
+
+---
+
+### ✅ **20문단 (00:10:47)**
+
+> **영문:**  
+> We did, and it didn’t work that well. And so I think we kind of gave up. What did you want your kids to do? Like music?
+
+> **번역:**  
+> 우리는 아이들에게 뭔가 하게 하려고 했지만 잘 안 됐어.  
+> 그래서 결국 **포기했지(gave up)**.  
+> 뭘 시키려고 했냐고? 예를 들면 음악 같은 거지.
+
+> **핵심 표현:**
+
+- **gave up**: 포기하다
+    
+- **didn’t work that well**: 잘 안 됐다
+    
+- **what did you want them to do?**: 뭘 시키고 싶었는가?
