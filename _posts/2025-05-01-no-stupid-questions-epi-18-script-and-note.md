@@ -441,3 +441,110 @@ published: true
 - **didn’t work that well**: 잘 안 됐다
     
 - **what did you want them to do?**: 뭘 시키고 싶었는가?
+
+### ✅ **21문단 (00:11:03)**
+
+> **영문:**  
+> A lot of blowing things up and building things and so on. So to me, that was what life was. My kids grew up in a totally different environment in New York City, where there's a social environment that is incredibly variegated and rich. And so a lot of their involvements were more kind of interpersonal involvements, whereas I spent the better part of my first 16 years pretty much alone with either a guitar or a hammer or a typewriter.
+
+> **번역:**  
+> 나는 어릴 때 폭죽도 터뜨리고 뭔가를 만들면서 보냈어. 그게 내 삶이었지.  
+> 그런데 우리 아이들은 완전히 다른 환경인 뉴욕에서 자랐어.  
+> 그곳은 사회적 환경이 굉장히 **다양하고 풍부(variegated and rich)**하거든.  
+> 그래서 애들은 대부분 **사람들과의 상호작용 중심의 활동**을 했고,  
+> 나는 기타나 망치, 타자기랑 혼자 보낸 시간이 더 많았어.
+
+> **핵심 표현:**
+
+- **blowing things up**: 실험적 활동(폭죽 터뜨리기 등)
+    
+- **variegated and rich**: 다양하고 풍부한
+    
+- **interpersonal involvements**: 대인관계 중심 활동
+    
+- **spent the better part of**: 대부분의 시간을 ~로 보냄
+    
+
+---
+
+### ✅ **22문단 (00:11:43)**
+
+> **영문:**  
+> And did you try to get them to have more of your sort of interests? I did, and they mostly didn't stick. And that was kind of hard for a while. Like, what do you mean my kid doesn't want to have a punk band when they're 13 and so on?
+
+> **번역:**  
+> 그래서 내 관심사에 더 가까이 가도록 시도해봤지.  
+> 근데 대부분 안 통했어. 한동안 좀 힘들었어.  
+> ‘내 아이가 13살에 펑크 밴드를 하고 싶지 않다니, 이게 말이 돼?’ 같은 느낌이었지.
+
+> **핵심 표현:**
+
+- **didn't stick**: 지속되지 않았다, 안 맞았다
+    
+- **kind of hard**: 좀 속상했다
+    
+- **what do you mean ~?**: 믿기 어려운 상황에 대한 감탄
+    
+
+---
+
+### ✅ **23문단 (00:12:25)**
+
+> **영문:**  
+> That's respect for autonomy, right? Like if your kid says, “I want to major in English,” and you think that's a terrible idea, and you let them do it anyway.
+
+> **번역:**  
+> 그게 바로 **자율성 존중(respect for autonomy)**이지.  
+> 예를 들어, 아이가 “영어 전공하고 싶어요”라고 했을 때  
+> 부모는 그게 최악의 선택이라 생각하더라도 그냥 하게 해주는 거야.
+
+> **핵심 표현:**
+
+- **respect for autonomy**: 자율성 존중
+    
+- **let them do it anyway**: 반대하더라도 허용하다
+    
+- **terrible idea**: 좋지 않은 선택이라는 생각
+    
+
+---
+
+### ✅ **24문단 (00:13:03)**
+
+> **영문:**  
+> So when I think about parents who want to raise kids who are likable, like popular in the best sense of the word, I think if you do that, honestly, that's most of parenting, right? Be a good role model and try to do these responsive and yet appropriately demanding things.
+
+> **번역:**  
+> 호감 가는 아이, 긍정적인 의미에서 ‘인기 있는 아이’를 키우고 싶다면,  
+> 그렇게 행동하는 게 사실상 **양육의 핵심 대부분**인 것 같아.  
+> 좋은 **역할 모델(role model)**이 되어주고,  
+> **반응적이면서도 적절히 요구하는 것**, 그게 부모 역할이지.
+
+> **핵심 표현:**
+
+- **likable / popular in the best sense**: 긍정적 의미의 인기
+    
+- **role model**: 행동 본보기
+    
+- **responsive and appropriately demanding**: 반응적이면서도 적절히 엄격한
+    
+
+---
+
+### ✅ **25문단 (00:13:49)**
+
+> **영문:**  
+> And the third dimension is really like this warm and caring thing. Like, I care about you in this very elemental, profound way.
+
+> **번역:**  
+> 세 번째 요소는 **따뜻하고 보살피는 마음**이야.  
+> “나는 너를 근본적으로, 깊이 아껴”라는 감정을 전달하는 것.
+
+> **핵심 표현:**
+
+- **warm and caring**: 따뜻하고 배려 깊은
+    
+- **elemental, profound**: 본질적이고 깊은
+    
+- **I care about you**: 너를 진심으로 신경 써
+
