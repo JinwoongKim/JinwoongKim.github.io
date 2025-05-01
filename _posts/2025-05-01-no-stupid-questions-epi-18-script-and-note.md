@@ -3,7 +3,7 @@ title: "[No stupid questions] Episode 18 - script and note"
 categories: study
 tags:
   - English
-published: true
+published: false
 ---
 ### ✅ **1문단 (00:00:00)**
 
