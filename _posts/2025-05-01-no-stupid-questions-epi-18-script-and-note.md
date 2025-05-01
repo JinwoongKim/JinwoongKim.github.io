@@ -339,3 +339,22 @@ published: true
     
 - **very demanding / low warmth / low autonomy**: 높은 통제, 낮은 애정, 자율성 부족  
     → authoritative(이상적)와 authoritarian(문제적) 구분이 핵심
+
+### ✅ **16문단 (00:09:09)**
+
+> **영문:**  
+> _But it's this combination of being demanding, just like tiger parents are, just like authoritarian parents are. But the trick is, it's also very warm, and it's very respectful of the kid's autonomy._
+
+> **자연스러운 번역:**  
+> 하지만 이 양육법(authoritative)은 요구 수준이 높다는 점에선  
+> 호랑이 부모나 권위주의적 부모와 비슷해.  
+> 그런데 **중요한 차이**는, 동시에 매우 따뜻하고,  
+> 아이의 **자율성도 존중한다**는 거야.
+
+> **핵심 표현:**
+
+- **being demanding**: 기대치가 높음
+    
+- **warm and respectful of autonomy**: 따뜻하면서도 자율성 존중
+    
+- **the trick is ~**: 핵심은 ~이다 → 대비되는 요소 강조
