@@ -648,3 +648,205 @@ published: true
     
 - **what’s so good about ~?**: ~의 가치 또는 본질을 묻는 질문
 
+### ✅ **31문단 (00:19:07)**
+
+> **영문:**  
+> I think most things in life are actually reciprocally causal. In this case, how do you know that there's any causal direction from having friends towards happiness?
+
+> **번역:**  
+> 내가 보기엔 인생의 많은 일들이 사실 **상호 인과적이야 (reciprocally causal)**.  
+> 이번 경우도, 친구가 있어서 행복한 건지,  
+> 행복하니까 친구가 많은 건지 **인과 방향을 알기 어렵지.**
+
+> **핵심 표현:**
+
+- **reciprocally causal**: 서로 영향을 주고받는 인과
+    
+- **causal direction**: 인과의 방향성
+    
+- **in this case**: 이 경우에 있어서
+    
+
+---
+
+### ✅ **32문단 (00:19:31)**
+
+> **영문:**  
+> The striking correlation is at least suggestive that it’s not a bad thing to have friends. It’s a better predictor than having money or a really prestigious job.
+
+> **번역:**  
+> 이 강한 상관관계는 최소한 친구를 갖는 것이 **나쁜 일은 아니라는 걸 보여줘.**  
+> 사실 친구의 유무는 **돈이나 명문 직업보다 더 나은 행복 예측 지표야.**
+
+> **핵심 표현:**
+
+- **striking correlation**: 두드러진 상관관계
+    
+- **better predictor than money/prestige**: 더 좋은 예측 변수
+    
+- **suggestive that**: ~을 시사하는
+    
+
+---
+
+### ✅ **33문단 (00:20:48)**
+
+> **영문:**  
+> Reciprocity is important for long-term durability. Asymmetric relationships don’t endure for very long. One person basically gets resentful.
+
+> **번역:**  
+> **상호성(reciprocity)**은 우정을 오래 유지하는 데 매우 중요해.  
+> **비대칭적인 관계(asymmetric relationship)**는 오래가지 못해.  
+> 결국 한쪽이 불만을 갖게 되거든.
+
+> **핵심 표현:**
+
+- **reciprocity**: 주고받는 균형
+    
+- **asymmetric relationship**: 한쪽만 주는 관계
+    
+- **resentful**: 서운함, 원망을 품은
+    
+
+---
+
+### ✅ **34문단 (00:22:19)**
+
+> **영문:**  
+> Homophily — in other words, that like likes like. Birds of a feather.
+
+> **번역:**  
+> **호모필리(homophily)** — 다시 말해, 비슷한 사람이 비슷한 사람을 좋아한다는 거야.  
+> 속담으로 말하면, **끼리끼리 논다 (birds of a feather)** 라는 말이지.
+
+> **핵심 표현:**
+
+- **homophily**: 유사성 기반의 친밀감 형성
+    
+- **like likes like**: 비슷한 성향이 끌린다
+    
+- **birds of a feather**: 유유상종
+    
+
+---
+
+### ✅ **35문단 (00:23:07)**
+
+> **영문:**  
+> We both have this kind of cultural heritage… we remember the same commercial for aluminum siding.
+
+> **번역:**  
+> 우리 둘은 같은 문화적 배경을 가지고 있었어.  
+> 예를 들어, **같은 알루미늄 사이딩 광고**를 기억하는 식으로 말이야.
+
+> **핵심 표현:**
+
+- **cultural heritage**: 문화적 공통 기반
+    
+- **we remember the same ~**: 공유된 기억, 친밀감의 기반
+    
+- **aluminum siding commercial**: 미국적 레퍼런스, 공감 코드
+
+### ✅ **36문단 (00:23:17)**
+
+> **영문:**  
+> We were culturally similar. Status-wise, we were upperly mobile.
+
+> **번역:**  
+> 우리는 **문화적으로 비슷했고**,  
+> **사회적 지위 면에서도 상승 중인 계층(upperly mobile)**이었어.
+
+> **핵심 표현:**
+
+- **culturally similar**: 문화적으로 유사함
+    
+- **status-wise**: 지위 측면에서
+    
+- **upperly mobile**: 상향 이동 중인 사회 계층
+    
+
+---
+
+### ✅ **37문단 (00:23:41)**
+
+> **영문:**  
+> I’m guessing that having a non-romantic, purely platonic best friend and a romantic partner is healthier than just having a romantic partner.
+
+> **번역:**  
+> 나는 **비연애적(platonically)**이고 순수한 친구와  
+> 연인 관계 둘 다 있는 게, **연인만 있는 것보다 더 건강한 관계**라고 생각해.
+
+> **핵심 표현:**
+
+- **platonic**: 우정 기반, 비연애적 관계
+    
+- **healthier than**: ~보다 더 건강한
+    
+- **romantic partner vs platonic friend**: 역할 구분
+    
+
+---
+
+### ✅ **38문단 (00:24:09)**
+
+> **영문:**  
+> Sendhil said, “Look, my friends are so important to me.” … These series of surprises culminated in a surprise birthday party. He says to this day, it may have been the best night of his life.
+
+> **번역:**  
+> 샌딜(Sendhil)이 말하길, "내게 친구는 정말 중요해."  
+> 그는 생일 전 한 달 동안 친구들이 준비한 다양한 깜짝 이벤트들을 경험했고,  
+> **마지막엔 서프라이즈 생일파티로 절정을 맞았지.**  
+> 그는 아직도 그 날이 **인생 최고의 밤 중 하나였다고 말해.**
+
+> **핵심 표현:**
+
+- **series of surprises / culminated in**: 여러 이벤트가 정점에 이르다
+    
+- **best night of his life**: 감정적 정점
+    
+- **friends are important to me**: 우정의 중요성 강조
+    
+
+---
+
+### ✅ **39문단 (00:25:22)**
+
+> **영문:**  
+> These are the friendships where, through habit, circumstance, and diligence, we mutually invested a lot… once every week for over two decades.
+
+> **번역:**  
+> 이런 우정들은 **습관과 환경, 꾸준함(diligence)** 덕분에 형성된 거야.  
+> 우린 서로에게 **20년 넘게 매주 연락하며** 많은 시간을 투자했어.
+
+> **핵심 표현:**
+
+- **habit, circumstance, diligence**: 우정을 유지하는 3요소
+    
+- **mutual investment**: 상호적인 시간·노력 투자
+    
+- **over two decades**: 20년 넘는 지속성
+    
+
+---
+
+### ✅ **40문단 (00:26:02)**
+
+> **영문:**  
+> Friendship is a lot more like physical therapy than you would think. There is this time-on-task. You don’t really feel like it, but it pays off over time.
+
+> **번역:**  
+> **우정은 우리가 생각하는 것보다 물리치료랑 더 비슷해.**  
+> 하기 싫을 때도 있고, 귀찮을 때도 있지만,  
+> **시간을 들여 노력하면 결국 보상이 따라오지.**
+
+> **핵심 표현:**
+
+- **like physical therapy**: 지속적 실천의 은유
+    
+- **time-on-task**: 시간을 들이는 것
+    
+- **it pays off**: 결국 보상받는다, 성과로 돌아온다
+    
+
+---
+
