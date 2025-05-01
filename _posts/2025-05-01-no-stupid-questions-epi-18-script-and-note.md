@@ -548,3 +548,103 @@ published: true
     
 - **I care about you**: 너를 진심으로 신경 써
 
+### ✅ **26문단 (00:14:58)**
+
+> **영문:**  
+> I wouldn’t let a couple of dinner parties with especially bratty two-year-olds or 15-year-olds dissuade her from having kids because in most instances, the kids will grow out of those stages with the help of parents who are good role models and authoritative.
+
+> **번역:**  
+> 특히 버릇없는(bratty) 2살짜리나 15살짜리 애들을 몇 번 봤다고  
+> 아이를 낳지 말자는 결정을 하진 않았으면 해.  
+> 대부분의 경우, 그런 시기는 지나가고  
+> **좋은 본보기 역할을 하는 권위 있는 부모** 덕분에 아이는 성장하거든.
+
+> **핵심 표현:**
+
+- **bratty**: 버릇없는
+    
+- **dissuade**: 말리다, 단념시키다
+    
+- **grow out of**: (단계, 행동을) 벗어나다
+    
+- **authoritative parent / role model**: 권위 있고 모범이 되는 부모
+    
+
+---
+
+### ✅ **27문단 (00:15:51)**
+
+> **영문:**  
+> Once you have the kids, it really is the world's greatest science experiment. But it's done in a way that most science experiments are not. Like, there is data all over. There are literally 7.3 billion people on Earth. So theoretically, we should know every answer. And yet, instead, we all like to tinker in our workshops.
+
+> **번역:**  
+> 아이를 낳고 나면, 그건 말 그대로 **세상에서 가장 큰 과학 실험**이야.  
+> 근데 대부분의 과학 실험처럼 **통제되진 않아**.  
+> 지구에는 73억 명이나 있는 만큼 데이터는 넘치지만,  
+> 우린 결국 **자기 방식대로 시행착오를 겪게 돼.**
+
+> **핵심 표현:**
+
+- **science experiment**: 실험처럼 진행되는 육아
+    
+- **tinker in workshops**: 자기 방식대로 만지고 시도함
+    
+- **theoretically we should know**: 이론상 다 알 것 같지만 실제론 다르다
+    
+
+---
+
+### ✅ **28문단 (00:16:53)**
+
+> **영문:**  
+> And I think that is why it feels to many parents more like an art than a science, because you've got one kid, maybe two at most... But you don't really have the opportunity to try it this way and then try it another way.
+
+> **번역:**  
+> 그래서 많은 부모에게 **육아는 과학보다는 예술처럼 느껴져.**  
+> 아이를 한 명, 많아야 두 명만 키우다 보니까  
+> 이 방법, 저 방법을 **실험처럼 비교할 수 없기 때문이지.**
+
+> **핵심 표현:**
+
+- **feels like art not science**: 육아는 과학보다 감각에 가깝다
+    
+- **don’t have opportunity to try both ways**: 실험처럼 비교 불가
+    
+
+---
+
+### ✅ **29문단 (00:18:02)**
+
+> **영문:**  
+> Kids are definitely more complicated. Theoretically more rewarding. Definitely more expensive. I think if you have a pet elephant, it might get up there in terms of cost compared to a child.
+
+> **번역:**  
+> 아이 키우는 건 분명히 **더 복잡하고**,  
+> 이론적으로는 **더 보람차며**, 확실히 **돈이 더 많이 들어.**  
+> 애완 코끼리를 키우는 정도의 비용이라고 할 수 있을지도 몰라.
+
+> **핵심 표현:**
+
+- **complicated / expensive / rewarding**: 복잡하고, 비싸고, 보람 있는
+    
+- **cost compared to a child**: (과장된) 양육비용의 비유
+    
+
+---
+
+### ✅ **30문단 (00:18:34)**
+
+> **영문:**  
+> What’s so good about friendship?  
+> For starters, having friends is probably the number one predictor of being a happy person.
+
+> **번역:**  
+> **우정이 왜 그렇게 중요한 걸까?**  
+> 기본적으로, 친구가 있다는 건 **행복한 사람일 가능성을 가장 잘 예측하는 지표** 중 하나야.
+
+> **핵심 표현:**
+
+- **friendship = happiness predictor**: 우정이 행복을 예측
+    
+- **what’s so good about ~?**: ~의 가치 또는 본질을 묻는 질문
+
