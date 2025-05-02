@@ -114,5 +114,4 @@ Like while they're driving you crazy, you're not thinking, well, this pace we're
 - **allow for**: ~를 고려하다, 받아들이다
 - **spurty development**: 갑작스럽고 간헐적인 발달
 - **sanity**: 정신적 안정, 멘탈 유지
-- **driving you crazy**: (아이들이) 너를 미치게 한다
 - **get to maturity**: 성숙에 이르다
