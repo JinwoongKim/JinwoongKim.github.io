@@ -55,3 +55,56 @@ Like while they're driving you crazy, you're not thinking, well, this pace we're
 - **spurty development**: 단속적, 간헐적인 발달
     
 - **gives you sanity**: 부모 입장에서 희망과 인내를 가짐
+
+
+**①**  
+But I think the big question is,  
+let's say that there's a huge childhood deficit on any dimension — social, emotional, intellectual, etc.  
+What do we know on any of those dimensions about the best ways to catch up?
+
+→  
+하지만 내가 생각하는 가장 큰 질문은 이거야.  
+만약 아이가 사회적, 감정적, 지적 등 어떤 면에서든 큰 결핍이 있다고 하면,  
+그걸 따라잡을 수 있는 최선의 방법에 대해 우리가 알고 있는 건 뭘까?
+
+---
+
+**②**  
+Yeah. So one thing to recognize about development is it's not steady and at the same pace all throughout.  
+You can have spurts.  
+You just grew up four inches over the summer and then a plateau and then another spurt.
+
+→  
+그래, 발달에 대해 기억해야 할 한 가지는  
+성장이 항상 일정하거나 같은 속도로 이루어지지 않는다는 거야.  
+갑작스러운 급성장이 있을 수 있어.  
+예를 들면 여름에 10cm 자랐다가 정체기를 겪고, 다시 급성장하는 식이야.
+
+---
+
+**③**  
+So psychological development is similarly not always as steady and gradual as you might think,  
+and that's relevant to this brattiness question  
+because you could have a sudden leap forward in maturation  
+where this kid suddenly is a lot more considerate, letting other people actually talk, uninterrupted, etc, etc.
+
+→  
+심리적인 발달도 마찬가지로,  
+생각보다 항상 점진적이고 일정한 건 아니야.  
+이건 ‘버릇없음’이라는 주제와도 관련 있어.  
+어떤 아이는 갑자기 성숙해지면서  
+배려심이 많아지고, 다른 사람이 말하는 걸 끊지 않고 조용히 들어주는 변화를 보일 수 있거든.
+
+---
+
+**④**  
+And if you allow for that kind of spurty development,  
+it also gives you a little bit of sanity maybe, right?  
+Like while they're driving you crazy,  
+you're not thinking, “Well, this pace, we're never going to get to maturity.”
+
+→  
+그리고 이런 식의 간헐적인 성장도 있다고 받아들이면,  
+부모 입장에선 마음의 여유도 조금 생길 수 있어.  
+아이가 널 미치게 만들고 있을 때조차  
+“이 속도로는 얘가 절대 어른이 되지 못하겠네” 같은 생각까진 안 하게 되니까.
