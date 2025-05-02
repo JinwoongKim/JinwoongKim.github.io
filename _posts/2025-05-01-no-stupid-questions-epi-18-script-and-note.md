@@ -53,9 +53,6 @@ Like while they're driving you crazy, you're not thinking, well, this pace we're
 > **주요 표현 및 단어**
 
 - **childhood deficit**: (유년기의) 결핍, 부족
-- **on any dimension**: 어떤 영역에서든 (사회성, 감정, 지적 등)
-- **catch up**: (뒤처진 부분을) 따라잡다, 만회하다
-- **best ways to catch up**: 회복하거나 성장하는 최적의 방법
     
 
 > **원문**  
