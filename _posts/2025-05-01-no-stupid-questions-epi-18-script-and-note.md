@@ -11,7 +11,9 @@ published: false
 
 Yeah. So one thing to recognize about development is it's not steady and at the same pace all throughout. You can have spurts.
 
-You just grew up four inches over the summer and then a plateau and then another spurt. So psychological development is similarly not always as steady and gradual as you might think, and that's relevant to this brattiness question because you could have a sudden leap forward in maturation where this kid suddenly is a lot more considerate, letting other people actually talk, uninterrupted, et cetera, et cetera. And if you allow for that kind of spurty development, it also gives you a little bit of sanity maybe, right?
+You just grew up four inches over the summer and then a plateau and then another spurt. 
+
+So psychological development is similarly not always as steady and gradual as you might think, and that's relevant to this brattiness question because you could have a sudden leap forward in maturation where this kid suddenly is a lot more considerate, letting other people actually talk, uninterrupted, et cetera, et cetera. And if you allow for that kind of spurty development, it also gives you a little bit of sanity maybe, right?
 
 Like while they're driving you crazy, you're not thinking, well, this pace we're never going to get to maturity.”
 
