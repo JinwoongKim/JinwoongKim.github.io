@@ -53,11 +53,8 @@ Like while they're driving you crazy, you're not thinking, well, this pace we're
 > **주요 표현 및 단어**
 
 - **childhood deficit**: (유년기의) 결핍, 부족
-    
 - **on any dimension**: 어떤 영역에서든 (사회성, 감정, 지적 등)
-    
 - **catch up**: (뒤처진 부분을) 따라잡다, 만회하다
-    
 - **best ways to catch up**: 회복하거나 성장하는 최적의 방법
     
 
@@ -75,11 +72,8 @@ Like while they're driving you crazy, you're not thinking, well, this pace we're
 > **주요 표현 및 단어**
 
 - **steady**: 일정한, 안정적인
-    
 - **at the same pace all throughout**: 전체 기간 내내 같은 속도로
-    
 - **spurts**: 급성장기
-    
 - **plateau**: 정체기 (성장 멈춤 구간)
     
 
@@ -101,13 +95,9 @@ Like while they're driving you crazy, you're not thinking, well, this pace we're
 > **주요 표현 및 단어**
 
 - **psychological development**: 심리적 발달
-    
 - **brattiness**: 버릇없음, 아이의 감정 통제 부족한 행동
-    
 - **leap forward in maturation**: 성숙도에서의 급격한 향상
-    
 - **considerate**: 배려심 있는
-    
 - **talk uninterrupted**: 말하는 사람을 끊지 않고 듣다
 
 > **원문**  
@@ -125,11 +115,7 @@ Like while they're driving you crazy, you're not thinking, well, this pace we're
 > **주요 표현 및 단어**
 
 - **allow for**: ~를 고려하다, 받아들이다
-    
 - **spurty development**: 갑작스럽고 간헐적인 발달
-    
 - **sanity**: 정신적 안정, 멘탈 유지
-    
 - **driving you crazy**: (아이들이) 너를 미치게 한다
-    
 - **get to maturity**: 성숙에 이르다
