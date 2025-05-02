@@ -40,73 +40,96 @@ Like while they're driving you crazy, you're not thinking, well, this pace we're
 
 ---
 
-### 🧩 **핵심 표현 및 설명**
+> **원문**  
+> But I think the big question is,  
+> let's say that there's a huge childhood deficit on any dimension — social, emotional, intellectual, etc.  
+> What do we know on any of those dimensions about the best ways to catch up?
 
-- **childhood deficit**: 유년기의 부족함, 결핍 (사회적, 정서적 등 전반)
+> **번역**  
+> 하지만 내가 보기엔 가장 중요한 질문은 이거야.  
+> 아이에게 사회적, 감정적, 지적 등 어떤 면에서든 큰 결핍이 있다고 가정해보자.  
+> 그런 결핍을 따라잡을 수 있는 최선의 방법에 대해 우리가 아는 건 뭘까?
+
+> **주요 표현 및 단어**
+
+- **childhood deficit**: (유년기의) 결핍, 부족
     
-- **catch up**: 뒤처진 부분을 따라잡다
+- **on any dimension**: 어떤 영역에서든 (사회성, 감정, 지적 등)
     
-- **development is not steady / same pace all throughout**: 성장과 발달은 일관되지 않음
+- **catch up**: (뒤처진 부분을) 따라잡다, 만회하다
     
-- **spurt / plateau**: 급성장과 정체기
+- **best ways to catch up**: 회복하거나 성장하는 최적의 방법
     
-- **leap forward in maturation**: 성숙도의 급격한 향상
+
+> **원문**  
+> Yeah. So one thing to recognize about development is it's not steady and at the same pace all throughout.  
+> You can have spurts.  
+> You just grew up four inches over the summer and then a plateau and then another spurt.
+
+> **번역**  
+> 그래. 발달에서 꼭 알아야 할 점은,  
+> 성장은 전체적으로 일정하거나 균등한 속도로 진행되지 않는다는 거야.  
+> **급성장(spurt)**이 있을 수 있어.  
+> 예를 들면 여름 한철에 10cm 자라다가, **정체기(plateau)**가 오고, 다시 성장하기도 하지.
+
+> **주요 표현 및 단어**
+
+- **steady**: 일정한, 안정적인
     
-- **talk uninterrupted**: 끼어들지 않고 말하게 두다 → 배려의 신호
+- **at the same pace all throughout**: 전체 기간 내내 같은 속도로
     
-- **spurty development**: 단속적, 간헐적인 발달
+- **spurts**: 급성장기
     
-- **gives you sanity**: 부모 입장에서 희망과 인내를 가짐
+- **plateau**: 정체기 (성장 멈춤 구간)
+    
 
+> **원문**  
+> So psychological development is similarly not always as steady and gradual as you might think,  
+> and that's relevant to this brattiness question  
+> because you could have a sudden leap forward in maturation  
+> where this kid suddenly is a lot more considerate,  
+> letting other people actually talk, uninterrupted, etc, etc.
 
-**①**  
-But I think the big question is,  
-let's say that there's a huge childhood deficit on any dimension — social, emotional, intellectual, etc.  
-What do we know on any of those dimensions about the best ways to catch up?
+> **번역**  
+> 그래서 **심리적 발달(psychological development)**도  
+> 생각보다 항상 일정하고 점진적인 건 아니야.  
+> 이건 **'버릇없음(brattiness)'이라는 주제와도 관련**이 있어.  
+> 아이들이 **성숙도에서 갑자기 도약(leap forward in maturation)**할 수 있거든.  
+> 예를 들어, 갑자기 배려심이 생기고,  
+> 다른 사람이 말을 끊김 없이 말할 수 있게 기다려주는 식으로.
 
-→  
-하지만 내가 생각하는 가장 큰 질문은 이거야.  
-만약 아이가 사회적, 감정적, 지적 등 어떤 면에서든 큰 결핍이 있다고 하면,  
-그걸 따라잡을 수 있는 최선의 방법에 대해 우리가 알고 있는 건 뭘까?
+> **주요 표현 및 단어**
 
----
+- **psychological development**: 심리적 발달
+    
+- **brattiness**: 버릇없음, 아이의 감정 통제 부족한 행동
+    
+- **leap forward in maturation**: 성숙도에서의 급격한 향상
+    
+- **considerate**: 배려심 있는
+    
+- **talk uninterrupted**: 말하는 사람을 끊지 않고 듣다
 
-**②**  
-Yeah. So one thing to recognize about development is it's not steady and at the same pace all throughout.  
-You can have spurts.  
-You just grew up four inches over the summer and then a plateau and then another spurt.
+> **원문**  
+> And if you allow for that kind of spurty development,  
+> it also gives you a little bit of sanity maybe, right?  
+> Like while they're driving you crazy,  
+> you're not thinking, “Well, this pace, we're never going to get to maturity.”
 
-→  
-그래, 발달에 대해 기억해야 할 한 가지는  
-성장이 항상 일정하거나 같은 속도로 이루어지지 않는다는 거야.  
-갑작스러운 급성장이 있을 수 있어.  
-예를 들면 여름에 10cm 자랐다가 정체기를 겪고, 다시 급성장하는 식이야.
+> **번역**  
+> 그리고 그렇게 **간헐적인 성장(spurty development)**도 있다고 받아들이면,  
+> 부모 입장에선 **정신적 여유(sanity)**가 조금 생길 수 있어.  
+> 아이들이 날 미치게 하더라도,  
+> ‘이 속도로는 얘가 절대 성숙 못 하겠네’라는 생각까진 안 하게 되는 거지.
 
----
+> **주요 표현 및 단어**
 
-**③**  
-So psychological development is similarly not always as steady and gradual as you might think,  
-and that's relevant to this brattiness question  
-because you could have a sudden leap forward in maturation  
-where this kid suddenly is a lot more considerate, letting other people actually talk, uninterrupted, etc, etc.
-
-→  
-심리적인 발달도 마찬가지로,  
-생각보다 항상 점진적이고 일정한 건 아니야.  
-이건 ‘버릇없음’이라는 주제와도 관련 있어.  
-어떤 아이는 갑자기 성숙해지면서  
-배려심이 많아지고, 다른 사람이 말하는 걸 끊지 않고 조용히 들어주는 변화를 보일 수 있거든.
-
----
-
-**④**  
-And if you allow for that kind of spurty development,  
-it also gives you a little bit of sanity maybe, right?  
-Like while they're driving you crazy,  
-you're not thinking, “Well, this pace, we're never going to get to maturity.”
-
-→  
-그리고 이런 식의 간헐적인 성장도 있다고 받아들이면,  
-부모 입장에선 마음의 여유도 조금 생길 수 있어.  
-아이가 널 미치게 만들고 있을 때조차  
-“이 속도로는 얘가 절대 어른이 되지 못하겠네” 같은 생각까진 안 하게 되니까.
+- **allow for**: ~를 고려하다, 받아들이다
+    
+- **spurty development**: 갑작스럽고 간헐적인 발달
+    
+- **sanity**: 정신적 안정, 멘탈 유지
+    
+- **driving you crazy**: (아이들이) 너를 미치게 한다
+    
+- **get to maturity**: 성숙에 이르다
