@@ -24,4 +24,3 @@ published: false
 - 그리고 2GB로 늘리고 지표를 봐도 아래처럼 나옴
 -
 
-https://grafana-service.tossinvest.bz/d/edxcekwheb4zkb/kubeflow-namespace-monitoring?orgId=1&refresh=5s&var-phase=k2_N-t34z&var-namespace=jinwoong-kim&var-Service=huggingface-test-0&var-ib_local_name=All
