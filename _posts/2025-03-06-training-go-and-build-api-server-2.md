@@ -576,7 +576,7 @@ func runV1(c *gin.Context) {
         return
     }
 
-    resp, err := http.Post("http://nova-llm-gateway.alpha.tossinvest.bz/api/v1/openai/chat/completions",
+    resp, err := http.Post("http://llm.gateway.com/api/v1/openai/chat/completions",
         "application/json", bytes.NewBuffer(requestBody))
 
     if err != nil {
