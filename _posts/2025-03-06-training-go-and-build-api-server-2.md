@@ -1553,7 +1553,7 @@ func runV1(c *gin.Context) {
 
 	// 6️⃣ Nova LLM으로 API 요청 보내기 (http.NewRequest 사용)
 	client := &http.Client{}
-	req, err := http.NewRequest("POST", "http://nova-llm-gateway.alpha.tossinvest.bz/api/v1/openai/chat/completions",
+	req, err := http.NewRequest("POST", "http://llm.gateway.com/api/v1/openai/chat/completions",
 		bytes.NewBuffer(requestBody))
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to create request"})
