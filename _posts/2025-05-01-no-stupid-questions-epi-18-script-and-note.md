@@ -34,6 +34,19 @@ Angela DUCKWORTH: Of course.
 
 DUBNER: This is a listener named Sydney. And she writes to say, “It’s an ongoing debate I have with my husband. We don’t have kids, but do shitty kids make shitty adults?” She continues, “I don’t like to be around bratty kids. But is there any research that brats actually make worse adults? Or does society mold them into likable humans?” So, Angela, I find Sydney’s question compelling, not just on the specifics of whether “shitty” kids become, “shitty” adults, whatever that might mean. But really, the bigger question of how much of our adult selves was evident and perhaps foreordained by our child selves?
 
+- write to say
+- ongoing debate I have with
+- make adult
+- to be around
+- bratty
+- mold them into
+- likable
+- find ~ complelling
+- bigger question
+- adult selve
+- evident
+- foreordained
+
 DUCKWORTH: I think it’s a great question. And it is one of the big questions in all of social science — how much is our future life either predicted by or determined by who we are earlier? And if you go back to quotes by philosophers and theologians, there are sometimes these, “Show me the child, I’ll show you the man.” “Your character is set like plaster at a very young age.” And I think the answer to this question with what we know now about genes, about environment, about life-course history, is that there is some, but not complete, stability over our life course of who we are. 
 
 I mean, your genes are the same for your whole life, just to point out the obvious. And genes do have an influence on everything about you. But one thing that’s not the same at every moment in your life is your experiences. So, if you have a really, really shy kid, and you say, “Hey, what do you think this person is going to be like when they’re 35-years-old?” You can guess better than chance that they’re going to be shyer than average. But, you’re also going to be wrong in a lot of cases.  
