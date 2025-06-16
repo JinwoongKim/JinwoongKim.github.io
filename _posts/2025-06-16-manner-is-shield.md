@@ -1,15 +1,19 @@
 ---
-title: "[No stupid questions] Episode 18 - script and note"
-categories: study
+title: 매너는 보호막이다
+categories: thought
 tags:
-  - English
-published: false
+  - manner
+published: true
 ---
-situation : Python으로 개발하다가 go로 감
-go의 이런저런점이 장점..
+매너는 보호막이다.
+
+인간은, 우리 모두는 불완전한 존재이다.
+
+미숙하고 실수를 하고 잘못된 선택을 한다.
+
+이때, 매너, 예의는 나의 보호막이다.
+
+영원할 순 없지만, 그래도 한 두 번은 나를 지켜준다.
 
 
-mistake : python과 go를 비교해보지 않음. 관련 자료를 찾아보지도 않음. 파이썬에서 최선을 다해보지 않음
-
-learn : 논리적, 데이터를 근거로한 판단을 하는 것인지 생각 필요
-
+ㅁ
