@@ -5,7 +5,7 @@ tags:
   - ChatGPT
   - Go
   - API
-published: true
+published: false
 ---
 이전 포스트들에서 ChatGPT를 이용해서 Go 및 API 서버를 익혀보았다.
 

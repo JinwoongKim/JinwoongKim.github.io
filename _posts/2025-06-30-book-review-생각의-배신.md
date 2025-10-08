@@ -4,6 +4,7 @@ categories: review
 published: true
 ---
 
+
 <p align="center"> <img width="400" src="https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791168222762.jpg"></p>
 
 정말 오랜만의 책  리뷰다.
