@@ -25,10 +25,20 @@ MS에서 19년도에 발표한 논문
 - ZeRO-3: optimizer state + gradient + parameter partitioning
 
 기본적으로 DP는 GPU 개수에 따르니까, 즉, GPU가 4개 인 경우 DP=4, GPU를 따라서 자른다고 이해하면 됨
-
 즉, GPU가 1개라서 DP가 1인 경우 딱히 나눌게 없고, GPU가 2개라서 DP가 2인 경우, ZeRO-1의 경우 optimizer를 반으로 나눠서 0번 GPU가 반, 1번 GPU가 나머지 반을 갖는 구조
 
+
+1.  Model’s parameters (half precision; i.e., BF16/FP16): 2Ψ
+2.  Model’s gradients (half precision; i.e., BF16/FP16): 2Ψ
+3. Model’s parameters in FP32 and optimizer states: 4Ψ+(4Ψ+4Ψ)
+4. Model’s gradients in FP32: 4Ψ (optional, only included if we want to accumulate gradients in FP32)
+
 activation을 다루지 않는 것이 이상하다고 생각할 수 있는데, activation의 경우 각 DP 랭크 마다 다 다르기 때문에(파라미터는 같지만 들어오는 시퀀스가 다르기 때문) 중복이 아니라서 제거할게 없기 때문
+
+1이 있는데 왜 3에 파라미터가 또 있지? → 옵티마이저에서 계산을 위해 FP32 파라미터 값이 필요함. 포워드/백워드는 FP16으로 해도 유실이 덜 일어나는데 아담은 아니라고 함;
+4Ψ 2 개는 아담 옵티마이저 특성
+4의 경우 grad_acc를 하면 4Ψ가 더 필요하다고 하는데, 저거 축적할떄 FP32로 해야 돼기 때문이라고 함. 특이한 사실은 grad_acc 값이 얼마든지 간에 4Ψ만 있으면 충분. 저거 계속 더하다가 나중에 grad_acc 값으로 나누기만 하면 된다고.. 신기.. 그래도 되나 진짜 ㅋㅋ
+
 
 
 Flow
