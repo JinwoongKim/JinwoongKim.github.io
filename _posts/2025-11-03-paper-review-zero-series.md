@@ -39,11 +39,22 @@ activation을 다루지 않는 것이 이상하다고 생각할 수 있는데, a
 4Ψ 2 개는 아담 옵티마이저 특성
 4의 경우 grad_acc를 하면 4Ψ가 더 필요하다고 하는데, 저거 축적할떄 FP32로 해야 돼기 때문이라고 함. 특이한 사실은 grad_acc 값이 얼마든지 간에 4Ψ만 있으면 충분. 저거 계속 더하다가 나중에 grad_acc 값으로 나누기만 하면 된다고.. 신기.. 그래도 되나 진짜 ㅋㅋ
 
-
-
-Flow
+## 학습 순서
 파라미터(FP16) → Forward pass → Activation 생성 → Backward pass → Activation + (이전 레이어)  Gradient를 이용해서 현재 레이어 Gradients생성 → Gradient FP32로 변환 → Optimizer가 states 등을 반영하여 계산 후 FP16으로 변경하여 파라미터에 반영
 
 
 
 ![[Pasted image 20251103161248.png]]
+
+k는 옵티마이저마다 다름. 아담의 경우 12
+
+## ZeRO - 1
+
+![[Pasted image 20251103181632.png]]
+
+
+1. 포워드 패스
+2. 백워드 패스
+3. gradient 교환 : Reduce-scatter
+4. 옵티마이저 스텝
+5. 
