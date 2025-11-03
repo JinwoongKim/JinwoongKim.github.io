@@ -31,4 +31,9 @@ MS에서 19년도에 발표한 논문
 activation을 다루지 않는 것이 이상하다고 생각할 수 있는데, activation의 경우 각 DP 랭크 마다 다 다르기 때문에(파라미터는 같지만 들어오는 시퀀스가 다르기 때문) 중복이 아니라서 제거할게 없기 때문
 
 
+Flow
+파라미터(FP16) → Forward pass → Activation 생성 → Backward pass → Activation + (이전 레이어)  Gradient를 이용해서 Gradients생성 → Gradient FP32로 변환 → Optimizer가 states 등을 반영하여 계산 후 FP16으로 변경하여 파라미터에 반영
+
+
+
 ![[Pasted image 20251103161248.png]]
