@@ -57,10 +57,11 @@ k는 옵티마이저마다 다름. 아담의 경우 12
 	1. 걍 하면 됨
 2. 백워드 패스
 	1. 걍 하면 됨
-3. gradient 교환
+3. gradient **필요한 만큼만 교환**
 	1. Reduce-scatter
+	2. 원래는 allreduce를 통해 전체 계산 후 교환
 4. 옵티마이저 스텝
-	1. 각 레이어의 gradient 기반으로 parameter 업데이트
+	1. 주어진 gradient 기반으로 각자의 parameter 업데이트
 5. all-gather
 	1. 파라미터 싱크
 6. 포워드 패스
