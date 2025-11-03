@@ -18,8 +18,16 @@ MS에서 19년도에 발표한 논문
 
 하지만, 그렇기 때문에 커뮤니케이션이 늘어날 수가 있다. 따라서 네트워크 성능이 좋지 않은 경우, 더 큰 모델을 돌릴 수 있다는 것은 이점이지만, 학습 시간은 많이 늘어날 것으로 보여진다.
 
-제로는 버전에 따라 아래처럼 파티셔닝을 하는데, 여기서 말하는 파티셔닝은 기본적으로 DP 축을 말하는 것이다.
+제로는 버전에 따라 아래처럼 파티셔닝을 하는데, 여기서 말하는 파티셔닝은 기본적으로 DP 축을 말하는 것
 
 - ZeRO-1: optimizer state partitioning
 - ZeRO-2: optimizer state + gradient partitioning
 - ZeRO-3: optimizer state + gradient + parameter partitioning
+
+기본적으로 DP는 GPU 개수에 따르니까, 즉, GPU가 4개 인 경우 DP=4, GPU를 따라서 자른다고 이해하면 됨
+
+즉, GPU가 1개라서 DP가 1인 경우 딱히 나눌게 없고, GPU가 2개라서 DP가 2인 경우, ZeRO-1의 경우 optimizer를 반으로 나눠서 0번 GPU가 반, 1번 GPU가 나머지 반을 갖는 구조
+
+activation을 다루지 않는 것이 이상하다고 생각할 수 있는데, activation의 경우 각 DP 랭크 마다 다 다르기 때문에(파라미터는 같지만 들어오는 시퀀스가 다르기 때문) 중복이 아니라서 제거할게 없음.
+
+![[Pasted image 20251103161248.png]]
