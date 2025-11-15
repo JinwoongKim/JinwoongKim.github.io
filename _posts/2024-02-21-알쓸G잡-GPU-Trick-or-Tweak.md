@@ -6,6 +6,7 @@ tags:
   - dynamic_parallelism
   - warp_divergence
   - memory_coalescing
+  - GPU
 published: true
 ---
 
