@@ -16,7 +16,6 @@ sidebar_main: false
 
 이후에는 검색 조직으로 옮겨, GPU 클러스터를 쿠버네티스로 운영하는 업무를 했습니다. 이후 GPT3를 기존 검색서비스에 접목하는 일 <sup> [[Link]](https://deview.kr/2021/sessions/465) </sup> <sup> [[Link]](https://deview.kr/2021/sessions/439) </sup> 도 했습니다.
 
-
 ~~빛의 속도로 창업을 했다가 접고~~
 
 지금은 ~~모든 직장인이 부러워하는,하지만 굳이 하지 않는~~ 백수로 살고 있습니다 ^^
