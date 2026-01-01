@@ -44,11 +44,18 @@ Filesystem:read_text_file - 글 내용 읽기
 3. 이미지 이름 변경: `Pasted image YYYYMMDDHHMMSS.png` → `YYYYMMDDHHMMSS.png`
 4. `Filesystem:move_file` - 이미지를 새 이름으로 폴더에 이동
 
-### Step 4: 이미지 참조 변환
+### Step 4: 이미지 참조 변환 (두 줄 추가)
+**원본 이미지 참조는 삭제하고, 아래 두 줄을 추가:**
 ```
 변환 전: ![](Pasted%20image%2020260101120320.png) 또는 ![[Pasted image 20260101.png]]
-변환 후: ![](../images/YYYY-MM-DD-글제목/20260101120320.png)
+
+변환 후 (두 줄 추가):
+![](../images/YYYY-MM-DD-글제목/20260101120320.png)
+![](/images/YYYY-MM-DD-글제목/20260101120320.png)
 ```
+
+- 첫 번째 줄 (상대 경로): Obsidian에서 이미지 표시용
+- 두 번째 줄 (절대 경로): Jekyll 블로그에서 이미지 표시용
 
 **이미지 이름 규칙:**
 - "Pasted image " 접두사 제거
