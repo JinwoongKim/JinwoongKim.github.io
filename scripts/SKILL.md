@@ -47,7 +47,7 @@ Filesystem:read_text_file - 글 내용 읽기
 ### Step 4: 이미지 참조 변환
 ```
 변환 전: ![](Pasted%20image%2020260101120320.png) 또는 ![[Pasted image 20260101.png]]
-변환 후: ![](/images/YYYY-MM-DD-글제목/20260101120320.png)
+변환 후: ![](../images/YYYY-MM-DD-글제목/20260101120320.png)
 ```
 
 **이미지 이름 규칙:**
