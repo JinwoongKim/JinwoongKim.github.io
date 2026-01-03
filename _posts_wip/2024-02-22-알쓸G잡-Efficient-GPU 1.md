@@ -6,7 +6,7 @@ tags:
   - dynamic_parallelism
   - warp_divergence
   - memory_coalescing
-published: true
+published: false
 ---
 
 # 1. GPU Trick or Tweak
