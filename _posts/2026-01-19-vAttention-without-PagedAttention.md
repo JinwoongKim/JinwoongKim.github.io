@@ -15,7 +15,7 @@ published: false
 학회: ASPLOS '25  
 저자: Microsoft Research India 팀
 
-# 배경 지식
+# 0. 배경
 
 ## KV Cache
 
@@ -37,7 +37,7 @@ LLM은 토큰을 한 번에 하나씩 순차적으로 생성한다.
 
 ## PagedAttention이 해결한 것
 
-요청의 최종 길이를 미리 모르기 때문에 메모리 관리가 어렵다.
+요청의 최종 길이는 모르기 때문에 메모리 관리가 어렵다.
 
 ```
 Request A: 프롬프트 100 토큰 → 최종 500 토큰?
@@ -179,7 +179,7 @@ k = K[i];  // GPU MMU가 가상→물리 변환
 - End-to-end throughput: 최대 1.23× 향상 (long-context)
 - Portability: FlashAttention-3 등 새 커널 수정 없이 바로 사용 가능
 
-# 5. 의견
+# 5. 결론
 
 PagedAttention의 아이디어(동적 메모리 할당)는 좋았지만, 구현 방식(user space 블록 관리)이 성능 저하를 일으켰다. vAttention은 같은 목표를 CUDA VMM으로 달성해서 성능 문제를 해결했다.
 
