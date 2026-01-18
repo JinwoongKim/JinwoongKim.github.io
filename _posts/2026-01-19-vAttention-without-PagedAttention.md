@@ -9,7 +9,7 @@ tags:
 published: false
 ---
 
-주위에서 vLLM 얘기를 하도 많이 들어서 PagedAttention을 공부했었는데, 이번엔 PagedAttention 없이 같은 목표를 달성하는 vAttention 논문을 읽어봤다.
+클로드에게 최근 인프라 관련 논문 뭐 재밌는거 없냐고 물어보니까 vAttention 추천해줘서 읽어봤다.
 
 논문 제목: vAttention: Dynamic Memory Management for Serving LLMs without PagedAttention  
 학회: ASPLOS '25  
@@ -45,6 +45,7 @@ Request B: 프롬프트 50 토큰 → 최종 2000 토큰?
 ```
 
 vLLM의 PagedAttention은 이를 블록 단위로 나누어 동적으로 할당하는 방식으로 해결했다.
+자세한 내용은 이전 [vLLM 논문 리뷰](https://jinwoongkim.net/papers/key-idea-of-vLLM/) 참고
 
 # 1. 문제
 
@@ -86,7 +87,7 @@ GPU 메모리:
       0x1000                  0x5000   0x3000
 ```
 
-Attention 계산할 때 점프가 필요하다:
+그래서 Attention 계산할 때 점프가 필요하다:
 
 ```
 K[0~15]는 0x1000에서
@@ -94,7 +95,7 @@ K[16~31]는 0x3000에서  ← 점프!
 K[32~47]는 0x5000에서  ← 또 점프!
 ```
 
-그래서 Block-Table로 주소를 추적해야 한다:
+때문에 Block-Table로 주소를 추적해야 한다:
 
 ```c
 // PagedAttention 커널
@@ -106,9 +107,10 @@ for (i = 0; i < seq_len; i++) {
 }
 ```
 
-**매 토큰마다 소프트웨어가 주소를 계산하고, 이게 GPU 코어 사이클을 소모한다. 이게 최대 42% 성능 저하의 원인이다.**
+**매 토큰마다 소프트웨어가 주소를 계산하고, 이게 GPU 코어 사이클을 소모한다.
+이게 최대 42% 성능 저하의 원인이다.**
 
-# 3. 해결책
+# 3. 솔루션
 
 ## 핵심 아이디어
 
@@ -124,18 +126,6 @@ Physical Memory (실제 GPU 메모리)
 [Page][Page][...흩어져 있어도 OK...][Page]
 ```
 
-## PagedAttention vs vAttention
-
-| | PagedAttention | vAttention |
-|---|---|---|
-| **가상 메모리** | 비연속 | 연속 ✓ |
-| **물리 메모리** | 비연속 | 비연속 (동일) |
-| **점프 처리** | 소프트웨어 (느림) | 하드웨어/GPU MMU (빠름) |
-| **Block-Table** | 필요 | 불필요 |
-| **기존 커널 수정** | 필요 | 불필요 ✓ |
-
-## 왜 빠른가
-
 **PagedAttention**: 커널 코드가 직접 주소 계산
 ```c
 addr = block_table[block_idx];
@@ -149,23 +139,19 @@ k = K[i];  // GPU MMU가 가상→물리 변환
 
 소프트웨어 오버헤드를 하드웨어로 옮겨서 빠르다.
 
-# 4. 구현
+vLLM은 , CUDA VMM API가 2MB 페이지만 지원하기 때문에 위와 같이 유저 스페이스에서 구현
+따라서,  토큰당 KV Cache: ~128KB (Llama-3-8B 기준). 2MB 페이지 쓰면: 토큰 1개만 써도 2MB 점유 → 낭비
 
-## 문제 1: CUDA VMM API가 2MB 페이지만 지원
+## vAttention은?
 
-```
-토큰당 KV Cache: ~128KB (Llama-3-8B 기준)
-2MB 페이지 쓰면: 토큰 1개만 써도 2MB 점유 → 낭비
-```
-
-**해결:** NVIDIA 오픈소스 드라이버 수정해서 64KB 페이지 지원 추가
+NVIDIA 오픈소스 드라이버 수정해서 64KB 페이지 지원 추가
 
 | 기존 CUDA API | vAttention API |
 |--------------|----------------|
 | `cuMemMap` (2MB) | `vMemMap` (64KB) |
 | `cuMemCreate` (2MB) | `vMemCreate` (64KB) |
 
-## 문제 2: API 호출 latency가 높음
+## 또한, API 호출 latency가 높음
 
 `cuMemMap` 한 번 호출: ~40μs → 매 iteration마다 호출하면 오버헤드
 
@@ -173,13 +159,21 @@ k = K[i];  // GPU MMU가 가상→물리 변환
 - 백그라운드에서 미리 할당 (compute와 overlap)
 - Deferred reclamation: 요청 끝나도 바로 회수 안 하고, 다음 요청이 재사용
 
-## 성능 결과
+# 4. 결과
+
+|                 | PagedAttention | vAttention        |
+| --------------- | -------------- | ----------------- |
+| **가상 메모리**      | 비연속            | 연속 ✓              |
+| **물리 메모리**      | 비연속            | 비연속 (동일)          |
+| **점프 처리**       | 소프트웨어 (느림)     | 하드웨어/GPU MMU (빠름) |
+| **Block-Table** | 필요             | 불필요               |
+| **기존 커널 수정**    | 필요             | 불필요 ✓             |
 
 - Prefill throughput: PagedAttention 대비 최대 1.26× 향상
 - End-to-end throughput: 최대 1.23× 향상 (long-context)
 - Portability: FlashAttention-3 등 새 커널 수정 없이 바로 사용 가능
 
-# 5. 결론
+# 5. 마무리
 
 PagedAttention의 아이디어(동적 메모리 할당)는 좋았지만, 구현 방식(user space 블록 관리)이 성능 저하를 일으켰다. vAttention은 같은 목표를 CUDA VMM으로 달성해서 성능 문제를 해결했다.
 
@@ -201,7 +195,7 @@ vAttention
 
 개인적으로 인상 깊었던 부분은 "어느 레벨에서 추상화할 것인가"의 중요성이다. PagedAttention은 application level에서 메모리를 관리했고, vAttention은 system level(CUDA VMM)을 활용했다. 같은 문제를 푸는데도 어느 레벨에서 해결하느냐에 따라 성능이 크게 달라진다는 걸 보여준다.
 
-또 하나는 오픈소스 드라이버를 수정해서 64KB 페이지를 지원했다는 점이다. 기존 API의 제약을 그대로 받아들이지 않고, 필요하면 직접 수정하는 것도 방법이라는 걸 보여준다.
+또 하나는 오픈소스 드라이버를 수정해서 64KB 페이지를 지원했다는 점이다. 기존 API의 제약을 그대로 받아들이지 않고, 필요하면 직접 수정하는 것도 방법이라는 걸 보여준다. 하지만, 이게 가능한 사람이 얼마나 될까.. 생각했다.
 
 ---
 
