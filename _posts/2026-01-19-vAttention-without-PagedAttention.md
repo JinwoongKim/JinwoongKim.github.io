@@ -5,8 +5,8 @@ tags:
   - vAttention
   - vLLM
   - GPU
-  - Memory Management
-published: true
+  - Memory-Management
+published: false
 ---
 
 주위에서 vLLM 얘기를 하도 많이 들어서 PagedAttention을 공부했었는데, 이번엔 PagedAttention 없이 같은 목표를 달성하는 vAttention 논문을 읽어봤다.

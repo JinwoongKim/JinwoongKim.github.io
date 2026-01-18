@@ -6,7 +6,7 @@ tags:
   - vLLM
   - LLM
   - GPU
-published: true
+published: false
 ---
 
 vLLM의 PagedAttention이 메모리 관리를 혁신했지만, 성능 오버헤드가 존재한다는 사실을 알고 계셨나요? Microsoft Research India 팀이 ASPLOS '25에 발표한 vAttention은 같은 목표를 더 효율적인 방법으로 달성합니다.
