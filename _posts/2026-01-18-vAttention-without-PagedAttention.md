@@ -71,7 +71,8 @@ gpu_buffer = cudaMalloc(1GB)
 
 ## PagedAttention의 구조
 
-![](Pasted%20image%2020260119200909.png)
+![](../images/Pasted%20image%2020260119200843.png)
+![](/images/Pasted%20image%2020260119200843.png)
 
 
 vLLM은 이 문제를 해결하기 위해 블록 단위로 메모리를 관리한다.
