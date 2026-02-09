@@ -1,8 +1,13 @@
 ---
 title: "[책] 언리더십 - 닐스 플레깅"
 categories: review
-tags: [책, 리뷰, 경영, 리더십, 조직문화]
-published: false
+tags:
+  - 책
+  - 리뷰
+  - 경영
+  - 리더십
+  - 조직문화
+published: true
 ---
 
 
