@@ -11,6 +11,10 @@ tags:
   - Kubeflow
   - NVIDIA-Dynamo
   - LLM-Serving
+  - DCGM
+  - NCCL
+  - Kubernetes
+  - Observability
 published: true
 ---
 
@@ -264,15 +268,309 @@ spec:
 
 ---
 
+---
+
+# 7. DCGM — GPU 헬스 모니터링이 왜 가장 먼저여야 하는가
+
+## WHY
+
+서빙 프레임워크가 죽었을 때, 원인은 세 곳 중 하나다: **소프트웨어 버그, 설정 문제, 또는 GPU 하드웨어 이상.** 셋 중 하드웨어 이상은 DCGM 없이는 소프트웨어 버그처럼 보인다. ECC 에러가 쌓이거나 NVLink bandwidth가 떨어져도, 서빙 로그에는 단순 타임아웃이나 성능 저하로만 보이기 때문이다.
+
+B300처럼 고단가 GPU일수록 하드웨어 이상을 조기 발견하는 것이 중요하다. XID 79(GPU fell off bus)나 XID 48(Double-Bit ECC Error)이 쌓이고 있는데 서빙만 재시작하다가 GPU를 날리는 케이스가 실제로 있다.
+
+## WHAT — 기본 설정
+
+```bash
+# 헬스체크 — GPU 도착 즉시 실행
+dcgmi discovery -l              # 인식된 GPU 목록
+dcgmi diag -r 1                 # 빠른 헬스체크 (~2분)
+dcgmi diag -r 3                 # 풀 다이어그노스틱 (~1시간, 출하 전 필수)
+dcgmi stats --enable            # per-process GPU 메트릭 활성화
+
+# XID 에러 실시간 확인
+dcgmi health -g 0 -w 1
+```
+
+**`dcgm-exporter` → Prometheus → Grafana 파이프라인:**
+
+```yaml
+# dcgm-exporter DaemonSet (핵심 메트릭 필터)
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: dcgm-exporter
+spec:
+  template:
+    spec:
+      containers:
+      - name: dcgm-exporter
+        image: nvcr.io/nvidia/k8s/dcgm-exporter:latest
+        env:
+        - name: DCGM_EXPORTER_COLLECTORS
+          value: /etc/dcgm-exporter/default-counters.csv
+        ports:
+        - containerPort: 9400   # Prometheus scrape port
+```
+
+**반드시 모니터링해야 하는 지표:**
+
+| 지표 | 의미 | 알람 임계값 |
+|------|------|------------|
+| `DCGM_FI_DEV_GPU_TEMP` | GPU 온도 | > 85°C |
+| `DCGM_FI_DEV_ECC_SBE_VOL_TOTAL` | Single-Bit ECC 에러 누적 | > 1000/hr |
+| `DCGM_FI_DEV_ECC_DBE_VOL_TOTAL` | Double-Bit ECC 에러 누적 | > 0 (즉시 알람) |
+| `DCGM_FI_DEV_NVLINK_BANDWIDTH_TOTAL` | NVLink 대역폭 | < 이론치 70% |
+| `DCGM_FI_DEV_XID_ERRORS` | XID 에러 발생 | > 0 (유형별 대응) |
+| `DCGM_FI_DEV_SM_ACTIVE` | SM 활용률 | 서빙 중 낮으면 병목 의심 |
+
+## 실무에서는
+
+- GPU 도착 즉시 `dcgmi diag -r 3` 실행 — 하드웨어 불량을 가장 빨리 잡는 방법
+- XID 에러별 대응 매뉴얼을 미리 작성해두기: XID 13(그래픽스 엔진 예외)은 소프트웨어, XID 48/79는 하드웨어 교체 사유
+- `dcgm-exporter`는 GPU 서버 세팅과 동시에 올리는 것을 기본값으로
+- NVLink bandwidth 저하가 감지되면 `nvidia-smi nvlink -s` 로 포트별 상태 확인
+
+---
+
+# 8. K8s GPU 레이어 — device plugin과 topology 설정
+
+## WHY
+
+K8s에서 `nvidia.com/gpu: 1` 요청이 동작하려면 nvidia-device-plugin이 있어야 하고, B300의 NVLink bandwidth를 온전히 쓰려면 **NUMA topology를 인식하는 스케줄링**이 필요하다. 이 두 레이어가 잘못 세팅되면 GPU는 켜지지만 성능이 안 나온다.
+
+DGX B300 기준으로 GPU와 CPU는 NVLink + PCIe 토폴로지로 연결되어 있는데, NUMA-aware 스케줄링 없이 배포하면 remote memory access가 발생해 latency가 튄다. 특히 TP2+ 설정에서 차이가 두드러진다.
+
+## WHAT — 핵심 설정
+
+```yaml
+# nvidia-device-plugin ConfigMap — 자주 놓치는 옵션들
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nvidia-device-plugin-config
+data:
+  config.yaml: |
+    version: v1
+    flags:
+      migStrategy: "none"          # 프로덕션 서빙은 MIG 비추 (아래 설명 참조)
+      deviceListStrategy: "envvar"
+      deviceIDStrategy: "uuid"
+    sharing:
+      timeSlicing:
+        renameByDefault: false
+        resources:
+        - name: nvidia.com/gpu
+          replicas: 1               # B300은 time-slicing 절대 금지
+```
+
+```yaml
+# kubelet 설정 — Topology Manager 활성화
+apiVersion: kubelet.config.k8s.io/v1beta1
+kind: KubeletConfiguration
+cpuManagerPolicy: static
+topologyManagerPolicy: single-numa-node   # NVLink bandwidth 보장 핵심 설정
+topologyManagerScope: container
+```
+
+```yaml
+# GPU 노드 taint & label 예시
+apiVersion: v1
+kind: Node
+metadata:
+  labels:
+    nvidia.com/gpu.compute.major: "10"    # gpu-feature-discovery 자동 생성
+    nvidia.com/gpu.memory: "288000"
+    nvidia.com/gpu.product: "B300"
+spec:
+  taints:
+  - key: nvidia.com/gpu
+    effect: NoSchedule
+```
+
+**MIG에 대해:** B300은 288GB라서 MIG로 쪼개고 싶은 유혹이 있다. 하지만 서빙 프로덕션에서는 비추다. Tensor Parallelism과 충돌하고, FlashAttention이 MIG 인스턴스에서 제 성능을 못 내는 케이스가 아직 있다. MIG는 배치 추론이나 개발 환경 공유용으로 제한하는 것이 안전하다.
+
+## 실무에서는
+
+- `gpu-feature-discovery`를 device-plugin과 함께 배포 — node label 자동 생성
+- `nvidia-container-toolkit` 버전이 CUDA 13.0을 지원하는지 확인 (1.17+)
+- Topology Manager 활성화 후 기존 파드가 `TopologyAffinityError`로 Pending되는 경우 확인
+- 노드 레이블 기반 nodeSelector를 KServe InferenceService에 명시적으로 지정
+
+---
+
+# 9. vLLM/SGLang 프로덕션 파라미터 튜닝
+
+## WHY
+
+"일단 올려보자"로 배포한 기본 설정은 B300의 성능을 절반도 못 뽑는 경우가 많다. `--gpu-memory-utilization`이 너무 높으면 워크로드 중간에 OOM이 터지고, `--max-num-seqs`가 너무 낮으면 B300의 배치 처리 능력을 못 쓴다. 기본값은 일반적인 상황을 위한 것이지, B300의 대용량 메모리와 높은 throughput을 위해 최적화된 것이 아니다.
+
+## WHAT — vLLM 프로덕션 설정
+
+```bash
+vllm serve deepseek-r1 \
+  --tensor-parallel-size 2 \
+  --max-num-seqs 256 \
+  --max-model-len 32768 \
+  --gpu-memory-utilization 0.90 \
+  --enable-chunked-prefill \
+  --max-num-batched-tokens 8192 \
+  --kv-cache-dtype fp8 \
+  --disable-log-requests
+```
+
+**파라미터별 의미:**
+
+| 파라미터 | 권장값 | 왜 |
+|---------|--------|----|
+| `--gpu-memory-utilization` | 0.88~0.92 | 0.95+ 는 KV cache 할당 시 OOM 리스크 |
+| `--max-num-seqs` | 128~512 | B300의 배치 처리 능력 활용 — 낮으면 throughput 낭비 |
+| `--enable-chunked-prefill` | 항상 활성화 | long-context 요청이 decode를 블록킹하는 문제 방지 |
+| `--kv-cache-dtype` | `fp8` | NVFP4가 안 되는 모델의 fallback — KV cache 메모리 절반으로 감소 |
+| `--disable-log-requests` | 프로덕션에서 항상 | 요청마다 로그 쓰는 overhead 제거 |
+
+**SGLang 주요 설정:**
+
+```bash
+python -m sglang.launch_server \
+  --model deepseek-r1 \
+  --tp 2 \
+  --max-running-requests 512 \
+  --mem-fraction-static 0.88 \
+  --chunked-prefill-size 8192 \
+  --enable-mixed-chunk \
+  --disable-radix-cache-rebuild-on-init  # 재시작 시 cold start 단축
+```
+
+## 실무에서는
+
+- `--max-num-seqs`와 `--gpu-memory-utilization`은 실측 기반으로 결정 — vLLM benchmark 스크립트로 sweet spot 찾기
+- KServe의 readinessProbe `initialDelaySeconds`를 모델 로딩 시간 기반으로 조정 (DeepSeek-R1 NVFP4 기준 60~120초)
+- 모델별로 최적 파라미터가 다르므로, **InferenceService 템플릿에 파라미터를 하드코딩하지 말고 ConfigMap으로 분리**
+- 프로덕션 배포 전 `locust` 또는 vLLM benchmark로 부하 테스트 필수
+
+---
+
+# 10. NCCL 튜닝 — 멀티노드에서 성능이 안 나올 때
+
+## WHY
+
+TP(Tensor Parallelism)가 단일 노드를 벗어나는 순간, NCCL 설정이 성능을 결정한다. NVLink는 단일 노드 내에서만 쓸 수 있고, 노드 간에는 InfiniBand(또는 RoCE) RDMA를 써야 한다. NCCL이 이 경로를 제대로 잡지 못하면, 노드 간 AllReduce가 TCP를 타거나 잘못된 NIC를 잡아서 bandwidth가 수십 배 떨어진다.
+
+이건 에러로 죽지 않고 **느리게 돌아가기 때문에** 놓치기 쉽다. `NCCL_DEBUG=INFO`로 실행 로그를 보기 전까지는 이유를 모른다.
+
+## WHAT — 필수 환경변수
+
+```bash
+# 단일 노드 (NVLink 사용)
+export NCCL_P2P_DISABLE=0           # NVLink P2P 반드시 활성화
+export NCCL_SHM_DISABLE=0           # Shared Memory 허용
+
+# 멀티노드 (InfiniBand 사용)
+export NCCL_IB_DISABLE=0
+export NCCL_IB_HCA=mlx5_0,mlx5_1   # 사용할 HCA 명시 (서버마다 다름)
+export NCCL_SOCKET_IFNAME=eth0      # 폴백 소켓 인터페이스
+export NCCL_IB_GID_INDEX=3          # RoCE v2 사용 시
+
+# 디버깅 시에만
+export NCCL_DEBUG=INFO
+export NCCL_DEBUG_SUBSYS=INIT,NET
+```
+
+**설정 전 반드시 측정:**
+
+```bash
+# nccl-tests로 AllReduce bandwidth 측정
+git clone https://github.com/NVIDIA/nccl-tests
+cd nccl-tests && make
+
+# 단일 노드
+./build/all_reduce_perf -b 1G -e 1G -f 2 -g 2
+
+# 멀티노드 (mpirun)
+mpirun -np 4 -H node1:2,node2:2 \
+  ./build/all_reduce_perf -b 1G -e 1G -f 2 -g 2
+```
+
+B300 DGX 기준으로 단일 노드 NVLink 4.0 이론치는 AllReduce ~900GB/s (bisection bandwidth 기준). 실측이 이론치의 80% 미만이면 토폴로지 설정 또는 드라이버 문제다.
+
+## 실무에서는
+
+- 멀티노드 서빙 배포 전 nccl-tests를 자동화 테스트 스위트에 포함
+- KServe에서 멀티노드 서빙 시 `NCCL_*` 환경변수를 InferenceService spec에 명시
+- InfiniBand 환경이면 `ib_write_bw`, `ib_read_bw`로 fabric 레벨도 검증
+- `NCCL_TOPO_DUMP_FILE`로 NCCL이 인식한 토폴로지를 파일로 저장하고 점검
+
+---
+
+# 11. 관측성 스택 — 병목을 찾으려면 무엇을 봐야 하는가
+
+## WHY
+
+"서빙이 느리다"는 말은 원인이 아니다. Prefill이 느린 건지, Decode가 느린 건지, KV cache가 꽉 찬 건지, GPU SM이 놀고 있는 건지 — 지표 없이는 구분이 안 된다. 그리고 이 지표들은 **하나의 대시보드에 모여있어야** 상관관계를 볼 수 있다.
+
+## WHAT — 최소 관측성 스택
+
+```
+┌──────────────────────────────────────────────┐
+│              Grafana Dashboard               │
+├─────────────────┬────────────────────────────┤
+│   Prometheus    │     (scrape targets)        │
+├─────────────────┼────────────────────────────┤
+│  dcgm-exporter  │  vLLM /metrics endpoint    │
+│  (GPU 하드웨어)  │  (서빙 레이어 지표)          │
+└─────────────────┴────────────────────────────┘
+```
+
+**vLLM `/metrics` 핵심 지표:**
+
+| 지표 | 의미 | 해석 |
+|------|------|------|
+| `vllm:num_requests_running` | 실시간 배치 크기 | 낮으면 under-utilized |
+| `vllm:gpu_cache_usage_perc` | KV cache 사용률 | 90%+ 지속되면 OOM 전조 |
+| `vllm:time_to_first_token_seconds` | TTFT P99 | Prefill 성능 지표 |
+| `vllm:time_per_output_token_seconds` | TPOT P99 | Decode 성능 지표 |
+| `vllm:num_requests_waiting` | 큐 대기 요청 수 | 지속 증가 → 용량 부족 |
+
+**Grafana 대시보드 — 최소 패널 구성:**
+
+```
+┌──────────────┬──────────────┬──────────────┐
+│  GPU SM Util │  TTFT P99    │ Cache Usage  │
+├──────────────┼──────────────┼──────────────┤
+│ NVLink BW    │  TPOT P99    │ Req Waiting  │
+├──────────────┼──────────────┼──────────────┤
+│  GPU Temp    │  Throughput  │  XID Errors  │
+└──────────────┴──────────────┴──────────────┘
+```
+
+**병목 진단 패턴:**
+
+| 증상 | 지표 패턴 | 원인 추정 |
+|------|----------|----------|
+| Latency 갑자기 튐 | TTFT P99 증가, SM Util 정상 | Prefill 배치 과부하 → chunked-prefill 설정 |
+| Throughput이 낮음 | SM Util 낮음, 큐 비어있음 | `max-num-seqs` 너무 작음 |
+| OOM으로 재시작 반복 | Cache Usage 90%+ 후 크래시 | `gpu-memory-utilization` 너무 높음 |
+| 멀티노드 느림 | TPOT 정상, NVLink BW 낮음 | NCCL 경로 문제 |
+
+## 실무에서는
+
+- GPU 세팅과 동시에 dcgm-exporter + Prometheus + Grafana 파이프라인 구성 — 사후가 아니라 처음부터
+- vLLM 서빙 컨테이너에 `--disable-log-stats` 를 **쓰지 말 것** — stats가 꺼지면 `/metrics`도 유의미한 값을 못 냄
+- 알람 룰은 최소한 3개만 먼저: `gpu_cache_usage_perc > 90`, `XID_errors > 0`, `TTFT_P99 > SLA 임계값`
+- SGLang도 `/metrics` 엔드포인트를 제공하므로, vLLM과 같은 Prometheus 설정 재사용 가능
+
+---
+
 # 정리: 서빙 스택 도입 로드맵
 
 | 단계 | 할 일 | GPU 필요 여부 | 시기 |
 |------|-------|-------------|------|
-| **0단계** | 버전 매트릭스 조사, 이미지 빌드, manifest 수정 | 불필요 | **지금 즉시** |
-| **1단계** | 클라우드 B300에서 smoke test (vLLM + SGLang) | 클라우드 | GPU 발주 후 |
-| **2단계** | 모델별 NVFP4 정확도 검증 & 벤치마크 | 클라우드 또는 온프레미스 | GPU 도착 전후 |
-| **3단계** | KServe 서빙 안정화, 모델별 최적 프레임워크 확정 | 온프레미스 | GPU 도착 후 |
-| **4단계** | Disaggregated serving / Dynamo 평가 (필요시) | 온프레미스 | 안정화 후 |
+| **0단계** | 버전 매트릭스 조사, 이미지 빌드, manifest 수정, K8s GPU 레이어 설정 준비 | 불필요 | **지금 즉시** |
+| **1단계** | 관측성 스택 구성 (dcgm-exporter + Prometheus + Grafana), nccl-tests 기준치 측정 | GPU 도착 즉시 | GPU 도착 직후 |
+| **2단계** | 클라우드 B300에서 smoke test (vLLM + SGLang), 프로덕션 파라미터 튜닝 | 클라우드 | GPU 발주 후 |
+| **3단계** | 모델별 NVFP4 정확도 검증 & 벤치마크, TTFT/TPOT SLA 설정 | 클라우드 또는 온프레미스 | GPU 도착 전후 |
+| **4단계** | KServe 서빙 안정화, 모델별 최적 프레임워크 확정 | 온프레미스 | GPU 도착 후 |
+| **5단계** | Disaggregated serving / Dynamo 평가 (필요시) | 온프레미스 | 안정화 후 |
 
 **0단계는 GPU 없이도 할 수 있다.** 지금 당장 시작할 수 있고, 시작해야 한다.
 
