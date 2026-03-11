@@ -18,8 +18,8 @@ published: true
 이 글은 세 편 중 첫 번째로, Blackwell 아키텍처 자체에 집중한다.
 
 - **1편 (이 글): Blackwell 아키텍처** — 왜 다른 칩인가
-- 2편: B300 하드웨어/인프라 — 왜 미리 준비해야 하는가
-- 3편: 서빙 스택 (vLLM/SGLang/KServe) — 왜 지금부터 맞춰야 하는가
+- 2편: [B300 하드웨어/인프라](https://jinwoongkim.net/gpu/blackwell-02-hardware/) — 왜 미리 준비해야 하는가
+- 3편: [서빙 스택 (vLLM/SGLang/KServe)](https://jinwoongkim.net/gpu/blackwell-03-serving/) — 왜 지금부터 맞춰야 하는가
 
 ---
 
