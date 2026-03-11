@@ -1,5 +1,5 @@
 ---
-title: "서빙 스택(vLLM/SGLang/KServe), 왜 지금부터 맞춰야 하는가 — B300에서 서빙이 뜨기까지"
+title: Blackwell Serving
 categories: GPU
 tags:
   - GPU

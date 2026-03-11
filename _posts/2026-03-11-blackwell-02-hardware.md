@@ -1,5 +1,5 @@
 ---
-title: "B300 하드웨어/인프라, 왜 미리 준비해야 하는가 — GPU보다 먼저 챙길 것들"
+title: Blackwell Hardware
 categories: GPU
 tags:
   - GPU

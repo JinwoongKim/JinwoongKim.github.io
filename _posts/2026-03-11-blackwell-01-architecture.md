@@ -1,5 +1,5 @@
 ---
-title: Blackwell B300 아키텍쳐
+title: Blackwell Architecture
 categories: GPU
 tags:
   - GPU
