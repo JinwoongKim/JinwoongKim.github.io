@@ -13,7 +13,7 @@ tags:
   - LLM-Serving
   - DCGM
   - NCCL
-published: true
+published: false
 ---
 
 [1편](https://jinwoongkim.net/gpu/blackwell-01-architecture/)에서 B300의 아키텍처가 왜 다른지, [2편](https://jinwoongkim.net/gpu/blackwell-02-hardware/)에서 인프라를 왜 먼저 준비해야 하는지를 다뤘다. 이번 3편에서는 그 위에서 **실제로 서빙을 올리기 위한 소프트웨어 스택**을 다룬다.

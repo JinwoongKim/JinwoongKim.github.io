@@ -8,7 +8,7 @@ tags:
   - B300
   - NVFP4
   - LLM-Serving
-published: true
+published: false
 ---
 
 올해 팀에서 B300을 다수 도입할 예정이다. 학습도 하지만 주로 서빙 용도로, vLLM/SGLang/KServe 기반 Kubeflow 파이프라인 위에서 운용하게 된다.

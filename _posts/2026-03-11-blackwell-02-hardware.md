@@ -8,7 +8,7 @@ tags:
   - Infrastructure
   - LLM-Serving
   - DataCenter
-published: true
+published: false
 ---
 
 [1편](https://jinwoongkim.net/gpu/blackwell-01-architecture/)에서 B300이 Hopper와 설계 철학부터 다른 칩이라는 이야기를 했다. 이번 글에서는 그 칩을 **물리적으로 운용하기 위해** 왜 미리 준비해야 하는지를 다룬다.
