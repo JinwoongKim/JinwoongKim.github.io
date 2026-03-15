@@ -14,7 +14,7 @@ tags:
 published: false
 ---
 
-[블랙웰 글](https://jinwoongkim.net/gpu/blackwell/)을 쓸 때 Dynamo를 한 섹션으로 짧게 다뤘었다. 그때는 "클러스터 단위 오케스트레이션 레이어" 정도로만 소개했는데, 실제로 뜯어보니까 그 한마디로는 부족해서 별도 글로 정리하게 됐다.
+[Blackwell 글](https://jinwoongkim.net/gpu/blackwell/)을 쓸 때 Dynamo를 한 섹션으로 짧게 다뤘었다. 그때는 "클러스터 단위 오케스트레이션 레이어" 정도로만 소개했는데, 실제로 뜯어보니까 그 한마디로는 부족해서 별도 글로 정리하게 됐다.
 
 vLLM이든 SGLang이든 잘 돌아가는데 왜 그 위에 또 뭘 얹어야 하는지, 그리고 GPU를 얼마나 더 알뜰하게 쓸 수 있는지를 중심으로 정리해본다.
 
