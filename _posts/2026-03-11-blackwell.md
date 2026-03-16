@@ -97,9 +97,9 @@ Blackwell 메모리 계층 (빠른 순): **TMEM/Register → Shared Memory → L
 
 ---
 
-## 5. FP64 포기 — NVIDIA가 보내는 신호
+## 5. FP64 급락 — AI 워크로드 입장에서는 사실상 무의미한 수치
 
-FP64 성능의 세대별 흐름을 먼저 보자:
+FP64 성능의 세대별 흐름:
 
 | GPU | FP64 (Tensor Core) | 비고 |
 |-----|-------------------|------|
@@ -107,11 +107,24 @@ FP64 성능의 세대별 흐름을 먼저 보자:
 | B200 | 37 TFLOPS | Blackwell, 이미 하락 |
 | **B300** | **1.25 TFLOPS** | Blackwell Ultra, 급격히 하락 |
 
-H100 → B200에서 이미 FP64가 절반 가까이 줄었고, B200 → B300에서 **다시 30배 가까이** 급감했다. 수치 자체는 맞지만, 이게 B300만의 문제가 아니라 Blackwell 세대 전체가 FP64를 희생하는 방향으로 설계됐다는 점이 중요하다.
+숫자만 보면 B300이 크게 퇴보한 것처럼 보이지만, **현대 LLM 학습과 추론에서 FP64는 쓰이지 않는다.**
 
-> "Blackwell 세대, 특히 B300은 HPC/과학계산용이 아니라, **AI inference 전용 칩**이다."
+실제 LLM 학습의 precision 구성:
+```
+Forward/Backward : BF16 (또는 FP16)
+Master weight    : FP32  ← optimizer state 보관용
+Optimizer state  : FP32 (Adam의 m, v)
+```
 
-B300으로 학습 외에 과학계산이나 시뮬레이션도 돌리려는 계획이 있다면 재고 필요 (FP64가 필요하다면 B200이나 H100 계열이 여전히 낫다). 우리 팀의 서빙 위주 활용 방향이 B300 설계 방향과 맞다는 확인이기도 하다.
+이게 Mixed Precision(AMP)이다. FP32는 optimizer state 보관에만 쓰이고, 실제 연산은 BF16이 담당한다. 순수 FP64 연산은 등장하지 않는다. B200도 FP64 수치가 B300보다 높을 뿐, AI 학습/추론 전용 칩이지 과학계산용이 아니다.
+
+FP64가 의미 있는 영역은 **유체역학, 분자동역학, 양자화학 같은 HPC/과학계산 도메인**이다. 그쪽 워크로드가 있다면 애초에 Blackwell 세대 자체가 맞지 않는다.
+
+오히려 precision 트렌드는 반대 방향이다:
+- 학습: BF16 → **FP8** (Transformer Engine)
+- 추론: FP8 → **FP4** (NVFP4)
+
+B300의 FP64 급락은 "AI inference 전용으로 설계됐다"는 NVIDIA의 방향성을 확인해주는 숫자다. 우리 팀 워크로드 기준으로는 신경 쓸 필요 없는 지표다.
 
 ---
 
