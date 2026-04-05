@@ -21,6 +21,27 @@
 {% include analytics.html %}
 {% include /comments-providers/scripts.html %}
 
+<!-- Mermaid.js: ```mermaid 코드 블록을 다이어그램으로 렌더링 -->
+<script>
+(function() {
+  var codes = document.querySelectorAll('code.language-mermaid');
+  if (codes.length === 0) return;
+  codes.forEach(function(code) {
+    var pre = code.parentElement;
+    var div = document.createElement('div');
+    div.className = 'mermaid';
+    div.textContent = code.textContent;
+    pre.parentElement.replaceChild(div, pre);
+  });
+  var script = document.createElement('script');
+  script.src = 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js';
+  script.onload = function() {
+    mermaid.initialize({ startOnLoad: true, theme: 'default' });
+  };
+  document.body.appendChild(script);
+})();
+</script>
+
 {% if site.after_footer_scripts %}
   {% for script in site.after_footer_scripts %}
     <script src="{{ script | relative_url }}"></script>
