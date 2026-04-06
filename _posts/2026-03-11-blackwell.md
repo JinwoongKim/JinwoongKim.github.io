@@ -54,19 +54,6 @@ H100은 단일 다이에 80B 트랜지스터를 집적했다. Blackwell은 두 �
 ![Blackwell Ultra GPU Dual Die](https://developer-blogs.nvidia.com/wp-content/uploads/2025/08/NVIDIA-Blackwell-Ultra-GPU-chip-png.webp)
 *Blackwell Ultra GPU: 두 개의 reticle-size 다이를 NV-HBI 10 TB/s로 연결 (출처: NVIDIA Developer Blog)*
 
-```mermaid
-graph LR
-    subgraph "H100 — Monolithic"
-        H["Single Die\n80B transistors"]
-    end
-    subgraph "B300 — Dual Reticle"
-        D1["Die 0\n~104B transistors"] <-->|"NV-HBI\n10 TB/s"| D2["Die 1\n~104B transistors"]
-    end
-    style H fill:#6c757d,color:#fff
-    style D1 fill:#198754,color:#fff
-    style D2 fill:#198754,color:#fff
-```
-
 ---
 
 ## 2. NVFP4 — B300을 사는 진짜 이유
