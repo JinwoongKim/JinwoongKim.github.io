@@ -439,6 +439,125 @@ LLMEngine.step()                                 │
 
 ---
 
+## 🧩 LLM Engine constructor — 엔진의 부속들
+
+> The main components of the engine are:
+> - vLLM config (contains all of the knobs for configuring model, cache, parallelism, etc.)
+> - processor (turns raw inputs → EngineCoreRequests via validation, tokenization, and processing)
+> - engine core client (in our running example we're using InprocClient which is basically == EngineCore; we'll gradually build up to DPLBAsyncMPClient which allows serving at scale)
+> - output processor (converts raw EngineCoreOutputs → RequestOutput that the user sees)
+
+엔진의 주요 컴포넌트는 — (1) **vLLM config** (모델/캐시/병렬화 등 모든 설정 노브), (2) **processor** (raw 입력 → 검증·토크나이즈·전처리 → `EngineCoreRequest`), (3) **engine core client** (러닝 예제에선 `InprocClient` ≈ `EngineCore`, 이후 점진적으로 대규모 서빙용 `DPLBAsyncMPClient`까지 확장), (4) **output processor** (raw `EngineCoreOutputs` → 사용자에게 보이는 `RequestOutput`).
+
+> 📝 V0가 deprecated 되면서 클래스 이름·시그니처는 계속 바뀌는 중. 중요한 건 정확한 이름이 아니라 *core idea*.
+
+### ① 4대 컴포넌트 — 현재 코드 매핑
+
+| 블로그 표현 | 현재 vllm 클래스 | 위치 |
+|---|---|---|
+| `vLLM config` | `VllmConfig` | [vllm/config/](https://github.com/vllm-project/vllm/tree/main/vllm/config) |
+| `processor` | `InputProcessor` (+ `Renderer`) | [v1/engine/input_processor.py](https://github.com/vllm-project/vllm/blob/main/vllm/v1/engine/input_processor.py) |
+| `engine core client` | `InprocClient` → `SyncMPClient` → `AsyncMPClient` → `DPLBAsyncMPClient` | [v1/engine/core_client.py](https://github.com/vllm-project/vllm/blob/main/vllm/v1/engine/core_client.py) |
+| `output processor` | `OutputProcessor` | [v1/engine/output_processor.py](https://github.com/vllm-project/vllm/blob/main/vllm/v1/engine/output_processor.py) |
+
+### ② Engine Core 내부 — sub components
+
+> Engine core itself is made up of several sub components:
+> - Model Executor (drives forward passes; UniProcExecutor → MultiProcExecutor)
+> - Structured Output Manager (guided decoding)
+> - Scheduler (decides which requests go into the next engine step)
+>   - policy: FCFS or priority
+>   - waiting / running queues
+>   - KV cache manager — heart of paged attention
+
+| sub-component | 현재 vllm 위치 |
+|---|---|
+| Model Executor (UniProc) | [v1/executor/uniproc_executor.py](https://github.com/vllm-project/vllm/blob/main/vllm/v1/executor/uniproc_executor.py) (라인 26: `class UniProcExecutor`) |
+| Model Executor (MultiProc) | [v1/executor/](https://github.com/vllm-project/vllm/tree/main/vllm/v1/executor) |
+| Structured Output Manager | [v1/structured_output/](https://github.com/vllm-project/vllm/tree/main/vllm/v1/structured_output) |
+| Scheduler | [v1/core/sched/scheduler.py](https://github.com/vllm-project/vllm/blob/main/vllm/v1/core/sched/scheduler.py) (라인 67) |
+| KV Cache Manager | [v1/core/kv_cache_manager.py](https://github.com/vllm-project/vllm/blob/main/vllm/v1/core/kv_cache_manager.py) (라인 106) |
+| Block Pool / `free_block_queue` | [v1/core/block_pool.py](https://github.com/vllm-project/vllm/blob/main/vllm/v1/core/block_pool.py) (라인 130: `class BlockPool`, 라인 168: `self.free_block_queue = FreeKVCacheBlockQueue(...)`) |
+
+Scheduler 내부를 실제 코드로 보면 *policy / waiting / running* 이 그대로 변수명에 박혀있다 — 글과 코드의 일대일 매핑.
+
+```python
+# vllm/v1/core/sched/scheduler.py:67~170
+class Scheduler(SchedulerInterface):
+    def __init__(self, ...):
+        ...
+        self.max_num_running_reqs = self.scheduler_config.max_num_seqs
+
+        # policy 에 따라 큐 구현이 달라짐 (FCFS deque / priority heap)
+        self.waiting          = create_request_queue(self.policy)
+        self.skipped_waiting  = create_request_queue(self.policy)  # async 의존/제약 때문에 스킵된 요청
+        self.running: list[Request] = []
+```
+
+### ③ KV Cache Manager — `free_block_queue` 의 정체
+
+> The KV-cache manager maintains a `free_block_queue` — a pool of available KV-cache blocks (often on the order of hundreds of thousands, depending on VRAM size and block size). During paged attention, the blocks serve as the indexing structure that map tokens to their computed KV cache blocks.
+
+KV cache manager는 `free_block_queue`(가용 KV cache 블록 풀)를 들고 있다. VRAM 크기와 block size에 따라 **수십만 단위**까지 만들어진다. paged attention 동안 이 블록들이 *"토큰 → 계산된 KV cache 블록"* 으로 매핑하는 **indexing structure** 역할을 한다.
+
+![](../images/2026-04-27-vllm-study-01-intro/engine-architecture.png)
+![](/images/2026-04-27-vllm-study-01-intro/engine-architecture.png)
+
+그림 해석: *위쪽* 에 engine core client → engine core(model executor / scheduler / SOM) → output processor의 흐름, *중간* 에 CPU상의 `block_pool` 인덱스 구조, *아래* 에 GPU상의 paged KV cache memory 블록들. **인덱스(CPU)와 실제 메모리(GPU)의 분리**가 paged attention의 핵심이다.
+
+### ④ 표준 트랜스포머의 block size 공식
+
+> Block size for a standard transformer layer (non-MLA) is computed as follows:
+> `2 (key/value) * block_size (default=16) * num_kv_heads * head_size * dtype_num_bytes (e.g. 2 for bf16)`
+
+- **2** = K, V 둘 다 저장
+- **block_size = 16** = 한 블록에 토큰 16개분 KV가 들어감 (vLLM 디폴트)
+- **num_kv_heads × head_size** = GQA에서 group된 KV head 차원
+- **dtype_num_bytes** = bf16/fp16이면 2, fp8이면 1
+
+예) Llama-3-8B, bf16, num_kv_heads=8, head_size=128, num_layers=32 → 레이어당 한 블록 = `2 · 16 · 8 · 128 · 2 = 65,536 B = 64 KiB`. 32 레이어면 **한 블록(=토큰 16개) 당 2 MiB**. 80 GiB GPU면 단순 계산으로 block 수가 수만~수십만 개 단위 — 그림의 "수십만"의 근거.
+
+### ⑤ Model Executor 내부 — Worker의 3대 절차
+
+> During model executor construction, a Worker object is created, and three key procedures are executed.
+
+Model Executor를 만들 때 `Worker` 객체가 생성되고 **3대 절차**가 실행된다. 이후 `MultiProcExecutor`가 들어오면 이 같은 절차가 GPU별 worker 프로세스에서 각각 독립적으로 돈다.
+
+코드: [vllm/v1/worker/gpu_worker.py](https://github.com/vllm-project/vllm/blob/main/vllm/v1/worker/gpu_worker.py) — `class Worker` @ 라인 105.
+
+**(1) `init_device` — 라인 219**
+
+- CUDA device 할당 (예: `"cuda:0"`) + 모델 dtype 지원 여부 검증 (bf16 등)
+- 요청한 `gpu_memory_utilization` (예: 0.8 → VRAM 80%) 만큼 메모리 잡을 수 있는지 확인
+- 분산 설정 셋업 (DP / TP / PP / EP …)
+- `model_runner` 인스턴스화 — sampler, KV cache, forward용 버퍼(`input_ids`, positions 등) 보유
+- `InputBatch` 인스턴스화 — CPU 측 forward 버퍼, KV cache indexing용 block table, sampling metadata 등
+
+관련 클래스: [GPUModelRunner](https://github.com/vllm-project/vllm/blob/main/vllm/v1/worker/gpu_model_runner.py) (라인 394) · [InputBatch](https://github.com/vllm-project/vllm/blob/main/vllm/v1/worker/gpu_input_batch.py) (라인 81)
+
+**(2) `load_model` — 라인 318**
+
+- 모델 아키텍처 인스턴스화
+- 모델 weight 로드
+- `model.eval()` 호출 (PyTorch inference 모드)
+- Optional: `torch.compile()` 호출
+
+**(3) Initialize KV cache — `determine_available_memory` + `compile_or_warm_up_model`**
+
+- 레이어별 KV cache spec 얻기. 과거엔 항상 `FullAttentionSpec`(homogeneous transformer)이었는데, hybrid model(sliding window, Transformer/SSM Jamba 등)이 등장하면서 복잡해짐 — Jenga 논문 참고. [kv_cache_interface.py:164 `class FullAttentionSpec`](https://github.com/vllm-project/vllm/blob/main/vllm/v1/kv_cache_interface.py)
+- **dummy / profiling forward pass** 를 한 번 돌리고 GPU 메모리 스냅샷 → 가용 VRAM 안에 KV cache 블록 몇 개가 들어가는지 계산. [gpu_worker.py:332 `determine_available_memory`](https://github.com/vllm-project/vllm/blob/main/vllm/v1/worker/gpu_worker.py)
+- KV cache 텐서 **allocate / reshape / attention 레이어에 bind**
+- attention metadata 준비 (예: backend = FlashAttention) — 추후 forward 중 커널이 소비
+- `--enforce-eager` 가 아니면 **warmup batch size 별로 dummy run하고 CUDA Graph 캡처**. CUDA Graph는 GPU 작업 시퀀스를 DAG로 기록해 두고, 실제 forward에서 launch/replay만 하므로 kernel launch overhead를 잘라내고 latency를 줄임. [gpu_worker.py:552 `compile_or_warm_up_model`](https://github.com/vllm-project/vllm/blob/main/vllm/v1/worker/gpu_worker.py)
+
+🎯 **요약**: Worker init은 결국 *"GPU 잡기 → 모델 로드 → KV cache 풀 잡고 CUDA Graph 캡처"* 의 3 step. **가용 VRAM 측정 → 블록 수 결정** 이 paged attention 메모리 계획의 핵심 포인트.
+
+> Now that we have the engine initialized let's proceed to the generate function.
+
+여기까지가 엔진 생성자(constructor) 분석. 다음 단계는 `generate()` 함수.
+
+---
+
 ## ❓ 발표 전 Q&A 체크리스트
 
 발표 전, 이 4가지에 답할 수 있어야 안전하다.
@@ -457,14 +576,14 @@ LLMEngine.step()                                 │
 
 ---
 
-## 📌 다음 회차 예고
+## 📌 다음 회차 예고 — `generate()` 함수
 
-- **대상 분량**: 블로그 본문 *"LLM Engine & Engine Core"* 섹션의 본격 시작. Aleksa가 `LLM` constructor를 따라가는 부분
-- **코드 영역**: [vllm/v1/engine/core.py](https://github.com/vllm-project/vllm/blob/main/vllm/v1/engine/core.py)의 `EngineCore.__init__` 내부 (`_initialize_kv_caches`, Scheduler 생성, model_executor 초기화) + [vllm/v1/core/sched/scheduler.py](https://github.com/vllm-project/vllm/blob/main/vllm/v1/core/sched/scheduler.py) 진입
+- **대상 분량**: 블로그 본문 `generate()` 따라가는 부분. 엔진 생성자는 끝났고, 이제 실제 요청이 들어왔을 때 어떻게 동작하는지를 본다
+- **코드 영역**: [entrypoints/llm.py](https://github.com/vllm-project/vllm/blob/main/vllm/entrypoints/llm.py)의 `generate()` / `_validate_and_add_requests` → [v1/engine/llm_engine.py](https://github.com/vllm-project/vllm/blob/main/vllm/v1/engine/llm_engine.py)의 `add_request` / `step` → [v1/core/sched/scheduler.py](https://github.com/vllm-project/vllm/blob/main/vllm/v1/core/sched/scheduler.py)의 `schedule()`
 - **핵심 학습 목표**:
-  1. vLLM이 GPU 메모리에서 KV cache를 위한 페이지 풀을 어떻게 잡는지
-  2. 스케줄러가 한 iteration에 어떤 결정을 내리는지 (continuous batching의 정의)
-  3. Worker / Executor / EngineCore 의 책임 분리
+  1. 요청이 어떻게 `EngineCoreRequest`로 변환돼 큐에 들어가는지
+  2. Scheduler가 한 iteration에 어떤 결정을 내리는지 (continuous batching의 정의)
+  3. token budget / preemption / waiting → running 승격 로직
 
 ---
 
