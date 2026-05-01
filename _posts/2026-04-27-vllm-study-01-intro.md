@@ -558,6 +558,149 @@ Model Executor를 만들 때 `Worker` 객체가 생성되고 **3대 절차**가 
 
 ---
 
+## ⚙️ Generate function — 요청 주입과 step 루프
+
+> The first step is to validate and feed requests into the engine. For each prompt we:
+> 1. Create a unique request ID and capture its arrival time
+> 2. Call an input preprocessor that tokenizes the prompt and returns a dictionary containing prompt, prompt_token_ids, and a type (text, tokens, embeds, etc.)
+> 3. Pack this info into an EngineCoreRequest, adding priority, sampling params, and other metadata
+> 4. Pass the request into the engine core, which wraps it in a Request object and sets its status to WAITING. This request is then added to the scheduler's waiting queue (append if FCFS, or heap-push if priority)
+
+첫 단계는 요청을 검증해서 엔진에 밀어 넣는 것. 각 prompt에 대해 — (1) 고유한 request ID 생성 + arrival time 기록, (2) input preprocessor가 토크나이즈해서 `prompt`, `prompt_token_ids`, type(text/tokens/embeds 등)을 dict로 반환, (3) 이 정보를 `EngineCoreRequest`로 묶고 priority·sampling params·메타 추가, (4) engine core로 전달 → `Request` 객체로 래핑되고 status가 `WAITING`으로 세팅됨. 이후 스케줄러의 waiting queue에 들어감 (FCFS면 append, priority면 heap-push).
+
+### ① "요청 주입" — 코드로 따라가기
+
+| 블로그의 4단계 | 현재 vllm 코드 위치 |
+|---|---|
+| ① 고유 request ID 부여 | [entrypoints/llm.py:1815 `LLM._add_request`](https://github.com/vllm-project/vllm/blob/main/vllm/entrypoints/llm.py)<br>→ `request_id = str(next(self.request_counter))` |
+| ② input preprocessor 호출 | [v1/engine/llm_engine.py:209 `LLMEngine.add_request`](https://github.com/vllm-project/vllm/blob/main/vllm/v1/engine/llm_engine.py)<br>→ `self.input_processor.process_inputs(...)` |
+| ③ `EngineCoreRequest`로 패킹 | 같은 `process_inputs`의 리턴값이 곧 `EngineCoreRequest`. 타입 정의: [v1/engine/__init__.py](https://github.com/vllm-project/vllm/blob/main/vllm/v1/engine/__init__.py) |
+| ④ engine core 전달 → Request 래핑 → status=WAITING → waiting queue | [v1/engine/core.py:315 `EngineCore.add_request`](https://github.com/vllm-project/vllm/blob/main/vllm/v1/engine/core.py) → [v1/request.py:91 `self.status = RequestStatus.WAITING`](https://github.com/vllm-project/vllm/blob/main/vllm/v1/request.py) |
+
+`RequestStatus` enum을 보면 단순한 `WAITING` 외에도 고급 기능용 세분화된 대기 상태가 있다. 시리즈 후반부의 떡밥.
+
+```python
+# vllm/v1/request.py:299
+class RequestStatus(enum.IntEnum):
+    WAITING = enum.auto()
+    WAITING_FOR_STRUCTURED_OUTPUT_GRAMMAR = enum.auto()  # guided decoding 대기
+    WAITING_FOR_REMOTE_KVS = enum.auto()                 # disaggregated P/D에서 KV 전송 대기
+    WAITING_FOR_STREAMING_REQ = enum.auto()
+    # ... RUNNING / PREEMPTED / FINISHED_* ...
+```
+
+### ② Sync vs Async — 같은 step 루프, 다른 주입 시점
+
+> In the synchronous engine example, these initial prompts are the only ones we'll process — there's no mechanism to inject new requests mid-run. In contrast, the asynchronous engine supports this (aka **continuous batching**): after each step, both new and old requests are considered.
+>
+> Because the forward pass flattens the batch into a single sequence and custom kernels handle it efficiently, continuous batching is fundamentally supported even in the synchronous engine.
+
+동기 엔진 예제에서는 처음 던진 프롬프트들만 처리되고, 실행 중에 새 요청을 주입하는 메커니즘이 없다. 반면 비동기 엔진은 step마다 신·구 요청을 모두 고려할 수 있다 — 이게 **continuous batching**.
+
+그런데 *기본 메커니즘 자체*는 동기 엔진도 동일하게 갖고 있다. forward pass가 batch를 단일 시퀀스로 flatten하고 커스텀 커널이 효율적으로 처리하기 때문에, "주입 시점"만 다를 뿐 batching 구조는 같다.
+
+> 💡 continuous batching은 *"새 요청을 도중에 끼워 넣을 수 있다"* 의 문제이지, forward pass 자체가 다른 게 아니다. 동기 엔진의 forward 커널 = 비동기 엔진의 forward 커널. 차이는 *스케줄러 입력에 어떤 요청이 들어오느냐* 일 뿐.
+
+### ③ `step()` 의 3단계
+
+> Next, as long as there are requests to process, the engine repeatedly calls its `step()` function. Each step has three stages:
+> 1. **Schedule**: select which requests to run in this step (decode, and/or (chunked) prefill)
+> 2. **Forward pass**: run the model and sample tokens
+> 3. **Postprocess**: append sampled token IDs to each Request, detokenize, and check stop conditions. If a request is finished, clean up (e.g. return its KV-cache blocks to `free_block_queue`) and return the output early
+
+| step 단계 | 코드 위치 |
+|---|---|
+| Schedule | [v1/core/sched/scheduler.py:351 `Scheduler.schedule()`](https://github.com/vllm-project/vllm/blob/main/vllm/v1/core/sched/scheduler.py) — `SchedulerOutput` 반환 |
+| Forward pass | [v1/worker/gpu_model_runner.py](https://github.com/vllm-project/vllm/blob/main/vllm/v1/worker/gpu_model_runner.py) `GPUModelRunner.execute_model` — Executor를 통해 호출 |
+| Postprocess (token append + stop 체크 + 블록 반납) | [v1/core/sched/scheduler.py:1302 `update_from_output`](https://github.com/vllm-project/vllm/blob/main/vllm/v1/core/sched/scheduler.py) + [v1/core/sched/utils.py:94 `check_stop`](https://github.com/vllm-project/vllm/blob/main/vllm/v1/core/sched/utils.py) |
+
+### ④ Stop 조건 — 정확히 무엇으로 끝나는가
+
+> Stop conditions are:
+> - The request exceeds its length limit (`max_model_length` or its own `max_tokens`)
+> - The sampled token is the EOS ID (unless `ignore_eos` is enabled — useful for benchmarking when we want to force a generation of a certain number of out tokens)
+> - The sampled token matches any of the `stop_token_ids` specified in the sampling parameters
+> - Stop strings are present in the output — we truncate the output until the first stop string appearance and abort the request in the engine (note that `stop_token_ids` will be present in the output but stop strings will not).
+
+Stop 조건은 4가지 — (a) 길이 한계 초과 (`max_model_length` 또는 요청별 `max_tokens`), (b) 샘플된 토큰이 EOS ID (단, `ignore_eos`면 무시 — 벤치마크에서 특정 개수만큼 강제로 생성시킬 때 유용), (c) 샘플된 토큰이 sampling params의 `stop_token_ids` 중 하나와 일치, (d) 출력에 stop string 등장 — 첫 등장까지 truncate 후 엔진에서 abort. 참고: `stop_token_ids`는 출력에 *포함* 되지만 stop string은 *제외* 됨.
+
+```python
+# vllm/v1/core/sched/utils.py:94
+def check_stop(request: Request, max_model_len: int) -> bool:
+    sampling_params = request.sampling_params
+
+    if request.num_output_tokens < sampling_params.min_tokens:
+        return False
+
+    last_token_id = request.output_token_ids[-1]
+
+    # (b) EOS
+    if last_token_id == sampling_params.eos_token_id:
+        request.status = RequestStatus.FINISHED_STOPPED
+        return True
+
+    # (c) stop_token_ids
+    if last_token_id in (sampling_params.stop_token_ids or ()):
+        request.status = RequestStatus.FINISHED_STOPPED
+        request.stop_reason = last_token_id
+        return True
+
+    # (a) length cap (max_model_len OR per-request max_tokens)
+    if (
+        request.num_tokens >= max_model_len
+        or request.num_output_tokens >= request.max_tokens
+    ):
+        request.status = RequestStatus.FINISHED_LENGTH_CAPPED
+        return True
+    ...
+```
+
+(a)(b)(c)는 토큰 단위라 위 코드에서 처리하지만, (d) stop string은 detokenize된 텍스트 매칭이라 별도 경로 — [v1/engine/detokenizer.py:304 `check_stop_strings`](https://github.com/vllm-project/vllm/blob/main/vllm/v1/engine/detokenizer.py).
+
+### ⑤ 한 사이클의 데이터 흐름 (요청 주입 → step 반복)
+
+```
+# 사용자 코드
+llm.generate(prompts, sampling_params)
+  └─ for prompt in prompts:
+       LLM._add_request(prompt, params)            # entrypoints/llm.py:1815
+         └─ request_id = str(next(self.request_counter))
+         └─ LLMEngine.add_request(request_id, ...) # v1/engine/llm_engine.py:209
+              └─ input_processor.process_inputs(...) ──┐
+                                                       ▼
+                                            EngineCoreRequest
+              └─ engine_core.add_request(req)
+                   └─ EngineCore.add_request()         # v1/engine/core.py:315
+                        └─ request = Request.from_engine_core_request(...)
+                        └─ request.status = WAITING    # v1/request.py:91
+                        └─ scheduler.add_request(req)
+                             └─ self.waiting.append(req)   # FCFS
+                                or heappush(...)           # priority
+
+  └─ while llm_engine.has_unfinished_requests():
+       step_outputs = llm_engine.step()                # 반복
+
+LLMEngine.step()
+  └─ engine_core.get_output()
+       └─ EngineCore.step()                            # v1/engine/core.py:402
+            ① scheduler_output = self.scheduler.schedule()    # 무엇을 돌릴지 결정
+            ② model_output     = self.model_executor.execute_model(scheduler_output)  # forward + sample
+            ③ engine_core_output = self.scheduler.update_from_output(
+                   scheduler_output, model_output)            # token append + stop 체크
+                  └─ check_stop(request, max_model_len)       # utils.py:94
+                  └─ if finished: free_block_queue 로 KV blocks 반납
+  └─ output_processor.process_outputs(...)             # detokenize + stop string 체크
+  └─ engine_core.abort_requests(reqs_to_abort)         # stop string으로 끝난 요청 abort
+```
+
+🎯 **요약**: `generate()`가 하는 일은 결국 *"모든 prompt를 add_request로 waiting queue에 밀어 넣고, has_unfinished_requests 동안 step()을 반복"*. step의 3단계(Schedule / Forward / Postprocess)는 V0/V1 어떤 엔진이든 동일한 골격.
+
+> Next, we'll examine scheduling in more detail.
+
+다음 단계는 **스케줄링** 의 디테일.
+
+---
+
 ## ❓ 발표 전 Q&A 체크리스트
 
 발표 전, 이 4가지에 답할 수 있어야 안전하다.
@@ -576,14 +719,14 @@ Model Executor를 만들 때 `Worker` 객체가 생성되고 **3대 절차**가 
 
 ---
 
-## 📌 다음 회차 예고 — `generate()` 함수
+## 📌 다음 회차 예고 — Scheduling 디테일
 
-- **대상 분량**: 블로그 본문 `generate()` 따라가는 부분. 엔진 생성자는 끝났고, 이제 실제 요청이 들어왔을 때 어떻게 동작하는지를 본다
-- **코드 영역**: [entrypoints/llm.py](https://github.com/vllm-project/vllm/blob/main/vllm/entrypoints/llm.py)의 `generate()` / `_validate_and_add_requests` → [v1/engine/llm_engine.py](https://github.com/vllm-project/vllm/blob/main/vllm/v1/engine/llm_engine.py)의 `add_request` / `step` → [v1/core/sched/scheduler.py](https://github.com/vllm-project/vllm/blob/main/vllm/v1/core/sched/scheduler.py)의 `schedule()`
+- **대상 분량**: 블로그 본문의 *Scheduling* 섹션. step의 1단계인 `Scheduler.schedule()`이 한 iteration에서 정확히 무엇을 결정하는지를 본다
+- **코드 영역**: [v1/core/sched/scheduler.py:351 `schedule()`](https://github.com/vllm-project/vllm/blob/main/vllm/v1/core/sched/scheduler.py) 본문 + [v1/core/sched/output.py](https://github.com/vllm-project/vllm/blob/main/vllm/v1/core/sched/output.py) (`SchedulerOutput` 구조)
 - **핵심 학습 목표**:
-  1. 요청이 어떻게 `EngineCoreRequest`로 변환돼 큐에 들어가는지
-  2. Scheduler가 한 iteration에 어떤 결정을 내리는지 (continuous batching의 정의)
-  3. token budget / preemption / waiting → running 승격 로직
+  1. token budget — 한 step에 처리할 수 있는 토큰 총량과 분배 정책
+  2. chunked prefill — 긴 prompt를 잘라 여러 step에 걸쳐 prefill하는 메커니즘
+  3. waiting → running 승격, running 도중 KV 부족 시 preemption 처리
 
 ---
 
