@@ -919,14 +919,29 @@ self.cudagraph_dispatcher = CudagraphDispatcher(self.vllm_config)
 
 ---
 
-## 📌 다음 회차 예고 — Advanced features
+## 🏁 챕터 1 마무리
 
-- **대상 분량**: 1편의 "Engine Core" 파트가 끝났으니, 다음은 블로그 시리즈의 *Advanced features* 파트로 진입. 첫 주제는 **chunked prefill** / **prefix caching**
-- **코드 영역**: [scheduler.py](https://github.com/vllm-project/vllm/blob/main/vllm/v1/core/sched/scheduler.py)의 `long_prefill_token_threshold` 처리 + [kv_cache_manager.py](https://github.com/vllm-project/vllm/blob/main/vllm/v1/core/kv_cache_manager.py)의 `get_computed_blocks` + [kv_cache_utils.py](https://github.com/vllm-project/vllm/blob/main/vllm/v1/core/kv_cache_utils.py)의 hash 함수 계열
-- **핵심 학습 목표**:
-  1. chunked prefill이 token budget 안에서 어떻게 긴 prompt를 나눠 처리하는지
-  2. prefix caching의 hash 키 정의와 cache hit 판별 로직
-  3. 두 기능이 같은 step에서 동시에 동작할 때 `allocate_slots`가 어떻게 5영역(comp/new_comp/ext_comp/new/lookahead)을 채우는지
+여기까지가 **챕터 1: LLM Engine & Engine Core** 의 끝. 6줄짜리 offline inference 예제(`LLM(...)` + `llm.generate(...)`) 한 번 호출이 실제로는 어떤 컴포넌트들의 협주인지를 따라왔다.
+
+### ✅ 챕터 1에서 짚은 것들
+
+1. **도입부 & 분석 기준** — 시리즈 5파트 구성, V1 엔진 / 단일 프로세스 / 단일 GPU / 표준 트랜스포머라는 단순화 사다리, 코드 매핑 표
+2. **LLM 클래스 & LLMEngine** — `LLM`은 `EngineArgs` 빌더의 얇은 wrapper. 실제 엔진 본체는 `LLMEngine`이고, 그 4대 컴포넌트는 `renderer` · `input_processor` · `engine_core` · `output_processor`
+3. **EngineCore 내부** — `VllmConfig`, Model Executor, Scheduler, KV Cache Manager(+ `BlockPool` / `free_block_queue`), Structured Output Manager
+4. **Worker 3대 절차** — `init_device` / `load_model` / `determine_available_memory` + `compile_or_warm_up_model`. *"GPU 잡기 → 모델 로드 → 가용 VRAM 측정 후 KV cache 풀 잡고 CUDA Graph 캡처"*
+5. **Generate 함수** — `add_request`로 waiting queue에 밀어 넣고, `has_unfinished_requests` 동안 `step()`의 3단계(Schedule / Forward / Postprocess)를 반복. stop 조건은 길이 / EOS / `stop_token_ids` / stop string의 4가지
+6. **Scheduler** — V1은 prefill/decode 구분이 데이터 모델 차원에서 사라짐 (*"there's no decoding phase nor prefill phase"*). running 우선 → waiting 처리, `allocate_slots`로 KV 블록 할당, 부족하면 recompute preemption
+7. **Forward pass** — Executor → Worker → ModelRunner의 5단계. 모든 시퀀스를 단일 super sequence로 flatten + position/mask로 분리 → *right-padding 없이 continuous batching* 이 가능한 이유. Eager vs Captured(CUDA Graph) 두 모드
+
+### 🧠 한 줄로 요약하면
+
+> vLLM은 결국 **"GPU 메모리를 16-토큰짜리 페이지(블록)로 잘게 나눠 풀로 관리하고, 매 step마다 스케줄러가 그 풀에서 블록을 빌려 요청들에 분배하면서, 모든 요청을 하나의 긴 시퀀스로 flatten해 한 번의 forward pass에 욱여넣는"** 시스템. 이게 페이지드 어텐션 + 컨티뉴어스 배칭이 협력해서 만드는 throughput의 정체.
+
+### 📌 챕터 2 예고 — Advanced features
+
+- 같은 시리즈의 *Advanced features* 파트로 진입. 다룰 주제: **chunked prefill**, **prefix caching**, **guided / speculative decoding**, **disaggregated P/D**
+- 주요 코드 영역: [kv_cache_manager.py](https://github.com/vllm-project/vllm/blob/main/vllm/v1/core/kv_cache_manager.py)의 `get_computed_blocks`, [kv_cache_utils.py](https://github.com/vllm-project/vllm/blob/main/vllm/v1/core/kv_cache_utils.py)의 hash 함수, [v1/spec_decode/](https://github.com/vllm-project/vllm/tree/main/vllm/v1/spec_decode), [v1/structured_output/](https://github.com/vllm-project/vllm/tree/main/vllm/v1/structured_output)
+- 학습 목표는 챕터 2 글에서 다시 정리. 챕터 1의 `allocate_slots` 5영역 (comp / new_comp / ext_comp / new / lookahead)이 거기서 본격적으로 풀린다
 
 ---
 
