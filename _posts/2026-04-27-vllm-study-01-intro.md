@@ -662,6 +662,12 @@ def check_stop(request: Request, max_model_len: int) -> bool:
 
 ### ⑤ 한 사이클의 데이터 흐름 (요청 주입 → step 반복)
 
+![](../images/2026-04-27-vllm-study-01-intro/engine-loop.png)
+![](/images/2026-04-27-vllm-study-01-intro/engine-loop.png)
+
+Schedule → Forward pass → Postprocess의 3단계가 끝없이 반복되는 구조. 각 step이 끝날 때마다 *finish 여부 체크 → KV blocks 반납 → output 반환* 이 일어난다.
+
+
 ```
 # 사용자 코드
 llm.generate(prompts, sampling_params)
