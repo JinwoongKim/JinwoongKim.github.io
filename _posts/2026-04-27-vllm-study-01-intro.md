@@ -845,32 +845,88 @@ Blocks layout:
 
 ---
 
-## ❓ 발표 전 Q&A 체크리스트
+## 🚀 Forward pass — `execute_model`의 5단계
 
-발표 전, 이 4가지에 답할 수 있어야 안전하다.
+> We call model executor's `execute_model`, which delegates to the Worker, which in turn delegates to the model runner.
 
-**Q1.** V1 엔진과 V0 엔진의 가장 큰 구조적 차이는?
-> 힌트: V1은 EngineCore를 별도 프로세스로 분리(IPC) + 스케줄러 단순화. V0의 sequence-level scheduling vs V1의 request/iteration-level scheduling 차이.
+Model Executor의 `execute_model`을 호출 → Worker로 위임 → 다시 ModelRunner로 위임. 같은 메서드 이름을 한 단계씩 내려가는 구조.
 
-**Q2.** `VLLM_ENABLE_V1_MULTIPROCESSING=0`으로 끄면 사라지는 컴포넌트는 구체적으로 무엇인가?
-> → `MPClient` / `SyncMPClient` / `AsyncMPClient` 경로와 ZMQ 기반 IPC가 사라지고, `InprocClient`가 직접 `EngineCore`를 들고 있게 된다 ([core_client.py:274](https://github.com/vllm-project/vllm/blob/main/vllm/v1/engine/core_client.py)).
+### ① 호출 체인 — Executor → Worker → ModelRunner
 
-**Q3.** DP / TP / PP / EP 각각이 vLLM 어디서 어떻게 enable되는가?
-> → `EngineArgs.tensor_parallel_size`, `pipeline_parallel_size`, `data_parallel_size`, `enable_expert_parallel` 등을 통해 `VllmConfig.parallel_config`로 모이고, `Executor.get_class()`가 적절한 Executor로 분기.
+| 단계 | 현재 vllm 위치 |
+|---|---|
+| Executor.execute_model | [v1/executor/uniproc_executor.py:102](https://github.com/vllm-project/vllm/blob/main/vllm/v1/executor/uniproc_executor.py) |
+| Worker.execute_model | [v1/worker/gpu_worker.py:753](https://github.com/vllm-project/vllm/blob/main/vllm/v1/worker/gpu_worker.py) |
+| GPUModelRunner._update_states / _prepare_inputs / _sample | [v1/worker/gpu_model_runner.py:1061 / 1776 / 3329](https://github.com/vllm-project/vllm/blob/main/vllm/v1/worker/gpu_model_runner.py) |
 
-**Q4.** 왜 hybrid model(Jamba 등)이 KV cache allocator를 더 복잡하게 만드는가?
-> → Mamba(SSM)의 state는 *고정 크기*이고 attention KV는 *seq_len에 비례*해서 늘어난다. 두 종류의 메모리 풀을 한 모델 안에서 동시에 관리해야 한다 ([kv_cache_coordinator.py](https://github.com/vllm-project/vllm/blob/main/vllm/v1/core/kv_cache_coordinator.py)의 존재 이유).
+### ② 5단계의 의미
+
+> Here are the main steps:
+> 1. **Update states** — prune finished requests from `input_batch`; update misc fwd-pass related metadata (e.g., KV cache blocks per request that will be used to index into paged KV cache memory).
+> 2. **Prepare inputs** — copy buffers from CPU→GPU; compute positions; build `slot_mapping` (more on that in example); construct attention metadata.
+> 3. **Forward pass** — run the model with custom paged attn kernels. All sequences are flattened and concatenated into one long "super sequence". Position indices and attention masks ensure each sequence only attends to its own tokens, which enables continuous batching without right-padding.
+> 4. **Gather last-token states** — extract hidden states for each sequence's final position and compute logits.
+> 5. **Sample** — sample tokens from computed logits as dictated by the sampling config (greedy, temperature, top-p, top-k, etc.).
+
+5단계 — (1) **Update states**: `input_batch`에서 끝난 요청 제거, paged KV cache 메모리 인덱싱에 쓸 "요청별 KV 블록" 등 메타 갱신. (2) **Prepare inputs**: CPU→GPU 버퍼 복사, position 계산, `slot_mapping` 빌드, attention metadata 구성. (3) **Forward pass**: paged attention 커스텀 커널로 모델 실행. *모든 시퀀스를 flatten해서 하나의 긴 "super sequence"로 concat* 하고, position index와 attention mask로 각 시퀀스가 자기 토큰만 attend하게 함 → **right-padding 없이 continuous batching 가능**. (4) **Gather last-token states**: 시퀀스별 마지막 위치의 hidden state 추출 + logits 계산. (5) **Sample**: sampling config(greedy / temperature / top-p / top-k 등)에 따라 토큰 샘플.
+
+### ③ 단계별 코드 매핑
+
+| 단계 | 현재 vllm 위치 / 핵심 함수 |
+|---|---|
+| ① Update states | [`GPUModelRunner._update_states` @ 1061](https://github.com/vllm-project/vllm/blob/main/vllm/v1/worker/gpu_model_runner.py) + `_update_states_after_model_execute` @ 1416 |
+| ② Prepare inputs | [`_prepare_inputs` @ 1776](https://github.com/vllm-project/vllm/blob/main/vllm/v1/worker/gpu_model_runner.py) + `input_batch.block_table.compute_slot_mapping(...)` @ 1997 |
+| ③ Forward pass (paged attn) | [v1/attention/](https://github.com/vllm-project/vllm/tree/main/vllm/v1/attention) + 모델 정의 ([vllm/model_executor/](https://github.com/vllm-project/vllm/tree/main/vllm/model_executor)) |
+| ④ Gather last-token / logits | 모델의 LM head + sampler 진입 직전 hidden state 슬라이싱 (model_runner 내부) |
+| ⑤ Sample | [`GPUModelRunner._sample` @ 3329](https://github.com/vllm-project/vllm/blob/main/vllm/v1/worker/gpu_model_runner.py) + [v1/sample/](https://github.com/vllm-project/vllm/tree/main/vllm/v1/sample) |
+
+> 💡 **`slot_mapping`이란?** "이번 step에 forward 할 각 토큰을 paged KV cache의 어느 슬롯(블록 ID × 블록 내 오프셋)에 써야 하는가"를 알려주는 1D 텐서. attention 커널이 *"K, V를 어디다 쓰고 어디서 읽어야 하는지"* 를 매 step 다시 알려줘야 하기 때문에 prepare 단계에서 새로 만들어진다. 코드: [gpu_model_runner.py:1997 `compute_slot_mapping`](https://github.com/vllm-project/vllm/blob/main/vllm/v1/worker/gpu_model_runner.py).
+
+### ④ Eager vs Captured (CUDA Graph)
+
+> Forward-pass step itself has two execution modes:
+> - **Eager mode** — run the standard PyTorch forward pass when eager execution is enabled.
+> - **"Captured" mode** — execute/replay a pre-captured CUDA Graph when eager is not enforced (remember we captured these during engine construction in the initialize KV cache procedure).
+
+Forward pass에는 두 실행 모드가 있다 — (a) **Eager**: 평범한 PyTorch forward(`--enforce-eager` 켜진 경우). (b) **Captured**: 엔진 생성 때 미리 캡처해 둔 CUDA Graph를 replay만 함 (앞에서 본 `compile_or_warm_up_model` 단계에서 캡처).
+
+```python
+# vllm/v1/worker/gpu_model_runner.py 일부
+from vllm.compilation.cuda_graph import CUDAGraphStat, CUDAGraphWrapper
+from vllm.v1.cudagraph_dispatcher import CudagraphDispatcher
+
+# self.cudagraph_batch_sizes sorts in ascending order.
+if (
+    self.compilation_config.cudagraph_capture_sizes
+    and self.compilation_config.cudagraph_mode != CUDAGraphMode.NONE
+):
+    self.cudagraph_batch_sizes = sorted(
+        self.compilation_config.cudagraph_capture_sizes
+    )
+
+# Cudagraph dispatcher for runtime cudagraph dispatching.
+self.cudagraph_dispatcher = CudagraphDispatcher(self.vllm_config)
+```
+
+한 가지 그래프만 캡처하는 게 아니라 *여러 batch size 별로 미리 캡처* 해 두고, 매 step의 실제 batch size에 맞는 그래프를 dispatcher가 선택. 이게 vLLM이 dynamic batch에서도 CUDA Graph 이득을 그대로 뽑아내는 방법.
+
+### ⑤ 그림 — flatten된 super sequence와 paged KV
+
+![](../images/2026-04-27-vllm-study-01-intro/fwd-pass.png)
+![](/images/2026-04-27-vllm-study-01-intro/fwd-pass.png)
+
+그림은 (위) 여러 요청의 토큰들이 단일 시퀀스로 concat되는 모습, (중간) `slot_mapping`으로 각 토큰이 paged KV의 어느 블록·오프셋에 쓰일지를 가리키는 모습, (아래) attention 커널이 같은 K/V 블록 풀을 공유하면서도 시퀀스 경계를 mask로 분리해 각자에게만 attend하는 모습을 한 장에 보여준다. **right-padding 없이 batch 효율을 챙긴다**는 vLLM의 핵심 트릭이 시각화된 그림.
 
 ---
 
-## 📌 다음 회차 예고 — Forward pass
+## 📌 다음 회차 예고 — Advanced features
 
-- **대상 분량**: Schedule 단계 끝났으니, 다음은 **Forward pass** — Executor → Worker → ModelRunner → attention backend(FlashAttention 등) 까지의 콜체인
-- **코드 영역**: [v1/executor/uniproc_executor.py](https://github.com/vllm-project/vllm/blob/main/vllm/v1/executor/uniproc_executor.py) → [v1/worker/gpu_worker.py](https://github.com/vllm-project/vllm/blob/main/vllm/v1/worker/gpu_worker.py) → [v1/worker/gpu_model_runner.py](https://github.com/vllm-project/vllm/blob/main/vllm/v1/worker/gpu_model_runner.py) → [v1/attention/](https://github.com/vllm-project/vllm/tree/main/vllm/v1/attention)
+- **대상 분량**: 1편의 "Engine Core" 파트가 끝났으니, 다음은 블로그 시리즈의 *Advanced features* 파트로 진입. 첫 주제는 **chunked prefill** / **prefix caching**
+- **코드 영역**: [scheduler.py](https://github.com/vllm-project/vllm/blob/main/vllm/v1/core/sched/scheduler.py)의 `long_prefill_token_threshold` 처리 + [kv_cache_manager.py](https://github.com/vllm-project/vllm/blob/main/vllm/v1/core/kv_cache_manager.py)의 `get_computed_blocks` + [kv_cache_utils.py](https://github.com/vllm-project/vllm/blob/main/vllm/v1/core/kv_cache_utils.py)의 hash 함수 계열
 - **핵심 학습 목표**:
-  1. Sampler — top-p/top-k/temperature 가 어디서 적용되는지
-  2. InputBatch와 block table — CPU 측 메타가 GPU 커널에 전달되는 형태
-  3. CUDA Graph replay 가 실제로 어느 시점에 트리거되는지
+  1. chunked prefill이 token budget 안에서 어떻게 긴 prompt를 나눠 처리하는지
+  2. prefix caching의 hash 키 정의와 cache hit 판별 로직
+  3. 두 기능이 같은 step에서 동시에 동작할 때 `allocate_slots`가 어떻게 5영역(comp/new_comp/ext_comp/new/lookahead)을 채우는지
 
 ---
 
