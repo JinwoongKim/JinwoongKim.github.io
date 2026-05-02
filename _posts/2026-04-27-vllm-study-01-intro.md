@@ -710,6 +710,141 @@ LLMEngine.step()
 
 ---
 
+## 🗓️ Scheduler — prefill/decode와 `allocate_slots`
+
+> There are two main types of workloads an inference engine handles:
+> - **Prefill requests** — a forward pass over all prompt tokens. These are usually *compute-bound* (threshold depends on hardware and prompt length). At the end, we sample a single token from the probability distribution of the final token's position.
+> - **Decode requests** — a forward pass over just the most recent token. All earlier KV vectors are already cached. These are *memory-bandwidth-bound*, since we still need to load all LLM weights (and KV caches) just to compute one token.
+
+추론 엔진이 다루는 워크로드는 크게 두 종류 — (a) **Prefill**: prompt 토큰 전체를 한 번에 forward. 보통 *compute-bound* (정확한 임계는 하드웨어/길이에 따라 다름). 마지막 위치의 확률 분포에서 토큰 1개를 샘플링. (b) **Decode**: 가장 최근 토큰 하나에 대해서만 forward. 이전 KV는 캐시에 있음. 그러나 LLM weight(+ KV cache)는 여전히 다 메모리에서 로드해야 하므로 *memory-bandwidth-bound*.
+
+> 💡 prefill = "GPU 연산 수가 많아서 SM이 바쁨", decode = "weight를 메모리에서 읽어오느라 대역폭이 병목". 같은 GPU라도 두 페이즈에서 보이는 효율 곡선이 완전히 다른 이유. roofline 분석은 시리즈 후반(Benchmarks 파트)의 떡밥.
+
+### ① V1 vs V0 — prefill/decode 동시 처리
+
+> The V1 scheduler can **mix both types of requests in the same step**, thanks to smarter design choices. In contrast, the V0 engine could only process either prefill or decode at once.
+
+V1 스케줄러는 같은 step 안에 prefill과 decode를 **섞어서** 돌릴 수 있다. V0는 한 step에 둘 중 하나만 가능했음.
+
+```python
+# vllm/v1/core/sched/scheduler.py:351 schedule() 본문 첫 NOTE
+def schedule(self) -> SchedulerOutput:
+    # NOTE on the scheduling algorithm:
+    # There's no "decoding phase" nor "prefill phase" in the scheduler.
+    # Each request just has the num_computed_tokens and num_tokens_with_spec.
+    # num_tokens_with_spec = len(prompt_token_ids) + len(output_token_ids) + len(spec_token_ids).
+    # At each step, the scheduler tries to assign tokens to the requests
+    # so that each request's num_computed_tokens can catch up its num_tokens_with_spec.
+    # This is general enough to cover chunked prefills, prefix caching,
+    # speculative decoding, and the "jump decoding" optimization in the future.
+```
+
+**핵심**: V1은 모든 요청을 *"이미 계산한 토큰 수 vs 가야 할 토큰 수"* 로만 본다. prefill/decode 구분이 데이터 모델 차원에서 사라졌고, 그 덕분에 chunked prefill / prefix caching / spec decoding이 같은 추상화 위에서 자연스럽게 동작.
+
+### ② 스케줄링 순서 — running 먼저, 그다음 waiting
+
+> The scheduler **prioritizes decode requests** — i.e. those already in the running queue. For each such request it:
+> 1. Computes the number of new tokens to generate (not always 1, due to speculative decoding and async scheduling).
+> 2. Calls the KV-cache manager's `allocate_slots` function.
+> 3. Updates the token budget by subtracting the number of tokens from step 1.
+>
+> After that, it processes prefill requests from the waiting queue, it:
+> 1. Retrieves the number of computed blocks (returns 0 if prefix caching is disabled).
+> 2. Calls the KV-cache manager's `allocate_slots` function.
+> 3. Pops the request from waiting and moves it to running, setting its status to `RUNNING`.
+> 4. Updates the token budget.
+
+스케줄러는 우선 **running queue (= 진행 중인 decode)** 부터 처리. 각각에 대해 — (1) 이번 step에 생성할 새 토큰 수 계산 (spec decode/async scheduling 때문에 항상 1은 아님), (2) KV cache manager의 `allocate_slots` 호출, (3) 1번 만큼 token budget 차감.
+
+그 후 **waiting queue (= prefill 대기)** 처리 — (a) 이미 계산된 블록 수 조회 (prefix caching 꺼져있으면 0), (b) `allocate_slots` 호출, (c) waiting → running 으로 이동시키고 status를 `RUNNING`으로, (d) token budget 갱신.
+
+> 🎯 **왜 running 먼저인가**: 진행 중인 decode를 막으면 사용자 입장에서 inter-token latency(ITL)가 튄다. 그래서 한정된 token budget을 *먼저 진행 중인 요청에 채워주고*, 남는 만큼만 새 prefill을 받는 정책.
+
+```python
+# vllm/v1/core/sched/scheduler.py:351~ schedule() 일부
+token_budget = self.max_num_scheduled_tokens
+...
+
+self.kv_cache_manager.new_step_starts()
+
+# First, schedule the RUNNING requests.
+req_index = 0
+while req_index < len(self.running) and token_budget > 0:
+    request = self.running[req_index]
+    ...
+    num_new_tokens = (
+        request.num_tokens_with_spec
+        + request.num_output_placeholders
+        - request.num_computed_tokens
+    )
+    # long_prefill_token_threshold 로 cap → chunked prefill의 기반
+    if 0 < self.scheduler_config.long_prefill_token_threshold < num_new_tokens:
+        num_new_tokens = self.scheduler_config.long_prefill_token_threshold
+    num_new_tokens = min(num_new_tokens, token_budget)
+
+    # max_model_len 도 체크 (spec decoding 때문)
+    num_new_tokens = min(
+        num_new_tokens, self.max_model_len - 1 - request.num_computed_tokens
+    )
+    ...
+    # → 이 안에서 kv_cache_manager.allocate_slots(...) 호출
+```
+
+`token_budget`은 한 step에 처리할 수 있는 토큰 총량의 캡. `long_prefill_token_threshold`가 chunked prefill의 단위.
+
+### ③ `allocate_slots` — KV cache 블록 잡기
+
+> Let's now look at what `allocate_slots` does, it:
+> 1. **Computes number of blocks** — determines how many new KV-cache blocks (n) must be allocated. Each block stores 16 tokens by default. For example, if a prefill request has 17 new tokens, we need `ceil(17/16) = 2` blocks.
+> 2. **Checks availability** — if there aren't enough blocks in the manager's pool, exit early. Depending on whether it's a decode or prefill request, the engine may attempt *recompute preemption* (swap preemption was supported in V0) by evicting low-priority requests (calling `kv_cache_manager.free` which returns KV blocks to block pool), or it might skip scheduling and continue execution.
+> 3. **Allocates blocks** — via the KV-cache manager's coordinator, fetches the first n blocks from the block pool (the `free_block_queue` doubly linked list mentioned earlier). Stores to `req_to_blocks`, the dictionary mapping each `request_id` to its list of KV-cache blocks.
+
+`allocate_slots`가 하는 일은 — (1) **블록 수 계산**: 새로 할당할 KV cache 블록 개수 n. 블록당 기본 16 토큰. 예) 17개 새 토큰이면 `ceil(17/16) = 2`개. (2) **가용성 체크**: 풀에 블록이 부족하면 early exit. decode/prefill 종류에 따라 엔진이 *recompute preemption*을 시도하거나(우선순위 낮은 요청을 evict해서 `kv_cache_manager.free` 호출 → 블록 반납), 스케줄을 건너뛰고 그대로 진행. V0에서는 *swap preemption*도 지원했었다. (3) **할당**: KV cache manager의 coordinator가 block pool(아까 본 `free_block_queue` 이중 연결 리스트)에서 첫 n개를 꺼내서 `req_to_blocks[request_id] = [...]` 매핑에 저장.
+
+| 단계 | 현재 vllm 위치 |
+|---|---|
+| `allocate_slots` 본문 | [v1/core/kv_cache_manager.py:257 `KVCacheManager.allocate_slots`](https://github.com/vllm-project/vllm/blob/main/vllm/v1/core/kv_cache_manager.py) |
+| computed blocks 조회 (prefix caching) | [v1/core/kv_cache_manager.py:176 `get_computed_blocks`](https://github.com/vllm-project/vllm/blob/main/vllm/v1/core/kv_cache_manager.py) |
+| 블록 반납 (preemption / 종료) | [v1/core/kv_cache_manager.py:429 `free`](https://github.com/vllm-project/vllm/blob/main/vllm/v1/core/kv_cache_manager.py) |
+| 실제 풀에서 블록 꺼내기 | [v1/core/block_pool.py:336 `self.free_block_queue.popleft_n(num_blocks)`](https://github.com/vllm-project/vllm/blob/main/vllm/v1/core/block_pool.py) |
+
+코드 docstring이 보여주는 블록 레이아웃 (블로그에서 빠진 디테일):
+
+```
+Blocks layout:
+----------------------------------------------------------------------
+| < comp > | < new_comp > | < ext_comp > | < new > | < lookahead > |
+----------------------------------------------------------------------
+                                          |   < to be computed >    |
+----------------------------------------------------------------------
+                          |            < to be allocated >          |
+----------------------------------------------------------------------
+                          | < to be cached (roughly) >              |
+----------------------------------------------------------------------
+| Prefix-cached tokens from either vLLM   |
+| or connector. Can be safely removed if  |
+| they are outside sliding window.        |
+----------------------------------------------------------------------
+| < cached by vLLM >       | not cached by vLLM, but cached         |
+                           | by external connector (P/D, etc.)      |
+----------------------------------------------------------------------
+```
+
+한 요청의 토큰을 5개 영역으로 분류: `comp`(이전 step에서 계산 완료) / `new_comp`(이번 step prefix-caching 히트) / `ext_comp`(P/D connector가 외부에서 가져온 KV) / `new`(이번 step에 진짜 계산할 것) / `lookahead`(spec decoding draft 토큰용 예약). 블로그는 (1)(2)(3)만 다뤘지만, 코드는 이 5개 영역을 동시에 관리.
+
+### ④ 그림 — KV cache 블록과 토큰의 매핑
+
+![](../images/2026-04-27-vllm-study-01-intro/kv-cache-blocks.png)
+![](/images/2026-04-27-vllm-study-01-intro/kv-cache-blocks.png)
+
+각 요청의 토큰 시퀀스가 **16 토큰 단위 블록** 으로 나뉘고, 각 블록이 GPU상의 paged KV cache 메모리 슬롯으로 매핑되는 구조. `req_to_blocks` 딕셔너리가 *"request_id → 블록 리스트"* 매핑을 들고 있음.
+
+> We're finally ready to do a forward pass!
+
+이제 드디어 forward pass를 돌릴 준비 완료.
+
+---
+
 ## ❓ 발표 전 Q&A 체크리스트
 
 발표 전, 이 4가지에 답할 수 있어야 안전하다.
@@ -728,14 +863,14 @@ LLMEngine.step()
 
 ---
 
-## 📌 다음 회차 예고 — Scheduling 디테일
+## 📌 다음 회차 예고 — Forward pass
 
-- **대상 분량**: 블로그 본문의 *Scheduling* 섹션. step의 1단계인 `Scheduler.schedule()`이 한 iteration에서 정확히 무엇을 결정하는지를 본다
-- **코드 영역**: [v1/core/sched/scheduler.py:351 `schedule()`](https://github.com/vllm-project/vllm/blob/main/vllm/v1/core/sched/scheduler.py) 본문 + [v1/core/sched/output.py](https://github.com/vllm-project/vllm/blob/main/vllm/v1/core/sched/output.py) (`SchedulerOutput` 구조)
+- **대상 분량**: Schedule 단계 끝났으니, 다음은 **Forward pass** — Executor → Worker → ModelRunner → attention backend(FlashAttention 등) 까지의 콜체인
+- **코드 영역**: [v1/executor/uniproc_executor.py](https://github.com/vllm-project/vllm/blob/main/vllm/v1/executor/uniproc_executor.py) → [v1/worker/gpu_worker.py](https://github.com/vllm-project/vllm/blob/main/vllm/v1/worker/gpu_worker.py) → [v1/worker/gpu_model_runner.py](https://github.com/vllm-project/vllm/blob/main/vllm/v1/worker/gpu_model_runner.py) → [v1/attention/](https://github.com/vllm-project/vllm/tree/main/vllm/v1/attention)
 - **핵심 학습 목표**:
-  1. token budget — 한 step에 처리할 수 있는 토큰 총량과 분배 정책
-  2. chunked prefill — 긴 prompt를 잘라 여러 step에 걸쳐 prefill하는 메커니즘
-  3. waiting → running 승격, running 도중 KV 부족 시 preemption 처리
+  1. Sampler — top-p/top-k/temperature 가 어디서 적용되는지
+  2. InputBatch와 block table — CPU 측 메타가 GPU 커널에 전달되는 형태
+  3. CUDA Graph replay 가 실제로 어느 시점에 트리거되는지
 
 ---
 
