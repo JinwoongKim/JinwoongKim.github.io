@@ -11,6 +11,9 @@ tags:
 published: true
 ---
 
+> 🤖 **이 글은 Claude Opus 4.7이 정리·작성했습니다.**
+> 원문(영문) 한 줄씩 번역·해석하고, 현재 [vllm-project/vllm](https://github.com/vllm-project/vllm) main 코드와 매핑하는 방식으로 구성했습니다. 사람이 다시 검토했지만, 코드 위치와 라인 번호는 시점에 따라 어긋날 수 있습니다.
+
 새로운 스터디를 시작했다. Aleksa Gordic의 [Inside vLLM: Anatomy of a High-Throughput LLM Inference System](https://www.aleksagordic.com/blog/vllm)을 돌아가면서 발표하는데, 단순 발표가 아니라 **현재 vLLM 코드베이스까지 같이 따라가면서** 보기로 했다.
 
 > - 원문 commit: `42172ad` (2025-08-09)
