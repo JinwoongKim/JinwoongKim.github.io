@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portugal 2026 · Master Document</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,300..800,0..100&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f7f1e3;
+    --paper: #fffaf0;
+    --paper-2: #fbf6ea;
+    --ink: #1d1d1b;
+    --ink-soft: #4a4742;
+    --ink-faint: #6f6a62;
+    --rule: #d9cfb8;
+    --rule-strong: #b9ad90;
+    --azul: #1f3a5f;
+    --azul-deep: #122644;
+    --azul-soft: #4a6b8a;
+    --terra: #c0552d;
+    --terra-light: #e89968;
+    --port: #6b2737;
+    --olive: #7a8b5c;
+    --gold: #b8893d;
+    --critical: #a52a2a;
+    --warn-bg: #fef3e3;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', -apple-system, sans-serif;
+    font-weight: 400;
+    line-height: 1.65;
+    background-image:
+      radial-gradient(ellipse at 10% 0%, rgba(192,85,45,0.05), transparent 50%),
+      radial-gradient(ellipse at 100% 30%, rgba(31,58,95,0.05), transparent 50%),
+      radial-gradient(ellipse at 30% 100%, rgba(122,139,92,0.05), transparent 50%);
+    background-attachment: fixed;
+  }
+  .page { max-width: 1150px; margin: 0 auto; padding: clamp(28px, 5vw, 64px) clamp(20px, 4vw, 56px) 100px; }
+  .toc {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(247, 241, 227, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--rule);
+    padding: 12px 0; margin-bottom: 32px;
+    overflow-x: auto; white-space: nowrap;
+  }
+  .toc-inner {
+    max-width: 1150px; margin: 0 auto;
+    padding: 0 clamp(20px, 4vw, 56px);
+    display: flex; gap: 4px;
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+  }
+  .toc a {
+    color: var(--ink-soft); text-decoration: none;
+    padding: 6px 10px; border-radius: 3px;
+    transition: all .2s; letter-spacing: 0.5px;
+  }
+  .toc a:hover { background: var(--terra); color: white; }
+  .masthead {
+    border-bottom: 3px double var(--rule-strong);
+    padding-bottom: 36px; margin-bottom: 48px;
+    position: relative;
+  }
+  .masthead::before {
+    content: ''; position: absolute; top: 0; left: 0;
+    width: 64px; height: 4px; background: var(--terra);
+  }
+  .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: 4px;
+    color: var(--terra); text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+  h1 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(48px, 7vw, 88px);
+    font-weight: 400;
+    font-variation-settings: "opsz" 144, "SOFT" 50;
+    line-height: 0.95;
+    color: var(--azul-deep);
+    letter-spacing: -2px;
+  }
+  h1 em { font-style: italic; color: var(--terra); font-weight: 300; }
+  .subtitle {
+    font-family: 'Fraunces', serif;
+    font-size: 20px; font-style: italic;
+    color: var(--ink-soft); margin-top: 18px;
+  }
+  .meta-row {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 24px; margin-top: 36px; padding-top: 28px;
+    border-top: 1px solid var(--rule);
+    font-family: 'JetBrains Mono', monospace; font-size: 12px;
+  }
+  .meta-row > div strong {
+    display: block; font-size: 9px; letter-spacing: 2px;
+    color: var(--terra); margin-bottom: 6px;
+  }
+  section { margin-bottom: 72px; scroll-margin-top: 80px; }
+  h2 {
+    font-family: 'Fraunces', serif;
+    font-size: 40px; font-weight: 500;
+    color: var(--azul-deep); margin-bottom: 28px;
+    display: flex; align-items: baseline; gap: 18px;
+    letter-spacing: -0.5px;
+  }
+  h2 .num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px; color: var(--terra);
+    letter-spacing: 2px; font-weight: 400;
+  }
+  h2::after {
+    content: ''; flex: 1; height: 1px;
+    background: var(--rule-strong); margin-left: 8px;
+  }
+  h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 24px; font-weight: 600;
+    color: var(--azul); margin-bottom: 12px;
+  }
+  .flights { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 18px; }
+  .flight-card {
+    background: linear-gradient(135deg, var(--paper) 0%, var(--paper-2) 100%);
+    border-left: 4px solid var(--azul);
+    padding: 24px 26px;
+    box-shadow: 2px 4px 14px rgba(31,58,95,0.06);
+  }
+  .flight-card .route { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--terra); letter-spacing: 2px; margin-bottom: 6px; }
+  .flight-card .code { font-family: 'Fraunces', serif; font-size: 30px; font-weight: 600; color: var(--azul-deep); }
+  .flight-card .date { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--ink-soft); margin: 6px 0 10px; }
+  .flight-card .time { font-size: 14px; color: var(--ink); border-top: 1px dashed var(--rule-strong); padding-top: 10px; }
+  .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; }
+  .info-card { background: var(--paper); border: 1px solid var(--rule); padding: 24px 26px; border-radius: 2px; }
+  .info-card .tag { display: inline-block; font-family: 'JetBrains Mono', monospace; font-size: 10px; color: white; background: var(--azul); padding: 3px 8px; letter-spacing: 1.5px; margin-bottom: 14px; }
+  .info-card .tag.alt { background: var(--terra); }
+  .info-card h3 { font-size: 20px; margin-bottom: 4px; }
+  .info-card .sub { font-size: 12px; color: var(--ink-soft); font-style: italic; margin-bottom: 14px; font-family: 'Fraunces', serif; }
+  .info-card ul { list-style: none; font-size: 13.5px; }
+  .info-card ul li { padding: 3px 0; color: var(--ink-soft); }
+  .info-card ul li strong { color: var(--azul-deep); }
+  .info-card .reason { margin-top: 14px; padding-top: 12px; border-top: 1px dashed var(--rule); font-size: 12.5px; color: var(--terra); font-family: 'Fraunces', serif; font-style: italic; }
+  .train-strip { background: var(--azul-deep); color: var(--paper); padding: 30px 36px; display: grid; grid-template-columns: 1fr auto 1fr; gap: 30px; align-items: center; }
+  .train-strip .station { text-align: center; }
+  .train-strip .station .city { font-family: 'Fraunces', serif; font-size: 28px; font-weight: 500; }
+  .train-strip .station .time { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--terra-light); margin-top: 5px; }
+  .train-strip .arrow { font-family: 'JetBrains Mono', monospace; color: var(--terra-light); font-size: 22px; }
+  .train-details { background: var(--paper); padding: 18px 36px; display: flex; gap: 28px; flex-wrap: wrap; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--azul-deep); border: 1px solid var(--rule); border-top: none; }
+  .train-details span strong { color: var(--terra); }
+  .plans-table { width: 100%; border-collapse: collapse; background: var(--paper); font-size: 13.5px; box-shadow: 0 2px 8px rgba(31,58,95,0.05); }
+  .plans-table th { background: var(--azul-deep); color: var(--paper); padding: 14px 16px; text-align: left; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 12px; letter-spacing: 0.5px; }
+  .plans-table td { padding: 14px 16px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+  .plans-table tr:last-child td { border-bottom: none; }
+  .plans-table .plan-name { font-family: 'Fraunces', serif; font-weight: 600; color: var(--azul-deep); font-size: 16px; }
+  .plans-table .recommend { background: var(--terra); color: white; font-family: 'JetBrains Mono', monospace; font-size: 10px; padding: 2px 7px; margin-left: 8px; letter-spacing: 1px; }
+  .plans-table tr.highlighted { background: rgba(192,85,45,0.06); }
+  .days { display: flex; flex-direction: column; gap: 14px; }
+  .day { display: grid; grid-template-columns: 110px 1fr; gap: 25px; padding: 18px 0; border-bottom: 1px solid var(--rule); }
+  .day:last-child { border-bottom: none; }
+  .day .date-block { font-family: 'JetBrains Mono', monospace; border-right: 2px solid var(--terra); padding-right: 16px; }
+  .day .date-block .d { font-size: 26px; color: var(--azul-deep); font-weight: 500; font-family: 'Fraunces', serif; }
+  .day .date-block .m { font-size: 10px; color: var(--terra); letter-spacing: 2px; margin-top: 3px; }
+  .day .date-block .w { font-size: 10px; color: var(--ink-faint); margin-top: 4px; }
+  .day .content h4 { font-family: 'Fraunces', serif; font-size: 19px; color: var(--azul-deep); margin-bottom: 6px; font-weight: 600; }
+  .day .content p { font-size: 14px; color: var(--ink-soft); line-height: 1.65; }
+  .day .content .chips { margin-top: 10px; display: flex; gap: 6px; flex-wrap: wrap; }
+  .day .content .chip { font-family: 'JetBrains Mono', monospace; font-size: 10px; padding: 3px 8px; background: var(--paper-2); color: var(--azul); letter-spacing: 1px; border: 1px solid var(--rule); }
+  .day .content .chip.warn { background: var(--critical); color: white; border-color: var(--critical); }
+  .day .content .chip.book { background: var(--gold); color: white; border-color: var(--gold); }
+  .lisboa-card { background: linear-gradient(135deg, var(--azul) 0%, var(--azul-deep) 100%); color: var(--paper); padding: 36px 42px; border-radius: 4px; position: relative; overflow: hidden; }
+  .lisboa-card::before { content: ''; position: absolute; top: -50px; right: -50px; width: 200px; height: 200px; background: radial-gradient(circle, rgba(192,85,45,0.25) 0%, transparent 70%); pointer-events: none; }
+  .lisboa-card h3 { color: var(--terra-light); font-size: 28px; margin-bottom: 18px; font-family: 'Fraunces', serif; }
+  .lisboa-card p { font-size: 14.5px; max-width: 760px; }
+  .lisboa-card strong { color: white; }
+  .lisboa-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 24px; margin-top: 24px; }
+  .lisboa-grid .item .label { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--terra-light); letter-spacing: 2px; margin-bottom: 5px; }
+  .lisboa-grid .item .val { font-family: 'Fraunces', serif; font-size: 22px; }
+  .lisboa-table { width: 100%; margin-top: 24px; background: rgba(255,255,255,0.05); border-radius: 3px; overflow: hidden; }
+  .lisboa-table th, .lisboa-table td { padding: 10px 14px; text-align: left; font-size: 13px; }
+  .lisboa-table th { background: rgba(255,255,255,0.08); font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 1.5px; color: var(--terra-light); }
+  .lisboa-table td { border-top: 1px solid rgba(255,255,255,0.08); }
+  .pack-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; }
+  .pack-cat { background: var(--paper); border-top: 3px solid var(--olive); padding: 22px 24px; }
+  .pack-cat h4 { font-family: 'Fraunces', serif; font-size: 18px; color: var(--azul-deep); margin-bottom: 12px; font-weight: 600; }
+  .pack-cat ul { list-style: none; font-size: 13.5px; }
+  .pack-cat ul li { padding: 5px 0; color: var(--ink-soft); display: flex; align-items: baseline; gap: 8px; }
+  .pack-cat ul li::before { content: '□'; color: var(--olive); font-size: 14px; flex-shrink: 0; }
+  .pack-cat ul li .priority { display: inline-block; font-family: 'JetBrains Mono', monospace; font-size: 9px; padding: 1px 5px; margin-left: 4px; letter-spacing: 0.5px; }
+  .pack-cat ul li .priority.must { background: var(--critical); color: white; }
+  .pack-cat ul li .priority.rec { background: var(--gold); color: white; }
+  .pack-cat ul li .priority.opt { background: var(--olive); color: white; }
+  .battery-block { background: var(--paper); border: 2px dashed var(--olive); padding: 28px 32px; margin-top: 24px; }
+  .battery-block h3 { color: var(--olive); margin-bottom: 10px; }
+  .battery-block p { font-size: 14px; color: var(--ink-soft); margin-bottom: 14px; line-height: 1.7; }
+  .battery-block .specs { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px; margin-top: 16px; font-family: 'JetBrains Mono', monospace; font-size: 12px; }
+  .battery-block .specs div { padding: 10px 14px; background: var(--paper-2); border: 1px solid var(--rule); }
+  .battery-block .specs div strong { display: block; color: var(--terra); font-size: 9px; letter-spacing: 1.5px; margin-bottom: 4px; }
+  .warnings { background: var(--warn-bg); border-left: 4px solid var(--critical); padding: 24px 30px; }
+  .warnings h3 { color: var(--critical); margin-bottom: 14px; font-size: 22px; }
+  .warnings ul { list-style: none; }
+  .warnings ul li { padding: 8px 0; padding-left: 22px; position: relative; font-size: 14.5px; line-height: 1.6; border-bottom: 1px dotted rgba(165,42,42,0.2); }
+  .warnings ul li:last-child { border-bottom: none; }
+  .warnings ul li::before { content: '◆'; position: absolute; left: 0; color: var(--critical); font-size: 10px; top: 12px; }
+  .warnings ul li strong { color: var(--critical); }
+  .todos { display: flex; flex-direction: column; gap: 10px; }
+  .todo { display: flex; align-items: flex-start; gap: 14px; padding: 14px 20px; background: var(--paper); border-left: 3px solid var(--gold); }
+  .todo .check { width: 16px; height: 16px; border: 2px solid var(--gold); border-radius: 2px; flex-shrink: 0; margin-top: 4px; }
+  .todo .text { flex: 1; }
+  .todo .text strong { color: var(--azul-deep); display: block; margin-bottom: 2px; font-size: 14px; }
+  .todo .text p { font-size: 12.5px; color: var(--ink-soft); line-height: 1.5; }
+  .links-intro { background: var(--paper-2); padding: 22px 28px; border-left: 3px solid var(--azul); font-family: 'Fraunces', serif; font-style: italic; font-size: 15px; color: var(--ink-soft); margin-bottom: 24px; line-height: 1.7; }
+  .link-group { margin-bottom: 32px; }
+  .link-group-title { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--terra); letter-spacing: 2px; margin-bottom: 12px; text-transform: uppercase; }
+  .link-list { display: grid; gap: 10px; }
+  .link-item { display: block; background: var(--paper); border: 1px solid var(--rule); border-left: 3px solid var(--azul); padding: 14px 20px; text-decoration: none; color: var(--ink); transition: all .2s; }
+  .link-item:hover { border-left-color: var(--terra); transform: translateX(2px); box-shadow: 2px 4px 12px rgba(31,58,95,0.08); }
+  .link-item .link-title { font-family: 'Fraunces', serif; font-size: 16px; font-weight: 600; color: var(--azul-deep); margin-bottom: 4px; }
+  .link-item .link-desc { font-size: 12.5px; color: var(--ink-soft); line-height: 1.5; }
+  .link-item .link-url { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--terra); margin-top: 6px; word-break: break-all; }
+  .link-item.notion { border-left-color: #1d1d1b; }
+  .link-item.notion:hover { border-left-color: var(--terra); }
+  .source-note { margin-top: 14px; padding: 10px 14px; background: rgba(31,58,95,0.04); font-size: 11.5px; color: var(--ink-faint); font-family: 'JetBrains Mono', monospace; border-left: 2px solid var(--azul-soft); }
+  .footer { margin-top: 80px; padding-top: 32px; border-top: 3px double var(--rule-strong); text-align: center; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--ink-faint); letter-spacing: 2px; }
+  .footer .ornament { font-size: 18px; color: var(--terra); margin-bottom: 12px; }
+  .home-link { display: inline-block; margin-bottom: 16px; padding: 8px 14px; background: var(--paper); border: 1px solid var(--rule); font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--azul); text-decoration: none; letter-spacing: 1px; }
+  .home-link:hover { background: var(--azul); color: white; border-color: var(--azul); }
+  @media (max-width: 700px) {
+    h1 { font-size: 44px; letter-spacing: -1px; }
+    h2 { font-size: 28px; }
+    .day { grid-template-columns: 1fr; gap: 8px; }
+    .day .date-block { border-right: none; border-bottom: 1px solid var(--rule); padding-bottom: 8px; }
+    .train-strip { grid-template-columns: 1fr; gap: 16px; }
+    .train-strip .arrow { transform: rotate(90deg); }
+    .toc-inner { gap: 0; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="toc">
+  <div class="toc-inner">
+    <a href="#flights">01 항공</a>
+    <a href="#hotels">02 숙소</a>
+    <a href="#train">03 기차</a>
+    <a href="#plans">04 일정 비교</a>
+    <a href="#planB">05 Plan B 상세</a>
+    <a href="#card">06 리스보아 카드</a>
+    <a href="#packing">07 준비물</a>
+    <a href="#battery">08 보조배터리</a>
+    <a href="#warnings">09 주의사항</a>
+    <a href="#todo">10 To-Do</a>
+    <a href="#archive">11 이전 자료</a>
+  </div>
+</nav>
+
+<div class="page">
+
+  <a href="../index.html" class="home-link">← with-claude 허브로</a>
+
+  <header class="masthead">
+    <div class="eyebrow">Master Document · Portugal Trip · No. 01</div>
+    <h1>Portugal,<br/><em>en route.</em></h1>
+    <p class="subtitle">진웅 & 찌니의 9박 10일 — 리스보아에서 포르투까지, 모든 정보를 한 페이지에</p>
+    <div class="meta-row">
+      <div><strong>날짜</strong>2026.05.22 — 06.01</div>
+      <div><strong>도시</strong>Lisboa · Sintra · Porto · Gaia</div>
+      <div><strong>인원</strong>2명 (커플)</div>
+      <div><strong>여행 성격</strong>일반 커플 여행</div>
+      <div><strong>본 문서</strong>2026.05.17 작성</div>
+    </div>
+  </header>
+
+  <section id="flights">
+    <h2><span class="num">01 /</span> 항공편</h2>
+    <div class="flights">
+      <div class="flight-card">
+        <div class="route">OUTBOUND · KOREAN AIR</div>
+        <div class="code">KE 921</div>
+        <div class="date">2026.05.22 (금)</div>
+        <div class="time">ICN 13:00 → LIS 20:15</div>
+      </div>
+      <div class="flight-card">
+        <div class="route">OPO → MAD · AIR EUROPA</div>
+        <div class="code">UX 1140</div>
+        <div class="date">2026.05.31 (일)</div>
+        <div class="time">OPO 16:00 → MAD 18:00</div>
+      </div>
+      <div class="flight-card">
+        <div class="route">RETURN · KOREAN AIR</div>
+        <div class="code">KE 914</div>
+        <div class="date">2026.06.01 (월)</div>
+        <div class="time">MAD 03:00 → ICN 16:00</div>
+      </div>
+    </div>
+    <div class="source-note">출처: 진웅님 제공 항공권 일정 파일</div>
+  </section>
+
+  <section id="hotels">
+    <h2><span class="num">02 /</span> 숙소</h2>
+    <div class="info-grid">
+      <div class="info-card">
+        <span class="tag">LISBOA · 4박</span>
+        <h3>Livô Boutique Living</h3>
+        <p class="sub">05.22 체크인 → 05.26 체크아웃</p>
+        <ul>
+          <li><strong>지역</strong> · 바이샤/치아두</li>
+          <li><strong>규모</strong> · 부티크 18실</li>
+          <li><strong>평점</strong> · Booking 9.2</li>
+          <li><strong>가격</strong> · 약 125만원/4박</li>
+        </ul>
+        <p class="reason">추천 이유: 오사카 에어비앤비 트라우마 반영 — 24시간 프론트 + 호텔 신뢰성으로 선택.</p>
+      </div>
+      <div class="info-card">
+        <span class="tag alt">PORTO · 전반부</span>
+        <h3>Filigrana</h3>
+        <p class="sub">05.26 ~ 05.?? · 아파트먼트 타입</p>
+        <ul>
+          <li><strong>형태</strong> · 호텔/아파트 하이브리드</li>
+          <li><strong>위치</strong> · 포르투 중심부</li>
+        </ul>
+        <p class="reason">추천 이유: 포르투 메인 명소 도보권 + 아파트형 공간감.</p>
+      </div>
+      <div class="info-card">
+        <span class="tag alt">GAIA · 후반부</span>
+        <h3>The Rebello</h3>
+        <p class="sub">~ 05.31 · 도루강 가이아 쪽</p>
+        <ul>
+          <li><strong>형태</strong> · 디자인 호텔</li>
+          <li><strong>뷰</strong> · 도루강 + 동루이스 다리</li>
+        </ul>
+        <p class="reason">추천 이유: 가이아 와이너리 도보 접근 + 마지막 밤 강변 야경 + 와인 디너.</p>
+      </div>
+    </div>
+    <div class="source-note">출처: 이전 호텔 비교 점수표 — Livô 8.05점으로 최고</div>
+  </section>
+
+  <section id="train">
+    <h2><span class="num">03 /</span> 도시 간 이동 (기차)</h2>
+    <div class="train-strip">
+      <div class="station">
+        <div class="city">Lisboa</div>
+        <div class="time">Santa Apolónia · 12:00</div>
+      </div>
+      <div class="arrow">→——→</div>
+      <div class="station">
+        <div class="city">Porto</div>
+        <div class="time">Campanhã · 14:53</div>
+      </div>
+    </div>
+    <div class="train-details">
+      <span><strong>편명</strong> · AP 125 (Alfa Pendular)</span>
+      <span><strong>날짜</strong> · 2026.05.26 (화)</span>
+      <span><strong>클래스</strong> · 1st Class Conforto</span>
+      <span><strong>좌석</strong> · Car C2 · S23 / S25</span>
+      <span><strong>소요</strong> · 약 2h 50m</span>
+    </div>
+    <div style="margin-top:18px; padding:16px 20px; background: var(--warn-bg); border-left: 3px solid var(--gold); font-size:13.5px;">
+      <strong style="color: var(--gold); font-family: 'JetBrains Mono', monospace; font-size:11px; letter-spacing:1.5px;">PENDING</strong>
+      <p style="margin-top:6px; color: var(--ink-soft);">최초 결제 실패분 <strong>€66.50 환불</strong> 처리 여부 미확인. 카드 명세서 또는 CP 후속 응답 체크 필요.</p>
+    </div>
+    <div class="source-note">출처: CP.pt 예약 내역 + CP 채팅 응답</div>
+  </section>
+
+  <section id="plans">
+    <h2><span class="num">04 /</span> 일정 플랜 4종 비교</h2>
+    <table class="plans-table">
+      <thead>
+        <tr>
+          <th style="width:18%">플랜</th>
+          <th style="width:32%">컨셉</th>
+          <th style="width:35%">특징 / 트레이드오프</th>
+          <th style="width:15%">밀도</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="plan-name">Plan A</span></td>
+          <td>노션 원본 일정</td>
+          <td>5/25 (월) 제로니무스 휴관 충돌 존재 — 그대로 진행 시 수도원 못 들어감</td>
+          <td>중간</td>
+        </tr>
+        <tr class="highlighted">
+          <td><span class="plan-name">Plan B</span><span class="recommend">RECOMMEND</span></td>
+          <td>밸런스 + 데이스왑</td>
+          <td>알파마(5/23) ↔ 벨렘(5/25) 스왑 적용 — 월요일 휴관 해결 + 여유 페이스 유지</td>
+          <td>중간</td>
+        </tr>
+        <tr>
+          <td><span class="plan-name">Plan C</span></td>
+          <td>여유 + 스파</td>
+          <td>하루 1~2 하이라이트만, 스파 일정, 카보 다 호카 옵션 — 진짜 쉬고 싶을 때</td>
+          <td>낮음</td>
+        </tr>
+        <tr>
+          <td><span class="plan-name">Plan D</span></td>
+          <td>밀도 최대</td>
+          <td>레갈레이라 / MAAT / 세할베스 / 파두 공연까지 — 레퍼런스 용도</td>
+          <td>매우 높음</td>
+        </tr>
+      </tbody>
+    </table>
+    <p style="margin-top:18px; font-size:14px; color:var(--ink-soft); font-style:italic; font-family: 'Fraunces', serif;">
+      추천 한 줄: <strong style="color:var(--terra);">Plan B</strong> — 여유로운 페이스 선호와 월요일 휴관 회피, 두 조건을 동시에 충족하는 유일안.
+    </p>
+    <p style="margin-top:12px; font-size:13px;">
+      📄 <a href="itinerary-plans.html" style="color: var(--azul); font-weight: 500;">→ 4가지 플랜 상세 비교 페이지 보기</a>
+    </p>
+  </section>
+
+  <section id="planB">
+    <h2><span class="num">05 /</span> Plan B · Day by Day</h2>
+    <div class="days">
+      <div class="day">
+        <div class="date-block"><div class="d">05.22</div><div class="m">FRI</div><div class="w">DAY 1</div></div>
+        <div class="content">
+          <h4>리스본 도착 · 체크인</h4>
+          <p>KE921 20:15 LIS 도착. 공항 Ask Me Lisboa(07:00~22:00) 데스크에서 리스보아 카드 픽업. Livô 호텔 체크인 후 가볍게 휴식.</p>
+          <div class="chips"><span class="chip">도착</span><span class="chip">카드 픽업</span></div>
+        </div>
+      </div>
+      <div class="day">
+        <div class="date-block"><div class="d">05.23</div><div class="m">SAT</div><div class="w">DAY 2</div></div>
+        <div class="content">
+          <h4>알파마 (Alfama) — 트램 28</h4>
+          <p>알파마 골목길 산책, 상 조르즈 성, 미라도루. 트램 28은 마르팀 모니스에서 출발 — 줄 길면 두 번째 정류장에서. 코메르시우 광장 일몰.</p>
+          <div class="chips"><span class="chip">올드타운</span><span class="chip">전망</span><span class="chip">파두</span></div>
+        </div>
+      </div>
+      <div class="day">
+        <div class="date-block"><div class="d">05.24</div><div class="m">SUN</div><div class="w">DAY 3</div></div>
+        <div class="content">
+          <h4>신트라 · 페나 궁전 · (선택) 호카곶</h4>
+          <p>로시우역 → 신트라 기차. 페나 궁전(30분 타임슬롯 사전예약 필수), 무어성. 호카곶 403번 버스는 1시간 간격 — 시간 여유 충분히.</p>
+          <div class="chips"><span class="chip">당일치기</span><span class="chip warn">사전예약 필수</span><span class="chip">동화궁전</span></div>
+        </div>
+      </div>
+      <div class="day">
+        <div class="date-block"><div class="d">05.25</div><div class="m">MON</div><div class="w">DAY 4</div></div>
+        <div class="content">
+          <h4>벨렘 (Belém) — 스왑 적용일</h4>
+          <p>제로니무스 수도원(월요일 휴관 회피 위해 스왑). 파스테이스 드 벨렘(8:00 오픈). 벨렘 타워는 보수 중 — 외관만. 산타주스타 엘리베이터.</p>
+          <div class="chips"><span class="chip">수도원</span><span class="chip warn">벨렘타워 보수</span><span class="chip">에그타르트</span></div>
+        </div>
+      </div>
+      <div class="day">
+        <div class="date-block"><div class="d">05.26</div><div class="m">TUE</div><div class="w">DAY 5</div></div>
+        <div class="content">
+          <h4>리스본 → 포르투 이동 (AP125)</h4>
+          <p>Livô 체크아웃 → Restauradores 메트로 블루라인 → Santa Apolónia. 12:00 AP125 → 14:53 Campanhã. Filigrana 체크인.</p>
+          <div class="chips"><span class="chip">이동일</span><span class="chip">기차</span></div>
+        </div>
+      </div>
+      <div class="day">
+        <div class="date-block"><div class="d">05.27</div><div class="m">WED</div><div class="w">DAY 6</div></div>
+        <div class="content">
+          <h4>포르투 시내</h4>
+          <p>리베리아 지구, 동 루이스 1세 다리, 상 벤투 역 아줄레주, 클레리구스 탑, 렐루 서점(사전예약 필요).</p>
+          <div class="chips"><span class="chip">렐루 서점</span><span class="chip book">사전예약</span><span class="chip">리베리아</span></div>
+        </div>
+      </div>
+      <div class="day">
+        <div class="date-block"><div class="d">05.28</div><div class="m">THU</div><div class="w">DAY 7</div></div>
+        <div class="content">
+          <h4>가이아 · 와이너리 투어</h4>
+          <p>도루강 건너 가이아 와인 셀러 — Taylor's, Graham's, Sandeman 등. 포트와인 테이스팅. 일몰 Jardim do Morro 또는 Serra do Pilar.</p>
+          <div class="chips"><span class="chip">와인</span><span class="chip book">사전예약 권장</span><span class="chip">일몰</span></div>
+        </div>
+      </div>
+      <div class="day">
+        <div class="date-block"><div class="d">05.29</div><div class="m">FRI</div><div class="w">DAY 8</div></div>
+        <div class="content">
+          <h4>도루 밸리 또는 휴식</h4>
+          <p>옵션: ① 상벤투역에서 도루 밸리 기차 당일치기, ② 포르투 추가 산책 + 휴식. 페이스 조절 일자.</p>
+          <div class="chips"><span class="chip">선택</span><span class="chip">휴식</span></div>
+        </div>
+      </div>
+      <div class="day">
+        <div class="date-block"><div class="d">05.30</div><div class="m">SAT</div><div class="w">DAY 9</div></div>
+        <div class="content">
+          <h4>The Rebello 이동 · 강변 마지막 밤</h4>
+          <p>Filigrana 체크아웃 11:00 → The Rebello 체크인 15:00. 강변 산책, 마지막 와인 디너.</p>
+          <div class="chips"><span class="chip">호텔이동</span><span class="chip">강변뷰</span></div>
+        </div>
+      </div>
+      <div class="day">
+        <div class="date-block"><div class="d">05.31</div><div class="m">SUN</div><div class="w">DAY 10</div></div>
+        <div class="content">
+          <h4>포르투 → 마드리드 → 인천</h4>
+          <p>UX1140 16:00 OPO 출발 (포르투 공항 지하철 30분). 마드리드 경유. KE914 03:00 MAD → 06.01 16:00 ICN.</p>
+          <div class="chips"><span class="chip">출국</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="card">
+    <h2><span class="num">06 /</span> 리스보아 카드</h2>
+    <div class="lisboa-card">
+      <h3>Lisboa Card · 72시간권 권장</h3>
+      <p>
+        Plan B 기준 1인당 순이익은 약 <strong>€9.50</strong>로 압도적 이득은 아님.
+        진짜 가치는 <strong>줄 안 서기 + 대중교통(메트로/트램/신트라 기차) 무료</strong>.
+        활성화는 첫 사용 시점부터 — 5/23 아침 첫 교통수단 탑승 시 카운트 시작 → 5/26 아침 만료.
+      </p>
+      <div class="lisboa-grid">
+        <div class="item"><div class="label">가격 (성인)</div><div class="val">€62 / 72h</div></div>
+        <div class="item"><div class="label">2인 합계</div><div class="val">€124 (~18.5만원)</div></div>
+        <div class="item"><div class="label">활성화</div><div class="val">첫 사용 시점</div></div>
+        <div class="item"><div class="label">픽업</div><div class="val">공항 Ask Me Lisboa</div></div>
+      </div>
+      <table class="lisboa-table">
+        <thead><tr><th>옵션</th><th>가격</th><th>비고</th></tr></thead>
+        <tbody>
+          <tr><td>24시간</td><td>€31</td><td>너무 짧음</td></tr>
+          <tr><td>48시간</td><td>€51</td><td>일정 안 맞음</td></tr>
+          <tr style="background: rgba(192,85,45,0.15);"><td><strong>72시간</strong></td><td><strong>€62</strong></td><td><strong>5/23~5/26 커버</strong></td></tr>
+        </tbody>
+      </table>
+      <p style="margin-top: 20px; font-size: 13px; color: rgba(255,255,255,0.75);">
+        ※ 페나 궁전은 카드 있어도 별도 사전예약 필수 (할인 10%). 벨렘 타워 보수 중. 포르투에서는 사용 불가.
+      </p>
+    </div>
+    <div class="source-note">출처: lisboacard.org 공식 / Tiqets</div>
+  </section>
+
+  <section id="packing">
+    <h2><span class="num">07 /</span> 준비물 (요약)</h2>
+    <p style="margin-bottom: 20px; font-size: 14px; color: var(--ink-soft);">
+      📄 풀버전은 별도 페이지 참고: <a href="packing.html" style="color: var(--azul); font-weight: 500;">→ 준비물 상세 리포트</a>
+    </p>
+    <div class="pack-grid">
+      <div class="pack-cat">
+        <h4>📄 서류 / 행정</h4>
+        <ul>
+          <li>여권 + 사본 <span class="priority must">필수</span></li>
+          <li>항공권 e-티켓 <span class="priority must">필수</span></li>
+          <li>호텔 바우처 3장 <span class="priority must">필수</span></li>
+          <li>기차 티켓 (AP125) <span class="priority must">필수</span></li>
+          <li>여행자보험 증서 <span class="priority must">필수</span></li>
+          <li>현금 €200~300 <span class="priority rec">권장</span></li>
+        </ul>
+      </div>
+      <div class="pack-cat">
+        <h4>🔌 전자기기</h4>
+        <ul>
+          <li>아이폰 + 케이블 <span class="priority must">필수</span></li>
+          <li>맥북 + 충전기 <span class="priority rec">권장</span></li>
+          <li>유럽 C타입 어댑터 ×2 <span class="priority must">필수</span></li>
+          <li>보조배터리 ×2 <span class="priority must">필수</span></li>
+        </ul>
+      </div>
+      <div class="pack-cat">
+        <h4>👕 의류 (5월 말)</h4>
+        <ul>
+          <li>가벼운 재킷/카디건 <span class="priority must">필수</span></li>
+          <li>긴팔 셔츠 ×3-4 <span class="priority must">필수</span></li>
+          <li>반팔 티 ×3-4 <span class="priority must">필수</span></li>
+          <li>편한 운동화 <span class="priority must">필수</span></li>
+          <li>드레스 셔츠/원피스 <span class="priority rec">권장</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="battery">
+    <h2><span class="num">08 /</span> 보조배터리 (한국 출발 규정)</h2>
+    <div class="battery-block">
+      <h3>CUKTECH 20,000mAh 55W · 1인 1개</h3>
+      <p>
+        2026.04.20부터 한국 출발 항공편 <strong>보조배터리 1인당 최대 2개</strong>.
+        2026.01.26부터 <strong>기내 사용/충전 금지</strong>. 호텔 매일 충전 가능하니 1인 1개로 충분.
+      </p>
+      <div class="specs">
+        <div><strong>용량</strong>20,000 mAh</div>
+        <div><strong>Wh</strong>약 74 Wh</div>
+        <div><strong>출력</strong>55W (USB-C PD)</div>
+        <div><strong>인당 한도</strong>2개</div>
+        <div><strong>기내 사용</strong>금지</div>
+        <div><strong>가격</strong>약 38,900원</div>
+      </div>
+      <p style="margin-top: 16px; font-size: 12.5px; color: var(--terra); font-family: 'Fraunces', serif; font-style: italic;">
+        추천 이유: 55W 출력 + 100Wh 안전권 + 가성비 — Anker Prime 대비 1/3 가격.
+      </p>
+    </div>
+    <p style="margin-top: 16px; font-size: 13px; color: var(--ink-soft);">
+      📌 추가 주의: 보조배터리 단자 절연테이프 부착 의무. 기내 휴대만, 위탁 금지.
+    </p>
+  </section>
+
+  <section id="warnings">
+    <h2><span class="num">09 /</span> 반드시 알아둘 주의사항</h2>
+    <div class="warnings">
+      <h3>⚠ Critical Notes</h3>
+      <ul>
+        <li><strong>제로니무스 수도원은 매주 월요일 휴관.</strong> 5/25 = 월요일이므로 Plan B의 알파마↔벨렘 스왑은 반드시 유지.</li>
+        <li><strong>벨렘 타워는 2025.4부터 보수 공사 중</strong>, 재개장 미정. 내부 입장 불가.</li>
+        <li><strong>페나 궁전은 30분 타임슬롯 사전예약 필수.</strong> 5/24 신트라행 확정 즉시 예약.</li>
+        <li><strong>CP.pt 환불 €66.50 미확인.</strong> 카드 명세서 또는 CP 응답 후속 확인 필요.</li>
+        <li><strong>리스보아 카드는 첫 사용 시점에 활성화.</strong> 5/23 아침 첫 교통수단 탑승 시 카운트 시작.</li>
+        <li><strong>호카곶 403번 버스는 1시간 간격</strong>, 막차 후 우버 잡기 어려움.</li>
+        <li><strong>EU EES 2026.4.10부터 완전 시행.</strong> 첫 입국 시 지문 + 얼굴 사진 등록.</li>
+        <li><strong>리스본/포르투 소매치기 주의.</strong> 트램 28, 메트로, 알파마 골목.</li>
+        <li><strong>5월 말 일교차 큼.</strong> 낮 20~25℃, 새벽/저녁 10~15℃.</li>
+        <li><strong>Filigrana는 아파트형 숙소</strong> — 호텔 어메니티 미제공 가능성. 사전 확인.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="todo">
+    <h2><span class="num">10 /</span> 남은 처리 항목</h2>
+    <div class="todos">
+      <div class="todo"><div class="check"></div><div class="text"><strong>CP.pt 환불 확인 (€66.50)</strong><p>카드 명세서 또는 CP 이메일 응답 확인.</p></div></div>
+      <div class="todo"><div class="check"></div><div class="text"><strong>최종 일정 플랜 확정</strong><p>Plan B 베이스로 갈지, C 일부 요소 가미할지.</p></div></div>
+      <div class="todo"><div class="check"></div><div class="text"><strong>페나 궁전 타임슬롯 사전예약</strong><p>5/24 신트라 일정 확정 후 즉시. 오전 슬롯 안정적.</p></div></div>
+      <div class="todo"><div class="check"></div><div class="text"><strong>리스보아 카드 구매 (€124)</strong><p>출발 1주일 전 Tiqets 또는 lisboacard.org. 5/22 공항 픽업.</p></div></div>
+      <div class="todo"><div class="check"></div><div class="text"><strong>가이아 와이너리 사전예약</strong><p>Taylor's, Graham's, Sandeman 중 1~2곳 — 5/28.</p></div></div>
+      <div class="todo"><div class="check"></div><div class="text"><strong>렐루 서점 입장권 예약</strong><p>5/27 일정에 맞춰 사전예약.</p></div></div>
+      <div class="todo"><div class="check"></div><div class="text"><strong>보조배터리 구매 + 절연테이프</strong><p>CUKTECH 20,000mAh 55W × 2개.</p></div></div>
+      <div class="todo"><div class="check"></div><div class="text"><strong>여행자보험 가입</strong><p>출발 직전 1주일 내. 의료/도난/지연 커버.</p></div></div>
+      <div class="todo"><div class="check"></div><div class="text"><strong>Filigrana 어메니티 확인</strong><p>샴푸/치약/슬리퍼 제공 여부 사전 확인.</p></div></div>
+    </div>
+  </section>
+
+  <section id="archive">
+    <h2><span class="num">11 /</span> 이전 자료 · 링크 모음</h2>
+    <div class="links-intro">
+      이 문서는 이전에 작성한 여러 HTML 리포트, 노션 페이지, 대화 내용을 통합 정리한 마스터 문서입니다.
+      개별 자료의 풀버전이 필요하면 아래 링크에서 확인하세요.
+    </div>
+
+    <div class="link-group">
+      <div class="link-group-title">📋 Notion · 중앙 플래닝 허브</div>
+      <div class="link-list">
+        <a class="link-item notion" href="https://www.notion.so/251014e89351803ab65fca237d8f836e" target="_blank">
+          <div class="link-title">🇵🇹 포르투갈 여행 (메인 페이지)</div>
+          <div class="link-desc">전체 일정 / 호텔 / 기차 / 준비물 / 하위 페이지 허브</div>
+        </a>
+        <a class="link-item notion" href="https://www.notion.so/35e014e89351810ca054fa954081a0e3" target="_blank">
+          <div class="link-title">📅 일차별 상세 일정 (4 버전 비교)</div>
+          <div class="link-desc">Plan A/B/C/D 토글 + 사전예약 체크리스트</div>
+        </a>
+        <a class="link-item notion" href="https://www.notion.so/35e014e8935181dab071c7321e37946c" target="_blank">
+          <div class="link-title">🎫 리스보아 카드 정리</div>
+          <div class="link-desc">가격 분석 / 활성화 시점 / 픽업 장소 / 손익 계산</div>
+        </a>
+      </div>
+    </div>
+
+    <div class="link-group">
+      <div class="link-group-title">💬 이전 Claude 대화 (주제별)</div>
+      <div class="link-list">
+        <a class="link-item" href="https://claude.ai/chat/89e336e9-c483-4899-bad1-a821d8f0d75e" target="_blank">
+          <div class="link-title">포르투갈 여행 — 첫 일정 리서치</div>
+          <div class="link-desc">최초 9박 10일 황금 루트, 도시별 추천</div>
+        </a>
+        <a class="link-item" href="https://claude.ai/chat/2250177c-ae5d-40f4-b037-3b715f34255e" target="_blank">
+          <div class="link-title">리스본 숙소 위치 추천</div>
+          <div class="link-desc">치아두 vs 바이샤 vs 프린시피 헤알 비교</div>
+        </a>
+        <a class="link-item" href="https://claude.ai/chat/23dacef8-11e4-41a9-9ab6-a1f7afa09f9e" target="_blank">
+          <div class="link-title">리스본 4일 일정 — 구글맵 표시</div>
+          <div class="link-desc">알파마 / 신트라 / 벨렘 지도 시각화</div>
+        </a>
+        <a class="link-item" href="https://claude.ai/chat/cc392c59-1f5a-4295-bcc1-3d12bdd12fd5" target="_blank">
+          <div class="link-title">리스본 호텔 결정 — Livô 선택</div>
+          <div class="link-desc">에어비앤비 2곳 + Livô 점수 비교표</div>
+        </a>
+        <a class="link-item" href="https://claude.ai/chat/889bc708-e29c-45f1-bc77-a54f5fe28e5c" target="_blank">
+          <div class="link-title">CP.pt 기차 예약 — 실패/재예약</div>
+          <div class="link-desc">60일 전 오픈일 결제 실패 → 재예약 성공</div>
+        </a>
+        <a class="link-item" href="https://claude.ai/chat/32aec6c0-18b8-488c-ba76-cf67c52e8e10" target="_blank">
+          <div class="link-title">보조배터리 스펙 분석</div>
+          <div class="link-desc">Anker Prime vs CUKTECH 비교 + 한국 규정</div>
+        </a>
+        <a class="link-item" href="https://claude.ai/chat/bd5b0fc5-99fc-4720-8751-f934e3222b31" target="_blank">
+          <div class="link-title">포르투갈 준비물 HTML 리포트</div>
+          <div class="link-desc">EES + 보조배터리 절연테이프 의무 → HTML</div>
+        </a>
+        <a class="link-item" href="https://claude.ai/chat/41fcc1ee-08f5-40ec-b4cb-2869bc6b0ce0" target="_blank">
+          <div class="link-title">노션 기반 일차별 세부 일정 + 4버전 HTML</div>
+          <div class="link-desc">Plan A/B/C/D HTML 시각화 + 노션 페이지 생성</div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <div class="footer">
+    <div class="ornament">✦  ✦  ✦</div>
+    <div>PORTUGAL · MAY 22 — JUN 01 · 2026</div>
+    <div style="margin-top:8px; opacity:0.6;">진웅 & 찌니 · Master Document compiled 2026.05.17</div>
+  </div>
+
+</div>
+
+</body>
+</html>
