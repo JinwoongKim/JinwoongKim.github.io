@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>with Claude · 누렁총각네 아카이브</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #faf8f3;
+    --paper: #ffffff;
+    --ink: #1d1d1b;
+    --ink-soft: #5a5750;
+    --ink-faint: #8a877f;
+    --rule: #e8e2d3;
+    --accent: #8b4513;
+    --accent-soft: #c4905e;
+    --warm: #d4a574;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', -apple-system, 'Apple SD Gothic Neo', sans-serif;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+  .page {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: clamp(40px, 6vw, 72px) clamp(20px, 4vw, 48px) 80px;
+  }
+  .top-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 28px;
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 56px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    color: var(--ink-faint);
+  }
+  .top-nav a {
+    color: var(--accent);
+    text-decoration: none;
+    transition: opacity .2s;
+  }
+  .top-nav a:hover { opacity: 0.7; }
+  .masthead {
+    margin-bottom: 64px;
+  }
+  .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  h1 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(44px, 6vw, 72px);
+    font-weight: 400;
+    font-variation-settings: "opsz" 144;
+    line-height: 1;
+    color: var(--ink);
+    letter-spacing: -1.5px;
+    margin-bottom: 24px;
+  }
+  h1 em {
+    font-style: italic;
+    color: var(--accent);
+    font-weight: 300;
+  }
+  .lede {
+    font-family: 'Fraunces', serif;
+    font-size: 19px;
+    font-style: italic;
+    color: var(--ink-soft);
+    max-width: 640px;
+    line-height: 1.6;
+  }
+  .lede strong {
+    font-style: normal;
+    color: var(--ink);
+    font-weight: 500;
+  }
+  .meta {
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 1px dashed var(--rule);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-faint);
+    letter-spacing: 1px;
+  }
+  section { margin-bottom: 64px; }
+  h2 {
+    font-family: 'Fraunces', serif;
+    font-size: 28px;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+  }
+  h2 .num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--accent);
+    letter-spacing: 2px;
+    font-weight: 400;
+  }
+  .section-desc {
+    font-size: 14px;
+    color: var(--ink-soft);
+    margin-bottom: 24px;
+    font-style: italic;
+    font-family: 'Fraunces', serif;
+  }
+  .collection { display: grid; gap: 12px; }
+  .item {
+    display: block;
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    padding: 22px 26px;
+    text-decoration: none;
+    color: var(--ink);
+    transition: all .25s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  .item::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: var(--accent);
+    transform: translateX(-100%);
+    transition: transform .25s ease;
+  }
+  .item:hover {
+    transform: translateX(4px);
+    border-color: var(--accent-soft);
+  }
+  .item:hover::before { transform: translateX(0); }
+  .item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 6px;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .item-title {
+    font-family: 'Fraunces', serif;
+    font-size: 19px;
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .item-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--ink-faint);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .item-meta.featured {
+    background: var(--accent);
+    color: white;
+    padding: 3px 8px;
+  }
+  .item-desc {
+    font-size: 14px;
+    color: var(--ink-soft);
+    line-height: 1.6;
+    margin-bottom: 8px;
+  }
+  .item-tags {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+  }
+  .item-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    padding: 2px 7px;
+    background: rgba(139, 69, 19, 0.08);
+    color: var(--accent);
+    letter-spacing: 1px;
+    border-radius: 2px;
+  }
+  .placeholder {
+    border: 1px dashed var(--rule);
+    padding: 32px;
+    text-align: center;
+    color: var(--ink-faint);
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 14px;
+  }
+  .footer {
+    margin-top: 80px;
+    padding-top: 32px;
+    border-top: 1px solid var(--rule);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--ink-faint);
+    letter-spacing: 2px;
+    text-align: center;
+  }
+  .footer .ornament {
+    font-size: 14px;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+  @media (max-width: 600px) {
+    .item-header { flex-direction: column; align-items: flex-start; gap: 4px; }
+    .item-meta { font-size: 9px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <nav class="top-nav">
+    <a href="/">← 누렁총각네 메인</a>
+    <span>archives / with-claude</span>
+  </nav>
+
+  <header class="masthead">
+    <div class="eyebrow">A Personal Archive · with Claude</div>
+    <h1>Claude와 함께<br/>정리한 <em>것들.</em></h1>
+    <p class="lede">
+      Claude와 대화하며 만든 자료, 리포트, 정리물의 아카이브.
+      <strong>여행 준비, 의사결정, 리서치 결과</strong>를 한 곳에 모아두는 공간.
+    </p>
+    <div class="meta">
+      LAST UPDATED · 2026.05.17 · COLLECTIONS · 1
+    </div>
+  </header>
+
+  <section>
+    <h2><span class="num">01 /</span> Portugal 2026</h2>
+    <p class="section-desc">9박 10일 리스보아 · 포르투 커플 여행 (2026.05.22 — 06.01)</p>
+    <div class="collection">
+      <a href="portugal-2026/master.html" class="item">
+        <div class="item-header">
+          <span class="item-title">Master Document</span>
+          <span class="item-meta featured">MAIN</span>
+        </div>
+        <p class="item-desc">항공·숙소·기차·일정·준비물·보조배터리·주의사항을 한 페이지에 통합한 마스터 문서. 노션 + 이전 대화 링크 포함.</p>
+        <div class="item-tags">
+          <span class="item-tag">11 SECTIONS</span>
+          <span class="item-tag">PLAN B</span>
+          <span class="item-tag">LISBOA CARD</span>
+        </div>
+      </a>
+      <a href="portugal-2026/packing.html" class="item">
+        <div class="item-header">
+          <span class="item-title">준비물 리포트</span>
+          <span class="item-meta">DETAIL</span>
+        </div>
+        <p class="item-desc">5월 말 리스본/포르투 기준 카테고리별 준비물 풀버전. EES 시행, 보조배터리 절연테이프 의무 등 최신 규정 포함.</p>
+        <div class="item-tags">
+          <span class="item-tag">PACKING</span>
+          <span class="item-tag">EES</span>
+          <span class="item-tag">WEATHER</span>
+        </div>
+      </a>
+      <a href="portugal-2026/itinerary-plans.html" class="item">
+        <div class="item-header">
+          <span class="item-title">일정 4버전 비교</span>
+          <span class="item-meta">DETAIL</span>
+        </div>
+        <p class="item-desc">Plan A (노션 원본) / B (추천 · 스왑) / C (여유) / D (밀도 최대) — 4가지 버전 상세 비교 및 일차별 일정.</p>
+        <div class="item-tags">
+          <span class="item-tag">PLAN A/B/C/D</span>
+          <span class="item-tag">DAY-BY-DAY</span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="num">02 /</span> 앞으로 추가될 것들</h2>
+    <p class="section-desc">Claude와 작업한 다른 정리물이 쌓이는 공간</p>
+    <div class="placeholder">
+      향후 다른 주제 (책 정리, 코드 리서치, 회고 등) 아카이브 예정
+    </div>
+  </section>
+
+  <div class="footer">
+    <div class="ornament">✦</div>
+    <div>JINWOONG KIM · ARCHIVES · WITH CLAUDE</div>
+  </div>
+
+</div>
+
+</body>
+</html>
