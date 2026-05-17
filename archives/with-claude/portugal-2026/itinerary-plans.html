@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portugal 2026 · 일정 4버전 비교</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f7f1e3; --paper: #fffaf0; --paper-2: #fbf6ea;
+    --ink: #1d1d1b; --ink-soft: #4a4742; --ink-faint: #6f6a62;
+    --rule: #d9cfb8; --rule-strong: #b9ad90;
+    --azul: #1f3a5f; --azul-deep: #122644; --azul-soft: #4a6b8a;
+    --terra: #c0552d; --terra-light: #e89968;
+    --olive: #7a8b5c; --gold: #b8893d;
+    --critical: #a52a2a; --warn-bg: #fef3e3;
+    --plan-a: #a8a8a8; --plan-b: #c0552d; --plan-c: #7a8b5c; --plan-d: #6b2737;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--ink); font-family: 'Inter', -apple-system, sans-serif; line-height: 1.65;
+    background-image: radial-gradient(ellipse at 10% 0%, rgba(192,85,45,0.05), transparent 50%), radial-gradient(ellipse at 100% 30%, rgba(31,58,95,0.05), transparent 50%); background-attachment: fixed; }
+  .page { max-width: 1200px; margin: 0 auto; padding: clamp(28px, 5vw, 64px) clamp(20px, 4vw, 56px) 100px; }
+  .home-link { display: inline-block; margin-bottom: 28px; padding: 8px 14px; background: var(--paper); border: 1px solid var(--rule); font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--azul); text-decoration: none; letter-spacing: 1px; }
+  .home-link:hover { background: var(--azul); color: white; border-color: var(--azul); }
+  .breadcrumb { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--ink-faint); letter-spacing: 1px; margin-bottom: 8px; }
+  .breadcrumb a { color: var(--terra); text-decoration: none; }
+  .masthead { border-bottom: 3px double var(--rule-strong); padding-bottom: 36px; margin-bottom: 48px; }
+  .eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 4px; color: var(--terra); text-transform: uppercase; margin: 24px 0 20px; }
+  h1 { font-family: 'Fraunces', serif; font-size: clamp(40px, 6vw, 72px); font-weight: 400; font-variation-settings: "opsz" 144; line-height: 1; color: var(--azul-deep); letter-spacing: -1.5px; }
+  h1 em { font-style: italic; color: var(--terra); font-weight: 300; }
+  .subtitle { font-family: 'Fraunces', serif; font-size: 19px; font-style: italic; color: var(--ink-soft); margin-top: 16px; }
+  section { margin-bottom: 64px; }
+  h2 { font-family: 'Fraunces', serif; font-size: 32px; font-weight: 500; color: var(--azul-deep); margin-bottom: 24px; display: flex; align-items: baseline; gap: 16px; letter-spacing: -0.5px; }
+  h2 .num { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--terra); letter-spacing: 2px; font-weight: 400; }
+  h2::after { content: ''; flex: 1; height: 1px; background: var(--rule-strong); margin-left: 8px; }
+
+  .plan-overview { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-bottom: 40px; }
+  .plan-card { background: var(--paper); border: 1px solid var(--rule); border-top: 4px solid var(--plan-a); padding: 22px 24px; position: relative; }
+  .plan-card.plan-b { border-top-color: var(--plan-b); }
+  .plan-card.plan-c { border-top-color: var(--plan-c); }
+  .plan-card.plan-d { border-top-color: var(--plan-d); }
+  .plan-card .badge { position: absolute; top: 16px; right: 16px; font-family: 'JetBrains Mono', monospace; font-size: 9px; padding: 2px 7px; letter-spacing: 1px; background: var(--terra); color: white; }
+  .plan-card .plan-name { font-family: 'Fraunces', serif; font-size: 28px; font-weight: 600; color: var(--azul-deep); }
+  .plan-card .plan-concept { font-size: 13px; color: var(--terra); font-family: 'JetBrains Mono', monospace; letter-spacing: 1px; margin-top: 4px; text-transform: uppercase; }
+  .plan-card .plan-desc { font-size: 13.5px; color: var(--ink-soft); margin-top: 12px; line-height: 1.6; }
+  .plan-card .plan-meta { margin-top: 14px; padding-top: 12px; border-top: 1px dashed var(--rule); font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--ink-faint); }
+  .plan-card .plan-meta strong { color: var(--azul-deep); }
+
+  .compare-table { width: 100%; border-collapse: collapse; background: var(--paper); font-size: 13px; box-shadow: 0 2px 8px rgba(31,58,95,0.05); }
+  .compare-table th { background: var(--azul-deep); color: var(--paper); padding: 12px 14px; text-align: left; font-weight: 600; font-size: 11px; letter-spacing: 1px; }
+  .compare-table th.plan-col { text-align: center; }
+  .compare-table th.plan-col.b { background: var(--plan-b); }
+  .compare-table th.plan-col.c { background: var(--plan-c); }
+  .compare-table th.plan-col.d { background: var(--plan-d); }
+  .compare-table td { padding: 12px 14px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+  .compare-table tr:last-child td { border-bottom: none; }
+  .compare-table td.criterion { font-weight: 600; color: var(--azul-deep); background: var(--paper-2); }
+  .compare-table td.center { text-align: center; }
+  .compare-table .yes { color: var(--olive); font-weight: 600; }
+  .compare-table .no { color: var(--critical); }
+  .compare-table .mid { color: var(--gold); }
+  .compare-table tr.highlighted { background: rgba(192,85,45,0.05); }
+
+  .plan-detail { background: var(--paper); padding: 28px 32px; border: 1px solid var(--rule); border-top: 4px solid var(--plan-a); margin-bottom: 16px; }
+  .plan-detail.b { border-top-color: var(--plan-b); }
+  .plan-detail.c { border-top-color: var(--plan-c); }
+  .plan-detail.d { border-top-color: var(--plan-d); }
+  .plan-detail .plan-title { font-family: 'Fraunces', serif; font-size: 26px; color: var(--azul-deep); margin-bottom: 6px; font-weight: 600; }
+  .plan-detail .plan-tag { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--terra); letter-spacing: 1.5px; margin-bottom: 20px; }
+  .plan-detail.b .plan-tag { color: var(--plan-b); }
+  .plan-detail.c .plan-tag { color: var(--plan-c); }
+  .plan-detail.d .plan-tag { color: var(--plan-d); }
+
+  .days { display: flex; flex-direction: column; gap: 8px; margin-top: 16px; }
+  .day { display: grid; grid-template-columns: 100px 1fr; gap: 22px; padding: 14px 0; border-bottom: 1px solid var(--rule); }
+  .day:last-child { border-bottom: none; }
+  .day .date-block { font-family: 'JetBrains Mono', monospace; border-right: 2px solid var(--terra); padding-right: 14px; }
+  .day .date-block .d { font-size: 22px; color: var(--azul-deep); font-weight: 500; font-family: 'Fraunces', serif; }
+  .day .date-block .m { font-size: 9px; color: var(--terra); letter-spacing: 1.5px; margin-top: 3px; }
+  .day .content h4 { font-family: 'Fraunces', serif; font-size: 17px; color: var(--azul-deep); margin-bottom: 4px; font-weight: 600; }
+  .day .content p { font-size: 13.5px; color: var(--ink-soft); line-height: 1.6; }
+  .day .content .chips { margin-top: 8px; display: flex; gap: 6px; flex-wrap: wrap; }
+  .day .content .chip { font-family: 'JetBrains Mono', monospace; font-size: 9px; padding: 2px 7px; background: var(--paper-2); color: var(--azul); letter-spacing: 1px; border: 1px solid var(--rule); }
+  .day .content .chip.warn { background: var(--critical); color: white; border-color: var(--critical); }
+  .day .content .chip.book { background: var(--gold); color: white; border-color: var(--gold); }
+  .day .content .chip.diff { background: var(--terra); color: white; border-color: var(--terra); }
+
+  .callout { padding: 22px 28px; margin: 24px 0; border-radius: 2px; }
+  .callout.warning { background: var(--warn-bg); border-left: 4px solid var(--critical); }
+  .callout.info { background: rgba(31,58,95,0.05); border-left: 4px solid var(--azul); }
+  .callout.recommend { background: rgba(192,85,45,0.06); border-left: 4px solid var(--terra); }
+  .callout h3 { font-family: 'Fraunces', serif; font-size: 20px; margin-bottom: 10px; }
+  .callout.warning h3 { color: var(--critical); }
+  .callout.info h3 { color: var(--azul-deep); }
+  .callout.recommend h3 { color: var(--terra); }
+  .callout p { font-size: 14px; color: var(--ink-soft); line-height: 1.7; }
+  .callout p strong { color: var(--azul-deep); }
+  .callout.recommend p strong { color: var(--terra); }
+
+  .footer { margin-top: 80px; padding-top: 32px; border-top: 3px double var(--rule-strong); text-align: center; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--ink-faint); letter-spacing: 2px; }
+  .footer .ornament { font-size: 18px; color: var(--terra); margin-bottom: 12px; }
+
+  @media (max-width: 700px) {
+    h1 { font-size: 40px; } h2 { font-size: 24px; }
+    .day { grid-template-columns: 1fr; gap: 6px; }
+    .day .date-block { border-right: none; border-bottom: 1px solid var(--rule); padding-bottom: 6px; }
+    .compare-table { font-size: 12px; }
+    .compare-table th, .compare-table td { padding: 8px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <a href="../index.html" class="home-link">← with-claude 허브로</a>
+  <div class="breadcrumb"><a href="../index.html">archives / with-claude</a> / portugal-2026 / itinerary-plans</div>
+  <header class="masthead">
+    <div class="eyebrow">Detail Report · 4 Itinerary Versions</div>
+    <h1>일정 4버전 <em>비교.</em></h1>
+    <p class="subtitle">Plan A (노션 원본) · B (추천 · 스왑) · C (여유) · D (밀도 최대)</p>
+  </header>
+
+  <section>
+    <h2><span class="num">01 /</span> 4개 플랜 한눈에</h2>
+    <div class="plan-overview">
+      <div class="plan-card">
+        <div class="plan-name">Plan A</div>
+        <div class="plan-concept">노션 원본</div>
+        <p class="plan-desc">처음 노션에 정리한 그대로의 일정. 알파마 → 신트라 → 벨렘 순서로 진행.</p>
+        <div class="plan-meta">
+          <div><strong>밀도</strong> · 중간</div>
+          <div><strong>약점</strong> · 5/25 월요일 휴관 충돌</div>
+          <div><strong>추천</strong> · ❌</div>
+        </div>
+      </div>
+      <div class="plan-card plan-b">
+        <div class="badge">RECOMMEND</div>
+        <div class="plan-name">Plan B</div>
+        <div class="plan-concept">밸런스 + 스왑</div>
+        <p class="plan-desc">알파마(5/23) ↔ 벨렘(5/25) 스왑. 월요일 휴관 회피 + 여유로운 페이스 유지.</p>
+        <div class="plan-meta">
+          <div><strong>밀도</strong> · 중간</div>
+          <div><strong>강점</strong> · 휴관 회피 + 자연스러운 동선</div>
+          <div><strong>추천</strong> · ✅</div>
+        </div>
+      </div>
+      <div class="plan-card plan-c">
+        <div class="plan-name">Plan C</div>
+        <div class="plan-concept">여유 + 스파</div>
+        <p class="plan-desc">하루 1~2 하이라이트만. 스파 일정 추가, 호카곶 옵션. 진짜 쉬고 싶을 때.</p>
+        <div class="plan-meta">
+          <div><strong>밀도</strong> · 낮음</div>
+          <div><strong>강점</strong> · 회복형 여행</div>
+          <div><strong>추천</strong> · 🟡 부분 적용</div>
+        </div>
+      </div>
+      <div class="plan-card plan-d">
+        <div class="plan-name">Plan D</div>
+        <div class="plan-concept">밀도 최대</div>
+        <p class="plan-desc">레갈레이라 / MAAT / 세할베스 / 파두 공연까지 — 사이트싱 풀가동. "여유" 선호와 어긋남.</p>
+        <div class="plan-meta">
+          <div><strong>밀도</strong> · 매우 높음</div>
+          <div><strong>강점</strong> · 모든 명소 컴플리트</div>
+          <div><strong>추천</strong> · ⚠ 레퍼런스용</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout recommend">
+      <h3>💡 추천 결론 한 줄</h3>
+      <p><strong>Plan B 베이스 + Plan C에서 스파 1회만 추가</strong>가 두 분의 "여유로운 사이트싱" 선호에 가장 적합. Plan D는 명소 컴플리트 욕심에 좋지만 9일 안에 다 소화하면 여행이 일이 됨. 빼는 게 답.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="num">02 /</span> 항목별 비교</h2>
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th style="width: 22%;">항목</th>
+          <th class="plan-col">Plan A</th>
+          <th class="plan-col b">Plan B</th>
+          <th class="plan-col c">Plan C</th>
+          <th class="plan-col d">Plan D</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="criterion">월요일 휴관 회피</td><td class="center"><span class="no">❌ 충돌</span></td><td class="center"><span class="yes">✅</span></td><td class="center"><span class="yes">✅</span></td><td class="center"><span class="yes">✅</span></td></tr>
+        <tr><td class="criterion">하루 핵심 명소 수</td><td class="center">2~3개</td><td class="center">2~3개</td><td class="center">1~2개</td><td class="center">3~5개</td></tr>
+        <tr><td class="criterion">신트라 일정</td><td class="center">페나 + 무어성</td><td class="center">페나 + 무어성</td><td class="center">페나만 + 호카곶</td><td class="center">페나 + 무어 + 레갈레이라</td></tr>
+        <tr><td class="criterion">스파 / 휴식</td><td class="center"><span class="no">❌</span></td><td class="center"><span class="mid">5/29 옵션</span></td><td class="center"><span class="yes">2회</span></td><td class="center"><span class="no">❌</span></td></tr>
+        <tr><td class="criterion">호카곶</td><td class="center"><span class="no">❌</span></td><td class="center"><span class="mid">옵션</span></td><td class="center"><span class="yes">5/24</span></td><td class="center"><span class="yes">5/24</span></td></tr>
+        <tr><td class="criterion">렐루 서점</td><td class="center"><span class="yes">✅</span></td><td class="center"><span class="yes">✅</span></td><td class="center"><span class="yes">✅</span></td><td class="center"><span class="yes">✅</span></td></tr>
+        <tr><td class="criterion">가이아 와이너리</td><td class="center"><span class="yes">1~2곳</span></td><td class="center"><span class="yes">1~2곳</span></td><td class="center"><span class="yes">1곳 + 디너</span></td><td class="center"><span class="yes">2~3곳</span></td></tr>
+        <tr><td class="criterion">도루 밸리</td><td class="center"><span class="no">❌</span></td><td class="center"><span class="mid">5/29 옵션</span></td><td class="center"><span class="no">❌</span></td><td class="center"><span class="yes">5/29</span></td></tr>
+        <tr><td class="criterion">현대미술관 (MAAT/세할베스)</td><td class="center"><span class="no">❌</span></td><td class="center"><span class="no">❌</span></td><td class="center"><span class="no">❌</span></td><td class="center"><span class="yes">두 곳 다</span></td></tr>
+        <tr><td class="criterion">파두 공연</td><td class="center"><span class="no">❌</span></td><td class="center"><span class="mid">옵션</span></td><td class="center"><span class="no">❌</span></td><td class="center"><span class="yes">5/23</span></td></tr>
+        <tr class="highlighted"><td class="criterion"><strong>"여유로운 사이트싱" 적합도</strong></td><td class="center"><span class="mid">중</span></td><td class="center"><span class="yes">★★★★★</span></td><td class="center"><span class="yes">★★★★</span></td><td class="center"><span class="no">★★</span></td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2><span class="num">03 /</span> Plan A · 노션 원본 (참조용)</h2>
+    <div class="plan-detail">
+      <div class="plan-title">Plan A · 원본 그대로</div>
+      <div class="plan-tag">처음 노션에 정리한 순서 — 5/25 월요일 휴관 충돌 존재</div>
+      <p style="font-size: 14px; color: var(--ink-soft);">문제: 벨렘 일정이 5/25 월요일에 잡혀 있는데, <strong>제로니무스 수도원은 매주 월요일 휴관</strong>. 이대로 가면 수도원 입장 못 함.</p>
+      <div class="callout warning" style="margin-top: 16px;">
+        <h3>⚠ 이 플랜의 결정적 결함</h3>
+        <p>제로니무스 수도원은 포르투갈 마누엘리노 건축의 정수, 바스쿠 다 가마의 무덤이 있는 핵심 명소. 외관만 보고 끝낼 만한 곳이 아님. 일정 그대로 가면 이 명소가 통째로 빠짐. <strong>스왑 필수.</strong></p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="num">04 /</span> Plan B · 추천안 풀버전</h2>
+    <div class="plan-detail b">
+      <div class="plan-title">Plan B · 알파마 ↔ 벨렘 스왑</div>
+      <div class="plan-tag">RECOMMENDED · 월요일 휴관 회피 + 여유로운 페이스</div>
+      <div class="days">
+        <div class="day"><div class="date-block"><div class="d">05.22</div><div class="m">FRI</div></div><div class="content"><h4>리스본 도착 · 체크인</h4><p>KE921 20:15 LIS 도착. 공항 Ask Me Lisboa 데스크에서 리스보아 카드 픽업. Livô 호텔 체크인.</p><div class="chips"><span class="chip">도착</span><span class="chip">카드 픽업</span></div></div></div>
+        <div class="day"><div class="date-block"><div class="d">05.23</div><div class="m">SAT</div></div><div class="content"><h4>알파마 (Alfama) — 트램 28 <span class="chip diff" style="margin-left: 8px;">SWAP</span></h4><p>골목길 산책, 상 조르즈 성, 미라도루. 트램 28은 마르팀 모니스에서 출발. 코메르시우 광장 일몰. 저녁 알파마 식당.</p><div class="chips"><span class="chip">올드타운</span><span class="chip">전망</span></div></div></div>
+        <div class="day"><div class="date-block"><div class="d">05.24</div><div class="m">SUN</div></div><div class="content"><h4>신트라 · 페나 궁전</h4><p>로시우역 → 신트라 기차. 페나 궁전(30분 타임슬롯 사전예약 필수), 무어성. 호카곶은 옵션.</p><div class="chips"><span class="chip">당일치기</span><span class="chip warn">사전예약 필수</span></div></div></div>
+        <div class="day"><div class="date-block"><div class="d">05.25</div><div class="m">MON</div></div><div class="content"><h4>벨렘 (Belém) <span class="chip diff" style="margin-left: 8px;">SWAP</span></h4><p>제로니무스 수도원, 파스테이스 드 벨렘(8:00 오픈). 벨렘 타워 외관, 산타주스타 엘리베이터. 월요일도 수도원 입장 가능한 일정.</p><div class="chips"><span class="chip">수도원</span><span class="chip warn">벨렘타워 보수중</span></div></div></div>
+        <div class="day"><div class="date-block"><div class="d">05.26</div><div class="m">TUE</div></div><div class="content"><h4>리스본 → 포르투 이동 (AP125)</h4><p>Livô 체크아웃. 12:00 AP125 → 14:53 Campanhã. Filigrana 체크인.</p><div class="chips"><span class="chip">이동일</span></div></div></div>
+        <div class="day"><div class="date-block"><div class="d">05.27</div><div class="m">WED</div></div><div class="content"><h4>포르투 시내</h4><p>리베리아, 동 루이스 1세 다리, 상 벤투 역 아줄레주, 클레리구스 탑, 렐루 서점.</p><div class="chips"><span class="chip">렐루</span><span class="chip book">사전예약</span></div></div></div>
+        <div class="day"><div class="date-block"><div class="d">05.28</div><div class="m">THU</div></div><div class="content"><h4>가이아 · 와이너리 투어</h4><p>도루강 건너 가이아 와인 셀러. Taylor's, Graham's 중 1~2곳. 일몰은 Jardim do Morro.</p><div class="chips"><span class="chip">와인</span><span class="chip book">예약</span></div></div></div>
+        <div class="day"><div class="date-block"><div class="d">05.29</div><div class="m">FRI</div></div><div class="content"><h4>도루 밸리 또는 휴식 (옵션)</h4><p>옵션 A: 상벤투역 → 도루 밸리 당일치기. 옵션 B: 호텔 스파 + 시내 산책. Plan C 요소 가미 가능한 날.</p><div class="chips"><span class="chip">선택</span><span class="chip">유동적</span></div></div></div>
+        <div class="day"><div class="date-block"><div class="d">05.30</div><div class="m">SAT</div></div><div class="content"><h4>The Rebello 이동 · 마지막 밤</h4><p>Filigrana 체크아웃 11:00 → The Rebello 체크인 15:00. 강변 산책, 마지막 와인 디너.</p><div class="chips"><span class="chip">호텔이동</span><span class="chip">강변뷰</span></div></div></div>
+        <div class="day"><div class="date-block"><div class="d">05.31</div><div class="m">SUN</div></div><div class="content"><h4>포르투 → 마드리드 → 인천</h4><p>UX1140 16:00 OPO. MAD 환승 9시간. KE914 03:00 → ICN 16:00.</p><div class="chips"><span class="chip">출국</span></div></div></div>
+      </div>
+      <div class="callout info" style="margin-top: 24px;">
+        <h3>왜 Plan B인가</h3>
+        <p>두 분의 "여유로운 사이트싱" 선호 + 5/25 월요일 휴관, <strong>두 조건을 동시에 충족하는 유일한 안</strong>. Plan A는 휴관 못 피하고, Plan C는 명소 너무 빼고, Plan D는 페이스 어긋남.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="num">05 /</span> Plan C · 여유형 (부분 적용 가능)</h2>
+    <div class="plan-detail c">
+      <div class="plan-title">Plan C · 회복형 페이스</div>
+      <div class="plan-tag">하루 1~2 하이라이트 · 스파 + 호카곶 옵션 포함</div>
+      <div class="days">
+        <div class="day"><div class="date-block"><div class="d">05.22</div><div class="m">FRI</div></div><div class="content"><h4>리스본 도착 · 가볍게</h4><p>호텔 체크인 후 근처 식당만. 시차 적응 우선.</p><div class="chips"><span class="chip">도착</span></div></div></div>
+        <div class="day"><div class="date-block"><div class="d">05.23</div><div class="m">SAT</div></div><div class="content"><h4>알파마 (오전만)</h4><p>오전 골목 산책 + 카페. 오후엔 호텔 또는 스파.</p><div class="chips"><span class="chip">반나절</span><span class="chip diff">SPA</span></div></div></div>
+        <div class="day"><div class="date-block"><div class="d">05.24</div><div class="m">SUN</div></div><div class="content"><h4>신트라 + 호카곶 <span class="chip diff" style="margin-left: 8px;">CABO</span></h4><p>페나 궁전만 (무어성 생략). 오후 403번 버스로 호카곶. 유라시아 대륙 서쪽 끝 일몰.</p><div class="chips"><span class="chip">호카곶</span><span class="chip warn">버스 시간</span></div></div></div>
+        <div class="day"><div class="date-block"><div class="d">05.25</div><div class="m">MON</div></div><div class="content"><h4>벨렘 (반나절)</h4><p>제로니무스 수도원 + 파스테이스. 벨렘 타워 외관만. 오후 시내 카페에서 책.</p><div class="chips"><span class="chip">반나절</span><span class="chip">카페</span></div></div></div>
+        <div class="day"><div class="date-block"><div class="d">05.26</div><div class="m">TUE</div></div><div class="content"><h4>이동일</h4><p>오전 천천히 체크아웃. 12:00 AP125. 포르투 도착 후 호텔에서 휴식만.</p><div class="chips"><span class="chip">이동</span></div></div></div>
+        <div class="day"><div class="date-block"><div class="d">05.27</div><div class="m">WED</div></div><div class="content"><h4>포르투 시내 (느슨하게)</h4><p>리베리아 + 동 루이스 다리 + 렐루 서점. 점심 후 책방/카페에서 시간.</p><div class="chips"><span class="chip">느슨</span></div></div></div>
+        <div class="day"><div class="date-block"><div class="d">05.28</div><div class="m">THU</div></div><div class="content"><h4>가이아 와이너리 1곳 + 디너</h4><p>한 곳만 깊게. 테이스팅 + 디너 코스. 일몰은 호텔에서.</p><div class="chips"><span class="chip">와인</span><span class="chip">디너</span></div></div></div>
+        <div class="day"><div class="date-block"><div class="d">05.29</div><div class="m">FRI</div></div><div class="content"><h4>완전 휴식 <span class="chip diff" style="margin-left: 8px;">REST</span></h4><p>호텔 스파 + 늦은 브런치. 일정 없음. 발끝 회복.</p><div class="chips"><span class="chip">스파</span></div></div></div>
+        <div class="day"><div class="date-block"><div class="d">05.30</div><div class="m">SAT</div></div><div class="content"><h4>The Rebello 이동 + 강변</h4><p>이동 후 강변 산책, 와인 디너.</p><div class="chips"><span class="chip">강변</span></div></div></div>
+        <div class="day"><div class="date-block"><div class="d">05.31</div><div class="m">SUN</div></div><div class="content"><h4>출국</h4><p>OPO 출발.</p></div></div>
+      </div>
+      <div class="callout info" style="margin-top: 24px;">
+        <h3>Plan C에서 가져올 만한 요소</h3>
+        <p>전체로 가기엔 명소 너무 빠지지만, <strong>5/29 완전 휴식일</strong>과 <strong>5/24 호카곶 추가</strong>는 Plan B에 끼워 넣기 좋음.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="num">06 /</span> Plan D · 밀도 최대 (레퍼런스용)</h2>
+    <div class="plan-detail d">
+      <div class="plan-title">Plan D · 컴플리트 모드</div>
+      <div class="plan-tag">REFERENCE ONLY · 여유 선호와 어긋남, 명소 빠뜨리기 싫을 때 참고만</div>
+      <div class="days">
+        <div class="day"><div class="date-block"><div class="d">05.22</div><div class="m">FRI</div></div><div class="content"><h4>도착 후 알파마 야경</h4><p>도착 → 호텔 짐 풀고 알파마 야간 산책. 첫날부터 풀가동.</p></div></div>
+        <div class="day"><div class="date-block"><div class="d">05.23</div><div class="m">SAT</div></div><div class="content"><h4>알파마 풀 + 파두 공연 <span class="chip diff" style="margin-left: 8px;">FADO</span></h4><p>상 조르즈 성 + 미라도루 + 트램 28 + 파두 공연 (Tasca do Chico 등). 22:00까지.</p><div class="chips"><span class="chip">파두</span></div></div></div>
+        <div class="day"><div class="date-block"><div class="d">05.24</div><div class="m">SUN</div></div><div class="content"><h4>신트라 + 레갈레이라 + 호카곶 <span class="chip diff" style="margin-left: 8px;">REGALEIRA</span></h4><p>페나 + 무어성 + 퀸타 다 레갈레이라 + 호카곶. 새벽부터 22시까지. 발 죽음.</p><div class="chips"><span class="chip warn">강행군</span></div></div></div>
+        <div class="day"><div class="date-block"><div class="d">05.25</div><div class="m">MON</div></div><div class="content"><h4>벨렘 + MAAT <span class="chip diff" style="margin-left: 8px;">MAAT</span></h4><p>제로니무스 + 파스테이스 + MAAT 현대미술관 + 발견기념비 + 산타주스타.</p><div class="chips"><span class="chip">현대미술</span></div></div></div>
+        <div class="day"><div class="date-block"><div class="d">05.26</div><div class="m">TUE</div></div><div class="content"><h4>이동일</h4><p>12:00 AP125. 도착 후 바로 시내 산책.</p></div></div>
+        <div class="day"><div class="date-block"><div class="d">05.27</div><div class="m">WED</div></div><div class="content"><h4>포르투 시내 풀 + 세할베스 <span class="chip diff" style="margin-left: 8px;">SERRALVES</span></h4><p>오전 시내 + 오후 세할베스 현대미술관. 저녁 렐루.</p><div class="chips"><span class="chip">현대미술</span></div></div></div>
+        <div class="day"><div class="date-block"><div class="d">05.28</div><div class="m">THU</div></div><div class="content"><h4>가이아 와이너리 3곳</h4><p>Taylor's + Graham's + Sandeman. 한 잔씩 다 마시면 저녁쯤 취해서 못 일어남.</p><div class="chips"><span class="chip warn">과음 주의</span></div></div></div>
+        <div class="day"><div class="date-block"><div class="d">05.29</div><div class="m">FRI</div></div><div class="content"><h4>도루 밸리 당일치기</h4><p>상벤투역 06:30 출발 → 도루 밸리 + 와인 농장 투어 → 21:00 복귀.</p><div class="chips"><span class="chip">당일치기</span></div></div></div>
+        <div class="day"><div class="date-block"><div class="d">05.30</div><div class="m">SAT</div></div><div class="content"><h4>The Rebello + 마지막 디너</h4><p>이동 후 강변 + 미슐랭 디너.</p></div></div>
+        <div class="day"><div class="date-block"><div class="d">05.31</div><div class="m">SUN</div></div><div class="content"><h4>출국</h4><p>OPO 출발.</p></div></div>
+      </div>
+      <div class="callout warning" style="margin-top: 24px;">
+        <h3>⚠ 이 플랜을 추천하지 않는 이유</h3>
+        <p>두 분의 명시적 선호("여유로운 사이트싱")와 정면 충돌. 5/24 신트라 강행군, 5/28 와이너리 3곳 등 체력적으로 무리. <strong>Plan D는 "안 가본 명소 체크하기" 용도로만 참고하고, 실제 일정은 Plan B로 가는 게 맞음.</strong></p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="num">07 /</span> 최종 추천</h2>
+    <div class="callout recommend">
+      <h3>✦ Plan B + Plan C 요소 1~2개</h3>
+      <p style="margin-bottom: 12px;"><strong>베이스: Plan B</strong> 그대로. 알파마 ↔ 벨렘 스왑으로 월요일 휴관 회피.</p>
+      <p style="margin-bottom: 12px;"><strong>추가 1: 5/24 호카곶</strong> — 페나 궁전 오전 슬롯으로 잡고 오후에 403번 버스로. 유라시아 서쪽 끝 일몰은 가치 있음.</p>
+      <p style="margin-bottom: 12px;"><strong>추가 2: 5/29 휴식일</strong> — 도루 밸리 가지 말고 호텔 스파 + 시내 카페. 4일 연속 사이트싱 후 회복.</p>
+      <p>Plan D 요소(레갈레이라, MAAT, 세할베스, 파두) 중 <strong>파두 공연 1회만</strong>은 첨가 고려 가능. 5/23 알파마 저녁 식사 후 자연스럽게 연결됨.</p>
+    </div>
+  </section>
+
+  <div class="footer">
+    <div class="ornament">✦</div>
+    <div>PORTUGAL · ITINERARY PLANS · 2026</div>
+    <div style="margin-top:8px; opacity:0.6;">진웅 & 찌니 · compiled 2026.05.17</div>
+  </div>
+</div>
+</body>
+</html>
