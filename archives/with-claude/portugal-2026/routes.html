@@ -330,6 +330,7 @@ document.querySelectorAll('.day-btn').forEach(btn => {
     document.querySelectorAll('.day-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     renderDay(btn.dataset.day);
+    history.replaceState(null, '', '#' + btn.dataset.day);
     const panel = document.getElementById('infoPanel');
     if (window.innerWidth <= 880) panel.classList.remove('shown');
   });
@@ -339,7 +340,18 @@ document.getElementById('toggleInfo').addEventListener('click', () => {
   document.getElementById('infoPanel').classList.toggle('shown');
 });
 
-renderDay('d2');
+function setInitialDay() {
+  const hash = window.location.hash.replace('#', '');
+  const validDays = ['d2', 'd3', 'd4', 'd5', 'd6', 'd7'];
+  const dayKey = validDays.includes(hash) ? hash : 'd2';
+  document.querySelectorAll('.day-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.day === dayKey);
+  });
+  renderDay(dayKey);
+}
+
+window.addEventListener('hashchange', setInitialDay);
+setInitialDay();
 </script>
 
 </body>
