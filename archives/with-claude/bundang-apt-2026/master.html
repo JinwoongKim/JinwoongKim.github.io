@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>오리역·야탑역 32평 비교 — with Claude</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f7f1e3;--paper:#fffaf0;--ink:#1d1d1b;--ink-soft:#4a4742;--ink-faint:#6f6a62;--rule:#d9cfb8;--rule-strong:#b9ad90;--azul:#1f3a5f;--azul-deep:#122644;--terra:#c0552d;--terra-light:#e89968;--olive:#7a8b5c;--critical:#a52a2a;--warn-bg:#fef3e3;--accent:var(--azul);}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:'Inter','Apple SD Gothic Neo',sans-serif;line-height:1.65;background-image:radial-gradient(ellipse at 10% 0%,rgba(192,85,45,.04),transparent 50%),radial-gradient(ellipse at 100% 30%,rgba(31,58,95,.05),transparent 50%);background-attachment:fixed}
+.page{max-width:1100px;margin:0 auto;padding:clamp(28px,5vw,64px) clamp(20px,4vw,56px) 100px}
+.home-link{display:inline-block;margin-bottom:28px;padding:8px 14px;background:var(--paper);border:1px solid var(--rule);font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--azul);text-decoration:none;letter-spacing:1px}
+.home-link:hover{background:var(--azul);color:#fff}
+.breadcrumb{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink-faint);letter-spacing:1px;margin-bottom:8px}
+.breadcrumb a{color:var(--accent);text-decoration:none}
+.masthead{border-bottom:3px double var(--rule-strong);padding-bottom:36px;margin-bottom:48px}
+.eyebrow{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:4px;color:var(--accent);text-transform:uppercase;margin:24px 0 20px}
+h1{font-family:'Fraunces',serif;font-size:clamp(40px,6vw,68px);font-weight:400;line-height:1;color:var(--azul-deep);letter-spacing:-1.5px}
+h1 em{font-style:italic;color:var(--accent);font-weight:300}
+.subtitle{font-family:'Fraunces',serif;font-size:19px;font-style:italic;color:var(--ink-soft);margin-top:16px}
+section{margin-bottom:64px}
+h2{font-family:'Fraunces',serif;font-size:30px;font-weight:500;color:var(--azul-deep);margin-bottom:24px;display:flex;align-items:baseline;gap:16px;letter-spacing:-.5px}
+h2 .num{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--accent);letter-spacing:2px}
+h2::after{content:'';flex:1;height:1px;background:var(--rule-strong);margin-left:8px}
+h3{font-family:'Fraunces',serif;font-size:20px;font-weight:600;color:var(--azul);margin-bottom:10px}
+p{font-size:14.5px;color:var(--ink-soft);margin-bottom:10px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px}
+.cand{background:var(--paper);border:1px solid var(--rule);padding:28px 26px;position:relative}
+.cand .b{position:absolute;top:-1px;left:-1px;background:var(--azul-deep);color:var(--paper);padding:5px 12px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1.5px}
+.cand .b.t{background:var(--terra)}
+.cand .b.o{background:var(--olive)}
+.cn{font-family:'Fraunces',serif;font-size:22px;font-weight:600;color:var(--azul-deep);margin-top:18px;line-height:1.2}
+.cl{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-faint);letter-spacing:1.5px;margin-bottom:20px;text-transform:uppercase}
+.cp{font-family:'Fraunces',serif;font-size:36px;font-weight:500;color:var(--terra);line-height:1;letter-spacing:-1px}
+.cp .u{font-size:16px;color:var(--ink-soft);font-weight:400}
+.cy{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--ink-faint);margin:4px 0 20px;padding-bottom:18px;border-bottom:1px dashed var(--rule)}
+.cs{list-style:none;font-size:13px}
+.cs li{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid rgba(217,207,184,.4)}
+.cs li:last-child{border-bottom:none}
+.cs .lb{font-family:'JetBrains Mono',monospace;font-size:9.5px;color:var(--ink-faint);text-transform:uppercase;letter-spacing:1px}
+.cs .vl{font-weight:500;color:var(--ink)}
+table{width:100%;border-collapse:collapse;background:var(--paper);font-size:13.5px;box-shadow:0 2px 8px rgba(31,58,95,.05)}
+th{background:var(--azul-deep);color:var(--paper);padding:13px 16px;text-align:left;font-size:11px;letter-spacing:.5px;text-transform:uppercase}
+td{padding:13px 16px;border-bottom:1px solid var(--rule);vertical-align:top}
+tr:last-child td{border-bottom:none}
+td:first-child{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink-faint);text-transform:uppercase;width:22%}
+.pr{color:var(--terra);font-weight:600}
+.gd{color:var(--olive);font-weight:500}
+.wr{color:var(--critical);font-weight:500}
+.tw{overflow-x:auto}
+.co{padding:22px 28px;margin:18px 0}
+.co.i{background:rgba(31,58,95,.05);border-left:4px solid var(--azul)}
+.co.w{background:var(--warn-bg);border-left:4px solid var(--critical)}
+.co.r{background:rgba(192,85,45,.06);border-left:4px solid var(--terra)}
+.co h3{font-size:18px}
+.co.i h3{color:var(--azul-deep)}
+.co.w h3{color:var(--critical)}
+.co.r h3{color:var(--terra)}
+.co p{font-size:14px;line-height:1.7}
+.co strong{color:var(--azul-deep);font-weight:600}
+.vd{background:var(--azul-deep);color:#fffaf0;padding:44px 40px;position:relative;overflow:hidden}
+.vd::before{content:'';position:absolute;top:0;right:0;width:240px;height:240px;background:radial-gradient(circle,rgba(192,85,45,.35) 0%,transparent 70%);pointer-events:none}
+.vl{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:4px;color:rgba(255,250,240,.55);margin-bottom:18px;text-transform:uppercase}
+.vt{font-family:'Fraunces',serif;font-size:28px;font-weight:500;margin-bottom:24px;letter-spacing:-.5px;line-height:1.3}
+.vt em{font-style:italic;color:var(--terra-light)}
+.vb{font-size:14.5px;line-height:1.85;color:rgba(255,250,240,.88);max-width:780px}
+.vb p{color:rgba(255,250,240,.88);margin-bottom:14px}
+.vb strong{color:var(--terra-light);font-weight:600}
+.sn{margin-top:14px;padding:10px 14px;background:rgba(31,58,95,.04);font-size:11.5px;color:var(--ink-faint);font-family:'JetBrains Mono',monospace;border-left:2px solid #4a6b8a}
+.footer{margin-top:80px;padding-top:32px;border-top:3px double var(--rule-strong);text-align:center;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink-faint);letter-spacing:2px}
+.footer .or{font-size:18px;color:var(--accent);margin-bottom:12px}
+@media (max-width:700px){h1{font-size:38px}h2{font-size:24px}.vt{font-size:22px}table{font-size:12px}th,td{padding:10px 12px}}
+</style>
+</head>
+<body>
+<div class="page">
+
+<a href="../index.html" class="home-link">← with-claude 허브로</a>
+
+<div class="breadcrumb"><a href="../index.html">archives / with-claude</a> / bundang-apt-2026 / master</div>
+
+<header class="masthead">
+<div class="eyebrow">Real Estate Memo · 32평 매수 비교</div>
+<h1>오리역 권역 vs 야탑역<br>32평 <em>매수 비교.</em></h1>
+<p class="subtitle">미금 거주자 관점에서, 비슷한 가격대의 세 단지를 호재·거주 품질·정비사업 잠재력 3축으로 평가.</p>
+</header>
+
+<section>
+<h2><span class="num">01 /</span>세 후보 한눈에</h2>
+<div class="grid">
+
+<article class="cand">
+<span class="b">D-01 · 호재 베팅</span>
+<div class="cn">수지벽산블루밍 1단지</div>
+<div class="cl">용인시 수지구 죽전동</div>
+<div class="cp">9.98<span class="u">억</span></div>
+<div class="cy">분양 32평 · 평당 약 3,120만원</div>
+<ul class="cs">
+<li><span class="lb">입주</span><span class="vl">1997.09 · 30년차</span></li>
+<li><span class="lb">세대</span><span class="vl">612세대</span></li>
+<li><span class="lb">용적률</span><span class="vl">248% / 22%</span></li>
+<li><span class="lb">역세권</span><span class="vl">동천5 · 오리8</span></li>
+<li><span class="lb">학군</span><span class="vl">대현초 5분</span></li>
+</ul>
+</article>
+
+<article class="cand">
+<span class="b o">D-02 · 거주 효율</span>
+<div class="cn">동천디이스트</div>
+<div class="cl">용인시 수지구 동천동</div>
+<div class="cp">8.88<span class="u">억</span></div>
+<div class="cy">분양 32평 · 평당 약 2,770만원</div>
+<ul class="cs">
+<li><span class="lb">입주</span><span class="vl">2007.10 · 18년차</span></li>
+<li><span class="lb">세대</span><span class="vl">1,334세대</span></li>
+<li><span class="lb">용적률</span><span class="vl">279% / 15%</span></li>
+<li><span class="lb">역세권</span><span class="vl">동천역 거리감</span></li>
+<li><span class="lb">학군</span><span class="vl">동천초 11분</span></li>
+</ul>
+</article>
+
+<article class="cand">
+<span class="b t">D-03 · 신축 프리미엄</span>
+<div class="cn">여수동 센트럴타운</div>
+<div class="cl">성남시 중원구 여수동</div>
+<div class="cp">12.2<span class="u">억</span></div>
+<div class="cy">분양 33평 · 평당 약 3,338만원</div>
+<ul class="cs">
+<li><span class="lb">입주</span><span class="vl">2012.12 · 14년차</span></li>
+<li><span class="lb">세대</span><span class="vl">1,039세대</span></li>
+<li><span class="lb">평형</span><span class="vl">29 / 33평 중심</span></li>
+<li><span class="lb">역세권</span><span class="vl">야탑역 도보</span></li>
+<li><span class="lb">구역</span><span class="vl">분당 아님</span></li>
+</ul>
+</article>
+
+</div>
+<div class="sn">SOURCE · 호갱노노, KB부동산, zippoom 최근 실거래 (2026.05 기준)</div>
+</section>
+
+<section>
+<h2><span class="num">02 /</span>축별 정밀 비교</h2>
+<div class="tw">
+<table>
+<thead><tr><th>축</th><th>수지벽산블루밍1</th><th>동천디이스트</th><th>여수동 센트럴타운</th></tr></thead>
+<tbody>
+<tr><td>가격 (32평)</td><td><span class="pr">9억 9,850만</span></td><td><span class="pr">8억 8,750만</span></td><td><span class="pr">12억 2,000만</span><br><span style="font-size:10.5px;color:var(--ink-faint)">※ 33평</span></td></tr>
+<tr><td>평당가</td><td>약 3,120만원</td><td>약 2,770만원</td><td>약 3,338만원</td></tr>
+<tr><td>연식</td><td><span class="wr">30년차 (1997)</span></td><td>18년차 (2007)</td><td><span class="gd">14년차 (2012)</span></td></tr>
+<tr><td>건폐율</td><td>22%</td><td><span class="gd">15% (쾌적)</span></td><td>중간</td></tr>
+<tr><td>용적률</td><td><span class="gd">248% (정비↑)</span></td><td><span class="wr">279% (정비↓)</span></td><td>—</td></tr>
+<tr><td>교통</td><td><span class="gd">더블역세권</span><br>동천(신분당)+오리(분당)</td><td>동천역까지 거리감</td><td>야탑역까지 도보</td></tr>
+<tr><td>호재 노출도</td><td><span class="gd">직접 수혜</span><br>제4테크노밸리/SRT/리모델링</td><td>간접 수혜</td><td>야탑역 인프라(현재)</td></tr>
+<tr><td>행정 디스카운트</td><td>없음 (용인 수지)</td><td>없음 (용인 수지)</td><td><span class="wr">중원구</span></td></tr>
+<tr><td>거주 품질</td><td><span class="wr">노후 (배관·주차)</span></td><td><span class="gd">대단지·쾌적</span></td><td><span class="gd">신축급·양호</span></td></tr>
+<tr><td>주요 단점</td><td>경부고속 소음<br>토끼굴 동선</td><td>역세권 약함<br>호재 직접성↓</td><td>중원구 디스카운트<br>주차난</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<section>
+<h2><span class="num">03 /</span>가격이 말해주는 것</h2>
+
+<div class="co r">
+<h3>30년차가 18년차보다 1.1억 비싼 이유</h3>
+<p>벽산블루밍1단지는 연식만 보면 동천디이스트보다 12년 더 노후했음에도 평당 350만원이 비싸다. 이 프리미엄은 <strong>리모델링 + 더블역세권 + SRT 기대감</strong>이 합쳐진 결과. 단순 가격 비교가 아니라 <strong>"호재 옵션 가치"</strong>를 사는 셈이다.</p>
+</div>
+
+<div class="co i">
+<h3>용적률이 정비사업의 진짜 변수</h3>
+<p>벽산블루밍1(248%)은 동천디이스트(279%)보다 정비사업 사업성에서 우위. 동천디이스트는 18년차에 이미 용적률 한계라 리모델링·재건축 카드가 약하다. <strong>"신축은 영원히 신축이 아니다"</strong>라는 게 분당권에서 무서운 부분이다.</p>
+</div>
+
+<div class="co w">
+<h3>센트럴타운: "4~5차선 건너면 분당"</h3>
+<p>여수동 센트럴타운은 단지 자체는 신축급이지만 <strong>행정구역이 성남시 중원구</strong>다. 분당 단지였다면 +2~3억 더 받을 입지인데 중원구 디스카운트가 적용된 가격. 향후에도 이 디스카운트는 거의 안 풀린다고 봐야 한다.</p>
+</div>
+
+<div class="co i">
+<h3>평수 매칭의 함정</h3>
+<p>센트럴타운은 분양 <strong>29평/33평</strong>이 주력이라 "32평 정확 매칭"은 불가능. 벽산블루밍1과 동천디이스트도 32평 = 전용 79~84㎡로 같은 분양평수이지만 평면 배치는 다르다. 단순 평수 비교보다 <strong>총 가격 + 평당가</strong>로 봐야 정확하다.</p>
+</div>
+</section>
+
+<section>
+<h2><span class="num">04 /</span>그래서, 어떻게 결정할 것인가</h2>
+
+<div class="vd">
+<div class="vl">DECISION FRAMEWORK</div>
+<div class="vt">"세 단지는 비교 대상이 아니라 <em>세 가지 다른 베팅</em>이다."</div>
+<div class="vb">
+<p><strong>① 수지벽산블루밍1단지</strong> — 호재 + 정비사업 옵션 패키지. 10년 시계와 거주 품질 리스크를 감내할 수 있다면 업사이드가 가장 크다. 이미 SRT/리모델링 기대감이 선반영된 가격이라 호재 미실현 시 다운사이드도 함께 진다.</p>
+<p><strong>② 동천디이스트</strong> — 가격 효율과 거주 품질의 균형. 정비사업 변수에서 약하고 신분당선 라인 프리미엄이 직접 안 붙는다. "거주 만족 + 보합"이 베이스 케이스.</p>
+<p><strong>③ 여수동 센트럴타운</strong> — 가장 비싸고 가장 신축에 가깝지만 중원구 디스카운트가 상수. 신축 거주에 1~3억 더 쓸 수 있고 호재 베팅보다 즉시 거주가 우선이면 합리. 다만 미래 가치 상승률은 셋 중 가장 낮을 가능성.</p>
+<p style="margin-top:24px;font-size:13px;color:rgba(255,250,240,.7)">미금 거주자 입장에서는 ①이 가장 자연스러운 후속 매수 카드. 다만 30년차 단지의 거주 리스크는 임장으로 직접 확인해야 함. ②는 안전판, ③은 거주 만족도 우선 케이스.</p>
+</div>
+</div>
+</section>
+
+<div class="footer">
+<div class="or">✦</div>
+<div>BUNDANG-APT · 2026 · MEMO BY JINWOONG</div>
+<div style="margin-top:8px;opacity:.6">compiled 2026.05.18</div>
+</div>
+
+</div>
+</body>
+</html>
