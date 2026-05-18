@@ -88,6 +88,17 @@
   .info-list.warn li::before { background: var(--warn); }
   .info-list.must li::before { background: var(--accent); }
   .info-list.tip li::before { background: var(--azul); }
+  .info-list.route li::before { background: #4a7c4a; }
+
+  .weather-strip { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px; padding: 12px; background: linear-gradient(135deg, #f0e9dc 0%, #e8e1d0 100%); border-radius: 3px; }
+  .weather-strip .w-item { font-family: var(--mono); font-size: 10px; }
+  .weather-strip .w-item .lbl { display: block; font-size: 8px; letter-spacing: 1.5px; color: var(--ink-muted); text-transform: uppercase; margin-bottom: 2px; }
+  .weather-strip .w-item .val { font-weight: 600; color: var(--ink); font-size: 11.5px; }
+
+  .coord-box { margin-top: 8px; padding: 12px 14px; background: #fdfaf4; border-left: 2px solid var(--accent-soft); border-radius: 0 3px 3px 0; }
+  .coord-box .coord-line { font-size: 12px; line-height: 1.6; color: var(--ink-soft); }
+  .coord-box .coord-line strong { color: var(--ink); font-weight: 600; }
+  .coord-box .coord-tag { display: inline-block; font-family: var(--mono); font-size: 9px; padding: 2px 6px; background: var(--accent); color: #fff; margin-right: 6px; letter-spacing: .5px; }
 
   .plan-section { padding: 0 64px 0 0; margin-top: 56px; }
   .plan-section h2 { font-family: var(--serif); font-size: 28px; font-weight: 500; margin-bottom: 8px; }
@@ -245,22 +256,50 @@
           <div class="tags"><span class="tag">도착</span><span class="tag">EES 첫 시행</span></div>
 
           <div class="day-section">
+            <div class="day-section-label"><span class="ic">🌤</span> 날씨 (평년)</div>
+            <div class="weather-strip">
+              <div class="w-item"><span class="lbl">기온</span><span class="val">14 ~ 23℃</span></div>
+              <div class="w-item"><span class="lbl">강수</span><span class="val">낮음</span></div>
+              <div class="w-item"><span class="lbl">도착 시</span><span class="val">~16℃ 야간</span></div>
+              <div class="w-item"><span class="lbl">바람</span><span class="val">서풍 약간</span></div>
+            </div>
+          </div>
+
+          <div class="day-section">
+            <div class="day-section-label"><span class="ic">👕</span> 코디</div>
+            <ul class="info-list tip">
+              <li><strong>기내</strong>: 긴팔 + 가벼운 자켓 (KE 기내 18~22℃)</li>
+              <li><strong>도착 시</strong>: 그대로 OK. 호텔 도착 후 바로 샤워</li>
+              <li>비행 직후 부종 대비 — 헐렁한 바지/원피스 권장</li>
+            </ul>
+          </div>
+
+          <div class="day-section">
             <div class="day-section-label"><span class="ic">⏱</span> Timeline</div>
             <ul class="timeline-list">
               <li><span class="time">13:00</span><span class="event"><strong>ICN 출발</strong> · KE921</span></li>
               <li><span class="time">20:15</span><span class="event"><strong>LIS 도착</strong> · 입국 + EES 등록</span></li>
               <li><span class="time">21:00</span><span class="event">짐 찾기 + 공항 Ask Me Lisboa 카드 픽업 (22:00 마감)</span></li>
-              <li><span class="time">21:30</span><span class="event">짐 찾고 걸어가며 우버/볼트 호출 (지정 픽업장 따로 있음)</span></li>
+              <li><span class="time">21:30</span><span class="event">짐 찾고 걸어가며 우버/볼트 호출</span></li>
               <li><span class="time">22:30</span><span class="event"><strong>Livô 체크인</strong></span></li>
               <li><span class="time">23:00</span><span class="event">씻고 쿨쿨띠 · 시차 적응 모드</span></li>
             </ul>
           </div>
 
           <div class="day-section">
+            <div class="day-section-label"><span class="ic">🗺</span> 동선</div>
+            <div class="coord-box">
+              <div class="coord-line"><span class="coord-tag">🛬</span><strong>LIS 공항 (T1)</strong></div>
+              <div class="coord-line" style="margin-top:6px;">↓ 우버/볼트 ~€15, 약 20분 (심야 할증 있음)</div>
+              <div class="coord-line" style="margin-top:6px;"><span class="coord-tag">🏨</span><strong>Livô Boutique Living</strong> · 바이샤/치아두</div>
+            </div>
+          </div>
+
+          <div class="day-section">
             <div class="day-section-label"><span class="ic">⚠</span> 유의사항</div>
             <ul class="info-list warn">
               <li>EU EES 첫 시행 — 지문+얼굴 등록으로 입국 30분+ 추가</li>
-              <li>리스본 공항 우버 픽업장은 따로 있음 — 짐 찾으며 호출 권장</li>
+              <li>공항 우버/볼트 픽업장 별도 — 짐 찾으며 호출 권장</li>
               <li>Ask Me Lisboa 22:00 마감 — 비행 지연 시 다음날 시내 매장 픽업</li>
               <li>무리하지 말기. 첫날은 자는 게 일정의 일부</li>
             </ul>
@@ -273,6 +312,7 @@
               <li>이심 (활성화 확인)</li>
               <li>우버/볼트 앱 (사전 설치 필수)</li>
               <li>유럽 어댑터 (호텔에서 충전)</li>
+              <li>가벼운 자켓 (도착 시 16℃)</li>
             </ul>
           </div>
 
@@ -282,6 +322,7 @@
               <li>Livô 24시간 프론트 — 늦은 체크인 OK</li>
               <li>볼트(Bolt)가 보통 우버보다 €2~3 저렴</li>
               <li>공항 환전소 환율 안 좋음 → 시내 ATM 추천</li>
+              <li>출발 1주일 전 실제 예보 재확인 (이 수치는 30년 평균)</li>
             </ul>
           </div>
         </article>
