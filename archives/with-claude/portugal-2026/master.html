@@ -51,53 +51,30 @@
 
   .nav { list-style: none; display: flex; flex-direction: column; gap: 2px; }
   .nav button {
-    width: 100%;
-    background: none;
-    border: none;
-    color: #d4cfc3;
-    font-family: var(--serif-kr);
-    font-size: 14px;
-    text-align: left;
-    padding: 12px 14px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    border-left: 2px solid transparent;
-    transition: all .15s;
-    font-weight: 500;
+    width: 100%; background: none; border: none; color: #d4cfc3;
+    font-family: var(--serif-kr); font-size: 14px; text-align: left;
+    padding: 12px 14px; cursor: pointer; display: flex; align-items: center;
+    gap: 12px; border-left: 2px solid transparent; transition: all .15s; font-weight: 500;
   }
   .nav button .num { font-family: var(--mono); font-size: 10px; color: #6a6558; min-width: 16px; }
   .nav button .lbl-en { font-family: var(--mono); font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase; color: #6a6558; margin-left: auto; }
   .nav button:hover { background: rgba(255,255,255,.04); color: #fff; }
-  .nav button.active {
-    background: rgba(196, 165, 165, .08);
-    border-left-color: var(--accent-soft);
-    color: #fff;
-  }
+  .nav button.active { background: rgba(196, 165, 165, .08); border-left-color: var(--accent-soft); color: #fff; }
   .nav button.active .num { color: var(--accent-soft); }
   .nav button.active .lbl-en { color: var(--accent-soft); }
 
   .sidebar-footer {
-    margin-top: 40px;
-    padding-top: 24px;
-    border-top: 1px solid #2a2a2a;
-    font-family: var(--mono);
-    font-size: 9px;
-    line-height: 1.7;
-    color: #6a6558;
-    letter-spacing: 1px;
-    text-transform: uppercase;
+    margin-top: 40px; padding-top: 24px; border-top: 1px solid #2a2a2a;
+    font-family: var(--mono); font-size: 9px; line-height: 1.7;
+    color: #6a6558; letter-spacing: 1px; text-transform: uppercase;
   }
   .sidebar-footer .hub-link { color: var(--accent-soft); border: none; display: block; margin-top: 12px; }
   .sidebar-footer .hub-link:hover { color: #fff; border: none; }
 
   .main { padding: 0; overflow-x: hidden; }
-
   .panel { display: none; padding: 56px 64px 80px; max-width: 1100px; }
   .panel.active { display: block; animation: fadeIn .3s ease; }
   @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
-
   .panel#tab-itinerary { max-width: none; padding-right: 0; }
 
   .panel-header { margin-bottom: 40px; padding-bottom: 24px; border-bottom: 1px solid var(--line); }
@@ -111,57 +88,48 @@
   @keyframes nudge { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(6px); } }
 
   .day-scroller {
-    display: flex;
-    gap: 16px;
-    overflow-x: auto;
-    overflow-y: visible;
-    padding: 8px 64px 32px 0;
-    scroll-snap-type: x mandatory;
-    scrollbar-width: thin;
-    scrollbar-color: var(--accent-soft) transparent;
+    display: flex; gap: 16px; overflow-x: auto; overflow-y: visible;
+    padding: 8px 64px 32px 0; scroll-snap-type: x mandatory;
+    scrollbar-width: thin; scrollbar-color: var(--accent-soft) transparent;
+    align-items: stretch;
   }
   .day-scroller::-webkit-scrollbar { height: 8px; }
   .day-scroller::-webkit-scrollbar-track { background: transparent; }
   .day-scroller::-webkit-scrollbar-thumb { background: var(--accent-soft); border-radius: 4px; }
 
   .day-card {
-    flex: 0 0 320px;
-    background: var(--bg-card);
-    border: 1px solid var(--line);
-    padding: 24px;
-    scroll-snap-align: start;
-    display: flex;
-    flex-direction: column;
-    min-height: 420px;
-    position: relative;
-    transition: transform .2s, box-shadow .2s;
+    flex: 0 0 380px; background: var(--bg-card); border: 1px solid var(--line);
+    padding: 26px; scroll-snap-align: start; display: flex; flex-direction: column;
+    position: relative; transition: transform .2s, box-shadow .2s;
   }
   .day-card:hover { transform: translateY(-2px); box-shadow: 0 12px 28px -16px rgba(0,0,0,.18); }
 
-  .day-card .day-num {
-    position: absolute;
-    top: 18px;
-    right: 18px;
-    font-family: var(--mono);
-    font-size: 9px;
-    letter-spacing: 1.5px;
-    color: var(--ink-muted);
-  }
-  .day-card .date {
-    font-family: var(--serif);
-    font-size: 32px;
-    font-weight: 500;
-    line-height: 1;
-    margin-bottom: 2px;
-  }
-  .day-card .dow { font-family: var(--mono); font-size: 10px; letter-spacing: 2px; color: var(--accent); text-transform: uppercase; margin-bottom: 20px; }
-
-  .day-card .title { font-family: var(--serif-kr); font-size: 17px; font-weight: 600; line-height: 1.3; margin-bottom: 14px; }
-  .day-card .desc { font-size: 13.5px; line-height: 1.6; color: var(--ink-soft); flex: 1; }
-  .day-card .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 16px; }
-  .day-card .tag { font-family: var(--mono); font-size: 9px; letter-spacing: 1px; text-transform: uppercase; padding: 4px 8px; background: #f4efe7; color: var(--ink-soft); border-radius: 2px; }
-  .day-card.highlight { border-color: var(--accent); border-width: 1px; box-shadow: 0 0 0 1px var(--accent); }
+  .day-card .day-num { position: absolute; top: 18px; right: 18px; font-family: var(--mono); font-size: 9px; letter-spacing: 1.5px; color: var(--ink-muted); }
+  .day-card .date { font-family: var(--serif); font-size: 32px; font-weight: 500; line-height: 1; margin-bottom: 2px; }
+  .day-card .dow { font-family: var(--mono); font-size: 10px; letter-spacing: 2px; color: var(--accent); text-transform: uppercase; margin-bottom: 16px; }
+  .day-card .title { font-family: var(--serif-kr); font-size: 18px; font-weight: 600; line-height: 1.3; margin-bottom: 8px; }
+  .day-card .desc { font-size: 12.5px; line-height: 1.55; color: var(--ink-soft); margin-bottom: 14px; }
+  .day-card .tags { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 4px; }
+  .day-card .tag { font-family: var(--mono); font-size: 8.5px; letter-spacing: 1px; text-transform: uppercase; padding: 3px 7px; background: #f4efe7; color: var(--ink-soft); border-radius: 2px; }
+  .day-card.highlight { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
   .day-card.highlight .tag.swap { background: var(--accent); color: #fff; }
+
+  /* Day card sections */
+  .day-section { margin-top: 16px; padding-top: 14px; border-top: 1px dashed var(--line); }
+  .day-section-label { font-family: var(--mono); font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+  .day-section-label .ic { font-size: 11px; }
+  .day-section ul { list-style: none; }
+
+  .timeline-list li { display: flex; gap: 10px; padding: 3px 0; font-size: 12px; line-height: 1.5; align-items: flex-start; }
+  .timeline-list .time { font-family: var(--mono); font-size: 10px; font-weight: 600; min-width: 48px; color: var(--accent); padding-top: 1px; flex-shrink: 0; }
+  .timeline-list .event { flex: 1; color: var(--ink-soft); }
+  .timeline-list .event strong { color: var(--ink); font-weight: 600; }
+
+  .info-list li { padding: 3px 0 3px 12px; font-size: 12px; line-height: 1.5; color: var(--ink-soft); position: relative; }
+  .info-list li::before { content: ''; width: 3px; height: 3px; background: var(--ink-muted); border-radius: 50%; position: absolute; left: 2px; top: 9px; }
+  .info-list.warn li::before { background: var(--warn); }
+  .info-list.must li::before { background: var(--accent); }
+  .info-list.tip li::before { background: var(--azul); }
 
   .plan-section { padding: 0 64px 0 0; margin-top: 56px; }
   .plan-section h2 { font-family: var(--serif); font-size: 28px; font-weight: 500; margin-bottom: 8px; }
@@ -171,16 +139,9 @@
   .plan-tile { background: var(--bg-card); border: 1px solid var(--line); padding: 20px; }
   .plan-tile.recommend { border-color: var(--accent); position: relative; }
   .plan-tile.recommend::before {
-    content: 'RECOMMEND';
-    position: absolute;
-    top: -10px;
-    left: 16px;
-    background: var(--accent);
-    color: #fff;
-    font-family: var(--mono);
-    font-size: 9px;
-    letter-spacing: 1.5px;
-    padding: 3px 8px;
+    content: 'RECOMMEND'; position: absolute; top: -10px; left: 16px;
+    background: var(--accent); color: #fff; font-family: var(--mono);
+    font-size: 9px; letter-spacing: 1.5px; padding: 3px 8px;
   }
   .plan-tile .plan-name { font-family: var(--serif); font-size: 22px; font-weight: 600; margin-bottom: 4px; }
   .plan-tile .plan-concept { font-family: var(--mono); font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
@@ -210,22 +171,13 @@
   .badge.connection { background: var(--ink-muted); color: #fff; }
   .badge.return { background: var(--accent); color: #fff; }
 
-  .train-flow {
-    display: flex;
-    align-items: center;
-    gap: 24px;
-    background: var(--bg-card);
-    border: 1px solid var(--line);
-    padding: 28px 32px;
-    margin-bottom: 16px;
-  }
+  .train-flow { display: flex; align-items: center; gap: 24px; background: var(--bg-card); border: 1px solid var(--line); padding: 28px 32px; margin-bottom: 16px; }
   .train-flow .stop { text-align: center; min-width: 140px; }
   .train-flow .stop .city { font-family: var(--serif); font-size: 24px; font-weight: 500; }
   .train-flow .stop .station { font-family: var(--mono); font-size: 10px; letter-spacing: 1px; color: var(--ink-muted); text-transform: uppercase; margin-top: 4px; }
   .train-flow .stop .time { font-family: var(--mono); font-size: 16px; font-weight: 500; margin-top: 8px; }
   .train-flow .arrow-line { flex: 1; height: 1px; background: var(--ink); position: relative; }
   .train-flow .arrow-line::after { content: '→'; position: absolute; right: -2px; top: -11px; font-size: 18px; color: var(--ink); }
-
   .train-details { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 14px 24px; font-size: 13px; padding: 16px 0; }
   .train-details > div strong { display: block; font-family: var(--mono); font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 2px; }
 
@@ -239,16 +191,7 @@
   .pack-card .tier-label { font-family: var(--mono); font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--ink-muted); margin: 16px 0 6px; padding-top: 12px; border-top: 1px dashed var(--line); }
   .pack-card .tier-label:first-of-type { margin-top: 0; padding-top: 0; border-top: none; }
 
-  .battery-callout {
-    background: var(--ink);
-    color: #f0ece4;
-    padding: 28px 32px;
-    margin-top: 24px;
-    display: grid;
-    grid-template-columns: 1.5fr 1fr;
-    gap: 32px;
-    align-items: center;
-  }
+  .battery-callout { background: var(--ink); color: #f0ece4; padding: 28px 32px; margin-top: 24px; display: grid; grid-template-columns: 1.5fr 1fr; gap: 32px; align-items: center; }
   .battery-callout h3 { font-family: var(--serif); font-size: 24px; font-weight: 500; margin-bottom: 8px; }
   .battery-callout .b-spec { font-size: 13px; color: #c4bfaf; line-height: 1.6; }
   .battery-callout dl { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 16px; font-family: var(--mono); font-size: 11px; }
@@ -256,67 +199,22 @@
   .battery-callout dd { color: #f0ece4; font-weight: 500; }
 
   .notes-list { display: grid; gap: 12px; }
-  .note-item {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    gap: 16px;
-    background: var(--bg-card);
-    border: 1px solid var(--line);
-    border-left: 3px solid var(--warn);
-    padding: 18px 22px;
-    align-items: start;
-  }
-  .note-item .note-icon {
-    font-family: var(--mono);
-    font-size: 10px;
-    letter-spacing: 1.5px;
-    color: var(--warn);
-    padding-top: 2px;
-    min-width: 60px;
-  }
+  .note-item { display: grid; grid-template-columns: auto 1fr; gap: 16px; background: var(--bg-card); border: 1px solid var(--line); border-left: 3px solid var(--warn); padding: 18px 22px; align-items: start; }
+  .note-item .note-icon { font-family: var(--mono); font-size: 10px; letter-spacing: 1.5px; color: var(--warn); padding-top: 2px; min-width: 60px; }
   .note-item .note-body strong { display: block; margin-bottom: 4px; font-size: 14.5px; }
   .note-item .note-body p { font-size: 13px; color: var(--ink-soft); line-height: 1.55; }
 
   .todo-list { display: grid; gap: 8px; margin-top: 8px; }
-  .todo-item {
-    background: var(--bg-card);
-    border: 1px solid var(--line);
-    padding: 14px 18px;
-    display: grid;
-    grid-template-columns: 24px 1fr;
-    gap: 12px;
-    align-items: start;
-    cursor: pointer;
-    transition: background .15s;
-  }
+  .todo-item { background: var(--bg-card); border: 1px solid var(--line); padding: 14px 18px; display: grid; grid-template-columns: 24px 1fr; gap: 12px; align-items: start; cursor: pointer; transition: background .15s; }
   .todo-item:hover { background: #fdfaf4; }
-  .todo-item .check {
-    width: 18px;
-    height: 18px;
-    border: 1.5px solid var(--ink-muted);
-    border-radius: 2px;
-    margin-top: 2px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all .15s;
-  }
+  .todo-item .check { width: 18px; height: 18px; border: 1.5px solid var(--ink-muted); border-radius: 2px; margin-top: 2px; display: flex; align-items: center; justify-content: center; transition: all .15s; }
   .todo-item.checked .check { background: var(--done); border-color: var(--done); }
   .todo-item.checked .check::after { content: '✓'; color: #fff; font-size: 12px; font-weight: bold; }
   .todo-item.checked .todo-body strong { text-decoration: line-through; color: var(--ink-muted); }
   .todo-body strong { font-size: 14px; font-weight: 600; display: block; }
   .todo-body span { font-size: 12.5px; color: var(--ink-soft); }
 
-  .card-feature {
-    background: var(--bg-card);
-    border: 1px solid var(--line);
-    padding: 32px;
-    margin-bottom: 24px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 32px;
-    align-items: center;
-  }
+  .card-feature { background: var(--bg-card); border: 1px solid var(--line); padding: 32px; margin-bottom: 24px; display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: center; }
   .card-feature h3 { font-family: var(--serif); font-size: 28px; font-weight: 500; margin-bottom: 12px; }
   .card-feature .price-block { text-align: center; padding: 24px; background: #f4efe7; }
   .card-feature .price-block .p-label { font-family: var(--mono); font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--ink-muted); }
@@ -330,15 +228,7 @@
   table.price-table tr.highlight td { background: #fdf6f0; font-weight: 600; }
 
   .link-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px; }
-  .link-list a {
-    display: block;
-    background: var(--bg-card);
-    border: 1px solid var(--line);
-    padding: 14px 18px;
-    color: var(--ink);
-    border-bottom: 1px solid var(--line);
-    transition: border-color .15s, transform .15s;
-  }
+  .link-list a { display: block; background: var(--bg-card); border: 1px solid var(--line); padding: 14px 18px; color: var(--ink); border-bottom: 1px solid var(--line); transition: border-color .15s, transform .15s; }
   .link-list a:hover { border-color: var(--accent); transform: translateX(2px); }
   .link-list a strong { display: block; font-size: 14px; font-weight: 600; margin-bottom: 2px; }
   .link-list a span { font-size: 12px; color: var(--ink-muted); }
@@ -353,12 +243,11 @@
     .nav button.active { border-left-color: transparent; border-bottom-color: var(--accent-soft); background: rgba(196,165,165,.08); }
     .nav button .lbl-en { display: none; }
     .sidebar-footer { display: none; }
-
     .panel { padding: 32px 20px 60px; }
     .panel-title { font-size: 34px; }
     .panel#tab-itinerary { padding-right: 0; }
     .day-scroller { padding: 8px 20px 32px 0; }
-    .day-card { flex: 0 0 280px; min-height: 380px; padding: 20px; }
+    .day-card { flex: 0 0 320px; padding: 22px; }
     .plan-section { padding: 0 20px 0 0; }
     .card-feature { grid-template-columns: 1fr; padding: 24px; }
     .battery-callout { grid-template-columns: 1fr; padding: 22px; }
@@ -375,7 +264,6 @@
   <aside class="sidebar">
     <div class="brand">Portugal<span class="dot">.</span></div>
     <div class="brand-sub">Master · 2026.05.22 — 06.01</div>
-
     <ul class="nav">
       <li><button class="nav-btn active" data-tab="itinerary"><span class="num">01</span>일정<span class="lbl-en">ITINERARY</span></button></li>
       <li><button class="nav-btn" data-tab="reservations"><span class="num">02</span>예약<span class="lbl-en">BOOKED</span></button></li>
@@ -383,11 +271,8 @@
       <li><button class="nav-btn" data-tab="notes"><span class="num">04</span>유의사항<span class="lbl-en">NOTES</span></button></li>
       <li><button class="nav-btn" data-tab="info"><span class="num">05</span>정보<span class="lbl-en">INFO</span></button></li>
     </ul>
-
     <div class="sidebar-footer">
-      진웅 &amp; 찌니<br>
-      9N 10D · Lisboa→Porto<br>
-      Compiled 2026.05.17
+      진웅 &amp; 찌니<br>9N 10D · Lisboa→Porto<br>Updated 2026.05.18
       <a href="https://jinwoongkim.net/archives/with-claude/index.html" class="hub-link">← with-claude</a>
     </div>
   </aside>
@@ -396,9 +281,9 @@
 
     <section class="panel active" id="tab-itinerary">
       <div class="panel-header" style="padding-right: 64px;">
-        <div class="panel-eyebrow">Plan B · Day by Day</div>
+        <div class="panel-eyebrow">Plan B · Day by Day · Detailed</div>
         <h1 class="panel-title">Portugal, <em>en route.</em></h1>
-        <p class="panel-sub">알파마 ↔ 벨렘 데이스왑 적용 · 월요일 제로니무스 휴관 회피 · 여유 페이스 유지. 카드 옆으로 밀어서 보기 →</p>
+        <p class="panel-sub">스왑 정정: 벨렘(5/23) ↔ 알파마(5/25). 카드 옆으로 밀어서 보기 →. 시간대 · 유의 · 준비 · 특이사항까지 한 카드 안에.</p>
       </div>
 
       <div class="scroll-hint" style="padding-right: 64px;">
@@ -407,94 +292,556 @@
 
       <div class="day-scroller">
 
+        <!-- DAY 1 -->
         <article class="day-card">
           <span class="day-num">DAY 01</span>
           <div class="date">05.22</div>
           <div class="dow">Fri · 금</div>
           <div class="title">리스본 도착 · 체크인</div>
-          <div class="desc">KE921 20:15 LIS 도착. 공항 Ask Me Lisboa 데스크(07:00~22:00)에서 리스보아 카드 픽업. Livô 체크인 후 가볍게 휴식.</div>
-          <div class="tags"><span class="tag">도착</span><span class="tag">카드 픽업</span></div>
+          <div class="desc">KE921 도착 → 카드 픽업 → 호텔 체크인 → 휴식.</div>
+          <div class="tags"><span class="tag">도착</span><span class="tag">카드 픽업</span><span class="tag">EES 첫 시행</span></div>
+
+          <div class="day-section">
+            <div class="day-section-label"><span class="ic">⏱</span> Timeline</div>
+            <ul class="timeline-list">
+              <li><span class="time">13:00</span><span class="event"><strong>ICN 출발</strong> · KE921</span></li>
+              <li><span class="time">20:15</span><span class="event"><strong>LIS 도착</strong> · 입국 + EES 등록</span></li>
+              <li><span class="time">21:00</span><span class="event">공항 Ask Me Lisboa 데스크에서 리스보아 카드 픽업 (22:00 마감)</span></li>
+              <li><span class="time">21:30</span><span class="event">메트로 Red→Blue 또는 우버 (~€20)</span></li>
+              <li><span class="time">22:30</span><span class="event"><strong>Livô 체크인</strong> · 바이샤/치아두</span></li>
+              <li><span class="time">23:00</span><span class="event">가벼운 야식 또는 휴식</span></li>
+            </ul>
+          </div>
+
+          <div class="day-section">
+            <div class="day-section-label"><span class="ic">⚠</span> 유의사항</div>
+            <ul class="info-list warn">
+              <li>EU EES 첫 시행 — 지문+얼굴 등록으로 입국 30분+ 추가</li>
+              <li>Ask Me Lisboa 데스크는 22:00 마감. 비행 지연 시 다음날 시내 매장 픽업</li>
+              <li>공항 메트로는 23시까지 운행</li>
+            </ul>
+          </div>
+
+          <div class="day-section">
+            <div class="day-section-label"><span class="ic">🎒</span> 준비물</div>
+            <ul class="info-list must">
+              <li>여권 · 호텔 바우처 · 유럽 어댑터</li>
+              <li>현금/카드 (우버, 야식)</li>
+              <li>충전된 폰</li>
+            </ul>
+          </div>
+
+          <div class="day-section">
+            <div class="day-section-label"><span class="ic">💡</span> 특이사항</div>
+            <ul class="info-list tip">
+              <li>Livô는 24시간 프론트 — 늦은 체크인 OK</li>
+              <li>공항 환전소 환율 안 좋음 → 시내 ATM 추천</li>
+              <li>첫날은 무리 X. 휴식 우선</li>
+            </ul>
+          </div>
         </article>
 
+        <!-- DAY 2 - 벨렘 (스왑 정정) -->
         <article class="day-card highlight">
           <span class="day-num">DAY 02</span>
           <div class="date">05.23</div>
           <div class="dow">Sat · 토</div>
-          <div class="title">알파마 · 트램 28</div>
-          <div class="desc">알파마 골목길, 상 조르즈 성, 미라도루. 트램 28은 마르팀 모니스 출발 — 줄 길면 두 번째 정류장. 코메르시우 광장 일몰.</div>
-          <div class="tags"><span class="tag swap">SWAP</span><span class="tag">올드타운</span><span class="tag">파두</span></div>
+          <div class="title">벨렘 (Belém) — 스왑일</div>
+          <div class="desc">제로니무스 수도원 입장 가능한 토요일에 벨렘 배정 (월요일 휴관 회피).</div>
+          <div class="tags"><span class="tag swap">SWAP</span><span class="tag">수도원</span><span class="tag">에그타르트</span></div>
+
+          <div class="day-section">
+            <div class="day-section-label"><span class="ic">⏱</span> Timeline</div>
+            <ul class="timeline-list">
+              <li><span class="time">08:00</span><span class="event">파스테이스 드 벨렘 (8:00 오픈, 줄 짧을 때)</span></li>
+              <li><span class="time">09:00</span><span class="event">메트로 + 트램 15 → 벨렘 (리스보아 카드 활성화 첫 사용)</span></li>
+              <li><span class="time">09:30</span><span class="event"><strong>제로니무스 수도원</strong> · 카드로 무료, 사전예약 권장</span></li>
+              <li><span class="time">12:00</span><span class="event">벨렘 정원 + 발견 기념비</span></li>
+              <li><span class="time">13:00</span><span class="event">벨렘 인근 점심</span></li>
+              <li><span class="time">14:30</span><span class="event">벨렘 타워 외관 (보수 중, 내부 X)</span></li>
+              <li><span class="time">15:30</span><span class="event">MAAT 미술관 (옵션, 강변 모던)</span></li>
+              <li><span class="time">18:30</span><span class="event">산타주스타 엘리베이터 일몰</span></li>
+              <li><span class="time">20:00</span><span class="event">치아두 저녁</span></li>
+            </ul>
+          </div>
+
+          <div class="day-section">
+            <div class="day-section-label"><span class="ic">⚠</span> 유의사항</div>
+            <ul class="info-list warn">
+              <li>제로니무스는 입장 줄이 김 — 사전예약 또는 오픈 직후</li>
+              <li>벨렘 타워 보수 중 (2025.4부터), 재개장 미정</li>
+              <li>리스보아 카드 첫 사용 시점 = 활성화 시작 (72h 카운트다운)</li>
+            </ul>
+          </div>
+
+          <div class="day-section">
+            <div class="day-section-label"><span class="ic">🎒</span> 준비물</div>
+            <ul class="info-list must">
+              <li>리스보아 카드 (활성화)</li>
+              <li>편한 운동화 (벨렘 도보 많음)</li>
+              <li>가벼운 자켓 (강변 바람)</li>
+              <li>카메라/폰</li>
+            </ul>
+          </div>
+
+          <div class="day-section">
+            <div class="day-section-label"><span class="ic">💡</span> 특이사항</div>
+            <ul class="info-list tip">
+              <li>파스테이스 드 벨렘 = 1837년 동일 비밀 레시피</li>
+              <li>트램 15는 현대식 — 트램 28보다 덜 붐빔</li>
+              <li>제로니무스 = 마누엘 양식, 유네스코</li>
+            </ul>
+          </div>
         </article>
 
+        <!-- DAY 3 - 신트라 -->
         <article class="day-card">
           <span class="day-num">DAY 03</span>
           <div class="date">05.24</div>
           <div class="dow">Sun · 일</div>
           <div class="title">신트라 · 페나 궁전</div>
-          <div class="desc">로시우역 → 신트라 기차. 페나 궁전(30분 타임슬롯 사전예약 필수), 무어성. 호카곶 403번 버스는 1시간 간격.</div>
+          <div class="desc">기차 당일치기. 페나 궁전 사전예약 필수, 호카곶 옵션.</div>
           <div class="tags"><span class="tag">당일치기</span><span class="tag">사전예약</span><span class="tag">동화궁전</span></div>
+
+          <div class="day-section">
+            <div class="day-section-label"><span class="ic">⏱</span> Timeline</div>
+            <ul class="timeline-list">
+              <li><span class="time">07:30</span><span class="event">조식 + 출발 준비</span></li>
+              <li><span class="time">08:18</span><span class="event">로시우역 → 신트라행 기차 (40분, 카드 무료)</span></li>
+              <li><span class="time">09:00</span><span class="event">신트라역 도착 → 434번 버스 (페나/무어성 순환)</span></li>
+              <li><span class="time">09:30</span><span class="event"><strong>페나 궁전</strong> · 타임슬롯 사전예약</span></li>
+              <li><span class="time">11:30</span><span class="event">무어성 (페나 옆, 도보 10분)</span></li>
+              <li><span class="time">13:00</span><span class="event">신트라 시내 점심 (Travesseiro 디저트)</span></li>
+              <li><span class="time">15:00</span><span class="event">403번 → 호카곶 (옵션, 40분)</span></li>
+              <li><span class="time">17:00</span><span class="event">호카곶 산책 + 카스카이스</span></li>
+              <li><span class="time">19:00</span><span class="event">리스본 복귀 기차</span></li>
+              <li><span class="time">20:30</span><span class="event">리스본 도착 + 저녁</span></li>
+            </ul>
+          </div>
+
+          <div class="day-section">
+            <div class="day-section-label"><span class="ic">⚠</span> 유의사항</div>
+            <ul class="info-list warn">
+              <li><strong>페나 궁전 30분 타임슬롯 사전예약 필수</strong> — 늦으면 입장 X</li>
+              <li>일요일이라 매우 붐빔 → 08:00 이전 기차 권장</li>
+              <li>호카곶 403번 1시간 간격, 막차 시간 확인</li>
+              <li>신트라 시내↔페나 도보 불가 (가파른 산길)</li>
+            </ul>
+          </div>
+
+          <div class="day-section">
+            <div class="day-section-label"><span class="ic">🎒</span> 준비물</div>
+            <ul class="info-list must">
+              <li>리스보아 카드 (신트라 기차 무료)</li>
+              <li>페나 궁전 사전예약 QR</li>
+              <li>윈드브레이커 (페나 산 위, 호카곶 강풍)</li>
+              <li>편한 등산화/운동화 · 물 · 모자</li>
+            </ul>
+          </div>
+
+          <div class="day-section">
+            <div class="day-section-label"><span class="ic">💡</span> 특이사항</div>
+            <ul class="info-list tip">
+              <li>페나 궁전 = 디즈니 성의 영감 (1840s 낭만주의)</li>
+              <li>호카곶 = 유라시아 대륙 최서단, Camões 비석</li>
+              <li>5월 말 일몰 약 20:50 — 호카곶 일몰 보려면 늦게까지</li>
+            </ul>
+          </div>
         </article>
 
+        <!-- DAY 4 - 알파마 (스왑 정정) -->
         <article class="day-card highlight">
           <span class="day-num">DAY 04</span>
           <div class="date">05.25</div>
           <div class="dow">Mon · 월</div>
-          <div class="title">벨렘 — 스왑일</div>
-          <div class="desc">제로니무스 수도원(월요일 휴관 회피용 스왑). 파스테이스 드 벨렘(8:00 오픈). 벨렘 타워는 보수 중 — 외관만. 산타주스타 엘리베이터.</div>
-          <div class="tags"><span class="tag swap">SWAP</span><span class="tag">수도원</span><span class="tag">에그타르트</span></div>
+          <div class="title">알파마 · 트램 28</div>
+          <div class="desc">월요일은 알파마 — 야외 골목길 + 트램 28, 휴관 영향 없음.</div>
+          <div class="tags"><span class="tag swap">SWAP</span><span class="tag">올드타운</span><span class="tag">파두</span></div>
+
+          <div class="day-section">
+            <div class="day-section-label"><span class="ic">⏱</span> Timeline</div>
+            <ul class="timeline-list">
+              <li><span class="time">09:00</span><span class="event"><strong>상 조르즈 성</strong> · 오픈 시 사람 적음 (€15, 카드 X)</span></li>
+              <li><span class="time">10:30</span><span class="event">알파마 골목길 산책</span></li>
+              <li><span class="time">11:00</span><span class="event">Miradouro de Santa Luzia + Portas do Sol 전망대</span></li>
+              <li><span class="time">12:00</span><span class="event">산타 마리아 마이오르 대성당 (Sé Catedral)</span></li>
+              <li><span class="time">13:00</span><span class="event">알파마 작은 식당 점심 (그릴 정어리)</span></li>
+              <li><span class="time">14:30</span><span class="event"><strong>트램 28</strong> · 마르팀 모니스 출발 (줄 길면 두 번째)</span></li>
+              <li><span class="time">17:00</span><span class="event">LX Factory (힙스터 동네, 옵션)</span></li>
+              <li><span class="time">19:00</span><span class="event">코메르시우 광장 일몰 + 강변</span></li>
+              <li><span class="time">21:00</span><span class="event">파두 디너 (Tasca do Chico 등, 예약 필수)</span></li>
+            </ul>
+          </div>
+
+          <div class="day-section">
+            <div class="day-section-label"><span class="ic">⚠</span> 유의사항</div>
+            <ul class="info-list warn">
+              <li><strong>트램 28 소매치기 핫스팟</strong> — 가방 앞으로</li>
+              <li>알파마 골목 미끄러움 (포르투갈 칼사다 돌)</li>
+              <li>상 조르즈 성 €15 — 리스보아 카드 적용 X, 별도 결제</li>
+              <li>월요일 일부 박물관 휴관 (파두 박물관 등) — 야외는 영향 X</li>
+              <li>파두 디너 예약 필수, 일부 식당 월요일 휴무 — 사전 확인</li>
+            </ul>
+          </div>
+
+          <div class="day-section">
+            <div class="day-section-label"><span class="ic">🎒</span> 준비물</div>
+            <ul class="info-list must">
+              <li>편한 운동화 (미끄럼 방지 필수)</li>
+              <li>가방 앞으로 (소매치기)</li>
+              <li>현금 €30~50 (작은 식당)</li>
+              <li>물 · 카메라</li>
+            </ul>
+          </div>
+
+          <div class="day-section">
+            <div class="day-section-label"><span class="ic">💡</span> 특이사항</div>
+            <ul class="info-list tip">
+              <li>알파마 = 리스본 가장 오래된 동네 (무어인 시대부터)</li>
+              <li>트램 28 = 1930년대 클래식 모델 리메이크</li>
+              <li>파두 = 포르투갈 전통 민요, 유네스코 무형문화유산</li>
+            </ul>
+          </div>
         </article>
 
+        <!-- DAY 5 - 이동 -->
         <article class="day-card">
           <span class="day-num">DAY 05</span>
           <div class="date">05.26</div>
           <div class="dow">Tue · 화</div>
           <div class="title">리스본 → 포르투 이동</div>
-          <div class="desc">Livô 체크아웃 → Restauradores 메트로 블루라인 → Santa Apolónia. 12:00 AP125 → 14:53 Campanhã. Filigrana 체크인.</div>
-          <div class="tags"><span class="tag">이동일</span><span class="tag">AP125</span></div>
+          <div class="desc">AP125 1등석 Conforto. Filigrana 체크인.</div>
+          <div class="tags"><span class="tag">이동일</span><span class="tag">AP125</span><span class="tag">기차</span></div>
+
+          <div class="day-section">
+            <div class="day-section-label"><span class="ic">⏱</span> Timeline</div>
+            <ul class="timeline-list">
+              <li><span class="time">08:00</span><span class="event">Livô 조식</span></li>
+              <li><span class="time">10:30</span><span class="event">짐 정리 + 체크아웃</span></li>
+              <li><span class="time">11:00</span><span class="event">메트로 Blue Line → Santa Apolónia (12분)</span></li>
+              <li><span class="time">11:30</span><span class="event">역 도착 + 카페</span></li>
+              <li><span class="time">12:00</span><span class="event"><strong>AP125 출발</strong> · Car C2, S23/S25</span></li>
+              <li><span class="time">14:53</span><span class="event"><strong>Campanhã 도착</strong></span></li>
+              <li><span class="time">15:00</span><span class="event">메트로 D선 또는 우버 → Filigrana</span></li>
+              <li><span class="time">15:30</span><span class="event">Filigrana 체크인</span></li>
+              <li><span class="time">17:00</span><span class="event">동네 산책</span></li>
+              <li><span class="time">19:00</span><span class="event">포르투 첫 저녁</span></li>
+            </ul>
+          </div>
+
+          <div class="day-section">
+            <div class="day-section-label"><span class="ic">⚠</span> 유의사항</div>
+            <ul class="info-list warn">
+              <li>짐 무거우면 메트로 대신 우버 (~€10)</li>
+              <li>1등석 Conforto는 콘센트/와이파이/식음료 포함</li>
+              <li>Filigrana 아파트형 — 어메니티 사전 확인</li>
+            </ul>
+          </div>
+
+          <div class="day-section">
+            <div class="day-section-label"><span class="ic">🎒</span> 준비물</div>
+            <ul class="info-list must">
+              <li>기차 티켓 PDF (폰 저장)</li>
+              <li>여권 (검표 가능성)</li>
+              <li>폰 충전기 (기차 충전)</li>
+              <li>책 / 노이즈 캔슬링 헤드폰</li>
+            </ul>
+          </div>
+
+          <div class="day-section">
+            <div class="day-section-label"><span class="ic">💡</span> 특이사항</div>
+            <ul class="info-list tip">
+              <li>AP125 = 펜둘러 (곡선 자동 기울기), 포르투갈 최고급</li>
+              <li>Campanhã → 시내 São Bento까지 1정거장, 4분</li>
+              <li>포르투는 북쪽이라 일몰 조금 빠름</li>
+            </ul>
+          </div>
         </article>
 
+        <!-- DAY 6 - 포르투 시내 -->
         <article class="day-card">
           <span class="day-num">DAY 06</span>
           <div class="date">05.27</div>
           <div class="dow">Wed · 수</div>
           <div class="title">포르투 시내</div>
-          <div class="desc">리베리아 지구, 동 루이스 1세 다리, 상 벤투 역 아줄레주, 클레리구스 탑, 렐루 서점(사전예약 필요).</div>
+          <div class="desc">상 벤투 · 클레리구스 · 렐루 · 리베리아 · 동 루이스 다리.</div>
           <div class="tags"><span class="tag">렐루 서점</span><span class="tag">사전예약</span><span class="tag">리베리아</span></div>
+
+          <div class="day-section">
+            <div class="day-section-label"><span class="ic">⏱</span> Timeline</div>
+            <ul class="timeline-list">
+              <li><span class="time">08:30</span><span class="event">조식</span></li>
+              <li><span class="time">09:30</span><span class="event"><strong>상 벤투 역</strong> · 20,000장 아줄레주</span></li>
+              <li><span class="time">10:00</span><span class="event">클레리구스 탑 (240계단, 75m)</span></li>
+              <li><span class="time">11:00</span><span class="event"><strong>렐루 서점</strong> · 사전예약 €8</span></li>
+              <li><span class="time">12:30</span><span class="event">점심 — Francesinha (포르투 명물)</span></li>
+              <li><span class="time">14:00</span><span class="event">리베리아 지구 산책 (유네스코)</span></li>
+              <li><span class="time">15:30</span><span class="event">동 루이스 1세 다리 상층 (양쪽 도시 전망)</span></li>
+              <li><span class="time">16:30</span><span class="event">카르모 성당 외벽 아줄레주</span></li>
+              <li><span class="time">18:00</span><span class="event">Miradouro da Vitória 일몰</span></li>
+              <li><span class="time">19:30</span><span class="event">저녁 (포르투갈 전통)</span></li>
+            </ul>
+          </div>
+
+          <div class="day-section">
+            <div class="day-section-label"><span class="ic">⚠</span> 유의사항</div>
+            <ul class="info-list warn">
+              <li><strong>렐루 서점 사전예약 필수</strong> · €8 (책 구매 시 환불)</li>
+              <li>클레리구스 탑 비좁고 가파른 계단 — 무릎 약하면 패스</li>
+              <li>리베리아 소매치기 주의 (인스타 명소)</li>
+              <li>포르투 = 언덕 도시. 체력 분배</li>
+            </ul>
+          </div>
+
+          <div class="day-section">
+            <div class="day-section-label"><span class="ic">🎒</span> 준비물</div>
+            <ul class="info-list must">
+              <li>렐루 서점 사전예약 QR</li>
+              <li>편한 운동화 (필수)</li>
+              <li>가방 앞으로</li>
+              <li>카메라 (사진 천국)</li>
+            </ul>
+          </div>
+
+          <div class="day-section">
+            <div class="day-section-label"><span class="ic">💡</span> 특이사항</div>
+            <ul class="info-list tip">
+              <li>렐루 서점 = "세상에서 가장 아름다운 서점" Top 3</li>
+              <li>Francesinha = 고기+소시지+치즈+계란+토마토 맥주 소스</li>
+              <li>동 루이스 다리 = 에펠 제자 작품 (1886)</li>
+            </ul>
+          </div>
         </article>
 
+        <!-- DAY 7 - 가이아 와이너리 -->
         <article class="day-card">
           <span class="day-num">DAY 07</span>
           <div class="date">05.28</div>
           <div class="dow">Thu · 목</div>
-          <div class="title">가이아 · 와이너리 투어</div>
-          <div class="desc">도루강 건너 가이아 와인 셀러 — Taylor's, Graham's, Sandeman. 포트와인 테이스팅. 일몰 Jardim do Morro 또는 Serra do Pilar.</div>
-          <div class="tags"><span class="tag">와인</span><span class="tag">사전예약 권장</span><span class="tag">일몰</span></div>
+          <div class="title">가이아 · 와이너리</div>
+          <div class="desc">Taylor's, Graham's 등 포트와인 테이스팅 + 일몰.</div>
+          <div class="tags"><span class="tag">와인</span><span class="tag">사전예약</span><span class="tag">일몰</span></div>
+
+          <div class="day-section">
+            <div class="day-section-label"><span class="ic">⏱</span> Timeline</div>
+            <ul class="timeline-list">
+              <li><span class="time">09:00</span><span class="event">든든한 조식 (와인 테이스팅 대비)</span></li>
+              <li><span class="time">10:00</span><span class="event">동 루이스 다리 하층 도보로 가이아</span></li>
+              <li><span class="time">10:30</span><span class="event"><strong>Taylor's</strong> · 1692년, €25 (4종 테이스팅)</span></li>
+              <li><span class="time">12:30</span><span class="event">가이아 강변 점심</span></li>
+              <li><span class="time">14:00</span><span class="event"><strong>Graham's</strong> · 1820년, €27~ (Vintage 명가)</span></li>
+              <li><span class="time">16:00</span><span class="event">(옵션) Sandeman 또는 Cálem (대중적)</span></li>
+              <li><span class="time">18:00</span><span class="event">Jardim do Morro 또는 Serra do Pilar 일몰</span></li>
+              <li><span class="time">19:30</span><span class="event">강변 저녁</span></li>
+            </ul>
+          </div>
+
+          <div class="day-section">
+            <div class="day-section-label"><span class="ic">⚠</span> 유의사항</div>
+            <ul class="info-list warn">
+              <li><strong>와이너리 사전예약 필수</strong> (5~6월 성수기)</li>
+              <li>테이스팅 = 알코올 — 빈속 절대 X, 점심 든든히</li>
+              <li>2-3곳이 적정. 다 가려다 취함</li>
+              <li>일몰 보려면 와이너리 일정 빡빡 안 되게</li>
+            </ul>
+          </div>
+
+          <div class="day-section">
+            <div class="day-section-label"><span class="ic">🎒</span> 준비물</div>
+            <ul class="info-list must">
+              <li>와이너리 사전예약 QR (각각)</li>
+              <li>신분증 (ID 확인 가능)</li>
+              <li>편한 운동화</li>
+              <li>가방 (구매 와인용)</li>
+            </ul>
+          </div>
+
+          <div class="day-section">
+            <div class="day-section-label"><span class="ic">💡</span> 특이사항</div>
+            <ul class="info-list tip">
+              <li>포트와인 = 도루 밸리에서 만들고 가이아에서 숙성 (지명 유래)</li>
+              <li>Taylor's = 영국 가문, 정통 빈티지 포트</li>
+              <li>Graham's = 스코틀랜드 가문, 가장 유명</li>
+              <li>가이아에 와이너리 7곳+, 다 강변에 줄지어</li>
+            </ul>
+          </div>
         </article>
 
+        <!-- DAY 8 - 도루밸리 / 휴식 -->
         <article class="day-card">
           <span class="day-num">DAY 08</span>
           <div class="date">05.29</div>
           <div class="dow">Fri · 금</div>
           <div class="title">도루 밸리 또는 휴식</div>
-          <div class="desc">옵션 ① 상벤투역에서 도루 밸리 기차 당일치기. ② 포르투 추가 산책 + 휴식. 페이스 조절 일자.</div>
+          <div class="desc">옵션 A 풀데이 당일치기 · 옵션 B 포르투 여유 (추천).</div>
           <div class="tags"><span class="tag">선택</span><span class="tag">휴식</span></div>
+
+          <div class="day-section">
+            <div class="day-section-label"><span class="ic">⏱</span> Timeline · 옵션 A (도루 밸리)</div>
+            <ul class="timeline-list">
+              <li><span class="time">07:00</span><span class="event">일찍 기상</span></li>
+              <li><span class="time">08:00</span><span class="event">상 벤투 → 도루 밸리 기차 (~3시간)</span></li>
+              <li><span class="time">11:00</span><span class="event">Pinhão 도착, 보트 투어 또는 와이너리</span></li>
+              <li><span class="time">14:00</span><span class="event">점심 + 산책</span></li>
+              <li><span class="time">17:00</span><span class="event">기차 복귀</span></li>
+              <li><span class="time">20:00</span><span class="event">포르투 도착, 저녁</span></li>
+            </ul>
+          </div>
+
+          <div class="day-section">
+            <div class="day-section-label"><span class="ic">⏱</span> Timeline · 옵션 B (휴식) <span style="color: var(--accent); font-weight:600;">★ 추천</span></div>
+            <ul class="timeline-list">
+              <li><span class="time">09:30</span><span class="event">늦은 조식</span></li>
+              <li><span class="time">10:30</span><span class="event">Mercado do Bolhão 마켓 산책</span></li>
+              <li><span class="time">12:00</span><span class="event">Foz do Douro (강하구) 점심</span></li>
+              <li><span class="time">14:00</span><span class="event">카페에서 쉬기 (포르투 카페 문화)</span></li>
+              <li><span class="time">16:00</span><span class="event">카사 다 무지카 외관 / 콘서트</span></li>
+              <li><span class="time">18:00</span><span class="event">강변 산책</span></li>
+              <li><span class="time">20:00</span><span class="event">해산물 저녁 (Cervejaria Galiza 등)</span></li>
+            </ul>
+          </div>
+
+          <div class="day-section">
+            <div class="day-section-label"><span class="ic">⚠</span> 유의사항</div>
+            <ul class="info-list warn">
+              <li>옵션 A는 풀데이 10시간+ 빡빡</li>
+              <li>옵션 A 진행 시 다음날(5/30) 호텔 이동에 매우 피곤</li>
+              <li>여유 페이스 선호도 = 옵션 B가 합리적</li>
+            </ul>
+          </div>
+
+          <div class="day-section">
+            <div class="day-section-label"><span class="ic">🎒</span> 준비물</div>
+            <ul class="info-list must">
+              <li>옵션 A: 기차표, 와이너리 예약, 카메라</li>
+              <li>옵션 B: 산책 신발, 가방, 책</li>
+            </ul>
+          </div>
+
+          <div class="day-section">
+            <div class="day-section-label"><span class="ic">💡</span> 특이사항</div>
+            <ul class="info-list tip">
+              <li>도루 밸리 = 유네스코, 포트와인 발상지</li>
+              <li>5월 말 = 포도 새싹 + 녹음, 풍경 최고</li>
+              <li>Pinhão 역 아줄레주 = 와인 테마 명품</li>
+            </ul>
+          </div>
         </article>
 
+        <!-- DAY 9 - Rebello -->
         <article class="day-card highlight">
           <span class="day-num">DAY 09</span>
           <div class="date">05.30</div>
           <div class="dow">Sat · 토</div>
           <div class="title">The Rebello · 마지막 밤</div>
-          <div class="desc">Filigrana 체크아웃 11:00 → The Rebello 체크인 14:00. 스파(로마식 풀+사우나, 예약제), 옥상 바, 강변 마지막 와인 디너.</div>
+          <div class="desc">Filigrana → Rebello. 스파/풀/옥상바 — 호텔 자체로 즐기는 날.</div>
           <div class="tags"><span class="tag">호텔이동</span><span class="tag">수영복 필수</span><span class="tag">강변뷰</span></div>
+
+          <div class="day-section">
+            <div class="day-section-label"><span class="ic">⏱</span> Timeline</div>
+            <ul class="timeline-list">
+              <li><span class="time">09:00</span><span class="event">Filigrana 조식</span></li>
+              <li><span class="time">11:00</span><span class="event">체크아웃 (시간 엄수)</span></li>
+              <li><span class="time">11:30</span><span class="event">우버로 The Rebello → 짐 맡기기</span></li>
+              <li><span class="time">12:00</span><span class="event">가이아 강변 점심</span></li>
+              <li><span class="time">14:00</span><span class="event"><strong>Rebello 체크인</strong> · 프론트에서 스파/풀 예약</span></li>
+              <li><span class="time">15:00</span><span class="event">풀 + 사우나 (Tranquility Water Lounge)</span></li>
+              <li><span class="time">16:30</span><span class="event"><strong>스파 트리트먼트</strong> (60~90분, 예약 필수)</span></li>
+              <li><span class="time">18:00</span><span class="event">옥상 바 — 일몰 강 건너 포르투</span></li>
+              <li><span class="time">19:30</span><span class="event">저녁 — Pot & Pan 또는 외부</span></li>
+              <li><span class="time">21:00</span><span class="event">풀/사우나 한 번 더 or 객실 휴식</span></li>
+            </ul>
+          </div>
+
+          <div class="day-section">
+            <div class="day-section-label"><span class="ic">⚠</span> 유의사항</div>
+            <ul class="info-list warn">
+              <li><strong>풀/피트니스/스파 모두 예약제</strong> — 체크인 즉시 확인</li>
+              <li>스파 트리트먼트 토요일 저녁 인기 — 빨리 마감</li>
+              <li>옥상 바 예약 필요 가능성 (확인)</li>
+              <li>가이아 중심에서 살짝 떨어진 위치 (도보 5분)</li>
+            </ul>
+          </div>
+
+          <div class="day-section">
+            <div class="day-section-label"><span class="ic">🎒</span> 준비물</div>
+            <ul class="info-list must">
+              <li>수영복 ×2 (1인 1벌)</li>
+              <li>개인 슬리퍼/플립플랍</li>
+              <li>고글 · 머리끈/샤워캡</li>
+              <li>보습제 (사우나 후)</li>
+              <li>운동복 (헬스장)</li>
+              <li>갈아입을 속옷/잠옷</li>
+            </ul>
+          </div>
+
+          <div class="day-section">
+            <div class="day-section-label"><span class="ic">💡</span> 특이사항</div>
+            <ul class="info-list tip">
+              <li>The Rebello = SLH 5★ · 19c 와인 창고 리모델링</li>
+              <li>실내풀 디자인 = 고대 로마 목욕탕 영감</li>
+              <li>객실에 키치넷, 미니바, 일부 무료 간식</li>
+              <li>비싸게 자는 만큼 호텔 자체로 즐기는 게 포인트</li>
+            </ul>
+          </div>
         </article>
 
+        <!-- DAY 10 - 귀국 -->
         <article class="day-card">
           <span class="day-num">DAY 10</span>
           <div class="date">05.31</div>
           <div class="dow">Sun · 일</div>
           <div class="title">포르투 → 마드리드 → 인천</div>
-          <div class="desc">오전 풀/사우나 한 번 더. 체크아웃 12:00 → OPO 지하철 30분. UX1140 16:00 OPO. KE914 20:00 MAD → 06.01 16:00 ICN.</div>
-          <div class="tags"><span class="tag">출국</span><span class="tag">+1일 도착</span></div>
+          <div class="desc">UX1140 + KE914 환승. 익일 06.01 16:00 인천 도착.</div>
+          <div class="tags"><span class="tag">출국</span><span class="tag">+1일 도착</span><span class="tag">환승</span></div>
+
+          <div class="day-section">
+            <div class="day-section-label"><span class="ic">⏱</span> Timeline</div>
+            <ul class="timeline-list">
+              <li><span class="time">07:00</span><span class="event">기상</span></li>
+              <li><span class="time">07:30</span><span class="event">풀/사우나 마지막 이용</span></li>
+              <li><span class="time">09:00</span><span class="event">조식</span></li>
+              <li><span class="time">11:30</span><span class="event">Rebello 체크아웃 (12:00 엄수)</span></li>
+              <li><span class="time">12:00</span><span class="event">우버 → OPO 공항 (30~35분, ~€25)</span></li>
+              <li><span class="time">13:00</span><span class="event">체크인 (UX1140)</span></li>
+              <li><span class="time">16:00</span><span class="event"><strong>UX1140 OPO 출발</strong></span></li>
+              <li><span class="time">18:00</span><span class="event">MAD 도착 → 환승 (T4S → T1)</span></li>
+              <li><span class="time">20:00</span><span class="event"><strong>KE914 MAD 출발</strong></span></li>
+              <li><span class="time">+1일 16:00</span><span class="event">ICN 도착 (06.01 월)</span></li>
+            </ul>
+          </div>
+
+          <div class="day-section">
+            <div class="day-section-label"><span class="ic">⚠</span> 유의사항</div>
+            <ul class="info-list warn">
+              <li>The Rebello → 공항 우버 강력 추천 (짐 많음)</li>
+              <li>마드리드 환승 시간 2시간 — 짧지 않지만 빡빡</li>
+              <li>Schengen → Non-Schengen 출국 심사 재시</li>
+              <li>MAD Terminal 4S(UX) → T1(KE) 환승 거리 멂</li>
+              <li>짐 자동 트랜스퍼 확인 (인천까지 한 번에)</li>
+              <li><strong>보조배터리 기내 사용 금지</strong> · 가방에 두기</li>
+            </ul>
+          </div>
+
+          <div class="day-section">
+            <div class="day-section-label"><span class="ic">🎒</span> 준비물</div>
+            <ul class="info-list must">
+              <li>여권 · 모든 e-티켓 PDF</li>
+              <li>보조배터리 (절연테이프, 휴대만)</li>
+              <li>충전기 · 보습제</li>
+              <li>편한 옷 (장거리)</li>
+              <li>안대 / 이어플러그 / 수면 양말</li>
+            </ul>
+          </div>
+
+          <div class="day-section">
+            <div class="day-section-label"><span class="ic">💡</span> 특이사항</div>
+            <ul class="info-list tip">
+              <li>KE914 13시간 비행 + 8시간 시차 = 6/1 16:00 ICN</li>
+              <li>UX1140 ↔ KE914 코드쉐어 가능성 (마일 확인)</li>
+              <li>6/1(월) 저녁 도착 — 다음날 정상 출근 가능</li>
+            </ul>
+          </div>
         </article>
 
       </div>
@@ -514,25 +861,25 @@
           <div class="plan-tile recommend">
             <div class="plan-concept">Concept B</div>
             <div class="plan-name">Plan B</div>
-            <div class="plan-desc">밸런스 + 데이스왑. 알파마(5/23) ↔ 벨렘(5/25) 스왑 적용 — 월요일 휴관 회피 + 여유 페이스 유지.</div>
+            <div class="plan-desc">밸런스 + 데이스왑. 벨렘(5/23 토) ↔ 알파마(5/25 월) 스왑 — 월요일 휴관 회피.</div>
             <div class="plan-density">밀도 · <strong>중간</strong></div>
           </div>
           <div class="plan-tile">
             <div class="plan-concept">Concept C</div>
             <div class="plan-name">Plan C</div>
-            <div class="plan-desc">여유 + 스파. 하루 1~2 하이라이트, 스파 일정, 카보 다 호카 옵션 — 진짜 쉬고 싶을 때.</div>
+            <div class="plan-desc">여유 + 스파. 하루 1~2 하이라이트, 스파 일정, 카보 다 호카 옵션.</div>
             <div class="plan-density">밀도 · <strong>낮음</strong></div>
           </div>
           <div class="plan-tile">
             <div class="plan-concept">Concept D</div>
             <div class="plan-name">Plan D</div>
-            <div class="plan-desc">밀도 최대. 레갈레이라 / MAAT / 세할베스 / 파두 공연까지 — 레퍼런스 용도.</div>
+            <div class="plan-desc">밀도 최대. 레갈레이라 / MAAT / 세할베스 / 파두 공연까지 — 레퍼런스.</div>
             <div class="plan-density">밀도 · <strong>매우 높음</strong></div>
           </div>
         </div>
 
         <p style="margin-top: 20px; font-size: 13px; color: var(--ink-soft);">
-          📄 <a href="https://jinwoongkim.net/archives/with-claude/portugal-2026/itinerary-plans.html">4가지 플랜 상세 비교 페이지 보기 →</a>
+          📄 <a href="https://jinwoongkim.net/archives/with-claude/portugal-2026/itinerary-plans.html">4가지 플랜 상세 비교 페이지 →</a>
         </p>
       </div>
     </section>
@@ -541,13 +888,12 @@
       <div class="panel-header">
         <div class="panel-eyebrow">Confirmed Bookings</div>
         <h1 class="panel-title"><em>예약</em> 정보</h1>
-        <p class="panel-sub">항공편 · 숙소 · 도시 간 이동 — 전부 확정. CP 환불도 처리 완료.</p>
+        <p class="panel-sub">항공편 · 숙소 · 도시 간 이동 — 전부 확정. CP 환불 완료.</p>
       </div>
 
       <div class="section">
         <div class="section-eyebrow">01 · Flights</div>
         <h2>항공편</h2>
-
         <div class="card-grid">
           <div class="info-card">
             <div class="ic-eyebrow"><span class="badge outbound">Outbound</span> · Korean Air</div>
@@ -558,7 +904,6 @@
               <dt>LIS</dt><dd>20:15 도착</dd>
             </dl>
           </div>
-
           <div class="info-card">
             <div class="ic-eyebrow"><span class="badge connection">Connection</span> · Air Europa</div>
             <div class="ic-title">UX 1140</div>
@@ -568,7 +913,6 @@
               <dt>MAD</dt><dd>18:00 도착</dd>
             </dl>
           </div>
-
           <div class="info-card">
             <div class="ic-eyebrow"><span class="badge return">Return</span> · Korean Air</div>
             <div class="ic-title">KE 914</div>
@@ -578,7 +922,7 @@
               <dt>ICN</dt><dd>16:00 도착 (+1일)</dd>
               <dt>Duration</dt><dd>약 13시간</dd>
             </dl>
-            <div class="ic-source">출처: 진웅님 e-티켓 정보 (정정 반영)</div>
+            <div class="ic-source">출처: 진웅님 e-티켓 정보</div>
           </div>
         </div>
       </div>
@@ -587,7 +931,6 @@
         <div class="section-eyebrow">02 · Hotels</div>
         <h2>숙소</h2>
         <p class="section-sub">리스본 4박 · 포르투 4박 · 가이아 1박 = 총 9박</p>
-
         <div class="card-grid">
           <div class="info-card">
             <div class="ic-eyebrow">Lisboa · 4박</div>
@@ -599,9 +942,8 @@
               <dt>Rating</dt><dd>Booking 9.2</dd>
               <dt>Price</dt><dd>~125만원/4박</dd>
             </dl>
-            <div class="ic-note">추천 이유 — 오사카 에어비앤비 트라우마 반영. 24시간 프론트 + 호텔 신뢰성.</div>
+            <div class="ic-note">추천 이유 — 24시간 프론트 + 호텔 신뢰성.</div>
           </div>
-
           <div class="info-card">
             <div class="ic-eyebrow">Porto · 4박</div>
             <div class="ic-title">Filigrana</div>
@@ -610,19 +952,18 @@
               <dt>Type</dt><dd>아파트형 호텔</dd>
               <dt>Area</dt><dd>포르투 중심부</dd>
             </dl>
-            <div class="ic-note">추천 이유 — 메인 명소 도보권 + 아파트형 공간감. ※ 어메니티 사전 확인 권장.</div>
+            <div class="ic-note">추천 이유 — 메인 명소 도보권. ※ 어메니티 사전 확인 권장.</div>
           </div>
-
           <div class="info-card">
             <div class="ic-eyebrow">Gaia · 1박</div>
             <div class="ic-title">The Rebello</div>
             <dl>
               <dt>Stay</dt><dd>05.30 → 05.31</dd>
               <dt>Type</dt><dd>SLH 5★ 디자인 호텔</dd>
-              <dt>Facility</dt><dd>스파/실내풀/사우나/옥상 바</dd>
+              <dt>Facility</dt><dd>스파/실내풀/사우나/옥상바</dd>
               <dt>View</dt><dd>도루강 + 동루이스 다리</dd>
             </dl>
-            <div class="ic-note">추천 이유 — 마지막 밤 시설 누림. 의도적 1박 (비용 vs 가치 트레이드오프).</div>
+            <div class="ic-note">추천 이유 — 마지막 밤 시설 누림. 의도적 1박.</div>
           </div>
         </div>
       </div>
@@ -630,7 +971,6 @@
       <div class="section">
         <div class="section-eyebrow">03 · Train</div>
         <h2>도시 간 이동 (기차)</h2>
-
         <div class="train-flow">
           <div class="stop">
             <div class="city">Lisboa</div>
@@ -644,17 +984,16 @@
             <div class="time">14:53</div>
           </div>
         </div>
-
         <div class="info-card">
           <div class="train-details">
             <div><strong>편명</strong>AP 125 · Alfa Pendular</div>
             <div><strong>날짜</strong>2026.05.26 (화)</div>
             <div><strong>클래스</strong>1st Class · Conforto</div>
             <div><strong>좌석</strong>Car C2 · S23 / S25</div>
-            <div><strong>소요</strong>약 2h 50m</div>
+            <div><strong>소요</strong>약 2h 53m</div>
             <div><strong>환불</strong><span class="badge done">완료</span> €66.50</div>
           </div>
-          <div class="ic-source">출처: CP.pt 예약 내역 · 최초 결제 실패분 환불 처리 완료</div>
+          <div class="ic-source">출처: CP.pt · 최초 결제 실패분 환불 완료</div>
         </div>
       </div>
     </section>
@@ -663,7 +1002,7 @@
       <div class="panel-header">
         <div class="panel-eyebrow">What to bring</div>
         <h1 class="panel-title"><em>준비물</em> 리스트</h1>
-        <p class="panel-sub">필수 · 권장으로 구분. 보조배터리는 한국 규정 주의. The Rebello 시설 이용용 짐 별도.</p>
+        <p class="panel-sub">필수 · 권장 구분. 보조배터리 한국 규정 주의. The Rebello 시설용 별도.</p>
       </div>
 
       <div class="pack-grid">
@@ -678,9 +1017,7 @@
             <li class="must">여행자보험 증서</li>
           </ul>
           <div class="tier-label">권장</div>
-          <ul>
-            <li>현금 €200~300</li>
-          </ul>
+          <ul><li>현금 €200~300</li></ul>
         </div>
 
         <div class="pack-card">
@@ -692,9 +1029,7 @@
             <li class="must">보조배터리 ×2 (절연테이프)</li>
           </ul>
           <div class="tier-label">권장</div>
-          <ul>
-            <li>맥북 + 충전기</li>
-          </ul>
+          <ul><li>맥북 + 충전기</li></ul>
         </div>
 
         <div class="pack-card">
@@ -707,14 +1042,12 @@
             <li class="must">편한 운동화</li>
           </ul>
           <div class="tier-label">권장</div>
-          <ul>
-            <li>드레스 셔츠/원피스</li>
-          </ul>
+          <ul><li>드레스 셔츠/원피스</li></ul>
         </div>
 
         <div class="pack-card" style="border-color: var(--accent);">
           <h3>🏊 The Rebello 시설용</h3>
-          <div class="tier-label">필수 (5/30 마지막 밤)</div>
+          <div class="tier-label">필수 (5/30)</div>
           <ul>
             <li class="must">수영복 ×2 (1인 1벌)</li>
             <li class="must">개인 슬리퍼/플립플랍</li>
@@ -727,7 +1060,7 @@
             <li>머리끈/샤워캡</li>
             <li>보습제/바디로션</li>
           </ul>
-          <div class="ic-source" style="margin-top:12px;">※ 수영모 의무 여부는 체크인 시 프론트 확인. 수건/가운은 호텔 제공.</div>
+          <div class="ic-source" style="margin-top:12px;">※ 수영모 의무 여부 체크인 시 프론트 확인.</div>
         </div>
       </div>
 
@@ -735,7 +1068,7 @@
         <div>
           <div class="ic-eyebrow" style="color: var(--accent-soft); margin-bottom: 8px;">한국 출발 규정 주의</div>
           <h3>CUKTECH 20,000mAh 55W · 1인 1개</h3>
-          <p class="b-spec">2026.04.20부터 한국 출발 항공편 보조배터리 1인당 최대 2개. 2026.01.26부터 기내 사용/충전 금지. 호텔 매일 충전 가능하니 1인 1개로 충분.</p>
+          <p class="b-spec">2026.04.20부터 한국 출발 항공편 보조배터리 1인당 최대 2개. 2026.01.26부터 기내 사용/충전 금지.</p>
           <p class="b-spec" style="margin-top: 10px;">📌 단자 절연테이프 부착 의무 · 기내 휴대만, 위탁 금지.</p>
         </div>
         <dl>
@@ -757,41 +1090,40 @@
       <div class="panel-header">
         <div class="panel-eyebrow">Critical Notes &amp; Action Items</div>
         <h1 class="panel-title"><em>유의</em>사항</h1>
-        <p class="panel-sub">놓치면 곤란한 것들. 위쪽이 알아둘 것, 아래쪽이 처리할 것.</p>
+        <p class="panel-sub">놓치면 곤란한 것들 + 처리할 것들.</p>
       </div>
 
       <div class="section">
         <div class="section-eyebrow">⚠ 알아둘 것</div>
         <h2>Critical Notes</h2>
-
         <div class="notes-list">
           <div class="note-item">
             <div class="note-icon">CLOSURE</div>
-            <div class="note-body"><strong>제로니무스 수도원은 매주 월요일 휴관</strong><p>5/25 = 월요일. Plan B의 알파마 ↔ 벨렘 스왑 반드시 유지.</p></div>
+            <div class="note-body"><strong>제로니무스 수도원 매주 월요일 휴관</strong><p>5/25 = 월요일. 따라서 벨렘은 5/23(토)에, 알파마는 5/25(월)에 배정.</p></div>
           </div>
           <div class="note-item">
             <div class="note-icon">CONSTRUCTION</div>
-            <div class="note-body"><strong>벨렘 타워는 2025.4부터 보수 공사 중</strong><p>재개장 미정. 내부 입장 불가, 외관만 감상.</p></div>
+            <div class="note-body"><strong>벨렘 타워 보수 공사 중 (2025.4~)</strong><p>재개장 미정. 내부 입장 불가, 외관만.</p></div>
           </div>
           <div class="note-item">
             <div class="note-icon">BOOKING</div>
-            <div class="note-body"><strong>페나 궁전 30분 타임슬롯 사전예약 필수</strong><p>5/24 신트라행 확정 즉시 예약. 늦은 도착 시 입장 불가.</p></div>
+            <div class="note-body"><strong>페나 궁전 30분 타임슬롯 사전예약 필수</strong><p>5/24 확정 즉시 예약. 늦으면 입장 불가.</p></div>
           </div>
           <div class="note-item">
             <div class="note-icon">CARD</div>
-            <div class="note-body"><strong>리스보아 카드는 첫 사용 시점에 활성화</strong><p>5/23 아침 첫 교통수단 탑승 시 카운트 시작 → 5/26 아침 만료.</p></div>
+            <div class="note-body"><strong>리스보아 카드는 첫 사용 시점에 활성화</strong><p>5/23 벨렘행 첫 교통수단 탑승 시 카운트 시작 → 5/26 아침 만료.</p></div>
           </div>
           <div class="note-item">
             <div class="note-icon">TRANSPORT</div>
-            <div class="note-body"><strong>호카곶 403번 버스는 1시간 간격</strong><p>막차 후 우버 잡기 어려움. 시간 여유 충분히.</p></div>
+            <div class="note-body"><strong>호카곶 403번 버스 1시간 간격</strong><p>막차 후 우버 잡기 어려움. 시간 여유 충분히.</p></div>
           </div>
           <div class="note-item">
             <div class="note-icon">EU EES</div>
-            <div class="note-body"><strong>EU EES 2026.4.10부터 완전 시행</strong><p>첫 입국 시 지문 + 얼굴 사진 등록. 입국 시간 다소 길어질 수 있음.</p></div>
+            <div class="note-body"><strong>EU EES 2026.4.10부터 완전 시행</strong><p>첫 입국 시 지문 + 얼굴 사진 등록. 입국 시간 길어질 수 있음.</p></div>
           </div>
           <div class="note-item">
             <div class="note-icon">SAFETY</div>
-            <div class="note-body"><strong>리스본 / 포르투 소매치기 주의</strong><p>트램 28, 메트로, 알파마 골목길 특히. 가방 앞으로.</p></div>
+            <div class="note-body"><strong>리스본 / 포르투 소매치기 주의</strong><p>트램 28, 메트로, 알파마, 리베리아 특히. 가방 앞으로.</p></div>
           </div>
           <div class="note-item">
             <div class="note-icon">WEATHER</div>
@@ -801,6 +1133,14 @@
             <div class="note-icon">HOTEL</div>
             <div class="note-body"><strong>Filigrana는 아파트형 숙소</strong><p>호텔 어메니티 미제공 가능성. 샴푸/치약/슬리퍼 사전 확인.</p></div>
           </div>
+          <div class="note-item">
+            <div class="note-icon">REBELLO</div>
+            <div class="note-body"><strong>The Rebello 시설은 모두 예약제</strong><p>풀/피트니스/스파 모두 체크인 즉시 프론트에서 예약 잡을 것.</p></div>
+          </div>
+          <div class="note-item">
+            <div class="note-icon">TRANSIT</div>
+            <div class="note-body"><strong>MAD 환승 2시간 — 짧지 않지만 빡빡</strong><p>T4S(UX) → T1(KE) 환승 거리 멂. Schengen 출국 심사 재시.</p></div>
+          </div>
         </div>
       </div>
 
@@ -808,19 +1148,20 @@
         <div class="section-eyebrow">✓ 처리할 것</div>
         <h2>To-Do</h2>
         <p class="section-sub">체크박스 클릭으로 완료 표시 (브라우저 새로고침 시 초기화)</p>
-
         <div class="todo-list">
-          <div class="todo-item checked"><div class="check"></div><div class="todo-body"><strong>CP.pt 환불 확인 (€66.50)</strong><span>카드 명세서 / CP 응답 확인 — 완료</span></div></div>
-          <div class="todo-item"><div class="check"></div><div class="todo-body"><strong>최종 일정 플랜 확정</strong><span>Plan B 베이스로 갈지, C 일부 가미할지</span></div></div>
-          <div class="todo-item"><div class="check"></div><div class="todo-body"><strong>페나 궁전 타임슬롯 사전예약</strong><span>5/24 신트라 일정 확정 후 즉시. 오전 슬롯 안정적</span></div></div>
-          <div class="todo-item"><div class="check"></div><div class="todo-body"><strong>리스보아 카드 구매 (€124)</strong><span>출발 1주일 전 Tiqets / lisboacard.org. 5/22 공항 픽업</span></div></div>
-          <div class="todo-item"><div class="check"></div><div class="todo-body"><strong>가이아 와이너리 사전예약</strong><span>Taylor's / Graham's / Sandeman 중 1~2곳 — 5/28</span></div></div>
-          <div class="todo-item"><div class="check"></div><div class="todo-body"><strong>렐루 서점 입장권 예약</strong><span>5/27 일정에 맞춰 사전예약</span></div></div>
-          <div class="todo-item"><div class="check"></div><div class="todo-body"><strong>The Rebello 스파/풀 예약</strong><span>5/30 체크인 즉시 프론트에서. 토요일 저녁 빨리 마감</span></div></div>
-          <div class="todo-item"><div class="check"></div><div class="todo-body"><strong>보조배터리 구매 + 절연테이프</strong><span>CUKTECH 20,000mAh 55W ×2개</span></div></div>
-          <div class="todo-item"><div class="check"></div><div class="todo-body"><strong>여행자보험 가입</strong><span>출발 직전 1주일 내. 의료/도난/지연 커버</span></div></div>
-          <div class="todo-item"><div class="check"></div><div class="todo-body"><strong>Filigrana 어메니티 확인</strong><span>샴푸/치약/슬리퍼 제공 여부 사전 확인</span></div></div>
-          <div class="todo-item"><div class="check"></div><div class="todo-body"><strong>수영복 / 슬리퍼 준비</strong><span>The Rebello 시설 이용용. 1인 1벌씩</span></div></div>
+          <div class="todo-item checked"><div class="check"></div><div class="todo-body"><strong>CP.pt 환불 확인 (€66.50)</strong><span>완료</span></div></div>
+          <div class="todo-item"><div class="check"></div><div class="todo-body"><strong>최종 일정 플랜 확정</strong><span>Plan B 정정본 베이스로</span></div></div>
+          <div class="todo-item"><div class="check"></div><div class="todo-body"><strong>페나 궁전 타임슬롯 사전예약</strong><span>5/24 신트라행. 오전 슬롯 안정적</span></div></div>
+          <div class="todo-item"><div class="check"></div><div class="todo-body"><strong>제로니무스 수도원 사전예약</strong><span>5/23 토 — 줄 회피용</span></div></div>
+          <div class="todo-item"><div class="check"></div><div class="todo-body"><strong>리스보아 카드 구매 (€124)</strong><span>Tiqets / lisboacard.org. 5/22 공항 픽업</span></div></div>
+          <div class="todo-item"><div class="check"></div><div class="todo-body"><strong>가이아 와이너리 사전예약</strong><span>Taylor's / Graham's 1~2곳 — 5/28</span></div></div>
+          <div class="todo-item"><div class="check"></div><div class="todo-body"><strong>렐루 서점 입장권 예약</strong><span>5/27 일정에 맞춰</span></div></div>
+          <div class="todo-item"><div class="check"></div><div class="todo-body"><strong>파두 공연 식당 예약</strong><span>5/25 밤 — Tasca do Chico 등</span></div></div>
+          <div class="todo-item"><div class="check"></div><div class="todo-body"><strong>The Rebello 스파/풀 예약</strong><span>5/30 체크인 즉시. 토요일 저녁 빨리 마감</span></div></div>
+          <div class="todo-item"><div class="check"></div><div class="todo-body"><strong>보조배터리 구매 + 절연테이프</strong><span>CUKTECH 20,000mAh 55W ×2</span></div></div>
+          <div class="todo-item"><div class="check"></div><div class="todo-body"><strong>여행자보험 가입</strong><span>출발 직전 1주일 내</span></div></div>
+          <div class="todo-item"><div class="check"></div><div class="todo-body"><strong>Filigrana 어메니티 확인</strong><span>샴푸/치약/슬리퍼 제공 여부</span></div></div>
+          <div class="todo-item"><div class="check"></div><div class="todo-body"><strong>수영복 / 슬리퍼 준비</strong><span>The Rebello 시설용. 1인 1벌</span></div></div>
         </div>
       </div>
     </section>
@@ -829,19 +1170,18 @@
       <div class="panel-header">
         <div class="panel-eyebrow">Reference</div>
         <h1 class="panel-title"><em>정보</em> 모음</h1>
-        <p class="panel-sub">리스보아 카드 손익 분석 · 이전 자료 링크. 필요할 때 참고.</p>
+        <p class="panel-sub">리스보아 카드 손익 분석 · 이전 자료 링크.</p>
       </div>
 
       <div class="section">
         <div class="section-eyebrow">04 · Lisboa Card</div>
         <h2>리스보아 카드 · 72시간권</h2>
-
         <div class="card-feature">
           <div>
             <h3>1인당 순이익 약 €9.50</h3>
-            <p>Plan B 기준으론 압도적 이득은 아님. 진짜 가치는 <strong>줄 안 서기 + 대중교통(메트로/트램/신트라 기차) 무료</strong>.</p>
-            <p>활성화는 첫 사용 시점부터 — 5/23 아침 첫 교통수단 탑승 시 카운트 시작 → 5/26 아침 만료.</p>
-            <p style="margin-top:12px; font-size:12.5px; color: var(--ink-muted);">※ 페나 궁전은 카드 있어도 별도 사전예약 필수 (할인 10%). 벨렘 타워 보수 중. 포르투에서는 사용 불가.</p>
+            <p>Plan B 기준 압도적 이득 X. 진짜 가치는 <strong>줄 안 서기 + 대중교통 무료</strong>.</p>
+            <p>활성화 = 첫 사용 시점. 5/23 벨렘행 첫 교통수단 탑승 시 카운트 시작 → 5/26 아침 만료.</p>
+            <p style="margin-top:12px; font-size:12.5px; color: var(--ink-muted);">※ 페나 궁전은 카드 있어도 별도 사전예약 (할인 10%). 벨렘 타워 보수 중. 포르투에서는 사용 불가.</p>
           </div>
           <div class="price-block">
             <div class="p-label">2인 합계 (72h)</div>
@@ -849,7 +1189,6 @@
             <div class="p-sub">~18.5만원 · 픽업: 공항 Ask Me Lisboa</div>
           </div>
         </div>
-
         <table class="price-table">
           <thead><tr><th>옵션</th><th>가격</th><th>비고</th></tr></thead>
           <tbody>
@@ -858,38 +1197,35 @@
             <tr class="highlight"><td>72시간</td><td>€62</td><td>5/23~5/26 커버 — 선택</td></tr>
           </tbody>
         </table>
-        <p style="font-size: 12px; color: var(--ink-muted); margin-top: 8px;">출처: lisboacard.org 공식 / Tiqets</p>
+        <p style="font-size: 12px; color: var(--ink-muted); margin-top: 8px;">출처: lisboacard.org / Tiqets</p>
       </div>
 
       <div class="section">
         <div class="section-eyebrow">05 · Archive</div>
         <h2>이전 자료 · 링크 모음</h2>
-        <p class="section-sub">개별 자료의 풀버전이 필요하면 아래에서 확인.</p>
-
         <h3 style="font-family: var(--serif); font-size: 18px; font-weight: 600; margin: 24px 0 12px;">📋 Notion · 플래닝 허브</h3>
         <div class="link-list">
-          <a href="https://www.notion.so/251014e89351803ab65fca237d8f836e"><strong>🇵🇹 포르투갈 여행 메인</strong><span>전체 일정 / 호텔 / 기차 / 준비물 허브</span></a>
-          <a href="https://www.notion.so/35e014e89351810ca054fa954081a0e3"><strong>📅 일차별 상세 일정 (4 버전)</strong><span>Plan A/B/C/D 토글 + 사전예약 체크리스트</span></a>
-          <a href="https://www.notion.so/35e014e8935181dab071c7321e37946c"><strong>🎫 리스보아 카드 정리</strong><span>가격 분석 / 활성화 / 픽업 / 손익</span></a>
+          <a href="https://www.notion.so/251014e89351803ab65fca237d8f836e"><strong>🇵🇹 포르투갈 여행 메인</strong><span>전체 일정 / 호텔 / 기차 / 준비물</span></a>
+          <a href="https://www.notion.so/35e014e89351810ca054fa954081a0e3"><strong>📅 일차별 상세 일정 (4 버전)</strong><span>Plan A/B/C/D 토글</span></a>
+          <a href="https://www.notion.so/35e014e8935181dab071c7321e37946c"><strong>🎫 리스보아 카드 정리</strong><span>가격 / 활성화 / 픽업 / 손익</span></a>
         </div>
-
         <h3 style="font-family: var(--serif); font-size: 18px; font-weight: 600; margin: 32px 0 12px;">💬 이전 Claude 대화</h3>
         <div class="link-list">
-          <a href="https://claude.ai/chat/89e336e9-c483-4899-bad1-a821d8f0d75e"><strong>첫 일정 리서치</strong><span>9박 10일 황금 루트, 도시별 추천</span></a>
-          <a href="https://claude.ai/chat/2250177c-ae5d-40f4-b037-3b715f34255e"><strong>리스본 숙소 위치 추천</strong><span>치아두 vs 바이샤 vs 프린시피 헤알</span></a>
-          <a href="https://claude.ai/chat/23dacef8-11e4-41a9-9ab6-a1f7afa09f9e"><strong>리스본 4일 일정 (구글맵)</strong><span>알파마 / 신트라 / 벨렘 지도 시각화</span></a>
-          <a href="https://claude.ai/chat/cc392c59-1f5a-4295-bcc1-3d12bdd12fd5"><strong>리스본 호텔 결정 — Livô</strong><span>에어비앤비 2곳 + Livô 점수 비교표</span></a>
-          <a href="https://claude.ai/chat/889bc708-e29c-45f1-bc77-a54f5fe28e5c"><strong>CP.pt 기차 예약</strong><span>60일 전 오픈일 결제 실패 → 재예약</span></a>
-          <a href="https://claude.ai/chat/32aec6c0-18b8-488c-ba76-cf67c52e8e10"><strong>보조배터리 스펙 분석</strong><span>Anker Prime vs CUKTECH + 한국 규정</span></a>
-          <a href="https://claude.ai/chat/bd5b0fc5-99fc-4720-8751-f934e3222b31"><strong>준비물 HTML 리포트</strong><span>EES + 보조배터리 절연테이프 의무</span></a>
-          <a href="https://claude.ai/chat/41fcc1ee-08f5-40ec-b4cb-2869bc6b0ce0"><strong>노션 + 4버전 HTML 시각화</strong><span>Plan A/B/C/D HTML + 노션 페이지</span></a>
+          <a href="https://claude.ai/chat/89e336e9-c483-4899-bad1-a821d8f0d75e"><strong>첫 일정 리서치</strong><span>9박 10일 황금 루트</span></a>
+          <a href="https://claude.ai/chat/2250177c-ae5d-40f4-b037-3b715f34255e"><strong>리스본 숙소 위치 추천</strong><span>치아두 vs 바이샤 vs 프린시피</span></a>
+          <a href="https://claude.ai/chat/23dacef8-11e4-41a9-9ab6-a1f7afa09f9e"><strong>리스본 4일 일정 (구글맵)</strong><span>알파마 / 신트라 / 벨렘 지도</span></a>
+          <a href="https://claude.ai/chat/cc392c59-1f5a-4295-bcc1-3d12bdd12fd5"><strong>리스본 호텔 결정 — Livô</strong><span>에어비앤비 vs Livô 점수</span></a>
+          <a href="https://claude.ai/chat/889bc708-e29c-45f1-bc77-a54f5fe28e5c"><strong>CP.pt 기차 예약</strong><span>60일 전 오픈, 결제 실패→재예약</span></a>
+          <a href="https://claude.ai/chat/32aec6c0-18b8-488c-ba76-cf67c52e8e10"><strong>보조배터리 스펙 분석</strong><span>Anker Prime vs CUKTECH</span></a>
+          <a href="https://claude.ai/chat/bd5b0fc5-99fc-4720-8751-f934e3222b31"><strong>준비물 HTML 리포트</strong><span>EES + 보조배터리</span></a>
+          <a href="https://claude.ai/chat/41fcc1ee-08f5-40ec-b4cb-2869bc6b0ce0"><strong>노션 + 4버전 HTML 시각화</strong><span>Plan A/B/C/D</span></a>
         </div>
       </div>
 
       <div style="text-align: center; padding: 60px 0 20px; font-family: var(--mono); font-size: 10px; letter-spacing: 3px; color: var(--ink-muted);">
         ✦  ✦  ✦<br><br>
         PORTUGAL · MAY 22 — JUN 01 · 2026<br>
-        진웅 &amp; 찌니 · Master Document compiled 2026.05.17
+        진웅 &amp; 찌니 · Updated 2026.05.18
       </div>
     </section>
 
@@ -907,7 +1243,6 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   });
-
   document.querySelectorAll('.todo-item').forEach(item => {
     item.addEventListener('click', () => item.classList.toggle('checked'));
   });
