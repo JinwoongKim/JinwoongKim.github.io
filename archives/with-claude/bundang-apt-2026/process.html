@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>죽전동 벽산블루밍2단지 매수 프로세스 — with Claude</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f7f1e3;--paper:#fffaf0;--ink:#1d1d1b;--ink-soft:#4a4742;--ink-faint:#6f6a62;--rule:#d9cfb8;--rule-strong:#b9ad90;--azul:#1f3a5f;--azul-deep:#122644;--terra:#c0552d;--terra-light:#e89968;--olive:#7a8b5c;--critical:#a52a2a;--warn-bg:#fef3e3;--highlight:#f4e8c1;--accent:var(--azul);}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:'Inter','Apple SD Gothic Neo',sans-serif;line-height:1.65;background-image:radial-gradient(ellipse at 10% 0%,rgba(192,85,45,.04),transparent 50%),radial-gradient(ellipse at 100% 30%,rgba(31,58,95,.05),transparent 50%);background-attachment:fixed}
+.page{max-width:1100px;margin:0 auto;padding:clamp(28px,5vw,64px) clamp(20px,4vw,56px) 100px}
+.home-link{display:inline-block;margin-bottom:28px;padding:8px 14px;background:var(--paper);border:1px solid var(--rule);font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--azul);text-decoration:none;letter-spacing:1px}
+.home-link:hover{background:var(--azul);color:#fff}
+.breadcrumb{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink-faint);letter-spacing:1px;margin-bottom:8px}
+.breadcrumb a{color:var(--accent);text-decoration:none}
+
+/* Masthead */
+.masthead{border-bottom:3px double var(--rule-strong);padding-bottom:36px;margin-bottom:48px}
+.eyebrow{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:4px;color:var(--accent);text-transform:uppercase;margin:24px 0 20px}
+h1{font-family:'Fraunces',serif;font-size:clamp(40px,6vw,68px);font-weight:400;line-height:1;color:var(--azul-deep);letter-spacing:-1.5px}
+h1 em{font-style:italic;color:var(--accent);font-weight:300}
+.subtitle{font-family:'Fraunces',serif;font-size:19px;font-style:italic;color:var(--ink-soft);margin-top:16px;max-width:780px;line-height:1.55}
+
+/* Hero info strip */
+.hero-info{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:32px;border-top:1px solid var(--rule);padding-top:24px}
+.hero-info-item{padding-right:20px;border-right:1px dashed var(--rule)}
+.hero-info-item:last-child{border-right:none}
+.hero-info-item .lab{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:1.5px;color:var(--ink-faint);text-transform:uppercase;margin-bottom:6px}
+.hero-info-item .val{font-family:'Fraunces',serif;font-size:18px;font-weight:600;color:var(--azul-deep);line-height:1.3}
+.hero-info-item .val.accent{color:var(--terra)}
+
+section{margin-bottom:64px}
+h2{font-family:'Fraunces',serif;font-size:30px;font-weight:500;color:var(--azul-deep);margin-bottom:14px;display:flex;align-items:baseline;gap:16px;letter-spacing:-.5px}
+h2 .num{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--accent);letter-spacing:2px}
+h2::after{content:'';flex:1;height:1px;background:var(--rule-strong);margin-left:8px}
+.section-desc{font-family:'Fraunces',serif;font-size:15px;font-style:italic;color:var(--ink-soft);margin-bottom:28px;max-width:780px}
+.section-desc em{background:var(--highlight);font-style:normal;padding:0 4px}
+h3{font-family:'Fraunces',serif;font-size:20px;font-weight:600;color:var(--azul);margin-bottom:10px}
+p{font-size:14.5px;color:var(--ink-soft);margin-bottom:10px}
+
+/* Changes table */
+.changes{background:var(--paper);border:1px solid var(--rule);border-left:4px solid var(--terra);padding:28px 32px}
+.changes h3{margin-bottom:18px;color:var(--terra)}
+.changes-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px 28px}
+.change-item{padding:12px 0;border-top:1px dashed var(--rule)}
+.change-item .lab{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:1.5px;color:var(--ink-faint);text-transform:uppercase;margin-bottom:4px}
+.change-item .before{font-size:13px;color:var(--ink-faint);text-decoration:line-through}
+.change-item .arrow{color:var(--terra);margin:0 6px;font-weight:500}
+.change-item .after{font-size:14px;color:var(--ink);font-weight:500}
+
+/* Timeline */
+.timeline{position:relative}
+.timeline::before{content:'';position:absolute;left:84px;top:8px;bottom:8px;width:1px;background:var(--rule-strong)}
+.tl-row{display:grid;grid-template-columns:74px 28px 1fr;gap:0;margin-bottom:22px;align-items:start}
+.tl-time{font-family:'Fraunces',serif;font-style:italic;font-size:17px;color:var(--terra);font-weight:500;padding-top:2px;text-align:right;padding-right:14px;letter-spacing:-.3px}
+.tl-dot{width:11px;height:11px;border-radius:50%;background:var(--bg);border:2px solid var(--terra);margin-top:8px;margin-left:4px;z-index:1;position:relative}
+.tl-dot.major{background:var(--terra);width:13px;height:13px;margin-left:3px}
+.tl-content{padding-left:18px}
+.tl-title{font-family:'Fraunces',serif;font-size:17px;font-weight:600;color:var(--azul-deep);margin-bottom:3px}
+.tl-meta{font-size:12.5px;color:var(--ink-faint);letter-spacing:.02em;font-family:'JetBrains Mono',monospace}
+
+/* Step block */
+.step{background:var(--paper);border:1px solid var(--rule);margin-bottom:20px;overflow:hidden}
+.step-head{display:flex;align-items:baseline;gap:18px;padding:22px 28px 14px;border-bottom:1px dashed var(--rule)}
+.step-num{font-family:'Fraunces',serif;font-style:italic;font-size:30px;color:var(--terra);line-height:1;font-weight:500}
+.step-title{font-family:'Fraunces',serif;font-size:20px;font-weight:600;color:var(--azul-deep);flex:1;letter-spacing:-.3px}
+.step-duration{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-faint);letter-spacing:1.5px;text-transform:uppercase;background:var(--bg);padding:4px 10px;border:1px solid var(--rule);white-space:nowrap}
+.step-body{padding:22px 28px}
+.step-body h4{font-family:'Fraunces',serif;font-size:14px;font-weight:600;margin:16px 0 8px;color:var(--olive);letter-spacing:.5px;text-transform:uppercase}
+.step-body h4:first-child{margin-top:0}
+.step-body ul{list-style:none;padding-left:0}
+.step-body ul li{padding-left:18px;position:relative;margin-bottom:6px;color:var(--ink-soft);font-size:13.8px;line-height:1.6}
+.step-body ul li::before{content:'─';position:absolute;left:0;color:var(--terra-light)}
+.step-body strong{color:var(--azul-deep);font-weight:600}
+.step-body em{background:var(--highlight);font-style:normal;padding:0 4px;color:var(--ink)}
+.warn{background:rgba(192,85,45,.05);border-left:3px solid var(--terra);padding:12px 16px;margin-top:14px;font-size:13px;color:var(--ink-soft);line-height:1.65}
+.warn strong{color:var(--terra)}
+
+/* Table */
+table{width:100%;border-collapse:collapse;background:var(--paper);font-size:13.5px;box-shadow:0 2px 8px rgba(31,58,95,.05);margin:10px 0}
+th{background:var(--azul-deep);color:var(--paper);padding:12px 16px;text-align:left;font-size:10.5px;letter-spacing:.5px;text-transform:uppercase;font-weight:500;font-family:'JetBrains Mono',monospace}
+td{padding:12px 16px;border-bottom:1px solid var(--rule);vertical-align:top;color:var(--ink-soft)}
+tr:last-child td{border-bottom:none}
+td:first-child{font-weight:500;color:var(--ink)}
+td.num{font-family:'Fraunces',serif;text-align:right;color:var(--terra);font-weight:600}
+.tw{overflow-x:auto}
+
+/* Funding 5:5 */
+.funding-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:14px}
+.funding-col{background:var(--paper);border:1px solid var(--rule);padding:24px 26px;position:relative}
+.funding-col .b{position:absolute;top:-1px;left:-1px;background:var(--azul-deep);color:var(--paper);padding:5px 12px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1.5px}
+.funding-col .b.t{background:var(--terra)}
+.funding-col h4{font-family:'Fraunces',serif;font-size:18px;color:var(--azul-deep);margin-top:16px;margin-bottom:4px;font-weight:600}
+.funding-col .share{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:1.5px;color:var(--terra);margin-bottom:16px;padding-bottom:14px;border-bottom:1px dashed var(--rule)}
+.funding-line{display:flex;justify-content:space-between;padding:6px 0;font-size:13.5px;border-bottom:1px solid rgba(217,207,184,.4)}
+.funding-line:last-of-type{border-bottom:none}
+.funding-line .label{color:var(--ink-soft);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.5px}
+.funding-line .value{font-family:'Fraunces',serif;font-weight:600;color:var(--ink)}
+.funding-col .total{border-top:2px solid var(--azul-deep);margin-top:10px;padding-top:10px;display:flex;justify-content:space-between;font-family:'Fraunces',serif;font-weight:600;font-size:16px}
+.funding-col .total span:last-child{color:var(--terra);font-size:18px}
+
+/* Checklist */
+.checklist{columns:2;column-gap:24px;column-rule:1px solid var(--rule);margin-top:14px}
+.check-group{break-inside:avoid;margin-bottom:20px;padding:18px 22px;background:var(--paper);border:1px solid var(--rule)}
+.check-group h4{font-family:'Fraunces',serif;font-size:14px;font-weight:600;color:var(--olive);margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--rule);text-transform:uppercase;letter-spacing:.5px}
+.check-group ul{list-style:none}
+.check-group li{padding:4px 0 4px 22px;position:relative;font-size:13px;color:var(--ink-soft);line-height:1.5}
+.check-group li::before{content:'□';position:absolute;left:0;top:2px;color:var(--terra-light);font-size:14px}
+
+/* Verdict box */
+.vd{background:var(--azul-deep);color:#fffaf0;padding:44px 40px;position:relative;overflow:hidden;margin-top:30px}
+.vd::before{content:'';position:absolute;top:0;right:0;width:240px;height:240px;background:radial-gradient(circle,rgba(192,85,45,.35) 0%,transparent 70%);pointer-events:none}
+.vl{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:4px;color:rgba(255,250,240,.55);margin-bottom:18px;text-transform:uppercase}
+.vt{font-family:'Fraunces',serif;font-size:24px;font-weight:500;margin-bottom:24px;letter-spacing:-.3px;line-height:1.35}
+.vt em{font-style:italic;color:var(--terra-light)}
+.vb ol{list-style:none;counter-reset:vc;padding-left:0}
+.vb li{counter-increment:vc;padding:14px 0 14px 48px;border-bottom:1px solid rgba(255,250,240,.1);position:relative;font-size:14px;color:rgba(255,250,240,.88);line-height:1.7}
+.vb li:last-child{border-bottom:none}
+.vb li::before{content:'0' counter(vc);position:absolute;left:0;top:14px;font-family:'Fraunces',serif;font-style:italic;color:var(--terra-light);font-size:18px;font-weight:500}
+.vb strong{color:var(--terra-light);font-weight:600}
+
+.footer{margin-top:80px;padding-top:32px;border-top:3px double var(--rule-strong);text-align:center;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink-faint);letter-spacing:2px}
+.footer .or{font-size:18px;color:var(--accent);margin-bottom:12px}
+
+@media (max-width:760px){
+  h1{font-size:36px}
+  h2{font-size:24px}
+  .vt{font-size:20px}
+  .hero-info{grid-template-columns:1fr 1fr;gap:18px 0}
+  .hero-info-item{border-right:none;padding:8px 16px;border-bottom:1px dashed var(--rule)}
+  .changes-grid{grid-template-columns:1fr}
+  .funding-grid{grid-template-columns:1fr}
+  .checklist{columns:1}
+  .tl-row{grid-template-columns:64px 22px 1fr}
+  .tl-time{font-size:14px}
+  .step-head{flex-wrap:wrap}
+  table{font-size:12px}
+  th,td{padding:10px 12px}
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+<a href="../index.html" class="home-link">← with-claude 허브로</a>
+<div class="breadcrumb"><a href="../index.html">archives / with-claude</a> / bundang-apt-2026 / process</div>
+
+<!-- MASTHEAD -->
+<header class="masthead">
+  <div class="eyebrow">Acquisition Process · 매수 프로세스 플랜</div>
+  <h1>죽전동 벽산블루밍 2단지<br><em>매수 프로세스.</em></h1>
+  <p class="subtitle">혼인신고와 동시에 진행하는 공동명의 5:5 매수. 가계약금 5천 입금부터 잔금·등기까지 약 90~120일의 워크플로우 정리.</p>
+  <div class="hero-info">
+    <div class="hero-info-item">
+      <div class="lab">Property</div>
+      <div class="val">벽산블루밍 2단지<br><span style="font-size:13px;font-weight:400;color:var(--ink-faint)">301동 507호 · 32평</span></div>
+    </div>
+    <div class="hero-info-item">
+      <div class="lab">Price</div>
+      <div class="val accent">11.5억</div>
+    </div>
+    <div class="hero-info-item">
+      <div class="lab">Ownership</div>
+      <div class="val">공동명의 5 : 5</div>
+    </div>
+    <div class="hero-info-item">
+      <div class="lab">Timeline</div>
+      <div class="val">90~120일</div>
+    </div>
+  </div>
+</header>
+
+<!-- SECTION 01: 핵심 변경 -->
+<section>
+  <h2><span class="num">01 /</span>핵심 변경 사항</h2>
+  <p class="section-desc">사실혼 → 법적 부부 + 단독명의 → 공동명의 5:5. <em>세제와 자금 흐름이 모두 재설계되는 분기점.</em></p>
+
+  <div class="changes">
+    <h3>혼인신고 + 공동명의 5:5가 바꾸는 것</h3>
+    <div class="changes-grid">
+      <div class="change-item">
+        <div class="lab">관계 상태</div>
+        <span class="before">사실혼 (혼인신고 없음)</span>
+        <span class="arrow">→</span>
+        <span class="after">법적 부부</span>
+      </div>
+      <div class="change-item">
+        <div class="lab">소유 구조</div>
+        <span class="before">단독명의</span>
+        <span class="arrow">→</span>
+        <span class="after">공동명의 5 : 5</span>
+      </div>
+      <div class="change-item">
+        <div class="lab">배우자 증여공제</div>
+        <span class="before">없음 (일반 5천만/10년)</span>
+        <span class="arrow">→</span>
+        <span class="after">10년간 6억까지 비과세</span>
+      </div>
+      <div class="change-item">
+        <div class="lab">부부 간 자금 이전</div>
+        <span class="before">차용증 + 이자 4.6% 필수</span>
+        <span class="arrow">→</span>
+        <span class="after">자유 이전 가능 (6억 한도)</span>
+      </div>
+      <div class="change-item">
+        <div class="lab">취득세 부담</div>
+        <span class="before">단독 부담</span>
+        <span class="arrow">→</span>
+        <span class="after">각자 50% (지분 비례)</span>
+      </div>
+      <div class="change-item">
+        <div class="lab">양도세 (10년 후)</div>
+        <span class="before">1세대 1주택 따로</span>
+        <span class="arrow">→</span>
+        <span class="after">부부합산 12억 비과세</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 02: 타임라인 -->
+<section>
+  <h2><span class="num">02 /</span>전체 타임라인</h2>
+  <p class="section-desc">가계약 → 잔금까지 약 90~120일. <em>혼인신고는 가계약 직후 1주일 내 완료</em>가 절세 최적.</p>
+
+  <div class="timeline">
+    <div class="tl-row">
+      <div class="tl-time">D-0</div>
+      <div class="tl-dot major"></div>
+      <div class="tl-content">
+        <div class="tl-title">가계약금 5천 입금 + 조건부 매매계약서</div>
+        <div class="tl-meta">매도자 본인 계좌로 직접 이체 · 토허제 불허 시 반환 조항 명시</div>
+      </div>
+    </div>
+    <div class="tl-row">
+      <div class="tl-time">D+1~3</div>
+      <div class="tl-dot major"></div>
+      <div class="tl-content">
+        <div class="tl-title">혼인신고 완료</div>
+        <div class="tl-meta">관할 구청 또는 정부24 온라인 · 즉시 효력 발생</div>
+      </div>
+    </div>
+    <div class="tl-row">
+      <div class="tl-time">D+3~7</div>
+      <div class="tl-dot"></div>
+      <div class="tl-content">
+        <div class="tl-title">자금 정리 · 대출 사전심사 · 부모 증여 처리</div>
+        <div class="tl-meta">부부 합산 DSR 점검 · 마통 한도 조정 · 증여세 신고 준비</div>
+      </div>
+    </div>
+    <div class="tl-row">
+      <div class="tl-time">D+7~14</div>
+      <div class="tl-dot major"></div>
+      <div class="tl-content">
+        <div class="tl-title">토지거래허가 신청 (수지구청)</div>
+        <div class="tl-meta">자금조달계획서 부부 공동 작성 · 매수인 2인 공동 신청</div>
+      </div>
+    </div>
+    <div class="tl-row">
+      <div class="tl-time">D+22~28</div>
+      <div class="tl-dot"></div>
+      <div class="tl-content">
+        <div class="tl-title">토지거래허가증 발급</div>
+        <div class="tl-meta">15영업일 이내 처리 · 발급 즉시 본계약 가능</div>
+      </div>
+    </div>
+    <div class="tl-row">
+      <div class="tl-time">D+28~30</div>
+      <div class="tl-dot major"></div>
+      <div class="tl-content">
+        <div class="tl-title">본계약 (부부 공동 매수인)</div>
+        <div class="tl-meta">계약금 10% 잔액 6,500만 추가 입금 · 부동산 거래신고</div>
+      </div>
+    </div>
+    <div class="tl-row">
+      <div class="tl-time">D+60~90</div>
+      <div class="tl-dot"></div>
+      <div class="tl-content">
+        <div class="tl-title">중도금 (협의) · 대출 약정 체결</div>
+        <div class="tl-meta">부부 공동차주 또는 단독차주 결정 · 생애최초 적용 확인</div>
+      </div>
+    </div>
+    <div class="tl-row">
+      <div class="tl-time">D+90~120</div>
+      <div class="tl-dot major"></div>
+      <div class="tl-content">
+        <div class="tl-title">잔금 + 공동명의 등기 + 전입신고 (동일일)</div>
+        <div class="tl-meta">법무사 동석 · 잔금 즉시 등기 접수 · 당일 전입신고 필수</div>
+      </div>
+    </div>
+    <div class="tl-row">
+      <div class="tl-time">D+150</div>
+      <div class="tl-dot"></div>
+      <div class="tl-content">
+        <div class="tl-title">취득세 신고 · 납부 (각자 50%)</div>
+        <div class="tl-meta">잔금 후 60일 이내 · 위택스 또는 법무사 대행</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 03: 단계별 상세 -->
+<section>
+  <h2><span class="num">03 /</span>단계별 상세 가이드</h2>
+  <p class="section-desc">각 단계의 액션, 준비물, 주의사항.</p>
+
+  <div class="step">
+    <div class="step-head">
+      <div class="step-num">I</div>
+      <div class="step-title">가계약금 입금 + 조건부 매매계약서</div>
+      <div class="step-duration">1시간 · D-0</div>
+    </div>
+    <div class="step-body">
+      <h4>해야 할 일</h4>
+      <ul>
+        <li>매도자 <strong>본인 명의 계좌</strong>로 5천만 직접 이체 (부동산 계좌 ×). 적요 "가계약금"</li>
+        <li>조건부 매매계약서 작성 — <em>토지거래허가 불허 시 가계약금 전액 반환 조항 필수</em></li>
+        <li>매도자 등기부등본 즉석 발급해서 소유자/근저당/가압류 확인</li>
+        <li>매수인란에 <strong>웅이 + 찌니 공동명의 (각 50%)</strong> 명시</li>
+      </ul>
+      <h4>준비물</h4>
+      <ul>
+        <li>신분증 (웅이·찌니 각자)</li>
+        <li>이체 한도 사전 해제 (5천 송금 가능 상태)</li>
+      </ul>
+      <div class="warn">
+        <strong>중요</strong> · 토허제 지역은 허가 전 본계약 자체가 무효. "조건부" 명시 안 하면 5천 반환 분쟁 위험. 부동산이 제시한 계약서에 반드시 추가 조항 확인.
+      </div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-head">
+      <div class="step-num">II</div>
+      <div class="step-title">혼인신고 — 가계약 직후 1주일 내</div>
+      <div class="step-duration">30분 · D+1~3</div>
+    </div>
+    <div class="step-body">
+      <h4>왜 지금?</h4>
+      <ul>
+        <li>토허제 자금조달계획서 작성 전에 법적 부부 상태여야 자금 흐름 설명이 깔끔</li>
+        <li>혼인 후엔 <strong>배우자 증여공제 6억</strong>이 열려서 자금 이전 자유로움</li>
+        <li>웅이↔찌니 자금 이전이 증여세 없이 가능 → 5:5 자기자본 맞추기 쉬워짐</li>
+      </ul>
+      <h4>해야 할 일</h4>
+      <ul>
+        <li>관할 구청 가족관계등록과 방문 또는 정부24 온라인 신청</li>
+        <li>증인 2명 서명 (가족·지인 누구나 가능)</li>
+      </ul>
+      <h4>준비물</h4>
+      <ul>
+        <li>혼인신고서 (구청 비치 또는 정부24 다운로드)</li>
+        <li>웅이·찌니 신분증</li>
+        <li>증인 2명 서명 (현장 동석 또는 사전 서명)</li>
+        <li>가족관계증명서 각자 1통 (3개월 내)</li>
+      </ul>
+      <div class="warn">
+        <strong>이후 확인</strong> · 신고 즉시 효력 발생. 1~2일 후 가족관계증명서에 반영. 신혼부부 특례 대출 가능성도 함께 검토 (조정대상지역은 한도 제약).
+      </div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-head">
+      <div class="step-num">III</div>
+      <div class="step-title">자금 정리 + 대출 사전심사</div>
+      <div class="step-duration">1주 · D+3~7</div>
+    </div>
+    <div class="step-body">
+      <h4>병렬 진행</h4>
+      <ul>
+        <li>토뱅 마통 9천 → 5천 한도 축소 (부부 합산 DSR 여유 확보)</li>
+        <li>은행 <strong>생애최초 주담대 사전심사</strong> — 둘 다 무주택자여야 적용</li>
+        <li>회사대출 1억 실행 일정 확정 (DSR 미포함)</li>
+        <li>부모 증여 각자 1억씩 → 5천만 비과세 + 5천만 증여세 신고 (10년 합산)</li>
+        <li>웅이↔찌니 자금 균형 맞추기 (배우자 증여공제 활용, 신고 불필요)</li>
+      </ul>
+      <div class="warn">
+        <strong>공동명의 5:5의 핵심</strong> · 각자 5.75억씩 자금을 책임진다는 의미. 한쪽이 더 많이 내면 그만큼 증여로 처리됨. 혼인 후엔 6억까지 공제되니 문제 없지만, <em>자금조달계획서엔 일관되게 5:5로 작성</em>.
+      </div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-head">
+      <div class="step-num">IV</div>
+      <div class="step-title">토지거래허가 신청</div>
+      <div class="step-duration">신청 1주 + 처리 15영업일 · D+7~28</div>
+    </div>
+    <div class="step-body">
+      <h4>신청처</h4>
+      <ul>
+        <li><strong>수지구청 민원지적과 부동산거래TF팀</strong> · 031-6193-8137</li>
+        <li>매수인 2인(웅이·찌니) + 매도자 공동 신청 · 부동산/법무사 대리 가능</li>
+      </ul>
+      <h4>제출 서류</h4>
+      <div class="tw">
+        <table>
+          <thead><tr><th>서류</th><th>발급처 / 작성</th></tr></thead>
+          <tbody>
+            <tr><td>토지거래계약 허가신청서</td><td>구청/부동산 양식</td></tr>
+            <tr><td>토지이용계획서</td><td>부동산/법무사 작성</td></tr>
+            <tr><td>자금조달계획서 (부부 공동)</td><td>직접 작성</td></tr>
+            <tr><td>조건부 매매계약서 사본</td><td>가계약 시 받음</td></tr>
+            <tr><td>인감증명서 부동산매수용 (각 1통)</td><td>주민센터</td></tr>
+            <tr><td>주민등록등본 (각 1통)</td><td>정부24</td></tr>
+            <tr><td>혼인관계증명서</td><td>정부24 (혼인신고 반영 후)</td></tr>
+            <tr><td>잔고증명서 (각 계좌별)</td><td>각 은행</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="warn">
+        <strong>자금조달계획서</strong> · 부부 공동명의 매수는 1장으로 합산 작성 가능. 항목별 출처와 금액이 일관돼야 함. 부모 증여는 증여세 신고서까지 첨부 권장.
+      </div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-head">
+      <div class="step-num">V</div>
+      <div class="step-title">본계약 (부부 공동 매수인)</div>
+      <div class="step-duration">2시간 · D+28~30</div>
+    </div>
+    <div class="step-body">
+      <h4>해야 할 일</h4>
+      <ul>
+        <li>토지거래허가증 발급 확인 후 정식 매매계약서 작성</li>
+        <li>매수인란에 웅이·찌니 둘 다 기재 + <strong>각 지분 50% 명시</strong></li>
+        <li>계약금 10% (1.15억) 중 잔액 6,500만 추가 입금</li>
+      </ul>
+      <h4>준비물 (각자)</h4>
+      <ul>
+        <li>신분증 + 인감도장</li>
+        <li>인감증명서 부동산매수용 1통 (3개월 내)</li>
+        <li>주민등록등본 1통 + 혼인관계증명서 1통</li>
+      </ul>
+      <div class="warn">
+        <strong>거래신고</strong> · 계약 후 30일 내 부동산 거래신고 (보통 부동산이 대행). 부부 공동명의 명시 확인 필수.
+      </div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-head">
+      <div class="step-num">VI</div>
+      <div class="step-title">잔금 + 공동명의 등기 + 전입신고</div>
+      <div class="step-duration">2~3시간 · D+90~120</div>
+    </div>
+    <div class="step-body">
+      <h4>당일 처리 순서</h4>
+      <ul>
+        <li>잔금 입금 (대출금 + 자기자금 자기앞수표)</li>
+        <li>매도자에게서 등기권리증·완납영수증 인수</li>
+        <li>법무사 등기 접수 — <strong>웅이 50% + 찌니 50% 공동명의로 신청</strong></li>
+        <li>주민센터 또는 정부24에서 <strong>당일 전입신고</strong> (둘 다)</li>
+      </ul>
+      <h4>준비물 (각자)</h4>
+      <ul>
+        <li>신분증 + 인감도장</li>
+        <li>인감증명서 부동산매수용 3통 (3개월 내)</li>
+        <li>주민등록등본 2통 + 가족관계증명서 1통 + 혼인관계증명서 1통</li>
+        <li>매매계약서 원본 + 토지거래허가증 원본</li>
+      </ul>
+      <div class="warn">
+        <strong>잔금 = 등기 = 전입신고 동일일 원칙</strong> · 잔금 다음 날 전입신고 미루면 2년 실거주 기산일이 늦어짐. 등기 접수 전 매도자 측 근저당 말소 등기 동시 진행 확인.
+      </div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-head">
+      <div class="step-num">VII</div>
+      <div class="step-title">취득세 신고 + 납부 (각자 50%)</div>
+      <div class="step-duration">잔금 후 60일 이내</div>
+    </div>
+    <div class="step-body">
+      <h4>11.5억 1세대 1주택 취득세 추정</h4>
+      <div class="tw">
+        <table>
+          <thead><tr><th>항목</th><th>요율</th><th>금액</th></tr></thead>
+          <tbody>
+            <tr><td>취득세 본세</td><td>3.0% (9억 초과)</td><td class="num">약 3,450만</td></tr>
+            <tr><td>지방교육세</td><td>0.3%</td><td class="num">약 345만</td></tr>
+            <tr><td>농어촌특별세</td><td>전용 85㎡ 초과 시 0.2%</td><td class="num">약 230만</td></tr>
+            <tr><td>생애최초 감면</td><td>200만 한도</td><td class="num">-200만</td></tr>
+            <tr><td><strong>총 부담 (추정)</strong></td><td></td><td class="num"><strong>약 3,800만</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="margin-top:12px;font-size:13.5px;color:var(--ink-soft)">공동명의 5:5 → 웅이 1,900만 + 찌니 1,900만 각자 신고</p>
+      <div class="warn">
+        <strong>주의</strong> · 84㎡(전용) 기준이면 농특세 비과세 가능. 32평이 공급면적이면 전용면적 다를 수 있음. 정확한 계산은 위택스 자동계산 또는 법무사 확인. <em>생애최초 감면은 부부합산 소득 1.3억 이하 등 조건 충족 필요</em>해서 사전 검증 권장.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 04: 자금 5:5 -->
+<section>
+  <h2><span class="num">04 /</span>자금조달 5 : 5 구조</h2>
+  <p class="section-desc">각자 5.75억씩 책임. 부부 합산 11.5억. <em>혼인 후 배우자 증여공제(6억 한도)로 실제 자금 비율은 자유롭게 조정 가능.</em></p>
+
+  <div class="funding-grid">
+    <div class="funding-col">
+      <span class="b">웅이 · 지분 50%</span>
+      <h4>웅이 명의 자금</h4>
+      <div class="share">— 5.75억 책임 —</div>
+      <div class="funding-line"><span class="label">자기자금 (예금·주식)</span><span class="value">2.9억</span></div>
+      <div class="funding-line"><span class="label">주담대 (공동차주)</span><span class="value">2.0억</span></div>
+      <div class="funding-line"><span class="label">회사대출</span><span class="value">0.5억</span></div>
+      <div class="funding-line"><span class="label">부모 증여</span><span class="value">0.35억</span></div>
+      <div class="total"><span>합계</span><span>5.75억</span></div>
+    </div>
+    <div class="funding-col">
+      <span class="b t">찌니 · 지분 50%</span>
+      <h4>찌니 명의 자금</h4>
+      <div class="share">— 5.75억 책임 —</div>
+      <div class="funding-line"><span class="label">자기자금 (예금·주식)</span><span class="value">2.9억</span></div>
+      <div class="funding-line"><span class="label">주담대 (공동차주)</span><span class="value">2.0억</span></div>
+      <div class="funding-line"><span class="label">회사대출</span><span class="value">0.5억</span></div>
+      <div class="funding-line"><span class="label">부모 증여</span><span class="value">0.35억</span></div>
+      <div class="total"><span>합계</span><span>5.75억</span></div>
+    </div>
+  </div>
+  <div class="warn" style="margin-top:20px">
+    <strong>주의</strong> · 위는 5:5를 산술적으로 맞춘 예시. 실제 자금 차이는 <em>혼인 후 배우자 증여공제(6억 한도)로 자유롭게 이전 가능</em>해서 균형 맞추기 쉬움. 단, 토뱅 마통·청약통장 등은 그대로 개인 명의 유지.
+  </div>
+</section>
+
+<!-- SECTION 05: 통합 준비물 -->
+<section>
+  <h2><span class="num">05 /</span>통합 준비물 체크리스트</h2>
+  <p class="section-desc">단계마다 소진되므로 미리 여유 있게 발급.</p>
+
+  <div class="checklist">
+    <div class="check-group">
+      <h4>즉시 발급 (이번 주)</h4>
+      <ul>
+        <li>신분증 (웅이·찌니 각자)</li>
+        <li>주민등록등본 각 5통 (정부24 무료)</li>
+        <li>가족관계증명서 각 2통</li>
+        <li>인감도장 (없으면 새로 파서 등록)</li>
+      </ul>
+    </div>
+    <div class="check-group">
+      <h4>혼인신고 시</h4>
+      <ul>
+        <li>혼인신고서 (구청 양식)</li>
+        <li>증인 2명 서명</li>
+        <li>가족관계증명서 각 1통</li>
+      </ul>
+    </div>
+    <div class="check-group">
+      <h4>대출 사전심사</h4>
+      <ul>
+        <li>재직증명서 (각자)</li>
+        <li>근로소득원천징수영수증 (각자)</li>
+        <li>건강보험자격득실확인서</li>
+        <li>잔고증명서 (모든 계좌)</li>
+      </ul>
+    </div>
+    <div class="check-group">
+      <h4>토허제 신청 시</h4>
+      <ul>
+        <li>인감증명서 부동산매수용 각 1통</li>
+        <li>혼인관계증명서 (혼인신고 반영 후)</li>
+        <li>자금조달계획서 부부 공동 작성</li>
+        <li>증여세 신고서 (부모 증여 시)</li>
+      </ul>
+    </div>
+    <div class="check-group">
+      <h4>본계약 시</h4>
+      <ul>
+        <li>인감증명서 부동산매수용 각 1통</li>
+        <li>혼인관계증명서 각 1통</li>
+        <li>계약금 잔액 6,500만</li>
+      </ul>
+    </div>
+    <div class="check-group">
+      <h4>잔금일 (각자)</h4>
+      <ul>
+        <li>인감증명서 부동산매수용 3통</li>
+        <li>주민등록등본 2통</li>
+        <li>가족관계증명서 + 혼인관계증명서</li>
+        <li>매매계약서 원본, 토허증 원본</li>
+        <li>법무사 동석 (등기 대행 100~200만)</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 06: 반드시 확인할 것 -->
+<section>
+  <h2><span class="num">06 /</span>반드시 확인할 것</h2>
+
+  <div class="vd">
+    <div class="vl">Critical Checks</div>
+    <div class="vt">"실수를 줄이는 7가지 — <em>가계약 시점부터 등기까지.</em>"</div>
+    <div class="vb">
+      <ol>
+        <li><strong>가계약서 토허제 조항</strong> · "토지거래허가 불허 시 가계약금 전액 반환" 문구 명시 안 됐으면 추가 요구. 안 들어가면 5천 반환 분쟁 위험 큼.</li>
+        <li><strong>매도자 본인 계좌 확인</strong> · 가계약금 5천이 매도자 본인 계좌인지 확인. 가족·대리인 계좌로 보내면 가계약 효력 분쟁 소지.</li>
+        <li><strong>혼인신고 타이밍</strong> · 가계약 직후 1주일 내 완료가 절세 최적. 토허제 자금조달계획서 작성 전엔 무조건 끝나있어야 부부 합산 자금 설명이 깔끔.</li>
+        <li><strong>잔금일 협의</strong> · 토허증 발급일 + 4개월이 데드라인. 매도자가 더 짧게 요구하면 대출 일정·증여 절차 빠듯해질 수 있음. 가능하면 4개월 풀로 확보.</li>
+        <li><strong>실거주 의무 2년</strong> · 토허제 매수는 등기일 기준 2년 실거주 필수. 위반 시 과태료 + 매매대금 10% 이행강제금. 전세 불가, 부부만 전입 가능.</li>
+        <li><strong>생애최초 감면 부부 조건</strong> · 부부합산 소득·자산 기준 충족해야 적용. 시니어 ML 소득 기준 단독은 OK여도 합산은 한도 초과 가능. 위택스 자동계산으로 사전 검증.</li>
+        <li><strong>공동명의 등기 신청서</strong> · 법무사가 보통 자동 처리하지만, 등기 접수 전 신청서에 <strong>웅이 50% + 찌니 50%</strong> 명시 여부 본인 확인. 잘못 들어가면 정정 등기 번거로움.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<div class="footer">
+  <div class="or">✦</div>
+  <div>BUNDANG-APT · 2026 · PROCESS BY JINWOONG</div>
+  <div style="margin-top:8px;opacity:.6">compiled 2026.05.18</div>
+</div>
+
+</div>
+</body>
+</html>
