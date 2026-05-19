@@ -21,6 +21,7 @@ body{background:var(--bg);color:var(--ink);font-family:'Inter','Apple SD Gothic 
 h1{font-family:'Fraunces',serif;font-size:clamp(40px,6vw,68px);font-weight:400;line-height:1;color:var(--azul-deep);letter-spacing:-1.5px}
 h1 em{font-style:italic;color:var(--accent);font-weight:300}
 .subtitle{font-family:'Fraunces',serif;font-size:19px;font-style:italic;color:var(--ink-soft);margin-top:16px;max-width:780px;line-height:1.55}
+.today-stamp{display:inline-block;margin-top:14px;padding:6px 12px;background:var(--terra);color:#fffaf0;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase}
 .hero-info{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:32px;border-top:1px solid var(--rule);padding-top:24px}
 .hero-info-item{padding-right:20px;border-right:1px dashed var(--rule)}
 .hero-info-item:last-child{border-right:none}
@@ -54,8 +55,11 @@ p{font-size:14.5px;color:var(--ink-soft);margin-bottom:10px}
 .timeline{position:relative}
 .timeline::before{content:'';position:absolute;left:84px;top:8px;bottom:8px;width:1px;background:var(--rule-strong)}
 .tl-row{display:grid;grid-template-columns:74px 28px 1fr;gap:0;margin-bottom:22px;align-items:start}
+.tl-row.today .tl-dot{box-shadow:0 0 0 4px rgba(192,85,45,.18)}
+.tl-row.today .tl-title{color:var(--terra)}
 .tl-time{font-family:'Fraunces',serif;font-style:italic;font-size:17px;color:var(--terra);font-weight:500;padding-top:2px;text-align:right;padding-right:14px;letter-spacing:-.3px;line-height:1.15}
 .tl-time .day{display:block;font-family:'JetBrains Mono',monospace;font-style:normal;font-size:10px;color:var(--ink-faint);letter-spacing:1px;margin-top:3px;font-weight:400}
+.tl-time .now{display:inline-block;background:var(--terra);color:#fffaf0;font-family:'JetBrains Mono',monospace;font-style:normal;font-size:8.5px;padding:1px 5px;letter-spacing:1px;margin-top:3px;font-weight:500}
 .tl-dot{width:11px;height:11px;border-radius:50%;background:var(--bg);border:2px solid var(--terra);margin-top:8px;margin-left:4px;z-index:1;position:relative}
 .tl-dot.major{background:var(--terra);width:13px;height:13px;margin-left:3px}
 .tl-content{padding-left:18px}
@@ -66,10 +70,12 @@ p{font-size:14.5px;color:var(--ink-soft);margin-bottom:10px}
 .tl-pause-title{font-family:'Fraunces',serif;font-size:17px;color:var(--azul-deep);font-weight:500}
 .tl-pause-meta{font-size:12.5px;color:var(--ink-faint);margin-top:4px;font-family:'JetBrains Mono',monospace}
 .step{background:var(--paper);border:1px solid var(--rule);margin-bottom:20px;overflow:hidden}
+.step.now{border-color:var(--terra);border-width:2px}
 .step-head{display:flex;align-items:baseline;gap:18px;padding:22px 28px 14px;border-bottom:1px dashed var(--rule)}
 .step-num{font-family:'Fraunces',serif;font-style:italic;font-size:30px;color:var(--terra);line-height:1;font-weight:500}
 .step-title{font-family:'Fraunces',serif;font-size:20px;font-weight:600;color:var(--azul-deep);flex:1;letter-spacing:-.3px}
 .step-duration{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-faint);letter-spacing:1.5px;text-transform:uppercase;background:var(--bg);padding:4px 10px;border:1px solid var(--rule);white-space:nowrap}
+.step-duration.now{background:var(--terra);color:#fffaf0;border-color:var(--terra)}
 .step-body{padding:22px 28px}
 .step-body h4{font-family:'Fraunces',serif;font-size:14px;font-weight:600;margin:16px 0 8px;color:var(--olive);letter-spacing:.5px;text-transform:uppercase}
 .step-body h4:first-child{margin-top:0}
@@ -146,7 +152,8 @@ td.num{font-family:'Fraunces',serif;text-align:right;color:var(--terra);font-wei
 <header class="masthead">
   <div class="eyebrow">Acquisition Process · 매수 프로세스 플랜</div>
   <h1>죽전동 벽산블루밍 2단지<br><em>매수 프로세스.</em></h1>
-  <p class="subtitle">약정금 5천 입금부터 잔금·등기까지 약 6개월. 혼인신고 + 공동명의 5:5 전제, 5.22~6.1 포르투갈 여행 기간을 고려한 실제 일정으로 재구성.</p>
+  <p class="subtitle">약정금 5천 입금부터 잔금·등기까지 약 6개월. 혼인신고 + 공동명의 5:5 전제, 5.22~6.1 포르투갈 여행 기간을 고려한 실제 일정.</p>
+  <div class="today-stamp">TODAY · 2026.05.20 (수)</div>
   <div class="hero-info">
     <div class="hero-info-item">
       <div class="lab">Property</div>
@@ -162,25 +169,24 @@ td.num{font-family:'Fraunces',serif;text-align:right;color:var(--terra);font-wei
     </div>
     <div class="hero-info-item">
       <div class="lab">Timeline</div>
-      <div class="val">5.19 → 11.6</div>
+      <div class="val">5.20 → 11.6</div>
     </div>
   </div>
 </header>
 
 <section>
-  <h2><span class="num">00 /</span>출국 전 (5.22 이전) 꼭 해야 할 일</h2>
-  <p class="section-desc">포르투갈 여행 출국 전 3일. <em>이 세 가지 안 끝내면 귀국 후 일정 전체가 밀립니다.</em></p>
+  <h2><span class="num">00 /</span>출국까지 이틀, 꼭 해야 할 일</h2>
+  <p class="section-desc">오늘 5.20 (수) 기준 출국까지 D-2. <em>혼인신고는 출국 후 6월에 해도 됨.</em> 진짜 출국 전 필수는 두 가지.</p>
 
   <div class="vd urgent">
-    <div class="vl">Pre-Departure Critical Path</div>
-    <div class="vt">우선순위 3가지 — <em>더 이상은 미루면 안 됨.</em></div>
+    <div class="vl">Pre-Departure · D-2</div>
+    <div class="vt">출국 전 필수 — <em>두 가지면 충분.</em></div>
     <div class="vb">
       <ol>
-        <li><strong>5.19 (화) 약정금 입금</strong> · 약정서에 "토허제 불허 시 전액 반환" 조항 명시 필수. 매도자 본인 계좌로 이체. 이 조항 없으면 5천 날릴 수 있음.</li>
-        <li><strong>5.20 (수) 혼인신고</strong> · 관할 구청 또는 정부24. 증인 2명 사인 미리 확보 (현장 동석 필요 없음, 사인만 있으면 됨). 토허제 자금조달계획서 작성 전에 부부 상태여야 함.</li>
-        <li><strong>5.21 (목) 매도자 일정 통보</strong> · 부동산을 통해 "5.22~6.1 해외, 6.2 귀국 후 본격 진행" 전달. 잔금일은 토허증 발급일 + 4개월 풀로 확보 요청 (목표 11월 초).</li>
+        <li><strong>5.20 (수) 오늘 · 약정금 5천 입금 + 약정서 작성</strong> · 매도자 본인 계좌로 이체, 약정서에 "토허제 불허 시 전액 반환" 조항 명시 필수. 매도자 등기부등본 즉석 발급해서 소유자·근저당 확인.</li>
+        <li><strong>5.21 (목) 매도자 일정 통보</strong> · 부동산을 통해 "5.22~6.1 해외, 6.2 귀국 후 본격 진행" 전달. 잔금일은 토허증 발급일 + 4개월 풀로 확보 요청 (목표 11월 초). 카톡으로 가능, 대면 X.</li>
       </ol>
-      <div class="note">이 3가지는 해외에서 대체 불가. 대출 사전심사, 부모 증여, 자금조달계획서 작성 등은 6.2 이후로 미뤄도 전체 일정에 영향 없음.</div>
+      <div class="note">혼인신고 / 대출 사전심사 / 부모 증여 / 자금조달계획서 작성 등은 모두 6.2 귀국 후로 미뤄도 6.15 토허제 신청에 영향 없음. 출국 전 무리해서 처리할 필요 X.</div>
     </div>
   </div>
 </section>
@@ -265,11 +271,11 @@ td.num{font-family:'Fraunces',serif;text-align:right;color:var(--terra);font-wei
 
 <section>
   <h2><span class="num">03 /</span>전체 타임라인</h2>
-  <p class="section-desc">약정금 5.19 → 잔금 11.6 예상 (약 6개월). <em>5.22~6.1 포르투갈 여행 구간 표시.</em></p>
+  <p class="section-desc">약정금 5.20 → 잔금 11.6 예상 (약 6개월). <em>5.22~6.1 포르투갈 여행 PAUSE 구간 표시.</em></p>
 
   <div class="timeline">
-    <div class="tl-row">
-      <div class="tl-time">5.19<span class="day">화 · D-0</span></div>
+    <div class="tl-row today">
+      <div class="tl-time">5.20<span class="day">수 · D-0</span><span class="now">TODAY</span></div>
       <div class="tl-dot major"></div>
       <div class="tl-content">
         <div class="tl-title">약정금 5천 입금 + 조건부 매매계약서</div>
@@ -277,19 +283,11 @@ td.num{font-family:'Fraunces',serif;text-align:right;color:var(--terra);font-wei
       </div>
     </div>
     <div class="tl-row">
-      <div class="tl-time">5.20<span class="day">수 · D+1</span></div>
-      <div class="tl-dot major"></div>
-      <div class="tl-content">
-        <div class="tl-title">혼인신고 + 정부24 서류 일괄 발급</div>
-        <div class="tl-meta">관할 구청 가족관계등록과 · 증인 2명 사인 필요</div>
-      </div>
-    </div>
-    <div class="tl-row">
-      <div class="tl-time">5.21<span class="day">목 · D+2</span></div>
+      <div class="tl-time">5.21<span class="day">목 · D+1</span></div>
       <div class="tl-dot"></div>
       <div class="tl-content">
         <div class="tl-title">매도자 일정 통보 · 잔금일 협의</div>
-        <div class="tl-meta">부동산을 통해 여행 일정 전달 · 잔금일 4개월 풀 요청</div>
+        <div class="tl-meta">부동산을 통해 카톡으로 여행 일정 전달 · 잔금일 4개월 풀 요청</div>
       </div>
     </div>
 
@@ -300,7 +298,7 @@ td.num{font-family:'Fraunces',serif;text-align:right;color:var(--terra);font-wei
     </div>
 
     <div class="tl-row">
-      <div class="tl-time">6.2<span class="day">화 · D+14</span></div>
+      <div class="tl-time">6.2<span class="day">화 · D+13</span></div>
       <div class="tl-dot"></div>
       <div class="tl-content">
         <div class="tl-title">귀국 · 시차 적응</div>
@@ -316,7 +314,15 @@ td.num{font-family:'Fraunces',serif;text-align:right;color:var(--terra);font-wei
       </div>
     </div>
     <div class="tl-row">
-      <div class="tl-time">6.8~12<span class="day">월~금</span></div>
+      <div class="tl-time">6.8<span class="day">월 · D+19</span></div>
+      <div class="tl-dot major"></div>
+      <div class="tl-content">
+        <div class="tl-title">혼인신고</div>
+        <div class="tl-meta">관할 구청 또는 정부24 · 토허제 신청 1주일 전 완료가 적절</div>
+      </div>
+    </div>
+    <div class="tl-row">
+      <div class="tl-time">6.9~12<span class="day">화~금</span></div>
       <div class="tl-dot"></div>
       <div class="tl-content">
         <div class="tl-title">토허제 서류 준비</div>
@@ -324,7 +330,7 @@ td.num{font-family:'Fraunces',serif;text-align:right;color:var(--terra);font-wei
       </div>
     </div>
     <div class="tl-row">
-      <div class="tl-time">6.15<span class="day">월 · D+27</span></div>
+      <div class="tl-time">6.15<span class="day">월 · D+26</span></div>
       <div class="tl-dot major"></div>
       <div class="tl-content">
         <div class="tl-title">토지거래허가 신청 (수지구청)</div>
@@ -332,7 +338,7 @@ td.num{font-family:'Fraunces',serif;text-align:right;color:var(--terra);font-wei
       </div>
     </div>
     <div class="tl-row">
-      <div class="tl-time">~7.6<span class="day">월 · D+48</span></div>
+      <div class="tl-time">~7.6<span class="day">월 · D+47</span></div>
       <div class="tl-dot"></div>
       <div class="tl-content">
         <div class="tl-title">토지거래허가증 발급</div>
@@ -356,7 +362,7 @@ td.num{font-family:'Fraunces',serif;text-align:right;color:var(--terra);font-wei
       </div>
     </div>
     <div class="tl-row">
-      <div class="tl-time">~11.6<span class="day">금 · D+171</span></div>
+      <div class="tl-time">~11.6<span class="day">금 · D+170</span></div>
       <div class="tl-dot major"></div>
       <div class="tl-content">
         <div class="tl-title">잔금 + 공동명의 등기 + 전입신고 (동일일)</div>
@@ -378,11 +384,11 @@ td.num{font-family:'Fraunces',serif;text-align:right;color:var(--terra);font-wei
   <h2><span class="num">04 /</span>단계별 상세 가이드</h2>
   <p class="section-desc">각 단계의 액션, 준비물, 주의사항.</p>
 
-  <div class="step">
+  <div class="step now">
     <div class="step-head">
       <div class="step-num">I</div>
       <div class="step-title">약정금 입금 + 조건부 매매계약서</div>
-      <div class="step-duration">1시간 · 5.19 (화)</div>
+      <div class="step-duration now">1~2시간 · 5.20 (수) · 오늘</div>
     </div>
     <div class="step-body">
       <h4>해야 할 일</h4>
@@ -391,6 +397,7 @@ td.num{font-family:'Fraunces',serif;text-align:right;color:var(--terra);font-wei
         <li>약정서 작성 — <em>토지거래허가 불허 시 약정금 전액 반환 조항 필수</em></li>
         <li>매도자 등기부등본 즉석 발급해서 소유자·근저당·가압류 확인</li>
         <li>매수인란에 <strong>웅이 + 찌니 공동명의 (각 50%)</strong> 명시</li>
+        <li>내일(5.21) 카톡으로 매도자에게 여행 일정 + 잔금일 4개월 풀 요청 전달</li>
       </ul>
       <h4>준비물</h4>
       <ul>
@@ -406,15 +413,36 @@ td.num{font-family:'Fraunces',serif;text-align:right;color:var(--terra);font-wei
   <div class="step">
     <div class="step-head">
       <div class="step-num">II</div>
-      <div class="step-title">혼인신고 — 출국 전 완료</div>
-      <div class="step-duration">30분 · 5.20 (수)</div>
+      <div class="step-title">자금 정리 + 대출 사전심사</div>
+      <div class="step-duration">3일 · 6.3~6.5 (귀국 후)</div>
     </div>
     <div class="step-body">
-      <h4>왜 지금?</h4>
+      <h4>병렬 진행</h4>
       <ul>
-        <li>토허제 자금조달계획서 작성 전에 법적 부부 상태여야 자금 흐름 설명이 깔끔</li>
-        <li>혼인 후엔 <strong>배우자 증여공제 6억</strong>이 열려서 자금 이전 자유로움</li>
-        <li>웅이↔찌니 자금 이전이 증여세 없이 가능 → 5:5 자기자본 맞추기 쉬워짐</li>
+        <li>토뱅 마통 9천 → 5천 한도 축소 (부부 합산 DSR 여유 확보)</li>
+        <li>은행 <strong>생애최초 주담대 사전심사</strong> — 둘 다 무주택자여야 적용</li>
+        <li>회사대출 1억 실행 일정 확정 (DSR 미포함)</li>
+        <li>부모 증여 각자 1억씩 → 5천만 비과세 + 5천만 증여세 신고 (10년 합산)</li>
+        <li>웅이↔찌니 자금 균형 맞추기 (혼인신고 후 배우자 증여공제 활용, 신고 불필요)</li>
+      </ul>
+      <div class="warn">
+        <strong>공동명의 5:5의 핵심</strong> · 각자 5.75억씩 자금을 책임진다는 의미. 한쪽이 더 많이 내면 그만큼 증여로 처리됨. 혼인 후엔 6억까지 공제되니 문제 없지만, <em>자금조달계획서엔 일관되게 5:5로 작성</em>.
+      </div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-head">
+      <div class="step-num">III</div>
+      <div class="step-title">혼인신고</div>
+      <div class="step-duration">30분 · 6.8 (월) 즈음</div>
+    </div>
+    <div class="step-body">
+      <h4>왜 이 시점?</h4>
+      <ul>
+        <li>토허제 신청(6.15) 1주일 전이 적절 — 혼인관계증명서 반영에 1~2일 걸림</li>
+        <li>혼인 후 <strong>배우자 증여공제 6억</strong>이 열려서 자금 이전 자유로움 — 자금조달계획서 작성 전에 부부 상태여야 깔끔</li>
+        <li>출국 전 무리하지 않아도 됨, 귀국 후 1주일 여유 있을 때 진행</li>
       </ul>
       <h4>해야 할 일</h4>
       <ul>
@@ -429,28 +457,7 @@ td.num{font-family:'Fraunces',serif;text-align:right;color:var(--terra);font-wei
         <li>가족관계증명서 각자 1통 (3개월 내)</li>
       </ul>
       <div class="warn">
-        <strong>이후 확인</strong> · 신고 즉시 효력 발생. 1~2일 후 가족관계증명서에 반영. 신혼부부 특례 대출 가능성도 함께 검토 (조정대상지역은 한도 제약).
-      </div>
-    </div>
-  </div>
-
-  <div class="step">
-    <div class="step-head">
-      <div class="step-num">III</div>
-      <div class="step-title">자금 정리 + 대출 사전심사</div>
-      <div class="step-duration">1주 · 6.3~6.5 (귀국 후)</div>
-    </div>
-    <div class="step-body">
-      <h4>병렬 진행</h4>
-      <ul>
-        <li>토뱅 마통 9천 → 5천 한도 축소 (부부 합산 DSR 여유 확보)</li>
-        <li>은행 <strong>생애최초 주담대 사전심사</strong> — 둘 다 무주택자여야 적용</li>
-        <li>회사대출 1억 실행 일정 확정 (DSR 미포함)</li>
-        <li>부모 증여 각자 1억씩 → 5천만 비과세 + 5천만 증여세 신고 (10년 합산)</li>
-        <li>웅이↔찌니 자금 균형 맞추기 (배우자 증여공제 활용, 신고 불필요)</li>
-      </ul>
-      <div class="warn">
-        <strong>공동명의 5:5의 핵심</strong> · 각자 5.75억씩 자금을 책임진다는 의미. 한쪽이 더 많이 내면 그만큼 증여로 처리됨. 혼인 후엔 6억까지 공제되니 문제 없지만, <em>자금조달계획서엔 일관되게 5:5로 작성</em>.
+        <strong>이후 확인</strong> · 신고 즉시 효력 발생. 1~2일 후 가족관계증명서·혼인관계증명서에 반영. 신혼부부 특례 대출 가능성도 함께 검토 (조정대상지역은 한도 제약).
       </div>
     </div>
   </div>
@@ -606,16 +613,24 @@ td.num{font-family:'Fraunces',serif;text-align:right;color:var(--terra);font-wei
 
   <div class="checklist">
     <div class="check-group">
-      <h4>즉시 발급 (이번 주)</h4>
+      <h4>오늘 (5.20) · 약정 시</h4>
       <ul>
         <li>신분증 (웅이·찌니 각자)</li>
-        <li>주민등록등본 각 5통 (정부24 무료)</li>
-        <li>가족관계증명서 각 2통</li>
-        <li>인감도장 (없으면 새로 파서 등록)</li>
+        <li>이체 한도 해제 (5천 송금 가능)</li>
+        <li>도장 (인감 아니어도 됨, 보통 막도장)</li>
       </ul>
     </div>
     <div class="check-group">
-      <h4>혼인신고 시 (5.20)</h4>
+      <h4>귀국 후 (6.3~) · 발급</h4>
+      <ul>
+        <li>주민등록등본 각 5통 (정부24 무료)</li>
+        <li>가족관계증명서 각 3통</li>
+        <li>인감도장 (없으면 새로 파서 등록)</li>
+        <li>잔고증명서 (모든 계좌)</li>
+      </ul>
+    </div>
+    <div class="check-group">
+      <h4>혼인신고 시 (6.8 즈음)</h4>
       <ul>
         <li>혼인신고서 (구청 양식)</li>
         <li>증인 2명 서명</li>
@@ -628,7 +643,6 @@ td.num{font-family:'Fraunces',serif;text-align:right;color:var(--terra);font-wei
         <li>재직증명서 (각자)</li>
         <li>근로소득원천징수영수증 (각자)</li>
         <li>건강보험자격득실확인서</li>
-        <li>잔고증명서 (모든 계좌)</li>
       </ul>
     </div>
     <div class="check-group">
@@ -670,8 +684,8 @@ td.num{font-family:'Fraunces',serif;text-align:right;color:var(--terra);font-wei
     <div class="vb">
       <ol>
         <li><strong>약정서 토허제 조항</strong> · "토지거래허가 불허 시 약정금 전액 반환" 문구 명시 안 됐으면 추가 요구. 안 들어가면 5천 반환 분쟁 위험 큼.</li>
-        <li><strong>매도자 본인 계좌 확인</strong> · 약정금 5천이 매도자 본인 계좌인지 확인. 가족·대리인 계좌로 보내면 가계약 효력 분쟁 소지.</li>
-        <li><strong>혼인신고 타이밍</strong> · 출국 전(5.20) 완료가 절세 최적. 토허제 자금조달계획서 작성 전엔 무조건 끝나있어야 부부 합산 자금 설명이 깔끔.</li>
+        <li><strong>매도자 본인 계좌 확인</strong> · 약정금 5천이 매도자 본인 계좌인지 확인. 가족·대리인 계좌로 보내면 약정 효력 분쟁 소지.</li>
+        <li><strong>혼인신고 타이밍</strong> · 6.15 토허제 신청 1주일 전(6.8 즈음)이 적절. 자금조달계획서에 부부 합산 자금이 일관되게 들어가야 함.</li>
         <li><strong>잔금일 협의</strong> · 토허증 발급일 + 4개월이 데드라인. 매도자가 더 짧게 요구하면 대출 일정·증여 절차 빠듯해질 수 있음. 가능하면 4개월 풀로 확보.</li>
         <li><strong>실거주 의무 2년</strong> · 토허제 매수는 등기일 기준 2년 실거주 필수. 위반 시 과태료 + 매매대금 10% 이행강제금. 전세 불가, 부부만 전입 가능.</li>
         <li><strong>생애최초 감면 부부 조건</strong> · 부부합산 소득·자산 기준 충족해야 적용. 시니어 ML 소득 기준 단독은 OK여도 합산은 한도 초과 가능. 위택스 자동계산으로 사전 검증.</li>
@@ -684,7 +698,7 @@ td.num{font-family:'Fraunces',serif;text-align:right;color:var(--terra);font-wei
 <div class="footer">
   <div class="or">✦</div>
   <div>BUNDANG-APT · 2026 · PROCESS BY JINWOONG</div>
-  <div style="margin-top:8px;opacity:.6">compiled 2026.05.18</div>
+  <div style="margin-top:8px;opacity:.6">compiled 2026.05.20</div>
 </div>
 
 </div>
