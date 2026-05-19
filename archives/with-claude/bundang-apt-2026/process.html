@@ -16,22 +16,17 @@ body{background:var(--bg);color:var(--ink);font-family:'Inter','Apple SD Gothic 
 .home-link:hover{background:var(--azul);color:#fff}
 .breadcrumb{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink-faint);letter-spacing:1px;margin-bottom:8px}
 .breadcrumb a{color:var(--accent);text-decoration:none}
-
-/* Masthead */
 .masthead{border-bottom:3px double var(--rule-strong);padding-bottom:36px;margin-bottom:48px}
 .eyebrow{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:4px;color:var(--accent);text-transform:uppercase;margin:24px 0 20px}
 h1{font-family:'Fraunces',serif;font-size:clamp(40px,6vw,68px);font-weight:400;line-height:1;color:var(--azul-deep);letter-spacing:-1.5px}
 h1 em{font-style:italic;color:var(--accent);font-weight:300}
 .subtitle{font-family:'Fraunces',serif;font-size:19px;font-style:italic;color:var(--ink-soft);margin-top:16px;max-width:780px;line-height:1.55}
-
-/* Hero info strip */
 .hero-info{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:32px;border-top:1px solid var(--rule);padding-top:24px}
 .hero-info-item{padding-right:20px;border-right:1px dashed var(--rule)}
 .hero-info-item:last-child{border-right:none}
 .hero-info-item .lab{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:1.5px;color:var(--ink-faint);text-transform:uppercase;margin-bottom:6px}
 .hero-info-item .val{font-family:'Fraunces',serif;font-size:18px;font-weight:600;color:var(--azul-deep);line-height:1.3}
 .hero-info-item .val.accent{color:var(--terra)}
-
 section{margin-bottom:64px}
 h2{font-family:'Fraunces',serif;font-size:30px;font-weight:500;color:var(--azul-deep);margin-bottom:14px;display:flex;align-items:baseline;gap:16px;letter-spacing:-.5px}
 h2 .num{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--accent);letter-spacing:2px}
@@ -40,8 +35,6 @@ h2::after{content:'';flex:1;height:1px;background:var(--rule-strong);margin-left
 .section-desc em{background:var(--highlight);font-style:normal;padding:0 4px}
 h3{font-family:'Fraunces',serif;font-size:20px;font-weight:600;color:var(--azul);margin-bottom:10px}
 p{font-size:14.5px;color:var(--ink-soft);margin-bottom:10px}
-
-/* Changes table */
 .changes{background:var(--paper);border:1px solid var(--rule);border-left:4px solid var(--terra);padding:28px 32px}
 .changes h3{margin-bottom:18px;color:var(--terra)}
 .changes-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px 28px}
@@ -50,19 +43,28 @@ p{font-size:14.5px;color:var(--ink-soft);margin-bottom:10px}
 .change-item .before{font-size:13px;color:var(--ink-faint);text-decoration:line-through}
 .change-item .arrow{color:var(--terra);margin:0 6px;font-weight:500}
 .change-item .after{font-size:14px;color:var(--ink);font-weight:500}
-
-/* Timeline */
+.def-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px 24px;margin-top:8px}
+.def-card{padding:16px 0;border-top:1px dashed var(--rule)}
+.def-card h4{font-family:'Fraunces',serif;font-size:13px;color:var(--azul-deep);margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px;font-weight:600}
+.def-card.terra h4{color:var(--terra)}
+.def-card.olive h4{color:var(--olive)}
+.def-card.critical h4{color:var(--critical)}
+.def-card p{font-size:13.5px;line-height:1.7;color:var(--ink-soft)}
+.def-card.full{grid-column:span 2}
 .timeline{position:relative}
 .timeline::before{content:'';position:absolute;left:84px;top:8px;bottom:8px;width:1px;background:var(--rule-strong)}
 .tl-row{display:grid;grid-template-columns:74px 28px 1fr;gap:0;margin-bottom:22px;align-items:start}
-.tl-time{font-family:'Fraunces',serif;font-style:italic;font-size:17px;color:var(--terra);font-weight:500;padding-top:2px;text-align:right;padding-right:14px;letter-spacing:-.3px}
+.tl-time{font-family:'Fraunces',serif;font-style:italic;font-size:17px;color:var(--terra);font-weight:500;padding-top:2px;text-align:right;padding-right:14px;letter-spacing:-.3px;line-height:1.15}
+.tl-time .day{display:block;font-family:'JetBrains Mono',monospace;font-style:normal;font-size:10px;color:var(--ink-faint);letter-spacing:1px;margin-top:3px;font-weight:400}
 .tl-dot{width:11px;height:11px;border-radius:50%;background:var(--bg);border:2px solid var(--terra);margin-top:8px;margin-left:4px;z-index:1;position:relative}
 .tl-dot.major{background:var(--terra);width:13px;height:13px;margin-left:3px}
 .tl-content{padding-left:18px}
 .tl-title{font-family:'Fraunces',serif;font-size:17px;font-weight:600;color:var(--azul-deep);margin-bottom:3px}
 .tl-meta{font-size:12.5px;color:var(--ink-faint);letter-spacing:.02em;font-family:'JetBrains Mono',monospace}
-
-/* Step block */
+.tl-pause{margin:24px 0 24px 88px;padding:18px 24px;background:rgba(31,58,95,.06);border:1px dashed var(--rule-strong)}
+.tl-pause-label{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--azul);text-transform:uppercase;margin-bottom:6px}
+.tl-pause-title{font-family:'Fraunces',serif;font-size:17px;color:var(--azul-deep);font-weight:500}
+.tl-pause-meta{font-size:12.5px;color:var(--ink-faint);margin-top:4px;font-family:'JetBrains Mono',monospace}
 .step{background:var(--paper);border:1px solid var(--rule);margin-bottom:20px;overflow:hidden}
 .step-head{display:flex;align-items:baseline;gap:18px;padding:22px 28px 14px;border-bottom:1px dashed var(--rule)}
 .step-num{font-family:'Fraunces',serif;font-style:italic;font-size:30px;color:var(--terra);line-height:1;font-weight:500}
@@ -78,8 +80,6 @@ p{font-size:14.5px;color:var(--ink-soft);margin-bottom:10px}
 .step-body em{background:var(--highlight);font-style:normal;padding:0 4px;color:var(--ink)}
 .warn{background:rgba(192,85,45,.05);border-left:3px solid var(--terra);padding:12px 16px;margin-top:14px;font-size:13px;color:var(--ink-soft);line-height:1.65}
 .warn strong{color:var(--terra)}
-
-/* Table */
 table{width:100%;border-collapse:collapse;background:var(--paper);font-size:13.5px;box-shadow:0 2px 8px rgba(31,58,95,.05);margin:10px 0}
 th{background:var(--azul-deep);color:var(--paper);padding:12px 16px;text-align:left;font-size:10.5px;letter-spacing:.5px;text-transform:uppercase;font-weight:500;font-family:'JetBrains Mono',monospace}
 td{padding:12px 16px;border-bottom:1px solid var(--rule);vertical-align:top;color:var(--ink-soft)}
@@ -87,8 +87,6 @@ tr:last-child td{border-bottom:none}
 td:first-child{font-weight:500;color:var(--ink)}
 td.num{font-family:'Fraunces',serif;text-align:right;color:var(--terra);font-weight:600}
 .tw{overflow-x:auto}
-
-/* Funding 5:5 */
 .funding-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:14px}
 .funding-col{background:var(--paper);border:1px solid var(--rule);padding:24px 26px;position:relative}
 .funding-col .b{position:absolute;top:-1px;left:-1px;background:var(--azul-deep);color:var(--paper);padding:5px 12px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1.5px}
@@ -101,37 +99,34 @@ td.num{font-family:'Fraunces',serif;text-align:right;color:var(--terra);font-wei
 .funding-line .value{font-family:'Fraunces',serif;font-weight:600;color:var(--ink)}
 .funding-col .total{border-top:2px solid var(--azul-deep);margin-top:10px;padding-top:10px;display:flex;justify-content:space-between;font-family:'Fraunces',serif;font-weight:600;font-size:16px}
 .funding-col .total span:last-child{color:var(--terra);font-size:18px}
-
-/* Checklist */
 .checklist{columns:2;column-gap:24px;column-rule:1px solid var(--rule);margin-top:14px}
 .check-group{break-inside:avoid;margin-bottom:20px;padding:18px 22px;background:var(--paper);border:1px solid var(--rule)}
 .check-group h4{font-family:'Fraunces',serif;font-size:14px;font-weight:600;color:var(--olive);margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--rule);text-transform:uppercase;letter-spacing:.5px}
 .check-group ul{list-style:none}
 .check-group li{padding:4px 0 4px 22px;position:relative;font-size:13px;color:var(--ink-soft);line-height:1.5}
 .check-group li::before{content:'□';position:absolute;left:0;top:2px;color:var(--terra-light);font-size:14px}
-
-/* Verdict box */
 .vd{background:var(--azul-deep);color:#fffaf0;padding:44px 40px;position:relative;overflow:hidden;margin-top:30px}
+.vd.urgent{background:linear-gradient(135deg,var(--azul-deep) 0%,#0a1830 100%)}
 .vd::before{content:'';position:absolute;top:0;right:0;width:240px;height:240px;background:radial-gradient(circle,rgba(192,85,45,.35) 0%,transparent 70%);pointer-events:none}
 .vl{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:4px;color:rgba(255,250,240,.55);margin-bottom:18px;text-transform:uppercase}
-.vt{font-family:'Fraunces',serif;font-size:24px;font-weight:500;margin-bottom:24px;letter-spacing:-.3px;line-height:1.35}
+.vt{font-family:'Fraunces',serif;font-size:24px;font-weight:500;margin-bottom:24px;letter-spacing:-.3px;line-height:1.35;color:#fffaf0}
 .vt em{font-style:italic;color:var(--terra-light)}
 .vb ol{list-style:none;counter-reset:vc;padding-left:0}
 .vb li{counter-increment:vc;padding:14px 0 14px 48px;border-bottom:1px solid rgba(255,250,240,.1);position:relative;font-size:14px;color:rgba(255,250,240,.88);line-height:1.7}
 .vb li:last-child{border-bottom:none}
 .vb li::before{content:'0' counter(vc);position:absolute;left:0;top:14px;font-family:'Fraunces',serif;font-style:italic;color:var(--terra-light);font-size:18px;font-weight:500}
 .vb strong{color:var(--terra-light);font-weight:600}
-
+.vb .note{margin-top:24px;font-size:13px;color:rgba(255,250,240,.7);padding-left:48px}
 .footer{margin-top:80px;padding-top:32px;border-top:3px double var(--rule-strong);text-align:center;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink-faint);letter-spacing:2px}
 .footer .or{font-size:18px;color:var(--accent);margin-bottom:12px}
-
 @media (max-width:760px){
   h1{font-size:36px}
   h2{font-size:24px}
   .vt{font-size:20px}
   .hero-info{grid-template-columns:1fr 1fr;gap:18px 0}
   .hero-info-item{border-right:none;padding:8px 16px;border-bottom:1px dashed var(--rule)}
-  .changes-grid{grid-template-columns:1fr}
+  .changes-grid,.def-grid{grid-template-columns:1fr}
+  .def-card.full{grid-column:span 1}
   .funding-grid{grid-template-columns:1fr}
   .checklist{columns:1}
   .tl-row{grid-template-columns:64px 22px 1fr}
@@ -148,7 +143,6 @@ td.num{font-family:'Fraunces',serif;text-align:right;color:var(--terra);font-wei
 <a href="../index.html" class="home-link">← with-claude 허브로</a>
 <div class="breadcrumb"><a href="../index.html">archives / with-claude</a> / bundang-apt-2026 / process</div>
 
-<!-- MASTHEAD -->
 <header class="masthead">
   <div class="eyebrow">Acquisition Process · 매수 프로세스 플랜</div>
   <h1>죽전동 벽산블루밍 2단지<br><em>매수 프로세스.</em></h1>
@@ -173,60 +167,55 @@ td.num{font-family:'Fraunces',serif;text-align:right;color:var(--terra);font-wei
   </div>
 </header>
 
-<!-- URGENT: 출국 전 꼭 해야 할 일 -->
 <section>
   <h2><span class="num">00 /</span>출국 전 (5.22 이전) 꼭 해야 할 일</h2>
   <p class="section-desc">포르투갈 여행 출국 전 3일. <em>이 세 가지 안 끝내면 귀국 후 일정 전체가 밀립니다.</em></p>
 
-  <div class="vd" style="background:linear-gradient(135deg,var(--azul-deep) 0%,#0a1830 100%)">
+  <div class="vd urgent">
     <div class="vl">Pre-Departure Critical Path</div>
     <div class="vt">우선순위 3가지 — <em>더 이상은 미루면 안 됨.</em></div>
     <div class="vb">
       <ol>
-        <li><strong>5.19 약정금 입금</strong> · 약정서에 "토허제 불허 시 전액 반환" 조항 명시 필수. 매도자 본인 계좌로 이체. 이 조항 없으면 5천 날릴 수 있음.</li>
-        <li><strong>5.20 혼인신고</strong> · 관할 구청 또는 정부24. 증인 2명 사인 미리 확보(현장 동석 필요 없음, 사인만 있으면 됨). 토허제 자금조달계획서 작성 전에 부부 상태여야 함.</li>
-        <li><strong>5.21 매도자 일정 통보</strong> · 부동산을 통해 "5.22~6.1 해외, 6.2 귀국 후 본격 진행" 전달. 잔금일은 토허증 발급일 + 4개월 풀로 확보 요청 (목표 11월 초).</li>
+        <li><strong>5.19 (화) 약정금 입금</strong> · 약정서에 "토허제 불허 시 전액 반환" 조항 명시 필수. 매도자 본인 계좌로 이체. 이 조항 없으면 5천 날릴 수 있음.</li>
+        <li><strong>5.20 (수) 혼인신고</strong> · 관할 구청 또는 정부24. 증인 2명 사인 미리 확보 (현장 동석 필요 없음, 사인만 있으면 됨). 토허제 자금조달계획서 작성 전에 부부 상태여야 함.</li>
+        <li><strong>5.21 (목) 매도자 일정 통보</strong> · 부동산을 통해 "5.22~6.1 해외, 6.2 귀국 후 본격 진행" 전달. 잔금일은 토허증 발급일 + 4개월 풀로 확보 요청 (목표 11월 초).</li>
       </ol>
-      <p style="margin-top:24px;font-size:13px;color:rgba(255,250,240,.7);padding-left:48px">
-        이 3가지는 해외에서 대체 불가. 대출 사전심사, 부모 증여, 자금조달계획서 작성 등은 6.2 이후로 미뤄도 전체 일정에 영향 없음.
-      </p>
+      <div class="note">이 3가지는 해외에서 대체 불가. 대출 사전심사, 부모 증여, 자금조달계획서 작성 등은 6.2 이후로 미뤄도 전체 일정에 영향 없음.</div>
     </div>
   </div>
 </section>
 
-<!-- SECTION 01: 약정금이란? -->
 <section>
   <h2><span class="num">01 /</span>약정금이란 무엇인가</h2>
   <p class="section-desc">집 처음 사는 경우를 위한 설명. <em>5천이 작아 보이지만 법적으로는 계약 체결과 동등한 구속력을 가짐.</em></p>
 
   <div class="changes">
-    <h3>약정금(=가계약금) 계약 이해하기</h3>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:16px">
-      <div>
-        <h4 style="font-family:'Fraunces',serif;font-size:14px;color:var(--azul-deep);margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px">정의</h4>
-        <p style="font-size:13.5px;line-height:1.7">정식 매매계약 전에 매물을 잡아두는 보증금. 매도자가 다른 매수자에게 팔거나 가격 올리는 걸 막는 장치.</p>
+    <h3>약정금 (=가계약금) 계약 이해하기</h3>
+    <div class="def-grid">
+      <div class="def-card">
+        <h4>정의</h4>
+        <p>정식 매매계약 전에 매물을 잡아두는 보증금. 매도자가 다른 매수자에게 팔거나 가격 올리는 걸 막는 장치.</p>
       </div>
-      <div>
-        <h4 style="font-family:'Fraunces',serif;font-size:14px;color:var(--azul-deep);margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px">규모</h4>
-        <p style="font-size:13.5px;line-height:1.7">11.5억 매물 기준 약정금 5천은 약 0.4%. 일반적으로 매매가의 1~5% 사이에서 협의.</p>
+      <div class="def-card">
+        <h4>규모</h4>
+        <p>11.5억 매물 기준 약정금 5천은 약 0.4%. 일반적으로 매매가의 1~5% 사이에서 협의.</p>
       </div>
-      <div>
-        <h4 style="font-family:'Fraunces',serif;font-size:14px;color:var(--terra);margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px">매수자 파기 시</h4>
-        <p style="font-size:13.5px;line-height:1.7">웅이·첌니가 마음이 바뀌면 <strong>5천 전액 포기</strong>. 돌려받을 수 없음.</p>
+      <div class="def-card terra">
+        <h4>매수자 파기 시</h4>
+        <p>웅이·찌니가 마음이 바뀌면 <strong>5천 전액 포기</strong>. 돌려받을 수 없음.</p>
       </div>
-      <div>
-        <h4 style="font-family:'Fraunces',serif;font-size:14px;color:var(--olive);margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px">매도자 파기 시</h4>
-        <p style="font-size:13.5px;line-height:1.7">매도자가 파기하면 약정금의 <strong>2배 배액배상 = 1억</strong>을 받음 (민법 제565조).</p>
+      <div class="def-card olive">
+        <h4>매도자 파기 시</h4>
+        <p>매도자가 파기하면 약정금의 <strong>2배 배액배상 = 1억</strong>을 받음 (민법 제565조).</p>
       </div>
-      <div style="grid-column:span 2">
-        <h4 style="font-family:'Fraunces',serif;font-size:14px;color:var(--critical);margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px">토허제 불허 시</h4>
-        <p style="font-size:13.5px;line-height:1.7">거래 자체가 무효 → <strong>약정서에 "토허제 불허 시 전액 매수자에게 반환" 조항이 명시되어 있어야</strong> 5천 돌려받음. 이 조항 없으면 분쟁 시 5천 날릴 수 있음.</p>
+      <div class="def-card critical full">
+        <h4>토허제 불허 시</h4>
+        <p>거래 자체가 무효 → <strong>약정서에 "토허제 불허 시 전액 매수자에게 반환" 조항이 명시되어 있어야</strong> 5천 돌려받음. 이 조항 없으면 분쟁 시 5천 날릴 수 있음.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- SECTION 02: 핵심 변경 -->
 <section>
   <h2><span class="num">02 /</span>핵심 변경 사항</h2>
   <p class="section-desc">사실혼 → 법적 부부 + 단독명의 → 공동명의 5:5. <em>세제와 자금 흐름이 모두 재설계되는 분기점.</em></p>
@@ -274,46 +263,76 @@ td.num{font-family:'Fraunces',serif;text-align:right;color:var(--terra);font-wei
   </div>
 </section>
 
-<!-- SECTION 02: 타임라인 -->
 <section>
-  <h2><span class="num">02 /</span>전체 타임라인</h2>
-  <p class="section-desc">가계약 → 잔금까지 약 90~120일. <em>혼인신고는 가계약 직후 1주일 내 완료</em>가 절세 최적.</p>
+  <h2><span class="num">03 /</span>전체 타임라인</h2>
+  <p class="section-desc">약정금 5.19 → 잔금 11.6 예상 (약 6개월). <em>5.22~6.1 포르투갈 여행 구간 표시.</em></p>
 
   <div class="timeline">
     <div class="tl-row">
-      <div class="tl-time">D-0</div>
+      <div class="tl-time">5.19<span class="day">화 · D-0</span></div>
       <div class="tl-dot major"></div>
       <div class="tl-content">
-        <div class="tl-title">가계약금 5천 입금 + 조건부 매매계약서</div>
-        <div class="tl-meta">매도자 본인 계좌로 직접 이체 · 토허제 불허 시 반환 조항 명시</div>
+        <div class="tl-title">약정금 5천 입금 + 조건부 매매계약서</div>
+        <div class="tl-meta">매도자 본인 계좌로 이체 · 토허제 불허 시 반환 조항 명시</div>
       </div>
     </div>
     <div class="tl-row">
-      <div class="tl-time">D+1~3</div>
+      <div class="tl-time">5.20<span class="day">수 · D+1</span></div>
       <div class="tl-dot major"></div>
       <div class="tl-content">
-        <div class="tl-title">혼인신고 완료</div>
-        <div class="tl-meta">관할 구청 또는 정부24 온라인 · 즉시 효력 발생</div>
+        <div class="tl-title">혼인신고 + 정부24 서류 일괄 발급</div>
+        <div class="tl-meta">관할 구청 가족관계등록과 · 증인 2명 사인 필요</div>
       </div>
     </div>
     <div class="tl-row">
-      <div class="tl-time">D+3~7</div>
+      <div class="tl-time">5.21<span class="day">목 · D+2</span></div>
       <div class="tl-dot"></div>
       <div class="tl-content">
-        <div class="tl-title">자금 정리 · 대출 사전심사 · 부모 증여 처리</div>
-        <div class="tl-meta">부부 합산 DSR 점검 · 마통 한도 조정 · 증여세 신고 준비</div>
+        <div class="tl-title">매도자 일정 통보 · 잔금일 협의</div>
+        <div class="tl-meta">부동산을 통해 여행 일정 전달 · 잔금일 4개월 풀 요청</div>
+      </div>
+    </div>
+
+    <div class="tl-pause">
+      <div class="tl-pause-label">5.22 — 6.1 · PAUSE</div>
+      <div class="tl-pause-title">포르투갈 여행 (11일)</div>
+      <div class="tl-pause-meta">국내 행정·금융 업무 일시 중단 · 카톡으로 매도자·부동산 소통만 유지</div>
+    </div>
+
+    <div class="tl-row">
+      <div class="tl-time">6.2<span class="day">화 · D+14</span></div>
+      <div class="tl-dot"></div>
+      <div class="tl-content">
+        <div class="tl-title">귀국 · 시차 적응</div>
+        <div class="tl-meta">당일은 업무 X · 다음 날부터 본격 진행</div>
       </div>
     </div>
     <div class="tl-row">
-      <div class="tl-time">D+7~14</div>
+      <div class="tl-time">6.3~5<span class="day">수~금</span></div>
+      <div class="tl-dot"></div>
+      <div class="tl-content">
+        <div class="tl-title">자금 정리 · 대출 사전심사 · 부모 증여</div>
+        <div class="tl-meta">마통 한도 축소 · 생애최초 주담대 사전심사 · 증여세 신고서 작성</div>
+      </div>
+    </div>
+    <div class="tl-row">
+      <div class="tl-time">6.8~12<span class="day">월~금</span></div>
+      <div class="tl-dot"></div>
+      <div class="tl-content">
+        <div class="tl-title">토허제 서류 준비</div>
+        <div class="tl-meta">자금조달계획서 부부 공동 작성 · 잔고증명서·인감증명서 발급</div>
+      </div>
+    </div>
+    <div class="tl-row">
+      <div class="tl-time">6.15<span class="day">월 · D+27</span></div>
       <div class="tl-dot major"></div>
       <div class="tl-content">
         <div class="tl-title">토지거래허가 신청 (수지구청)</div>
-        <div class="tl-meta">자금조달계획서 부부 공동 작성 · 매수인 2인 공동 신청</div>
+        <div class="tl-meta">매수인 2인 공동 신청 · 부동산·법무사 대리 가능</div>
       </div>
     </div>
     <div class="tl-row">
-      <div class="tl-time">D+22~28</div>
+      <div class="tl-time">~7.6<span class="day">월 · D+48</span></div>
       <div class="tl-dot"></div>
       <div class="tl-content">
         <div class="tl-title">토지거래허가증 발급</div>
@@ -321,31 +340,31 @@ td.num{font-family:'Fraunces',serif;text-align:right;color:var(--terra);font-wei
       </div>
     </div>
     <div class="tl-row">
-      <div class="tl-time">D+28~30</div>
+      <div class="tl-time">7.7~10<span class="day">화~금</span></div>
       <div class="tl-dot major"></div>
       <div class="tl-content">
         <div class="tl-title">본계약 (부부 공동 매수인)</div>
-        <div class="tl-meta">계약금 10% 잔액 6,500만 추가 입금 · 부동산 거래신고</div>
+        <div class="tl-meta">계약금 10% 잔액 6,500만 입금 · 이미 낸 약정금 합산 총 1.15억</div>
       </div>
     </div>
     <div class="tl-row">
-      <div class="tl-time">D+60~90</div>
+      <div class="tl-time">8~10월<span class="day">3개월</span></div>
       <div class="tl-dot"></div>
       <div class="tl-content">
-        <div class="tl-title">중도금 (협의) · 대출 약정 체결</div>
-        <div class="tl-meta">부부 공동차주 또는 단독차주 결정 · 생애최초 적용 확인</div>
+        <div class="tl-title">잔금 준비 · 주담대 정식 약정</div>
+        <div class="tl-meta">자금 최종 정리 · 대출 실행 일정 확정</div>
       </div>
     </div>
     <div class="tl-row">
-      <div class="tl-time">D+90~120</div>
+      <div class="tl-time">~11.6<span class="day">금 · D+171</span></div>
       <div class="tl-dot major"></div>
       <div class="tl-content">
         <div class="tl-title">잔금 + 공동명의 등기 + 전입신고 (동일일)</div>
-        <div class="tl-meta">법무사 동석 · 잔금 즉시 등기 접수 · 당일 전입신고 필수</div>
+        <div class="tl-meta">본계약일 + 4개월 데드라인 · 법무사 동석</div>
       </div>
     </div>
     <div class="tl-row">
-      <div class="tl-time">D+150</div>
+      <div class="tl-time">~1.6<span class="day">'27년 1월</span></div>
       <div class="tl-dot"></div>
       <div class="tl-content">
         <div class="tl-title">취득세 신고 · 납부 (각자 50%)</div>
@@ -355,23 +374,22 @@ td.num{font-family:'Fraunces',serif;text-align:right;color:var(--terra);font-wei
   </div>
 </section>
 
-<!-- SECTION 03: 단계별 상세 -->
 <section>
-  <h2><span class="num">03 /</span>단계별 상세 가이드</h2>
+  <h2><span class="num">04 /</span>단계별 상세 가이드</h2>
   <p class="section-desc">각 단계의 액션, 준비물, 주의사항.</p>
 
   <div class="step">
     <div class="step-head">
       <div class="step-num">I</div>
-      <div class="step-title">가계약금 입금 + 조건부 매매계약서</div>
-      <div class="step-duration">1시간 · D-0</div>
+      <div class="step-title">약정금 입금 + 조건부 매매계약서</div>
+      <div class="step-duration">1시간 · 5.19 (화)</div>
     </div>
     <div class="step-body">
       <h4>해야 할 일</h4>
       <ul>
-        <li>매도자 <strong>본인 명의 계좌</strong>로 5천만 직접 이체 (부동산 계좌 ×). 적요 "가계약금"</li>
-        <li>조건부 매매계약서 작성 — <em>토지거래허가 불허 시 가계약금 전액 반환 조항 필수</em></li>
-        <li>매도자 등기부등본 즉석 발급해서 소유자/근저당/가압류 확인</li>
+        <li>매도자 <strong>본인 명의 계좌</strong>로 5천만 직접 이체 (부동산 계좌 ×). 적요 "약정금"</li>
+        <li>약정서 작성 — <em>토지거래허가 불허 시 약정금 전액 반환 조항 필수</em></li>
+        <li>매도자 등기부등본 즉석 발급해서 소유자·근저당·가압류 확인</li>
         <li>매수인란에 <strong>웅이 + 찌니 공동명의 (각 50%)</strong> 명시</li>
       </ul>
       <h4>준비물</h4>
@@ -380,7 +398,7 @@ td.num{font-family:'Fraunces',serif;text-align:right;color:var(--terra);font-wei
         <li>이체 한도 사전 해제 (5천 송금 가능 상태)</li>
       </ul>
       <div class="warn">
-        <strong>중요</strong> · 토허제 지역은 허가 전 본계약 자체가 무효. "조건부" 명시 안 하면 5천 반환 분쟁 위험. 부동산이 제시한 계약서에 반드시 추가 조항 확인.
+        <strong>중요</strong> · 약정금 입금 후 매수자 마음이 바뀌면 5천 못 돌려받음. 매도자가 파기하면 1억 받음 (배액배상). 토허제 불허 시 환불 받으려면 약정서에 그 조항이 반드시 명시돼 있어야 함.
       </div>
     </div>
   </div>
@@ -388,8 +406,8 @@ td.num{font-family:'Fraunces',serif;text-align:right;color:var(--terra);font-wei
   <div class="step">
     <div class="step-head">
       <div class="step-num">II</div>
-      <div class="step-title">혼인신고 — 가계약 직후 1주일 내</div>
-      <div class="step-duration">30분 · D+1~3</div>
+      <div class="step-title">혼인신고 — 출국 전 완료</div>
+      <div class="step-duration">30분 · 5.20 (수)</div>
     </div>
     <div class="step-body">
       <h4>왜 지금?</h4>
@@ -401,13 +419,13 @@ td.num{font-family:'Fraunces',serif;text-align:right;color:var(--terra);font-wei
       <h4>해야 할 일</h4>
       <ul>
         <li>관할 구청 가족관계등록과 방문 또는 정부24 온라인 신청</li>
-        <li>증인 2명 서명 (가족·지인 누구나 가능)</li>
+        <li>증인 2명 서명 (가족·지인 누구나 가능, 사인만 있으면 됨)</li>
       </ul>
       <h4>준비물</h4>
       <ul>
         <li>혼인신고서 (구청 비치 또는 정부24 다운로드)</li>
         <li>웅이·찌니 신분증</li>
-        <li>증인 2명 서명 (현장 동석 또는 사전 서명)</li>
+        <li>증인 2명 서명 (사전 서명 OK)</li>
         <li>가족관계증명서 각자 1통 (3개월 내)</li>
       </ul>
       <div class="warn">
@@ -420,7 +438,7 @@ td.num{font-family:'Fraunces',serif;text-align:right;color:var(--terra);font-wei
     <div class="step-head">
       <div class="step-num">III</div>
       <div class="step-title">자금 정리 + 대출 사전심사</div>
-      <div class="step-duration">1주 · D+3~7</div>
+      <div class="step-duration">1주 · 6.3~6.5 (귀국 후)</div>
     </div>
     <div class="step-body">
       <h4>병렬 진행</h4>
@@ -441,7 +459,7 @@ td.num{font-family:'Fraunces',serif;text-align:right;color:var(--terra);font-wei
     <div class="step-head">
       <div class="step-num">IV</div>
       <div class="step-title">토지거래허가 신청</div>
-      <div class="step-duration">신청 1주 + 처리 15영업일 · D+7~28</div>
+      <div class="step-duration">신청 1주 + 처리 15영업일 · 6.15~7.6</div>
     </div>
     <div class="step-body">
       <h4>신청처</h4>
@@ -457,7 +475,7 @@ td.num{font-family:'Fraunces',serif;text-align:right;color:var(--terra);font-wei
             <tr><td>토지거래계약 허가신청서</td><td>구청/부동산 양식</td></tr>
             <tr><td>토지이용계획서</td><td>부동산/법무사 작성</td></tr>
             <tr><td>자금조달계획서 (부부 공동)</td><td>직접 작성</td></tr>
-            <tr><td>조건부 매매계약서 사본</td><td>가계약 시 받음</td></tr>
+            <tr><td>조건부 매매계약서 사본</td><td>약정 시 받음</td></tr>
             <tr><td>인감증명서 부동산매수용 (각 1통)</td><td>주민센터</td></tr>
             <tr><td>주민등록등본 (각 1통)</td><td>정부24</td></tr>
             <tr><td>혼인관계증명서</td><td>정부24 (혼인신고 반영 후)</td></tr>
@@ -475,14 +493,14 @@ td.num{font-family:'Fraunces',serif;text-align:right;color:var(--terra);font-wei
     <div class="step-head">
       <div class="step-num">V</div>
       <div class="step-title">본계약 (부부 공동 매수인)</div>
-      <div class="step-duration">2시간 · D+28~30</div>
+      <div class="step-duration">2시간 · 7.7~7.10</div>
     </div>
     <div class="step-body">
       <h4>해야 할 일</h4>
       <ul>
         <li>토지거래허가증 발급 확인 후 정식 매매계약서 작성</li>
         <li>매수인란에 웅이·찌니 둘 다 기재 + <strong>각 지분 50% 명시</strong></li>
-        <li>계약금 10% (1.15억) 중 잔액 6,500만 추가 입금</li>
+        <li>계약금 10% (1.15억) 중 잔액 6,500만 추가 입금 (이미 낸 약정금 5천 + 6,500만 = 총 1.15억)</li>
       </ul>
       <h4>준비물 (각자)</h4>
       <ul>
@@ -500,7 +518,7 @@ td.num{font-family:'Fraunces',serif;text-align:right;color:var(--terra);font-wei
     <div class="step-head">
       <div class="step-num">VI</div>
       <div class="step-title">잔금 + 공동명의 등기 + 전입신고</div>
-      <div class="step-duration">2~3시간 · D+90~120</div>
+      <div class="step-duration">2~3시간 · 11.6 예상</div>
     </div>
     <div class="step-body">
       <h4>당일 처리 순서</h4>
@@ -527,7 +545,7 @@ td.num{font-family:'Fraunces',serif;text-align:right;color:var(--terra);font-wei
     <div class="step-head">
       <div class="step-num">VII</div>
       <div class="step-title">취득세 신고 + 납부 (각자 50%)</div>
-      <div class="step-duration">잔금 후 60일 이내</div>
+      <div class="step-duration">잔금 후 60일 이내 · '27년 1월 초</div>
     </div>
     <div class="step-body">
       <h4>11.5억 1세대 1주택 취득세 추정</h4>
@@ -551,9 +569,8 @@ td.num{font-family:'Fraunces',serif;text-align:right;color:var(--terra);font-wei
   </div>
 </section>
 
-<!-- SECTION 04: 자금 5:5 -->
 <section>
-  <h2><span class="num">04 /</span>자금조달 5 : 5 구조</h2>
+  <h2><span class="num">05 /</span>자금조달 5 : 5 구조</h2>
   <p class="section-desc">각자 5.75억씩 책임. 부부 합산 11.5억. <em>혼인 후 배우자 증여공제(6억 한도)로 실제 자금 비율은 자유롭게 조정 가능.</em></p>
 
   <div class="funding-grid">
@@ -583,9 +600,8 @@ td.num{font-family:'Fraunces',serif;text-align:right;color:var(--terra);font-wei
   </div>
 </section>
 
-<!-- SECTION 05: 통합 준비물 -->
 <section>
-  <h2><span class="num">05 /</span>통합 준비물 체크리스트</h2>
+  <h2><span class="num">06 /</span>통합 준비물 체크리스트</h2>
   <p class="section-desc">단계마다 소진되므로 미리 여유 있게 발급.</p>
 
   <div class="checklist">
@@ -599,7 +615,7 @@ td.num{font-family:'Fraunces',serif;text-align:right;color:var(--terra);font-wei
       </ul>
     </div>
     <div class="check-group">
-      <h4>혼인신고 시</h4>
+      <h4>혼인신고 시 (5.20)</h4>
       <ul>
         <li>혼인신고서 (구청 양식)</li>
         <li>증인 2명 서명</li>
@@ -607,7 +623,7 @@ td.num{font-family:'Fraunces',serif;text-align:right;color:var(--terra);font-wei
       </ul>
     </div>
     <div class="check-group">
-      <h4>대출 사전심사</h4>
+      <h4>대출 사전심사 (6.3~)</h4>
       <ul>
         <li>재직증명서 (각자)</li>
         <li>근로소득원천징수영수증 (각자)</li>
@@ -616,7 +632,7 @@ td.num{font-family:'Fraunces',serif;text-align:right;color:var(--terra);font-wei
       </ul>
     </div>
     <div class="check-group">
-      <h4>토허제 신청 시</h4>
+      <h4>토허제 신청 시 (6.15)</h4>
       <ul>
         <li>인감증명서 부동산매수용 각 1통</li>
         <li>혼인관계증명서 (혼인신고 반영 후)</li>
@@ -625,7 +641,7 @@ td.num{font-family:'Fraunces',serif;text-align:right;color:var(--terra);font-wei
       </ul>
     </div>
     <div class="check-group">
-      <h4>본계약 시</h4>
+      <h4>본계약 시 (7.7~10)</h4>
       <ul>
         <li>인감증명서 부동산매수용 각 1통</li>
         <li>혼인관계증명서 각 1통</li>
@@ -633,7 +649,7 @@ td.num{font-family:'Fraunces',serif;text-align:right;color:var(--terra);font-wei
       </ul>
     </div>
     <div class="check-group">
-      <h4>잔금일 (각자)</h4>
+      <h4>잔금일 (11.6 예상, 각자)</h4>
       <ul>
         <li>인감증명서 부동산매수용 3통</li>
         <li>주민등록등본 2통</li>
@@ -645,18 +661,17 @@ td.num{font-family:'Fraunces',serif;text-align:right;color:var(--terra);font-wei
   </div>
 </section>
 
-<!-- SECTION 06: 반드시 확인할 것 -->
 <section>
-  <h2><span class="num">06 /</span>반드시 확인할 것</h2>
+  <h2><span class="num">07 /</span>반드시 확인할 것</h2>
 
   <div class="vd">
     <div class="vl">Critical Checks</div>
-    <div class="vt">"실수를 줄이는 7가지 — <em>가계약 시점부터 등기까지.</em>"</div>
+    <div class="vt">"실수를 줄이는 7가지 — <em>약정 시점부터 등기까지.</em>"</div>
     <div class="vb">
       <ol>
-        <li><strong>가계약서 토허제 조항</strong> · "토지거래허가 불허 시 가계약금 전액 반환" 문구 명시 안 됐으면 추가 요구. 안 들어가면 5천 반환 분쟁 위험 큼.</li>
-        <li><strong>매도자 본인 계좌 확인</strong> · 가계약금 5천이 매도자 본인 계좌인지 확인. 가족·대리인 계좌로 보내면 가계약 효력 분쟁 소지.</li>
-        <li><strong>혼인신고 타이밍</strong> · 가계약 직후 1주일 내 완료가 절세 최적. 토허제 자금조달계획서 작성 전엔 무조건 끝나있어야 부부 합산 자금 설명이 깔끔.</li>
+        <li><strong>약정서 토허제 조항</strong> · "토지거래허가 불허 시 약정금 전액 반환" 문구 명시 안 됐으면 추가 요구. 안 들어가면 5천 반환 분쟁 위험 큼.</li>
+        <li><strong>매도자 본인 계좌 확인</strong> · 약정금 5천이 매도자 본인 계좌인지 확인. 가족·대리인 계좌로 보내면 가계약 효력 분쟁 소지.</li>
+        <li><strong>혼인신고 타이밍</strong> · 출국 전(5.20) 완료가 절세 최적. 토허제 자금조달계획서 작성 전엔 무조건 끝나있어야 부부 합산 자금 설명이 깔끔.</li>
         <li><strong>잔금일 협의</strong> · 토허증 발급일 + 4개월이 데드라인. 매도자가 더 짧게 요구하면 대출 일정·증여 절차 빠듯해질 수 있음. 가능하면 4개월 풀로 확보.</li>
         <li><strong>실거주 의무 2년</strong> · 토허제 매수는 등기일 기준 2년 실거주 필수. 위반 시 과태료 + 매매대금 10% 이행강제금. 전세 불가, 부부만 전입 가능.</li>
         <li><strong>생애최초 감면 부부 조건</strong> · 부부합산 소득·자산 기준 충족해야 적용. 시니어 ML 소득 기준 단독은 OK여도 합산은 한도 초과 가능. 위택스 자동계산으로 사전 검증.</li>
