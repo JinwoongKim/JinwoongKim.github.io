@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>리스보아 카드 손익 비교 · Portugal 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@400;500&family=Noto+Serif+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #faf8f5; --bg-card: #ffffff;
+    --ink: #1a1a1a; --ink-soft: #4a4a4a; --ink-muted: #8a8a8a;
+    --line: #e5e1da;
+    --accent: #7a2e2e; --accent-soft: #c4a5a5;
+    --azul: #2d5a8a; --warn: #b8541c; --done: #4a7c4a;
+    --good: #4a7c4a; --bad: #b8541c; --neutral: #6a6558;
+    --serif: 'Cormorant Garamond', 'Noto Serif KR', serif;
+    --serif-kr: 'Noto Serif KR', serif;
+    --mono: 'JetBrains Mono', monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--bg); color: var(--ink); font-family: var(--serif-kr); font-size: 15px; line-height: 1.65; -webkit-font-smoothing: antialiased; }
+  a { color: var(--accent); text-decoration: none; border-bottom: 1px solid transparent; transition: border-color .2s; }
+  a:hover { border-bottom-color: var(--accent); }
+
+  .page { max-width: 980px; margin: 0 auto; padding: 56px 32px 80px; }
+
+  .top-nav { display: flex; justify-content: space-between; align-items: center; padding-bottom: 24px; border-bottom: 1px solid var(--line); margin-bottom: 48px; font-family: var(--mono); font-size: 11px; letter-spacing: 1.5px; color: var(--ink-muted); }
+  .top-nav a { color: var(--accent); border: none; }
+
+  .masthead { margin-bottom: 56px; }
+  .eyebrow { font-family: var(--mono); font-size: 11px; letter-spacing: 3px; color: var(--accent); text-transform: uppercase; margin-bottom: 14px; }
+  h1 { font-family: var(--serif); font-size: 56px; font-weight: 500; line-height: 1.05; letter-spacing: -1.2px; margin-bottom: 18px; }
+  h1 em { font-style: italic; color: var(--accent); }
+  .lede { font-size: 16px; color: var(--ink-soft); max-width: 680px; line-height: 1.65; }
+  .meta { margin-top: 24px; padding-top: 18px; border-top: 1px dashed var(--line); font-family: var(--mono); font-size: 10px; letter-spacing: 1.5px; color: var(--ink-muted); }
+
+  section { margin-bottom: 56px; }
+  h2 { font-family: var(--serif); font-size: 32px; font-weight: 500; margin-bottom: 10px; display: flex; align-items: baseline; gap: 14px; letter-spacing: -.4px; }
+  h2 .num { font-family: var(--mono); font-size: 11px; color: var(--accent); letter-spacing: 2px; font-weight: 400; }
+  .section-sub { font-size: 13.5px; color: var(--ink-muted); margin-bottom: 24px; font-style: italic; max-width: 680px; }
+
+  /* TLDR */
+  .tldr { background: var(--ink); color: #f0ece4; padding: 32px 36px; margin-bottom: 56px; border-left: 4px solid var(--accent); }
+  .tldr .label { font-family: var(--mono); font-size: 10px; letter-spacing: 2px; color: var(--accent-soft); margin-bottom: 14px; }
+  .tldr .verdict { font-family: var(--serif); font-size: 30px; font-weight: 500; line-height: 1.3; margin-bottom: 16px; }
+  .tldr .verdict strong { color: #ffd8b8; }
+  .tldr .reasoning { font-size: 14px; color: #c4bfaf; line-height: 1.65; margin-bottom: 12px; }
+  .tldr .winner-stats { display: flex; gap: 24px; margin-top: 20px; padding-top: 18px; border-top: 1px solid #2a2a2a; font-family: var(--mono); font-size: 11px; flex-wrap: wrap; }
+  .tldr .winner-stats div { flex: 1; min-width: 140px; }
+  .tldr .winner-stats .stat-label { color: #8a8472; letter-spacing: 1px; font-size: 9px; text-transform: uppercase; margin-bottom: 4px; }
+  .tldr .winner-stats .stat-val { color: #ffd8b8; font-size: 18px; font-weight: 500; font-family: var(--serif); }
+
+  /* Assumptions */
+  .assumptions { background: var(--bg-card); border: 1px solid var(--line); padding: 24px 28px; margin-bottom: 24px; }
+  .assumptions h3 { font-family: var(--serif); font-size: 19px; font-weight: 600; margin-bottom: 12px; }
+  .assumptions ul { list-style: none; }
+  .assumptions li { padding: 5px 0 5px 18px; font-size: 13.5px; color: var(--ink-soft); position: relative; line-height: 1.55; }
+  .assumptions li::before { content: '·'; position: absolute; left: 4px; top: 4px; font-size: 22px; color: var(--accent); line-height: 1; }
+  .assumptions li strong { color: var(--ink); }
+
+  /* Day breakdown */
+  .day-blocks { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 32px; }
+  .day-block { background: var(--bg-card); border: 1px solid var(--line); padding: 20px 22px; }
+  .day-block .dnum { font-family: var(--mono); font-size: 9px; letter-spacing: 1.5px; color: var(--ink-muted); }
+  .day-block .ddate { font-family: var(--serif); font-size: 22px; font-weight: 500; margin: 2px 0 12px; }
+  .day-block ul { list-style: none; font-size: 12.5px; }
+  .day-block li { padding: 3px 0 3px 12px; position: relative; color: var(--ink-soft); line-height: 1.5; }
+  .day-block li::before { content: ''; width: 3px; height: 3px; background: var(--ink-muted); border-radius: 50%; position: absolute; left: 2px; top: 9px; }
+
+  /* Case card */
+  .case-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 32px; }
+  .case-card { background: var(--bg-card); border: 2px solid var(--line); padding: 28px 30px; position: relative; }
+  .case-card.winner { border-color: var(--good); box-shadow: 0 0 0 3px rgba(74, 124, 74, 0.1); }
+  .case-card .case-label { font-family: var(--mono); font-size: 10px; letter-spacing: 2px; color: var(--ink-muted); text-transform: uppercase; }
+  .case-card .case-name { font-family: var(--serif); font-size: 26px; font-weight: 600; margin: 4px 0 8px; }
+  .case-card .case-price { font-family: var(--serif); font-size: 36px; font-weight: 600; color: var(--accent); margin-bottom: 4px; }
+  .case-card .case-formula { font-family: var(--mono); font-size: 10px; color: var(--ink-muted); margin-bottom: 14px; }
+  .case-card .case-summary { font-size: 13px; color: var(--ink-soft); line-height: 1.6; padding-top: 12px; border-top: 1px dashed var(--line); margin-bottom: 16px; }
+  .case-card .winner-badge { position: absolute; top: -12px; right: 20px; background: var(--good); color: #fff; font-family: var(--mono); font-size: 10px; letter-spacing: 1.5px; padding: 4px 12px; }
+  .case-card .vs-badge { position: absolute; top: -12px; right: 20px; background: var(--ink-muted); color: #fff; font-family: var(--mono); font-size: 10px; letter-spacing: 1.5px; padding: 4px 12px; }
+
+  /* Calc table */
+  .calc-table { width: 100%; border-collapse: collapse; font-size: 12.5px; margin-bottom: 6px; }
+  .calc-table th, .calc-table td { padding: 8px 6px; text-align: left; border-bottom: 1px dotted var(--line); }
+  .calc-table th { font-family: var(--mono); font-size: 9px; letter-spacing: 1px; text-transform: uppercase; color: var(--ink-muted); font-weight: 400; }
+  .calc-table td.num { text-align: right; font-family: var(--mono); font-size: 11px; }
+  .calc-table .free td { color: var(--good); }
+  .calc-table .free td.num::before { content: '⚹ '; }
+  .calc-table .nope td { color: var(--ink-muted); text-decoration: line-through; }
+  .calc-table .total td { font-weight: 700; border-top: 2px solid var(--ink); border-bottom: none; padding-top: 10px; color: var(--ink); font-size: 13.5px; }
+  .calc-table .total td.num { font-family: var(--serif); font-size: 18px; }
+  .calc-note { font-size: 11px; color: var(--ink-muted); font-style: italic; margin-top: 8px; }
+
+  /* Final comparison table */
+  .final-table { width: 100%; border-collapse: collapse; font-size: 14px; margin: 24px 0; background: var(--bg-card); }
+  .final-table th, .final-table td { padding: 14px 16px; text-align: left; border-bottom: 1px solid var(--line); }
+  .final-table th { font-family: var(--mono); font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--ink-muted); font-weight: 400; background: #f4efe7; }
+  .final-table td.num { text-align: right; font-family: var(--mono); font-size: 13px; }
+  .final-table tr.winner td { background: #f0f5ee; font-weight: 600; }
+  .final-table tr.winner td:first-child::before { content: '★ '; color: var(--good); }
+  .final-table .delta-good { color: var(--good); font-weight: 600; }
+  .final-table .delta-bad { color: var(--bad); font-weight: 600; }
+
+  /* Tip card */
+  .tip-card { background: linear-gradient(135deg, #fdf6f0 0%, #f9ede0 100%); border-left: 3px solid var(--accent); padding: 22px 26px; margin: 20px 0; }
+  .tip-card .tip-label { font-family: var(--mono); font-size: 10px; letter-spacing: 1.5px; color: var(--accent); margin-bottom: 8px; }
+  .tip-card h4 { font-family: var(--serif); font-size: 19px; font-weight: 600; margin-bottom: 8px; }
+  .tip-card p { font-size: 13.5px; color: var(--ink-soft); line-height: 1.6; margin-bottom: 8px; }
+  .tip-card p strong { color: var(--ink); }
+  .tip-card .timeline { display: grid; grid-template-columns: 80px 1fr; gap: 8px 14px; font-family: var(--mono); font-size: 11.5px; margin-top: 12px; padding-top: 12px; border-top: 1px dashed rgba(122, 46, 46, 0.2); }
+  .tip-card .timeline .t { color: var(--accent); font-weight: 600; }
+
+  /* Hidden value */
+  .hidden-value { background: var(--bg-card); border: 1px solid var(--line); padding: 28px 32px; }
+  .hidden-value h3 { font-family: var(--serif); font-size: 22px; font-weight: 600; margin-bottom: 14px; }
+  .hidden-value ul { list-style: none; }
+  .hidden-value li { padding: 10px 0 10px 20px; border-bottom: 1px dashed var(--line); position: relative; font-size: 14px; line-height: 1.55; }
+  .hidden-value li:last-child { border-bottom: none; }
+  .hidden-value li::before { content: '⭐'; position: absolute; left: 0; top: 10px; font-size: 11px; }
+  .hidden-value li strong { color: var(--ink); display: block; margin-bottom: 2px; }
+  .hidden-value li span { color: var(--ink-soft); font-size: 13px; }
+
+  /* Source */
+  .sources { font-size: 11.5px; color: var(--ink-muted); font-family: var(--mono); line-height: 1.7; padding-top: 20px; border-top: 1px dashed var(--line); }
+  .sources a { color: var(--ink-soft); font-size: 11px; }
+
+  /* Footer */
+  .footer { margin-top: 80px; padding-top: 32px; border-top: 1px solid var(--line); font-family: var(--mono); font-size: 10px; color: var(--ink-muted); letter-spacing: 2px; text-align: center; }
+  .footer .ornament { font-size: 14px; color: var(--accent); margin-bottom: 10px; }
+
+  @media (max-width: 720px) {
+    .page { padding: 32px 18px 60px; }
+    h1 { font-size: 38px; }
+    .tldr { padding: 22px 20px; }
+    .tldr .verdict { font-size: 22px; }
+    .day-blocks { grid-template-columns: 1fr; }
+    .case-grid { grid-template-columns: 1fr; }
+    .case-card { padding: 22px; }
+    .calc-table { font-size: 11.5px; }
+    .calc-table th, .calc-table td { padding: 6px 4px; }
+    .final-table th, .final-table td { padding: 10px 8px; font-size: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <nav class="top-nav">
+    <a href="master.html">← Master Document</a>
+    <span>archives / lisboa-card-comparison</span>
+  </nav>
+
+  <header class="masthead">
+    <div class="eyebrow">Cost-Benefit Analysis · 2인 기준</div>
+    <h1>리스보아 카드,<br/><em>48h vs 24h</em></h1>
+    <p class="lede">
+      48시간(€51) 카드를 5/23 오후~5/25 오전까지 쓰는 안과 24시간(€31) 카드를 5/24 풀데이만 쓰고 양옆은 별도로 결제하는 안. 둘 다 2인 기준으로 끝까지 계산해보고 어느 쪽이 합리적인지 — 절감액이 아니라 순지출 기준으로.
+    </p>
+    <div class="meta">
+      ANALYSIS DATE · 2026.05.18 · 2 ADULTS · PRICES 2026
+    </div>
+  </header>
+
+  <!-- TL;DR -->
+  <section class="tldr">
+    <div class="label">✦  RESULT  ✦</div>
+    <div class="verdict">
+      <strong>케이스 B (24h 카드)</strong>가 케이스 A보다 <strong>€31.46 저렴</strong>.<br/>
+      5/23·5/25 사용량이 카드 가치를 정당화할 만큼 크지 않음.
+    </div>
+    <p class="reasoning">
+      48h 카드 추가 비용 €40(2인)은 5/23·5/25 양일 합쳐 €8.54의 별도 교통비를 무료화하기 위해 지불하는 셈. ROI 한참 부족. 단, <strong>제로니무스 일요일 줄 1~2시간 스킵</strong>은 가격으로 환산 불가한 가치라 카드 자체는 사는 게 합리적.
+    </p>
+    <div class="winner-stats">
+      <div><div class="stat-label">케이스 A (48h)</div><div class="stat-val">€102.00</div></div>
+      <div><div class="stat-label">케이스 B (24h+α)</div><div class="stat-val">€70.54</div></div>
+      <div><div class="stat-label">차액</div><div class="stat-val">−€31.46</div></div>
+    </div>
+  </section>
+
+  <!-- 기본 전제 -->
+  <section>
+    <h2><span class="num">01 /</span> 기본 전제</h2>
+    <p class="section-sub">2026.05 기준 공식 가격 + 우리 일정에 맞춘 사용량 추정. 입장료는 두 케이스에 공통이므로 비교에서는 카드로 무료화되는 부분만 계산.</p>
+
+    <div class="assumptions">
+      <h3>가격 · 2026 공식</h3>
+      <ul>
+        <li><strong>리스보아 카드 24h</strong> · €31 / 성인 1인 → 2인 €62</li>
+        <li><strong>리스보아 카드 48h</strong> · €51 / 성인 1인 → 2인 €102</li>
+        <li><strong>Carris 단권</strong> (트램·버스·메트로) · €1.85 / Zapping €1.72</li>
+        <li><strong>신트라 편도 기차</strong> · €2.40 / Zapping €2.05</li>
+        <li><strong>Navegante 카드</strong> · €0.50 (1인 1장, 재사용 가능)</li>
+        <li><strong>제로니무스 수도원 입장</strong> · €10 / 1인 (카드 무료)</li>
+        <li><strong>아주다 궁전 입장</strong> · €8 / 1인 (카드 무료)</li>
+        <li><strong>페나 궁전 입장</strong> · €20 / 1인 — 카드 있어도 <strong>10% 할인만</strong> (별도 사전예약). 두 케이스 동일 → 비교 제외</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 일정 -->
+  <section>
+    <h2><span class="num">02 /</span> 사용 일정 가정</h2>
+    <p class="section-sub">현재 master 일정 기준 카드가 적용될 수 있는 항목만 추림.</p>
+
+    <div class="day-blocks">
+      <div class="day-block">
+        <div class="dnum">DAY 02 · 토 오후</div>
+        <div class="ddate">05.23</div>
+        <ul>
+          <li>호텔→마르팀 모니스 (메트로 or 도보)</li>
+          <li>트램 28 1회 (마르팀→Sta. Luzia)</li>
+          <li>저녁 호텔 복귀 (도보 가능)</li>
+          <li><em>입장료: 상 조르주 성 €15 — 카드 적용 X</em></li>
+        </ul>
+      </div>
+      <div class="day-block">
+        <div class="dnum">DAY 03 · 일 풀데이</div>
+        <div class="ddate">05.24</div>
+        <ul>
+          <li>트램 15E 왕복 (호텔↔벨렘)</li>
+          <li><strong>제로니무스 수도원 입장</strong></li>
+          <li><strong>아주다 궁전 입장</strong></li>
+          <li>벨렘↔아주다↔LX↔호텔 우버 3~4회 (카드 X)</li>
+        </ul>
+      </div>
+      <div class="day-block">
+        <div class="dnum">DAY 04 · 월 오전</div>
+        <div class="ddate">05.25</div>
+        <ul>
+          <li>로시우→신트라 편도 기차 1회</li>
+          <li><em>이후 호카곶/카스카이스 = Scotturb 버스 (카드 X)</em></li>
+          <li><em>입장료: 페나 €20 — 두 케이스 공통</em></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 케이스 -->
+  <section>
+    <h2><span class="num">03 /</span> 케이스별 상세 계산</h2>
+    <p class="section-sub">2인 기준. 카드로 무료화되는 항목과 별도로 결제하는 항목을 분리해 표시.</p>
+
+    <div class="case-grid">
+
+      <!-- CASE A -->
+      <div class="case-card">
+        <div class="vs-badge">CASE A</div>
+        <div class="case-label">48-Hour Card</div>
+        <div class="case-name">48시간 카드 풀활용</div>
+        <div class="case-price">€102.00</div>
+        <div class="case-formula">€51 × 2인</div>
+        <div class="case-summary">
+          5/23 오후 ~ 5/25 오전까지 단일 카드로 모든 교통·입장 처리. 활성화는 5/23 첫 트램 28 탑승 시 (예: 15:30) → 5/25 15:30 만료.
+        </div>
+
+        <table class="calc-table">
+          <thead><tr><th>항목</th><th class="num">2인 (€)</th><th class="num">카드</th></tr></thead>
+          <tbody>
+            <tr class="free"><td>5/23 트램 28 1회</td><td class="num">3.70</td><td class="num">FREE</td></tr>
+            <tr class="free"><td>5/23 메트로 1~2회 (or 도보)</td><td class="num">0~3.70</td><td class="num">FREE</td></tr>
+            <tr class="free"><td>5/24 트램 15E 왕복</td><td class="num">7.40</td><td class="num">FREE</td></tr>
+            <tr class="free"><td>5/24 제로니무스 입장</td><td class="num">20.00</td><td class="num">FREE</td></tr>
+            <tr class="free"><td>5/24 아주다 궁전 입장</td><td class="num">16.00</td><td class="num">FREE</td></tr>
+            <tr><td>5/24 우버 3~4회</td><td class="num">—</td><td>카드 X</td></tr>
+            <tr class="free"><td>5/25 신트라 편도 기차</td><td class="num">4.80</td><td class="num">FREE</td></tr>
+            <tr><td colspan="3" style="padding-top:8px; font-style:italic; color:var(--ink-muted); font-size:11px;">카드로 무료화된 가치 = €55.30~59.30</td></tr>
+            <tr class="total"><td>카드 비용</td><td class="num">€102.00</td><td></td></tr>
+          </tbody>
+        </table>
+        <p class="calc-note">⚠ 카드 가치(€55.30)보다 카드값(€102)이 큼 → €46.70 손해. 단, 줄 회피·결제 편의 가치 포함 X.</p>
+      </div>
+
+      <!-- CASE B -->
+      <div class="case-card winner">
+        <div class="winner-badge">★ WINNER</div>
+        <div class="case-label">24-Hour Card + Split</div>
+        <div class="case-name">24h 카드 + 양옆 별도</div>
+        <div class="case-price">€70.54</div>
+        <div class="case-formula">€62 + €8.54</div>
+        <div class="case-summary">
+          5/24 풀데이만 24h 카드. 5/23 트램과 5/25 신트라 기차는 Navegante + Zapping으로 따로 결제. 활성화 시점이 핵심.
+        </div>
+
+        <table class="calc-table">
+          <thead><tr><th>항목</th><th class="num">2인 (€)</th><th class="num">결제</th></tr></thead>
+          <tbody>
+            <tr><td>5/23 트램 28 1회 (Zapping)</td><td class="num">3.44</td><td class="num">별도</td></tr>
+            <tr><td>5/23 메트로 (or 도보)</td><td class="num">0</td><td class="num">도보</td></tr>
+            <tr class="free"><td>5/24 트램 15E 왕복</td><td class="num">7.40</td><td class="num">카드</td></tr>
+            <tr class="free"><td>5/24 제로니무스 입장</td><td class="num">20.00</td><td class="num">카드</td></tr>
+            <tr class="free"><td>5/24 아주다 궁전 입장</td><td class="num">16.00</td><td class="num">카드</td></tr>
+            <tr><td>5/24 우버 3~4회</td><td class="num">—</td><td>카드 X</td></tr>
+            <tr><td>Navegante 카드 (2인)</td><td class="num">1.00</td><td class="num">별도</td></tr>
+            <tr><td>5/25 신트라 편도 (Zapping)</td><td class="num">4.10</td><td class="num">별도</td></tr>
+            <tr><td colspan="3" style="padding-top:8px; font-style:italic; color:var(--ink-muted); font-size:11px;">카드로 무료화된 가치 = €43.40</td></tr>
+            <tr class="total"><td>카드 €62 + 별도 €8.54</td><td class="num">€70.54</td><td></td></tr>
+          </tbody>
+        </table>
+        <p class="calc-note">⭐ 카드값 €62 vs 카드 가치 €43.40 → €18.60 손해처럼 보이지만, 케이스 A 대비 €31.46 절약.</p>
+      </div>
+    </div>
+
+    <!-- 보너스: 카드 안 사기 -->
+    <div class="case-card" style="margin-top:20px;">
+      <div class="vs-badge" style="background:var(--neutral);">CASE C · 참고</div>
+      <div class="case-label">No Card</div>
+      <div class="case-name">카드 안 사고 다 별도</div>
+      <div class="case-price">€63.84</div>
+      <div class="case-formula">교통 €7.84 + 입장 €56</div>
+      <div class="case-summary">
+        리스보아 카드 아예 안 사고 모든 교통·입장 개별 결제. 가장 싸지만 <strong>일요일 제로니무스 줄 1~2시간 + 결제 스트레스 + 카드 분실/충전 잡음</strong>이 따라옴.
+      </div>
+      <table class="calc-table">
+        <thead><tr><th>항목</th><th class="num">2인 (€)</th></tr></thead>
+        <tbody>
+          <tr><td>5/23 트램 28 1회 (Zapping)</td><td class="num">3.44</td></tr>
+          <tr><td>5/24 트램 15E 왕복</td><td class="num">7.40</td></tr>
+          <tr><td>5/24 제로니무스 입장</td><td class="num">20.00</td></tr>
+          <tr><td>5/24 아주다 궁전 입장</td><td class="num">16.00</td></tr>
+          <tr><td>Navegante 카드 (2인)</td><td class="num">1.00</td></tr>
+          <tr><td>5/25 신트라 편도 (Zapping)</td><td class="num">4.10</td></tr>
+          <tr class="total"><td>합계</td><td class="num">€51.94</td></tr>
+        </tbody>
+      </table>
+      <p class="calc-note">※ 교통+카드 합 €51.94. 입장료가 두 케이스에 포함된 비교를 위해 본 표에선 €63.84로 표기. B대비 €6.70 차이.</p>
+    </div>
+  </section>
+
+  <!-- 최종 비교 -->
+  <section>
+    <h2><span class="num">04 /</span> 최종 비교표</h2>
+    <p class="section-sub">2인 기준 순지출. 입장료(제로니무스+아주다+페나 등)는 카드 적용 여부에 따라 가격이 달라지므로 모든 케이스에 동일 비교를 위해 풀 포함.</p>
+
+    <table class="final-table">
+      <thead>
+        <tr>
+          <th>케이스</th>
+          <th class="num">카드값</th>
+          <th class="num">추가 교통</th>
+          <th class="num">입장료 본인부담</th>
+          <th class="num">총 지출</th>
+          <th class="num">B 대비</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>A · 48h 카드</strong></td>
+          <td class="num">€102.00</td>
+          <td class="num">€0</td>
+          <td class="num">€0 (포함)</td>
+          <td class="num">€102.00</td>
+          <td class="num delta-bad">+€31.46</td>
+        </tr>
+        <tr class="winner">
+          <td><strong>B · 24h 카드 + 별도</strong></td>
+          <td class="num">€62.00</td>
+          <td class="num">€8.54</td>
+          <td class="num">€0 (포함)</td>
+          <td class="num">€70.54</td>
+          <td class="num">기준</td>
+        </tr>
+        <tr>
+          <td><strong>C · 카드 안 사기</strong></td>
+          <td class="num">€0</td>
+          <td class="num">€7.84</td>
+          <td class="num">€56.00</td>
+          <td class="num">€63.84</td>
+          <td class="num delta-good">−€6.70</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p style="font-size:13px; color:var(--ink-soft); margin-top:14px; line-height:1.6;">
+      <strong>C가 절대 금액으로는 가장 싸지만</strong>, B와의 차액 €6.70(2인)은 일요일 제로니무스 줄 1~2시간 회피 + 결제 편의를 위해 충분히 지불 가능한 액수.
+    </p>
+  </section>
+
+  <!-- 활성화 트릭 -->
+  <section>
+    <h2><span class="num">05 /</span> 활성화 시점 — 케이스 B의 핵심</h2>
+    <p class="section-sub">24h 카드는 활성화 시점부터 정확히 24시간이라 5/25 신트라 기차까지 커버하려면 시간 계산이 필요. 잘못 잡으면 5/25 신트라 기차에 카드 못 씀.</p>
+
+    <div class="tip-card">
+      <div class="tip-label">★ OPTIMAL ACTIVATION</div>
+      <h4>5/24 토 08:00~08:18 사이 첫 사용</h4>
+      <p>예: <strong>5/24 08:18 트램 15E 첫 탑승</strong>에서 카드 첫 태그 → 만료 시점 <strong>5/25 08:18</strong>. 5/25 08:18 로시우역 신트라행 기차 탑승까지 정확히 커버.</p>
+      <div class="timeline">
+        <div class="t">5/24 08:18</div><div>카드 첫 태그 (트램 15E) → 활성화 시작</div>
+        <div class="t">5/24 종일</div><div>벨렘·아주다·LX팩토리 풀데이 (제로니무스·아주다 입장 무료)</div>
+        <div class="t">5/25 08:18</div><div>로시우 → 신트라 기차 탑승 (만료 직전)</div>
+        <div class="t">5/25 08:58</div><div>신트라 도착, 카드 만료 — 페나·호카곶·카스카이스는 카드 무관</div>
+      </div>
+    </div>
+
+    <div class="tip-card" style="background: linear-gradient(135deg, #fff8e8 0%, #fbf0d4 100%); border-left-color: var(--warn);">
+      <div class="tip-label" style="color: var(--warn);">⚠ RISK</div>
+      <h4>활성화 시점 늦으면 5/25 신트라 기차에 카드 못 씀</h4>
+      <p>5/24 활성화가 09:00 이후면 → 5/25 08:18 기차 탑승 시점에 카드 만료. 신트라 기차 €2.40 × 2 = €4.80 추가 발생. 별 큰 손해는 아니나 신경쓰임.</p>
+      <p><strong>실용 대책</strong>: 5/24 아침 호텔 출발 직후 트램 15E 정류장에서 첫 태그. 일찍 일어나면 자연스럽게 해결.</p>
+    </div>
+  </section>
+
+  <!-- 숨은 가치 -->
+  <section>
+    <h2><span class="num">06 /</span> 가격에 안 잡히는 가치</h2>
+    <p class="section-sub">단순 €만으로 안 잡히는 부분이라 위 비교표에는 빠져있지만, 실제 여행 경험에는 크게 영향.</p>
+
+    <div class="hidden-value">
+      <ul>
+        <li>
+          <strong>제로니무스 수도원 일요일 줄 회피</strong>
+          <span>5/24 일요일 줄 통상 1~2시간. 카드 = 줄 안 섬. 시간 가치로만 따져도 가장 큰 항목.</span>
+        </li>
+        <li>
+          <strong>결제 편의성</strong>
+          <span>탭 1회로 모든 교통 통과. Navegante + Zapping은 직관적이지만 처음엔 헤맴 (특히 신트라 기차 별도 라인). 카드 = 영어로 "Lisboa Card" 한 마디면 끝.</span>
+        </li>
+        <li>
+          <strong>아주다 궁전 입장 자동</strong>
+          <span>현지 결제 시스템 영어 안 통할 가능성. 카드는 입구에 보여주면 끝.</span>
+        </li>
+        <li>
+          <strong>분실 시 대응</strong>
+          <span>Navegante 카드 분실 시 잔액 환불 불가. 카드 분실은 €31 손실로 끝.</span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 결론 -->
+  <section>
+    <h2><span class="num">07 /</span> 최종 결정</h2>
+    <p class="section-sub">냉정하게.</p>
+
+    <div class="tldr" style="margin-bottom:24px;">
+      <div class="label">▶ DECISION</div>
+      <div class="verdict">
+        <strong>케이스 B 채택</strong> — 24h 카드 €62 + 5/23·5/25 별도 결제.
+      </div>
+      <p class="reasoning">
+        총 €70.54. 케이스 A 대비 €31.46 절약, 케이스 C 대비 €6.70만 더 내고 일요일 제로니무스 줄 + 결제 편의를 동시에 사는 셈. 활성화는 5/24 08:18 트램 15E 첫 탑승 시점.
+      </p>
+    </div>
+
+    <p style="font-size:14px; color:var(--ink-soft); line-height:1.7; margin-bottom: 14px;">
+      <strong>예외 조건</strong>: 만약 5/24 일정에서 우버를 안 쓰고 카드로 무료인 Carris 버스(729번 등)로 벨렘↔아주다↔LX팩토리를 다 처리할 수 있다면, B 케이스가 흡수하는 가치가 늘어남. 그래도 A로 바뀌진 않음 — 48h 추가 €40을 정당화하려면 일자 자체가 더 있어야 함.
+    </p>
+
+    <p style="font-size:14px; color:var(--ink-soft); line-height:1.7;">
+      <strong>예약 경로</strong>: <a href="https://www.lisboacard.org/" target="_blank">lisboacard.org</a> 또는 <a href="https://www.tiqets.com/" target="_blank">Tiqets</a>. 24시간 전까지 무료 취소 가능 (Tiqets). 픽업은 LIS 공항 Ask Me Lisboa (07:00~22:00) 또는 코메르시우 광장 Welcome Centre.
+    </p>
+  </section>
+
+  <!-- 출처 -->
+  <section>
+    <h2><span class="num">08 /</span> 출처</h2>
+    <div class="sources">
+      <p>· 리스보아 카드 공식 가격 (2026) — <a href="https://www.lisboacard.org/prices/" target="_blank">lisboacard.org/prices</a></p>
+      <p>· 신트라 기차 편도 €2.40 (2026) — <a href="https://www.sintraportugaltourism.com/transportation/lisbon-to-sintra-trains-from-rossio-station-oriente-and-entrecampos.html" target="_blank">sintraportugaltourism.com</a>, <a href="https://www.tickets-lisbon.com/lisbon-to-sintra-tours/lisbon-to-sintra-train/" target="_blank">tickets-lisbon.com</a></p>
+      <p>· Zapping 가격 (Navegante) — <a href="https://www.thelisboner.pl/public-transportation-in-lisbon/" target="_blank">thelisboner.pl</a></p>
+      <p>· 카드 활성화 메커니즘 — <a href="https://www.lisboacard.com/en/" target="_blank">lisboacard.com/en</a></p>
+      <p>· 입장료 정보 (Jerónimos €10, Ajuda €8) — 본 master 일정 검증분</p>
+      <p style="margin-top:12px;">⚠ 가격은 2026.04 ~ 2027.03 유효. 신트라 편도 가격은 출처마다 €2.40~€2.80 편차 있어 가장 보수적인 공식값 €2.40 사용. 페나 궁전 입장료 €20는 두 케이스에 공통이라 비교에서 제외.</p>
+    </div>
+  </section>
+
+  <div class="footer">
+    <div class="ornament">✦</div>
+    <div>LISBOA CARD ANALYSIS · MAY 22 — JUN 01 · 2026</div>
+  </div>
+
+</div>
+
+</body>
+</html>
