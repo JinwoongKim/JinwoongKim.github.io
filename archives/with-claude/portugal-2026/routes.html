@@ -57,22 +57,24 @@
   .sidebar-section h4 { font-family: var(--mono); font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase; color: #a09b8f; margin-bottom: 10px; font-weight: 400; }
 
   .stop-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
-  .stop-item { font-size: 12px; color: #c4bfaf; padding: 6px 8px; border-radius: 3px; cursor: pointer; transition: background .15s; display: flex; align-items: flex-start; gap: 8px; }
+  .stop-item { font-size: 12px; color: #c4bfaf; padding: 6px 8px; border-radius: 3px; cursor: pointer; transition: background .15s; display: grid; grid-template-columns: 44px 18px 1fr; gap: 6px; align-items: flex-start; }
   .stop-item:hover { background: rgba(255,255,255,.05); color: #fff; }
-  .stop-item .stop-num { font-family: var(--mono); font-size: 10px; color: var(--accent-soft); min-width: 14px; padding-top: 1px; }
-  .stop-item .stop-name { flex: 1; line-height: 1.4; }
+  .stop-item .stop-time { font-family: var(--mono); font-size: 10px; color: var(--accent-soft); font-weight: 600; padding-top: 1px; }
+  .stop-item .stop-num { font-family: var(--mono); font-size: 10px; color: #6a6558; padding-top: 1px; }
+  .stop-item .stop-name { line-height: 1.4; }
 
   .main { position: relative; height: 100vh; }
   #map { width: 100%; height: 100%; background: #e8e5dd; }
 
-  .info-panel { position: absolute; top: 16px; right: 16px; width: 320px; background: var(--bg-card); border: 1px solid var(--line); padding: 18px 20px; z-index: 1000; max-height: calc(100vh - 32px); overflow-y: auto; box-shadow: 0 4px 20px -8px rgba(0,0,0,.15); }
+  .info-panel { position: absolute; top: 16px; right: 16px; width: 340px; background: var(--bg-card); border: 1px solid var(--line); padding: 18px 20px; z-index: 1000; max-height: calc(100vh - 32px); overflow-y: auto; box-shadow: 0 4px 20px -8px rgba(0,0,0,.15); }
   .info-panel h2 { font-family: var(--serif); font-size: 22px; font-weight: 500; line-height: 1.2; margin-bottom: 4px; }
   .info-panel .date-row { font-family: var(--mono); font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 12px; }
   .info-panel .summary { font-size: 12.5px; color: var(--ink-soft); line-height: 1.55; padding-bottom: 12px; margin-bottom: 12px; border-bottom: 1px dashed var(--line); }
 
-  .info-stop { display: flex; gap: 10px; padding: 8px 0; font-size: 12.5px; line-height: 1.5; align-items: flex-start; border-bottom: 1px dotted var(--line); }
+  .info-stop { display: grid; grid-template-columns: 48px 22px 1fr; gap: 10px; padding: 8px 0; font-size: 12.5px; line-height: 1.5; align-items: flex-start; border-bottom: 1px dotted var(--line); }
   .info-stop:last-child { border-bottom: none; }
-  .info-stop .stop-circle { min-width: 22px; height: 22px; border-radius: 50%; color: #fff; font-family: var(--mono); font-size: 11px; font-weight: 600; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .info-stop .stop-time-box { font-family: var(--mono); font-size: 11px; font-weight: 700; color: var(--accent); padding-top: 4px; letter-spacing: -0.3px; }
+  .info-stop .stop-circle { width: 22px; height: 22px; border-radius: 50%; color: #fff; font-family: var(--mono); font-size: 11px; font-weight: 600; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
   .info-stop .stop-detail strong { display: block; font-weight: 600; color: var(--ink); margin-bottom: 1px; }
   .info-stop .stop-detail .stop-meta { font-size: 11px; color: var(--ink-muted); }
   .info-stop .stop-detail .stop-transit { font-size: 11px; color: var(--ink-muted); margin-top: 4px; padding-top: 4px; border-top: 1px dotted #eee; font-family: var(--mono); }
@@ -80,8 +82,10 @@
   .info-panel .note { margin-top: 12px; padding: 10px 12px; background: #fdf6f0; font-size: 11.5px; color: var(--ink-soft); line-height: 1.5; border-left: 2px solid var(--accent-soft); }
 
   .leaflet-popup-content-wrapper { border-radius: 4px; }
-  .leaflet-popup-content { font-family: var(--serif-kr); font-size: 13px; margin: 12px 14px; line-height: 1.5; }
+  .leaflet-popup-content { font-family: var(--serif-kr); font-size: 13px; margin: 12px 14px; line-height: 1.5; min-width: 160px; }
+  .leaflet-popup-content .popup-time { display: inline-block; font-family: var(--mono); font-size: 10px; font-weight: 700; padding: 2px 6px; background: var(--accent); color: #fff; letter-spacing: 0.5px; margin-bottom: 6px; border-radius: 2px; }
   .leaflet-popup-content strong { display: block; font-size: 14px; margin-bottom: 4px; color: var(--accent); }
+  .leaflet-popup-content .popup-meta { font-size: 12px; color: var(--ink-soft); }
 
   .marker-pin { width: 28px; height: 28px; border-radius: 50% 50% 50% 0; transform: rotate(-45deg); border: 2px solid #fff; box-shadow: 0 2px 6px rgba(0,0,0,.3); display: flex; align-items: center; justify-content: center; }
   .marker-pin span { transform: rotate(45deg); color: #fff; font-family: var(--mono); font-size: 11px; font-weight: 700; }
@@ -118,7 +122,7 @@
   <aside class="sidebar">
     <a href="master.html" class="back-link">← Master Document</a>
     <div class="brand">Routes<span class="dot">.</span></div>
-    <div class="brand-sub">동선 지도 · Lisboa &amp; Porto</div>
+    <div class="brand-sub">동선 지도 · 시간 포함</div>
 
     <ul class="day-list" id="dayList">
       <li><button class="day-btn d2 active" data-day="d2"><span class="dot-color" style="background:var(--d2);"></span><span class="day-num">D2</span><span class="day-label">알파마 · 트램28</span></button></li>
@@ -136,7 +140,7 @@
 
     <div class="sidebar-section">
       <h4>안내</h4>
-      <p style="font-size:11px; color:#a09b8f; line-height:1.6;">마커 클릭 시 상세 정보 · 우상단 패널에 풀 동선 · 5/25 D안 풀데이</p>
+      <p style="font-size:11px; color:#a09b8f; line-height:1.6;">시간은 master.html 타임라인 기준. 마커 클릭 시 상세 · 우상단 패널에 풀 동선.</p>
     </div>
   </aside>
 
@@ -155,17 +159,17 @@ const DAYS = {
   d2: {
     title: '알파마 · 트램 28',
     date: '05.23 토',
-    summary: '코메르시우 → 점심 → 휴식 → 트램 28 → 알파마 → 상 조르주 성 일몰',
+    summary: '늦은 출발 → 코메르시우 → 점심 → 휴식 → 트램 28 → 알파마 → 상 조르주 성 일몰',
     color: '#d4663a',
-    note: '트램 28은 Prazeres 종점에서 역방향 탑승 시 좌석 확보 가능',
+    note: '트램 28은 Prazeres 종점에서 역방향 탑승 시 좌석 확보 가능 · 5/23 일몰 ~20:42',
     stops: [
-      { n: 1, name: 'Livô Boutique Living', meta: '호텔 · 바이샤/치아두', coord: [38.71538, -9.13963], transit: '↓ 도보 8분 (남쪽)' },
-      { n: 2, name: '코메르시우 광장', meta: 'O Arco 해물밥 점심', coord: [38.70770, -9.13660], transit: '↓ 도보 5분 호텔 복귀 → 휴식' },
-      { n: 3, name: '마르팀 모니스', meta: '트램 28 탑승', coord: [38.71640, -9.13560], transit: '↓ 트램 28 약 15분' },
-      { n: 4, name: '산타 루치아 전망대', meta: '하차 · 알파마 전망', coord: [38.71240, -9.12970], transit: '↓ 도보 1분' },
-      { n: 5, name: '포르타스 두 솔', meta: '두 번째 전망대', coord: [38.71290, -9.12940], transit: '↓ 도보 10분 (오르막)' },
-      { n: 6, name: '상 조르주 성', meta: '€15 · 일몰 20:42', coord: [38.71390, -9.13350], transit: '↓ 도보 12분 (내리막)' },
-      { n: 7, name: '저녁 · 알파마/바이샤', meta: '늦은 저녁', coord: [38.71050, -9.13530], transit: '' }
+      { n: 1, time: '11:30', name: 'Livô Boutique Living', meta: '호텔 출발 · 바이샤/치아두', coord: [38.71538, -9.13963], transit: '↓ 도보 8분 (남쪽)' },
+      { n: 2, time: '12:00', name: '코메르시우 광장', meta: 'O Arco 해물밥 점심', coord: [38.70770, -9.13660], transit: '↓ 도보 5분 호텔 복귀 → 13:30 휴식 (시차 회복)' },
+      { n: 3, time: '15:30', name: '마르팀 모니스', meta: '트램 28 탑승', coord: [38.71640, -9.13560], transit: '↓ 트램 28 약 15분' },
+      { n: 4, time: '17:00', name: '산타 루치아 전망대', meta: '하차 · 알파마 전망', coord: [38.71240, -9.12970], transit: '↓ 도보 1분' },
+      { n: 5, time: '17:30', name: '포르타스 두 솔', meta: '두 번째 전망대', coord: [38.71290, -9.12940], transit: '↓ 도보 10분 (오르막)' },
+      { n: 6, time: '19:00', name: '상 조르주 성', meta: '€15 · 일몰 20:42 ⭐', coord: [38.71390, -9.13350], transit: '↓ 도보 12분 (내리막)' },
+      { n: 7, time: '21:00', name: '저녁 · 알파마/바이샤', meta: '늦은 저녁', coord: [38.71050, -9.13530], transit: '' }
     ]
   },
   d3: {
@@ -173,80 +177,80 @@ const DAYS = {
     date: '05.24 일',
     summary: '제로니무스 → 파스테이스 → 벨렘 타워 → 아주다 궁전 → LX팩토리',
     color: '#4a7c4a',
-    note: '벨렘 타워 보수 중 (외관만) · 아주다 궁전 카드 무료',
+    note: '벨렘 타워 보수 중 (외관만) · 아주다 궁전 카드 무료 · 제로니무스 사전예약 필수',
     stops: [
-      { n: 1, name: 'Livô', meta: '호텔 출발', coord: [38.71538, -9.13963], transit: '↓ 트램 15E 25분 (서쪽)' },
-      { n: 2, name: '제로니무스 수도원', meta: '사전예약 10:00', coord: [38.69790, -9.20650], transit: '↓ 도보 3분' },
-      { n: 3, name: '파스테이스 드 벨렘', meta: '에그타르트', coord: [38.69750, -9.20320], transit: '↓ 도보 7분 강변' },
-      { n: 4, name: '발견 기념비', meta: '강변', coord: [38.69360, -9.20580], transit: '↓ 도보 8분 서쪽' },
-      { n: 5, name: '벨렘 타워', meta: '외관만 (보수 중)', coord: [38.69160, -9.21600], transit: '↓ 우버 5분 (도보 비추)' },
-      { n: 6, name: '아주다 궁전', meta: '€8 · 카드 무료', coord: [38.70680, -9.19800], transit: '↓ 우버 10분 (동쪽)' },
-      { n: 7, name: 'LX팩토리', meta: '선데이 마켓 + 저녁', coord: [38.70420, -9.17960], transit: '↓ 우버 12분 호텔' },
-      { n: 8, name: 'Livô', meta: '호텔 복귀', coord: [38.71538, -9.13963], transit: '' }
+      { n: 1, time: '09:30', name: 'Livô', meta: '호텔 출발', coord: [38.71538, -9.13963], transit: '↓ 트램 15E 25분 (서쪽)' },
+      { n: 2, time: '10:00', name: '제로니무스 수도원', meta: '사전예약 슬롯', coord: [38.69790, -9.20650], transit: '↓ 도보 3분' },
+      { n: 3, time: '12:00', name: '파스테이스 드 벨렘', meta: '에그타르트', coord: [38.69750, -9.20320], transit: '↓ 도보 7분 강변 · 13:00 점심' },
+      { n: 4, time: '14:30', name: '발견 기념비', meta: '강변', coord: [38.69360, -9.20580], transit: '↓ 도보 8분 서쪽' },
+      { n: 5, time: '14:45', name: '벨렘 타워', meta: '외관만 (보수 중)', coord: [38.69160, -9.21600], transit: '↓ 우버 5분 (도보 비추)' },
+      { n: 6, time: '16:00', name: '아주다 궁전', meta: '€8 · 카드 무료 · 마지막 입장 17:15', coord: [38.70680, -9.19800], transit: '↓ 우버 10분 (동쪽)' },
+      { n: 7, time: '18:00', name: 'LX팩토리', meta: '선데이 마켓 + 20:00 저녁', coord: [38.70420, -9.17960], transit: '↓ 우버 12분 호텔' },
+      { n: 8, time: '21:30', name: 'Livô', meta: '호텔 복귀', coord: [38.71538, -9.13963], transit: '' }
     ]
   },
   d4: {
     title: '신트라 + 호카곶 + 카스카이스',
     date: '05.25 월',
-    summary: 'D안 풀데이 — 페나 → 무어성 → 시내 → 호카곶 → 카스카이스',
+    summary: 'D안 풀데이 — 페나 → 무어성 → 시내 점심 → 호카곶 → 카스카이스 일몰',
     color: '#7a2e2e',
-    note: '페나 궁전 09:30 사전예약 · 호카곶 강풍 · 카스카이스선 기차 복귀',
+    note: '페나 궁전 09:30 사전예약 · 호카곶 강풍 · 카스카이스선 기차 복귀 · 일몰 ~20:40',
     stops: [
-      { n: 1, name: '로시우역', meta: '리스본 출발', coord: [38.71440, -9.13910], transit: '↓ CP 기차 40분' },
-      { n: 2, name: '신트라역', meta: '도착', coord: [38.79860, -9.38680], transit: '↓ 434번 버스' },
-      { n: 3, name: '페나 궁전', meta: '€20 · 09:30 슬롯', coord: [38.78759, -9.39061], transit: '↓ 도보 10분' },
-      { n: 4, name: '무어성', meta: '페나 옆', coord: [38.79290, -9.38920], transit: '↓ 버스 하산 → 시내' },
-      { n: 5, name: '신트라 시내', meta: 'Travesseiro 디저트', coord: [38.79760, -9.38950], transit: '↓ 403번 40분' },
-      { n: 6, name: '호카곶 (Cabo da Roca)', meta: '유라시아 최서단', coord: [38.78070, -9.49900], transit: '↓ 403번 30분' },
-      { n: 7, name: '카스카이스', meta: '해변 + 저녁', coord: [38.69790, -9.42150], transit: '↓ 카스카이스선 기차 40분' },
-      { n: 8, name: 'Cais do Sodré', meta: '리스본 도착', coord: [38.70680, -9.14480], transit: '' }
+      { n: 1, time: '08:18', name: '로시우역', meta: '리스본 출발', coord: [38.71440, -9.13910], transit: '↓ CP 기차 40분' },
+      { n: 2, time: '09:00', name: '신트라역', meta: '도착 → 434번 버스', coord: [38.79860, -9.38680], transit: '↓ 434번 버스 (순환)' },
+      { n: 3, time: '09:30', name: '페나 궁전', meta: '€20 · 사전예약 슬롯', coord: [38.78759, -9.39061], transit: '↓ 도보 10분' },
+      { n: 4, time: '11:30', name: '무어성', meta: '페나 옆', coord: [38.79290, -9.38920], transit: '↓ 버스 하산 → 시내' },
+      { n: 5, time: '13:00', name: '신트라 시내', meta: '점심 · Travesseiro 디저트', coord: [38.79760, -9.38950], transit: '↓ 403번 40분' },
+      { n: 6, time: '15:30', name: '호카곶 (Cabo da Roca)', meta: '유라시아 최서단 · 강풍', coord: [38.78070, -9.49900], transit: '↓ 403번 30분' },
+      { n: 7, time: '17:30', name: '카스카이스', meta: '해변 + 19:00 저녁 + 일몰 ⭐', coord: [38.69790, -9.42150], transit: '↓ 21:30 카스카이스선 기차 40분' },
+      { n: 8, time: '22:30', name: 'Cais do Sodré', meta: '리스본 도착 → 호텔', coord: [38.70680, -9.14480], transit: '' }
     ]
   },
   d5: {
     title: '리스본 → 포르투 이동',
     date: '05.26 화',
-    summary: 'Solar da Madalena 비파나 아점 → AP125 → 포르투 도착',
+    summary: 'Solar da Madalena 비파나 아점 → AP125 → 포르투 도착 → Filigrana 체크인',
     color: '#6a5acd',
-    note: 'AP125 12:00 출발 · Car C2, S23/S25 · Filigrana 위치 추정',
+    note: 'AP125 12:00 출발 · Car C2, S23/S25 · Filigrana 위치 정확히 확인 필요',
     stops: [
-      { n: 1, name: 'Livô', meta: '체크아웃 준비', coord: [38.71538, -9.13963], transit: '↓ 도보 3분' },
-      { n: 2, name: 'Solar da Madalena', meta: '비파나 아점', coord: [38.71340, -9.13651], transit: '↓ 우버 12분 (짐 많으면)' },
-      { n: 3, name: 'Santa Apolónia', meta: '12:00 AP125 출발', coord: [38.71410, -9.12260], transit: '↓ 기차 2시간 48분' },
-      { n: 4, name: 'Porto Campanhã', meta: '도착 14:48', coord: [41.14870, -8.58510], transit: '↓ 우버 10분 시내' },
-      { n: 5, name: 'Filigrana (포르투 숙소)', meta: '체크인 · 위치 확인 필요', coord: [41.14700, -8.61200], transit: '' }
+      { n: 1, time: '09:00', name: 'Livô', meta: '체크아웃 준비', coord: [38.71538, -9.13963], transit: '↓ 도보 3분' },
+      { n: 2, time: '10:00', name: 'Solar da Madalena', meta: '비파나 아점', coord: [38.71340, -9.13651], transit: '↓ 우버 12분 (짐 많으면)' },
+      { n: 3, time: '12:00', name: 'Santa Apolónia', meta: 'AP125 출발 · Car C2 S23/S25', coord: [38.71410, -9.12260], transit: '↓ 기차 2시간 48분' },
+      { n: 4, time: '14:48', name: 'Porto Campanhã', meta: '포르투 도착', coord: [41.14870, -8.58510], transit: '↓ 우버 10분 시내' },
+      { n: 5, time: '15:30', name: 'Filigrana (포르투 숙소)', meta: '체크인 · 4박 (5/26→5/30)', coord: [41.14700, -8.61200], transit: '' }
     ]
   },
   d6: {
     title: '포르투 시내',
     date: '05.27 수',
-    summary: '상 벤투 → 클레리구스 → 렐루 → 리베리아 → 동 루이스 다리',
+    summary: '상 벤투 → 클레리구스 → 렐루 → 점심 → 리베리아 → 동 루이스 다리 → 일몰',
     color: '#2d5a8a',
-    note: '렐루 서점 €8 사전예약 · 언덕 도시, 체력 분배',
+    note: '렐루 서점 €8 사전예약 · 언덕 도시, 체력 분배 · 5/27 일몰 ~20:48',
     stops: [
-      { n: 1, name: '상 벤투 역', meta: '20,000장 아줄레주', coord: [41.14560, -8.61070], transit: '↓ 도보 5분 서쪽' },
-      { n: 2, name: '클레리구스 탑', meta: '240계단 / 75m', coord: [41.14570, -8.61470], transit: '↓ 도보 1분' },
-      { n: 3, name: '렐루 서점', meta: '€8 사전예약', coord: [41.14690, -8.61477], transit: '↓ 도보 점심' },
-      { n: 4, name: '점심 (Francesinha)', meta: '포르투 명물', coord: [41.14500, -8.61200], transit: '↓ 도보 8분 남쪽' },
-      { n: 5, name: '리베리아 지구', meta: '유네스코', coord: [41.14080, -8.61310], transit: '↓ 도보 5분' },
-      { n: 6, name: '동 루이스 다리 상층', meta: '에펠 제자 작품', coord: [41.13970, -8.60930], transit: '↓ 도보 7분' },
-      { n: 7, name: '카르모 성당', meta: '외벽 아줄레주', coord: [41.14670, -8.61570], transit: '↓ 도보 4분' },
-      { n: 8, name: 'Miradouro da Vitória', meta: '일몰', coord: [41.14280, -8.61510], transit: '' }
+      { n: 1, time: '09:30', name: '상 벤투 역', meta: '20,000장 아줄레주', coord: [41.14560, -8.61070], transit: '↓ 도보 5분 서쪽' },
+      { n: 2, time: '10:30', name: '클레리구스 탑', meta: '240계단 / 75m', coord: [41.14570, -8.61470], transit: '↓ 도보 1분' },
+      { n: 3, time: '11:00', name: '렐루 서점', meta: '€8 사전예약 · 1시간', coord: [41.14690, -8.61477], transit: '↓ 도보 점심' },
+      { n: 4, time: '13:00', name: '점심 (Francesinha)', meta: '포르투 명물 샌드위치', coord: [41.14500, -8.61200], transit: '↓ 도보 8분 남쪽' },
+      { n: 5, time: '14:30', name: '리베리아 지구', meta: '유네스코 · 강변 산책', coord: [41.14080, -8.61310], transit: '↓ 도보 5분' },
+      { n: 6, time: '16:00', name: '동 루이스 다리 상층', meta: '에펠 제자 작품 · 강 양안 뷰', coord: [41.13970, -8.60930], transit: '↓ 도보 7분 (북쪽 복귀)' },
+      { n: 7, time: '17:00', name: '카르모 성당', meta: '외벽 아줄레주', coord: [41.14670, -8.61570], transit: '↓ 도보 4분' },
+      { n: 8, time: '19:30', name: 'Miradouro da Vitória', meta: '일몰 ⭐', coord: [41.14280, -8.61510], transit: '' }
     ]
   },
   d7: {
     title: '가이아 · 와이너리',
     date: '05.28 목',
-    summary: 'Taylor\'s → 점심 → Graham\'s → 일몰',
+    summary: "Taylor's → 점심 → Graham's → 모루 정원 일몰 → 강변 저녁",
     color: '#8b6f1a',
-    note: '와이너리 사전예약 필수 · 빈속 절대 X · 2~3곳이 적정',
+    note: '와이너리 사전예약 필수 · 빈속 절대 X · 2~3곳이 적정 · 5/28 일몰 ~20:48',
     stops: [
-      { n: 1, name: '포르투 (Filigrana)', meta: '출발', coord: [41.14700, -8.61200], transit: '↓ 동 루이스 다리 하층 도보 가이아' },
-      { n: 2, name: '동 루이스 다리 하층', meta: '가이아 진입', coord: [41.13970, -8.60930], transit: '↓ 도보 3분' },
-      { n: 3, name: "Taylor's", meta: '1692년 · €25', coord: [41.13730, -8.60800], transit: '↓ 도보 12분 (서쪽 강변)' },
-      { n: 4, name: '가이아 강변 점심', meta: '와이너리 사이', coord: [41.13800, -8.61400], transit: '↓ 도보 8분' },
-      { n: 5, name: "Graham's", meta: '1820년 · Vintage', coord: [41.13520, -8.62240], transit: '↓ 도보 5분 동쪽' },
-      { n: 6, name: 'Jardim do Morro', meta: '일몰 ⭐', coord: [41.13930, -8.60860], transit: '↓ 강변 저녁' },
-      { n: 7, name: 'The Rebello (참고)', meta: '5/30 묵을 곳', coord: [41.13824, -8.62103], transit: '' }
+      { n: 1, time: '10:30', name: '포르투 (Filigrana)', meta: '출발', coord: [41.14700, -8.61200], transit: '↓ 동 루이스 다리 하층 도보 가이아' },
+      { n: 2, time: '11:00', name: '동 루이스 다리 하층', meta: '가이아 진입', coord: [41.13970, -8.60930], transit: '↓ 도보 3분' },
+      { n: 3, time: '11:30', name: "Taylor's", meta: '1692년 · €25 · 사전예약', coord: [41.13730, -8.60800], transit: '↓ 도보 12분 (서쪽 강변)' },
+      { n: 4, time: '14:00', name: '가이아 강변 점심', meta: '와이너리 사이 — 반드시 식사', coord: [41.13800, -8.61400], transit: '↓ 도보 8분' },
+      { n: 5, time: '15:30', name: "Graham's", meta: '1820년 · Vintage · 사전예약', coord: [41.13520, -8.62240], transit: '↓ 도보 5분 동쪽' },
+      { n: 6, time: '18:30', name: 'Jardim do Morro', meta: '일몰 ⭐ (~20:48)', coord: [41.13930, -8.60860], transit: '↓ 강변 저녁' },
+      { n: 7, time: '21:00', name: 'The Rebello (참고)', meta: '5/30 1박 묵을 곳', coord: [41.13824, -8.62103], transit: '' }
     ]
   }
 };
@@ -277,7 +281,8 @@ function renderDay(dayKey) {
     const isStart = i === 0;
     const isEnd = i === day.stops.length - 1;
     const marker = L.marker(stop.coord, { icon: makeMarker(stop, day.color, isStart, isEnd) });
-    const popup = `<strong>${stop.n}. ${stop.name}</strong>${stop.meta}`;
+    const timeHtml = stop.time ? `<span class="popup-time">${stop.time}</span>` : '';
+    const popup = `${timeHtml}<strong>${stop.n}. ${stop.name}</strong><span class="popup-meta">${stop.meta}</span>`;
     marker.bindPopup(popup);
     marker.addTo(group);
   });
@@ -297,6 +302,7 @@ function renderInfoPanel(day) {
   let html = `<h2>${day.title}</h2><div class="date-row">${day.date}</div><div class="summary">${day.summary}</div>`;
   day.stops.forEach(stop => {
     html += `<div class="info-stop">
+      <div class="stop-time-box">${stop.time || ''}</div>
       <div class="stop-circle" style="background:${day.color};">${stop.n}</div>
       <div class="stop-detail">
         <strong>${stop.name}</strong>
@@ -313,6 +319,7 @@ function renderStopList(day) {
   const list = document.getElementById('stopList');
   list.innerHTML = day.stops.map(s =>
     `<li class="stop-item" data-coord="${s.coord[0]},${s.coord[1]}">
+      <span class="stop-time">${s.time || ''}</span>
       <span class="stop-num">${s.n}.</span>
       <span class="stop-name">${s.name}</span>
     </li>`
