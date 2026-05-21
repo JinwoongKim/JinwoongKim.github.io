@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Rebello Hotel & Spa · 편의시설 & 즐기는 법</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f7f1e3; --paper: #fffaf0; --paper-2: #fbf6ea;
+    --ink: #1d1d1b; --ink-soft: #4a4742; --ink-faint: #6f6a62;
+    --rule: #d9cfb8; --rule-strong: #b9ad90;
+    --azul: #1f3a5f; --azul-deep: #122644; --azul-soft: #4a6b8a;
+    --terra: #c0552d; --terra-light: #e89968;
+    --port: #6b2737; --port-soft: #8a3a4b; --port-light: #c08896;
+    --olive: #7a8b5c; --gold: #b8893d;
+    --critical: #a52a2a; --warn-bg: #fef3e3;
+    --accent: var(--port);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg); color: var(--ink);
+    font-family: 'Inter', -apple-system, 'Apple SD Gothic Neo', sans-serif;
+    font-weight: 400; line-height: 1.65;
+    background-image:
+      radial-gradient(ellipse at 10% 0%, rgba(107,39,55,0.06), transparent 50%),
+      radial-gradient(ellipse at 100% 30%, rgba(31,58,95,0.05), transparent 50%);
+    background-attachment: fixed;
+  }
+  .page { max-width: 1100px; margin: 0 auto; padding: clamp(28px,5vw,64px) clamp(20px,4vw,56px) 100px; }
+
+  /* nav */
+  .home-link { display: inline-block; margin-bottom: 28px; padding: 8px 14px; background: var(--paper); border: 1px solid var(--rule); font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--azul); text-decoration: none; letter-spacing: 1px; transition: all .2s; }
+  .home-link:hover { background: var(--azul); color: white; border-color: var(--azul); }
+  .breadcrumb { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--ink-faint); letter-spacing: 1px; margin-bottom: 8px; }
+  .breadcrumb a { color: var(--accent); text-decoration: none; }
+
+  /* masthead */
+  .masthead { border-bottom: 3px double var(--rule-strong); padding-bottom: 36px; margin-bottom: 48px; }
+  .eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 4px; color: var(--accent); text-transform: uppercase; margin: 24px 0 20px; }
+  h1 { font-family: 'Fraunces', serif; font-size: clamp(40px,6vw,72px); font-weight: 400; font-variation-settings: "opsz" 144; line-height: 1; color: var(--azul-deep); letter-spacing: -1.5px; }
+  h1 em { font-style: italic; color: var(--accent); font-weight: 300; }
+  .subtitle { font-family: 'Fraunces', serif; font-size: 19px; font-style: italic; color: var(--ink-soft); margin-top: 16px; }
+
+  /* sections */
+  section { margin-bottom: 64px; }
+  h2 { font-family: 'Fraunces', serif; font-size: 32px; font-weight: 500; color: var(--azul-deep); margin-bottom: 24px; display: flex; align-items: baseline; gap: 16px; letter-spacing: -0.5px; }
+  h2 .num { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--accent); letter-spacing: 2px; font-weight: 400; }
+  h2::after { content: ''; flex: 1; height: 1px; background: var(--rule-strong); margin-left: 8px; }
+  h3 { font-family: 'Fraunces', serif; font-size: 22px; font-weight: 600; color: var(--azul); margin-bottom: 12px; }
+  p { font-size: 15px; color: var(--ink-soft); margin-bottom: 12px; }
+  p strong { color: var(--azul-deep); }
+  p a, td a, li a { color: var(--accent); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 2px; }
+  p a:hover { color: var(--port-soft); }
+
+  /* hero card */
+  .hero-card {
+    background: linear-gradient(135deg, var(--port-soft) 0%, var(--port) 100%);
+    color: var(--paper); padding: 36px 40px; border-radius: 4px;
+    position: relative; overflow: hidden; margin-bottom: 36px;
+  }
+  .hero-card::before {
+    content: ''; position: absolute; top: -50px; right: -50px;
+    width: 240px; height: 240px;
+    background: radial-gradient(circle, rgba(232,153,104,0.2) 0%, transparent 70%);
+  }
+  .hero-card .badge {
+    display: inline-block; font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    letter-spacing: 2px; padding: 4px 10px; background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.25); margin-right: 8px; margin-bottom: 14px;
+  }
+  .hero-card h3 { font-family: 'Fraunces', serif; font-size: 28px; color: white; margin-bottom: 8px; font-weight: 500; }
+  .hero-card .tagline { font-family: 'Fraunces', serif; font-style: italic; font-size: 16px; color: var(--terra-light); margin-bottom: 18px; }
+  .hero-card .quick-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 14px; font-family: 'JetBrains Mono', monospace; font-size: 12px;
+    margin-top: 20px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.15);
+  }
+  .hero-card .quick-grid div { line-height: 1.5; }
+  .hero-card .quick-grid div strong { display: block; color: var(--terra-light); font-size: 9px; letter-spacing: 1.5px; margin-bottom: 5px; }
+  .hero-card .cta-row { margin-top: 22px; }
+  .hero-card .cta {
+    display: inline-block; padding: 10px 18px;
+    background: rgba(255,255,255,0.95); color: var(--port);
+    text-decoration: none; font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: 1.5px; margin-right: 10px; margin-bottom: 8px;
+    transition: all .2s; border-radius: 2px; font-weight: 500;
+  }
+  .hero-card .cta:hover { background: var(--terra-light); color: var(--azul-deep); }
+  .hero-card .cta.ghost { background: transparent; color: white; border: 1px solid rgba(255,255,255,0.4); }
+  .hero-card .cta.ghost:hover { background: rgba(255,255,255,0.1); border-color: white; }
+
+  /* facility cards */
+  .facility-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 18px; }
+  .facility-card {
+    background: var(--paper); border: 1px solid var(--rule);
+    padding: 24px 26px; border-top: 3px solid var(--accent);
+  }
+  .facility-card.azul { border-top-color: var(--azul); }
+  .facility-card.terra { border-top-color: var(--terra); }
+  .facility-card.olive { border-top-color: var(--olive); }
+  .facility-card.gold { border-top-color: var(--gold); }
+  .facility-card h3 {
+    font-family: 'Fraunces', serif; font-size: 20px; color: var(--azul-deep);
+    margin-bottom: 6px; font-weight: 600;
+    display: flex; align-items: baseline; gap: 10px;
+  }
+  .facility-card h3 .emoji { font-size: 22px; }
+  .facility-card .cat-note {
+    font-size: 12.5px; color: var(--ink-faint); font-family: 'Fraunces', serif;
+    font-style: italic; margin-bottom: 14px; padding-bottom: 12px;
+    border-bottom: 1px dashed var(--rule);
+  }
+  .facility-card ul { list-style: none; font-size: 14px; }
+  .facility-card ul li {
+    padding: 7px 0 7px 18px; color: var(--ink-soft); position: relative;
+    border-bottom: 1px dotted rgba(0,0,0,0.04);
+  }
+  .facility-card ul li:last-child { border-bottom: none; }
+  .facility-card ul li::before { content: '▸'; position: absolute; left: 0; color: var(--accent); }
+  .facility-card ul li strong { color: var(--azul-deep); font-weight: 600; }
+  .facility-card .more-link {
+    display: inline-block; margin-top: 14px; padding-top: 12px;
+    border-top: 1px dashed var(--rule); font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; color: var(--accent); text-decoration: none; letter-spacing: 1px;
+  }
+  .facility-card .more-link:hover { color: var(--port-soft); text-decoration: underline; }
+  .facility-card .more-link::after { content: ' ↗'; }
+
+  /* tables */
+  table.std { width: 100%; border-collapse: collapse; background: var(--paper); font-size: 14px; box-shadow: 0 2px 8px rgba(31,58,95,0.05); margin-top: 8px; }
+  table.std th { background: var(--azul-deep); color: var(--paper); padding: 13px 16px; text-align: left; font-weight: 600; font-size: 12px; letter-spacing: 0.5px; }
+  table.std td { padding: 13px 16px; border-bottom: 1px solid var(--rule); vertical-align: top; color: var(--ink-soft); }
+  table.std tr:last-child td { border-bottom: none; }
+  table.std td strong { color: var(--azul-deep); }
+
+  /* timeline (즐기는 법) */
+  .day-block { background: var(--paper); border-left: 4px solid var(--accent); padding: 24px 28px; margin-bottom: 18px; }
+  .day-block .day-head {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--accent);
+    letter-spacing: 2px; margin-bottom: 8px;
+  }
+  .day-block .day-title { font-family: 'Fraunces', serif; font-size: 22px; color: var(--azul-deep); margin-bottom: 14px; font-weight: 600; }
+  .day-block .activity { padding: 10px 0; border-bottom: 1px dotted var(--rule); display: grid; grid-template-columns: 64px 1fr; gap: 16px; align-items: baseline; }
+  .day-block .activity:last-child { border-bottom: none; }
+  .day-block .activity .time { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--terra); letter-spacing: 1px; }
+  .day-block .activity .what { font-size: 14.5px; color: var(--ink-soft); }
+  .day-block .activity .what strong { color: var(--azul-deep); }
+  .day-block .activity .what .why { display: block; margin-top: 4px; font-family: 'Fraunces', serif; font-style: italic; font-size: 12.5px; color: var(--ink-faint); }
+
+  /* callouts */
+  .callout { padding: 22px 28px; margin: 24px 0; border-radius: 2px; }
+  .callout.info { background: rgba(31,58,95,0.05); border-left: 4px solid var(--azul); }
+  .callout.recommend { background: rgba(107,39,55,0.06); border-left: 4px solid var(--port); }
+  .callout.warning { background: var(--warn-bg); border-left: 4px solid var(--critical); }
+  .callout h3 { font-family: 'Fraunces', serif; font-size: 20px; margin-bottom: 10px; }
+  .callout.info h3 { color: var(--azul-deep); }
+  .callout.recommend h3 { color: var(--port); }
+  .callout.warning h3 { color: var(--critical); }
+  .callout p { font-size: 14px; line-height: 1.7; }
+
+  /* link directory */
+  .link-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
+  .link-card {
+    display: block; background: var(--paper); border: 1px solid var(--rule);
+    padding: 16px 20px; text-decoration: none; color: var(--ink);
+    transition: all .25s ease; position: relative; overflow: hidden;
+  }
+  .link-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--accent); transform: translateX(-100%); transition: transform .25s ease; }
+  .link-card:hover { transform: translateX(4px); border-color: var(--port-light); }
+  .link-card:hover::before { transform: translateX(0); }
+  .link-card .label { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--ink-faint); letter-spacing: 1.5px; margin-bottom: 4px; }
+  .link-card .name { font-family: 'Fraunces', serif; font-size: 17px; font-weight: 600; color: var(--azul-deep); margin-bottom: 4px; }
+  .link-card .desc { font-size: 12.5px; color: var(--ink-soft); }
+  .link-card.official { border-left: 3px solid var(--port); }
+  .link-card.booking { border-left: 3px solid var(--azul); }
+  .link-card.review { border-left: 3px solid var(--olive); }
+
+  /* source note */
+  .source-note { margin-top: 14px; padding: 10px 14px; background: rgba(31,58,95,0.04); font-size: 11.5px; color: var(--ink-faint); font-family: 'JetBrains Mono', monospace; border-left: 2px solid var(--azul-soft); }
+
+  /* footer */
+  .footer { margin-top: 80px; padding-top: 32px; border-top: 3px double var(--rule-strong); text-align: center; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--ink-faint); letter-spacing: 2px; }
+  .footer .ornament { font-size: 18px; color: var(--accent); margin-bottom: 12px; }
+
+  /* responsive */
+  @media (max-width: 700px) {
+    h1 { font-size: 40px; letter-spacing: -1px; }
+    h2 { font-size: 24px; }
+    .day-block .activity { grid-template-columns: 1fr; gap: 4px; }
+    .hero-card { padding: 26px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <a href="../index.html" class="home-link">← with-claude 허브로</a>
+
+  <div class="breadcrumb">
+    <a href="../index.html">archives / with-claude</a> / portugal-2026 / the-rebello
+  </div>
+
+  <header class="masthead">
+    <div class="eyebrow">Detail Report · Last Stay</div>
+    <h1>The Rebello <em>마지막 2박.</em></h1>
+    <p class="subtitle">5/29–5/31 · Vila Nova de Gaia 강변 5성 부티크 — 시설·트리트먼트·즐기는 법 + 직접 확인할 수 있는 링크 모음</p>
+  </header>
+
+  <!-- ============================================================
+       HERO CARD — 호텔 한 줄 요약
+       ============================================================ -->
+  <section>
+    <div class="hero-card">
+      <span class="badge">5★ SLH</span>
+      <span class="badge">9.8 / 10</span>
+      <span class="badge">2025 BEST DESIGN HOTEL EUROPE</span>
+      <h3>The Rebello Hotel &amp; Spa</h3>
+      <div class="tagline">"The new hotel with an old soul, right on Porto's riverbank."</div>
+      <p style="font-size:14px; line-height:1.7; color:rgba(255,255,255,0.9);">
+        19세기 와인 창고를 리모델링한 5성 부티크. Small Luxury Hotels of the World 멤버, 2025년 유럽 최고 디자인 호텔 수상.
+        도루강 바로 옆 가이아 쪽 — 포르투 historic center는 다리 건너 도보 15분.
+      </p>
+      <div class="quick-grid">
+        <div><strong>위치</strong>Cais de Gaia 380, 4400-245</div>
+        <div><strong>전화</strong>+351 22 002 8940</div>
+        <div><strong>객실</strong>103 suites</div>
+        <div><strong>레스토랑</strong>2 + 루프탑 바</div>
+        <div><strong>스파</strong>4 treatment rooms</div>
+        <div><strong>공항</strong>OPO 13분 드라이브</div>
+      </div>
+      <div class="cta-row">
+        <a class="cta" href="https://www.therebello.com/" target="_blank" rel="noopener">공식 사이트 ↗</a>
+        <a class="cta ghost" href="https://www.therebello.com/gallery/" target="_blank" rel="noopener">갤러리 보기 ↗</a>
+        <a class="cta ghost" href="https://bookings.therebello.com/115272?languageid=1" target="_blank" rel="noopener">직접 예약 ↗</a>
+      </div>
+    </div>
+    <p style="font-size:12px; color:var(--ink-faint); margin-top:6px;">※ 직접 예약 시 혜택: 무료 조식(Pot&amp;Pan) · 객실 업그레이드(가용 시) · 다이닝/스파 크레딧 · 얼리체크인/레이트체크아웃(가용 시) · 최저가 보장 — <a href="https://www.therebello.com/" target="_blank" rel="noopener">공식 사이트</a> 명시.</p>
+  </section>
+
+  <!-- ============================================================
+       SECTION 01 — 편의시설 풀버전
+       ============================================================ -->
+  <section>
+    <h2><span class="num">01 /</span> 편의시설 풀버전</h2>
+
+    <div class="facility-grid">
+
+      <!-- 스파 -->
+      <div class="facility-card">
+        <h3><span class="emoji">🌊</span> 스파 &amp; 웰니스</h3>
+        <p class="cat-note">고대 로마 목욕탕에서 영감 — 발굴 유물 사이에서 트리트먼트</p>
+        <ul>
+          <li><strong>운영</strong> 매일 10am – 8pm</li>
+          <li><strong>인도어 풀</strong> 세미히팅 (반온수), Roman bath 컨셉</li>
+          <li><strong>사우나</strong> + <strong>월풀(자쿠지)</strong></li>
+          <li><strong>피트니스 센터</strong></li>
+          <li><strong>트리트먼트 룸 4개</strong> — 커플 트리트먼트 룸 포함</li>
+          <li><strong>트리트먼트</strong> 딥티슈 / 대나무 / 50분 jet lag-targeting / 아로마테라피 / 아유르베다 / 바디스크럽 / 페이셜</li>
+        </ul>
+        <a class="more-link" href="https://www.therebello.com/wellness-and-spa/" target="_blank" rel="noopener">Wellness &amp; Spa 공식 페이지</a>
+      </div>
+
+      <!-- F&B -->
+      <div class="facility-card terra">
+        <h3><span class="emoji">🍽️</span> 다이닝 &amp; 바</h3>
+        <p class="cat-note">Michelin-trained Chef André Coutinho 총괄</p>
+        <ul>
+          <li><strong>Pot &amp; Pan</strong> (1F) — 포르투갈 전통 + 트위스트, 셰어용 큰 플레이트. 도루강 뷰 시그니처 레스토랑</li>
+          <li><strong>Bello Rooftop</strong> — 아티잔 피자 + petiscos(타파스) + 칵테일. 포르투+가이아 양안 + Dom Luís 다리 파노라마</li>
+          <li><strong>Lobby Bar</strong> — 아페리티프 / 조용한 커피 / 무제한 커피(투숙객)</li>
+          <li><strong>조식</strong> 평일 7:30–10:30 / 주말 7:30–11:00 (부페, 유료)</li>
+        </ul>
+        <a class="more-link" href="https://www.therebello.com/eat-and-drink/" target="_blank" rel="noopener">Eat &amp; Drink 공식 페이지</a>
+      </div>
+
+      <!-- 객실 -->
+      <div class="facility-card azul">
+        <h3><span class="emoji">🛏️</span> 객실 (아파트형 Suite)</h3>
+        <p class="cat-note">103실 모두 스튜디오~3베드룸 펜트하우스 suite 구조</p>
+        <ul>
+          <li><strong>풀키친</strong> — 오븐, 전자레인지, 에스프레소 머신</li>
+          <li><strong>미니바</strong> — 일부 무료 (포르투갈 와인·맥주·크래커·초콜릿)</li>
+          <li><strong>발코니 / 거실 / 침실</strong> 분리 구조, 강 뷰 객실 별도</li>
+          <li><strong>침구</strong> 하이포알러지, 사운드프루프, 50인치 평면 TV</li>
+          <li>바스로브, 무료 어메니티, 인룸 세이프</li>
+          <li><strong>펫 프렌들리</strong> ✅</li>
+        </ul>
+        <a class="more-link" href="https://www.therebello.com/sleep/" target="_blank" rel="noopener">Sleep 공식 페이지 (객실 타입)</a>
+      </div>
+
+      <!-- 기타 -->
+      <div class="facility-card olive">
+        <h3><span class="emoji">🚗</span> 부대 서비스</h3>
+        <p class="cat-note">기본 운영</p>
+        <ul>
+          <li><strong>24시간 프론트</strong> + 컨시어지 + 짐 보관</li>
+          <li><strong>발렛 파킹 무료</strong> / 셀프 파킹 €25/일 (24시간)</li>
+          <li><strong>공항 셔틀</strong> 24시간 운영 (유료, 가격 요청)</li>
+          <li>무료 WiFi (객실/공용 공간 전체)</li>
+          <li>가든 + 테라스, 키즈 클럽 (가족 친화)</li>
+          <li>드라이클리닝 / 세탁 서비스</li>
+        </ul>
+        <a class="more-link" href="https://www.therebello.com/contact/" target="_blank" rel="noopener">Contact 공식 페이지</a>
+      </div>
+
+    </div>
+
+    <div class="callout recommend" style="margin-top: 30px;">
+      <h3>🎁 직접 예약 시 혜택 (Book Direct)</h3>
+      <p>
+        공식 사이트(<a href="https://www.therebello.com/" target="_blank" rel="noopener">therebello.com</a>) 직접 예약 시:
+        <strong>Pot&amp;Pan 무료 조식</strong> + 객실 업그레이드(가용 시) + 다이닝/스파 크레딧 + 얼리/레이트 체크 + 최저가 보장.
+        Booking.com·Expedia 같은 OTA보다 직접 예약이 보통 유리함.
+      </p>
+    </div>
+    <div class="source-note">출처: therebello.com 공식 (2026.02 최신) / Booking.com / Expedia / Tripadvisor / Hyatt M&Mrs Smith / The Hotel Guru / i-escape — 2025~2026 자료.</div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 02 — 즐기는 법 (3일 일정)
+       ============================================================ -->
+  <section>
+    <h2><span class="num">02 /</span> 2박 3일 즐기는 법</h2>
+
+    <p>여행 일정의 <strong>피날레</strong>. 9일 누적 피로 + 출국 전 컨디션 회복 + 포트와인 본고장 + 강뷰 — 네 가지를 다 잡는 흐름으로 짰음.</p>
+
+    <!-- Day 1 -->
+    <div class="day-block">
+      <div class="day-head">DAY 1 · 5.29 (FRI) · 체크인</div>
+      <div class="day-title">강변 도착, 일몰 칵테일, 정찬</div>
+      <div class="activity">
+        <div class="time">15:00</div>
+        <div class="what">
+          <strong>체크인 → 짐 풀기</strong>
+          <span class="why">아파트형 suite라 풀키친·발코니·거실 구조 — 짐 정리 여유 있게.</span>
+        </div>
+      </div>
+      <div class="activity">
+        <div class="time">17:30</div>
+        <div class="what">
+          <strong>Bello Rooftop — 일몰 칵테일 + petiscos</strong>
+          <span class="why">추천 이유 — 포르투+가이아 양안과 Dom Luís 다리가 한 번에 보이는 호텔에서 가장 강력한 무기. 예약 필수 (공식 사이트에서도 "테이블 일찍 예약 추천" 명시).</span>
+        </div>
+      </div>
+      <div class="activity">
+        <div class="time">19:30</div>
+        <div class="what">
+          <strong>Pot &amp; Pan — 마지막 정찬</strong>
+          <span class="why">추천 이유 — 셰프 André Coutinho 시그니처. 정어리·문어·페이조아다 같은 정통 메뉴를 셰어 사이즈로. 노션 packing의 "원피스/드레스 셔츠"는 이날 밤용.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Day 2 -->
+    <div class="day-block">
+      <div class="day-head">DAY 2 · 5.30 (SAT) · 스파 데이</div>
+      <div class="day-title">와이너리 오전 + 커플 스파 오후 + 야경 와인</div>
+      <div class="activity">
+        <div class="time">10:00</div>
+        <div class="what">
+          <strong>포트와인 셀러 투어 (도보)</strong>
+          <span class="why">추천 이유 — 호텔이 가이아 쪽이라 셀러까지 도보 5~10분. <a href="https://www.sandeman.com/cellars/" target="_blank" rel="noopener">Sandeman</a>(8분), <a href="https://www.taylor.pt/" target="_blank" rel="noopener">Taylor's</a>, <a href="https://www.grahams-port.com/" target="_blank" rel="noopener">Graham's</a> 중 1~2곳.</span>
+        </div>
+      </div>
+      <div class="activity">
+        <div class="time">14:00</div>
+        <div class="what">
+          <strong>Bello Rooftop 점심</strong> — 아티잔 피자 / 타파스, 강 뷰
+          <span class="why">정찬은 어제 했으니 가볍게. 와인 한 잔 곁들이기.</span>
+        </div>
+      </div>
+      <div class="activity">
+        <div class="time">15:30</div>
+        <div class="what">
+          <strong>커플 스파 트리트먼트 + 풀 + 사우나</strong>
+          <span class="why">추천 이유 — 커플 트리트먼트 룸 있음(둘이 같이). 9일 누적 피로 + 다음날 비행 전 컨디션 회복. 50분 jet lag-targeting 마사지가 출국 전엔 특히 효과적. 사전 예약 필수.</span>
+        </div>
+      </div>
+      <div class="activity">
+        <div class="time">19:00</div>
+        <div class="what">
+          <strong>인룸 디너 (옵션) 또는 가이아 강변 산책</strong>
+          <span class="why">풀키친·발코니 활용 — 와이너리에서 산 와인 + 슈퍼에서 산 치즈/햄으로 강 보면서. 또는 Dom Luís 다리까지 천천히 걸어가서 야경.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Day 3 -->
+    <div class="day-block">
+      <div class="day-head">DAY 3 · 5.31 (SUN) · 체크아웃 → OPO 16:00</div>
+      <div class="day-title">느긋한 조식, 강변 산책, 공항</div>
+      <div class="activity">
+        <div class="time">08:00</div>
+        <div class="what">
+          <strong>Pot &amp; Pan 조식</strong> (Book Direct 혜택이면 무료)
+          <span class="why">평일/주말 늦게까지 운영 — 강 뷰 보면서 느긋하게.</span>
+        </div>
+      </div>
+      <div class="activity">
+        <div class="time">10:00</div>
+        <div class="what">
+          <strong>Cais de Gaia 강변 산책 + 마지막 사진</strong>
+          <span class="why">호텔에서 강변 도보 1분. Gaia 케이블카(도보 5분)도 옵션 — 위에서 강변 한 번에 조망.</span>
+        </div>
+      </div>
+      <div class="activity">
+        <div class="time">12:00</div>
+        <div class="what">
+          <strong>체크아웃 → 호텔에 짐 맡기기</strong>
+          <span class="why">짐 보관 서비스 무료. 근처 점심 가볍게.</span>
+        </div>
+      </div>
+      <div class="activity">
+        <div class="time">13:30</div>
+        <div class="what">
+          <strong>택시/공항 셔틀로 OPO 이동</strong>
+          <span class="why">공항 13분 드라이브. UX1140 16:00 출발이라 14:00 도착이면 충분(국제선 2시간 전).</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout info">
+      <h3>💡 미리 예약해둘 것</h3>
+      <p>
+        <strong>① Bello Rooftop 5/29 17:30 / 5/30 14:00</strong> (공식 사이트 명시: 일찍 예약 권장)
+        <strong>② Pot &amp; Pan 5/29 19:30</strong>
+        <strong>③ 커플 스파 5/30 15:30~17:00</strong> (90분짜리 마사지 + 풀/사우나) —
+        이메일 <a href="mailto:info@therebello.com">info@therebello.com</a> 또는 체크인 당일 컨시어지로 한 번에 처리 가능.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 03 — 위치 & 접근성
+       ============================================================ -->
+  <section>
+    <h2><span class="num">03 /</span> 위치 &amp; 도보 접근성</h2>
+
+    <table class="std">
+      <thead>
+        <tr><th style="width:45%">목적지</th><th style="width:20%">거리</th><th>비고</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Cais de Gaia 강변</strong></td><td>도보 1분</td><td>호텔 바로 앞</td></tr>
+        <tr><td><strong>Gaia 케이블카</strong></td><td>도보 5분</td><td>위에서 강변 한 번에 조망</td></tr>
+        <tr><td><strong>Sandeman Cellars</strong></td><td>도보 8분</td><td>포트와인 셀러 대표</td></tr>
+        <tr><td><strong>Dom Luís I 다리</strong></td><td>도보 ~15분</td><td>건너면 포르투 historic center</td></tr>
+        <tr><td><strong>Ribeira Square</strong></td><td>도보 ~20분</td><td>다리 건너 + 강변 따라</td></tr>
+        <tr><td><strong>OPO 공항</strong></td><td>드라이브 13분</td><td>택시 또는 호텔 셔틀(유료)</td></tr>
+        <tr><td><strong>Vila Nova de Gaia 역</strong></td><td>드라이브 6분</td><td>지하철 E선 → 공항 45분</td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout info" style="margin-top: 20px;">
+      <h3>🚇 OPO 공항 이동 옵션 비교</h3>
+      <p>
+        <strong>① 택시/Bolt</strong> — 13분, €15~25, 가장 편함. <strong>② 호텔 셔틀</strong> — 24시간, 가격 사전 요청. <strong>③ 지하철 E선</strong> — 호텔→Vila Nova de Gaia역(택시 6분) → 지하철 45분 → 공항. 짐 많으면 비추.
+        16:00 비행이라 ① 추천.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 04 — 링크 디렉토리 (직접 확인용)
+       ============================================================ -->
+  <section>
+    <h2><span class="num">04 /</span> 링크 모음 (직접 확인용)</h2>
+
+    <h3 style="margin-top: 8px; margin-bottom: 14px; color: var(--port);">🏨 공식 사이트</h3>
+    <div class="link-grid">
+      <a class="link-card official" href="https://www.therebello.com/" target="_blank" rel="noopener">
+        <div class="label">OFFICIAL / HOME</div>
+        <div class="name">The Rebello 메인</div>
+        <div class="desc">호텔 소개, 객실, 예약 진입점</div>
+      </a>
+      <a class="link-card official" href="https://www.therebello.com/sleep/" target="_blank" rel="noopener">
+        <div class="label">OFFICIAL / ROOMS</div>
+        <div class="name">Sleep — 객실 타입</div>
+        <div class="desc">스튜디오~3베드룸 펜트하우스 비교</div>
+      </a>
+      <a class="link-card official" href="https://www.therebello.com/wellness-and-spa/" target="_blank" rel="noopener">
+        <div class="label">OFFICIAL / SPA</div>
+        <div class="name">Wellness &amp; Spa</div>
+        <div class="desc">로만 바스 컨셉, 트리트먼트 메뉴</div>
+      </a>
+      <a class="link-card official" href="https://www.therebello.com/eat-and-drink/" target="_blank" rel="noopener">
+        <div class="label">OFFICIAL / DINING</div>
+        <div class="name">Eat &amp; Drink</div>
+        <div class="desc">Pot&amp;Pan + Bello Rooftop + Lobby Bar</div>
+      </a>
+      <a class="link-card official" href="https://www.therebello.com/eat-and-drink/bello-rooftop/" target="_blank" rel="noopener">
+        <div class="label">OFFICIAL / ROOFTOP</div>
+        <div class="name">Bello Rooftop</div>
+        <div class="desc">루프탑 바 전용 페이지 — 메뉴/뷰</div>
+      </a>
+      <a class="link-card official" href="https://www.therebello.com/offers/" target="_blank" rel="noopener">
+        <div class="label">OFFICIAL / OFFERS</div>
+        <div class="name">Offers (Sleep &amp; Spa 패키지 등)</div>
+        <div class="desc">"Sleep &amp; Spa 2박 + 스파" 같은 패키지</div>
+      </a>
+      <a class="link-card official" href="https://www.therebello.com/gallery/" target="_blank" rel="noopener">
+        <div class="label">OFFICIAL / GALLERY</div>
+        <div class="name">Gallery</div>
+        <div class="desc">호텔 사진 — 입장 전 분위기 확인</div>
+      </a>
+      <a class="link-card official" href="https://www.therebello.com/sustainability/" target="_blank" rel="noopener">
+        <div class="label">OFFICIAL / ETHICS</div>
+        <div class="name">Sustainability</div>
+        <div class="desc">친환경 운영 방침</div>
+      </a>
+    </div>
+
+    <h3 style="margin-top: 32px; margin-bottom: 14px; color: var(--azul);">📋 예약·리뷰 플랫폼</h3>
+    <div class="link-grid">
+      <a class="link-card booking" href="https://bookings.therebello.com/115272?languageid=1" target="_blank" rel="noopener">
+        <div class="label">BOOK DIRECT</div>
+        <div class="name">공식 예약 엔진</div>
+        <div class="desc">Book Direct 혜택 — 무료 조식 등</div>
+      </a>
+      <a class="link-card booking" href="https://www.booking.com/hotel/pt/the-rebello-amp-spa-small-luxury-hotels-of-the-world.html" target="_blank" rel="noopener">
+        <div class="label">OTA</div>
+        <div class="name">Booking.com</div>
+        <div class="desc">실시간 가격·취소 정책 비교용</div>
+      </a>
+      <a class="link-card booking" href="https://www.expedia.com/Porto-Hotels-The-Rebello-Hotel-Spa.h96482954.Hotel-Information" target="_blank" rel="noopener">
+        <div class="label">OTA</div>
+        <div class="name">Expedia (VIP Access)</div>
+        <div class="desc">Silver 등급 이상 시 15% 할인</div>
+      </a>
+      <a class="link-card booking" href="https://slh.com/hotels/the-rebello/" target="_blank" rel="noopener">
+        <div class="label">PROGRAM</div>
+        <div class="name">Small Luxury Hotels</div>
+        <div class="desc">SLH 멤버십 가입 시 혜택</div>
+      </a>
+      <a class="link-card review" href="https://www.tripadvisor.com/Hotel_Review-g580268-d25337770-Reviews-The_Rebello-Vila_Nova_de_Gaia_Porto_District_Northern_Portugal.html" target="_blank" rel="noopener">
+        <div class="label">REVIEW</div>
+        <div class="name">Tripadvisor 리뷰</div>
+        <div class="desc">실투숙객 리뷰·사진</div>
+      </a>
+      <a class="link-card review" href="https://www.hyatt.com/mr-and-mrs-smith/en-US/m1447-the-rebello-hotel-and-spa" target="_blank" rel="noopener">
+        <div class="label">REVIEW</div>
+        <div class="name">Mr &amp; Mrs Smith</div>
+        <div class="desc">큐레이션 부티크 호텔 리뷰</div>
+      </a>
+    </div>
+
+    <h3 style="margin-top: 32px; margin-bottom: 14px; color: var(--olive);">📞 연락처</h3>
+    <table class="std">
+      <tbody>
+        <tr><td style="width:25%"><strong>주소</strong></td><td>Cais de Gaia 380, 4400-245, Vila Nova de Gaia, Portugal</td></tr>
+        <tr><td><strong>전화</strong></td><td><a href="tel:+351220028940">+351 22 002 8940</a></td></tr>
+        <tr><td><strong>이메일</strong></td><td><a href="mailto:info@therebello.com">info@therebello.com</a></td></tr>
+        <tr><td><strong>Instagram</strong></td><td><a href="https://www.instagram.com/therebellohotel/" target="_blank" rel="noopener">@therebellohotel</a></td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <div class="footer">
+    <div class="ornament">✦</div>
+    <div>PORTUGAL · THE REBELLO · LAST STAY</div>
+    <div style="margin-top:8px; opacity:0.6;">진웅 &amp; 찌니 · compiled 2026.05.21</div>
+  </div>
+
+</div>
+
+</body>
+</html>
