@@ -70,6 +70,8 @@
   .pack-cat ul li.done::before { content: '✓'; color: var(--done); font-weight: bold; font-size: 13px; top: 7px; }
   .pack-cat ul li.done .item-name { text-decoration: line-through; color: var(--ink-faint); opacity: 0.7; }
   .pack-cat ul li.done .item-note { opacity: 0.6; }
+  .pack-cat ul li.sub { padding-left: 40px; font-size: 13px; }
+  .pack-cat ul li.sub::before { content: '└'; left: 22px; color: var(--ink-faint); }
   .pack-cat ul li .item-name { flex: 1; }
   .pack-cat ul li .item-note { display: block; font-size: 11.5px; color: var(--ink-faint); margin-top: 2px; font-style: italic; }
   .priority { display: inline-block; font-family: 'JetBrains Mono', monospace; font-size: 9px; padding: 2px 6px; margin-left: 6px; letter-spacing: 0.5px; flex-shrink: 0; }
@@ -77,6 +79,7 @@
   .priority.rec { background: var(--gold); color: white; }
   .priority.opt { background: var(--olive); color: white; }
   .priority.personal { background: var(--port); color: white; }
+  .priority.partner { background: #c47fa2; color: white; }
 
   .callout { padding: 24px 30px; margin: 28px 0; border-radius: 2px; }
   .callout.warning { background: var(--warn-bg); border-left: 4px solid var(--critical); }
@@ -136,13 +139,13 @@
   <header class="masthead">
     <div class="eyebrow">Detail Report · Packing List</div>
     <h1>준비물 <em>리포트.</em></h1>
-    <p class="subtitle">5월 말 리스본/포르투 · 실시간 날씨 반영 · 노션 동기화 · 2026.05.21 갱신</p>
+    <p class="subtitle">5월 말 리스본/포르투 · 실시간 날씨 반영 · 노션 sync · 2026.05.21 갱신</p>
   </header>
 
   <div class="sync-banner">
     <span class="sync-icon">🔄</span>
     <div>
-      이 페이지는 <a href="https://www.notion.so/Packing-Checklist-366014e8935181aca31ef9d3d7d91b62" target="_blank" rel="noopener">노션 Packing Checklist</a>와 동기화. 체크된 항목(✓)은 회색 처리.
+      <a href="https://www.notion.so/Packing-Checklist-366014e8935181aca31ef9d3d7d91b62" target="_blank" rel="noopener">노션 Packing Checklist</a>와 동기화. 체크된 항목(✓)은 회색 처리.
       날씨는 <strong>2026.05.21 KST 기준 실시간 forecast</strong> 반영.
     </div>
   </div>
@@ -168,7 +171,7 @@
     <div class="weather-strip">
       <div class="weather-cell hot"><div class="city">5/22 LIS</div><div class="temp">30 / 17℃</div><div class="desc">🔥 도착일 폭염</div></div>
       <div class="weather-cell"><div class="city">5/23 LIS</div><div class="temp">28 / 16℃</div><div class="desc">알파마</div></div>
-      <div class="weather-cell"><div class="city">5/24 LIS</div><div class="temp">26 / 16℃</div><div class="desc">벨렘</div></div>
+      <div class="weather-cell"><div class="city">5/24 LIS</div><div class="temp">26 / 16℃</div><div class="desc">벨렘 + 상조르주</div></div>
       <div class="weather-cell"><div class="city">5/25 SINTRA</div><div class="temp">22 / 14℃</div><div class="desc">일교차↑</div></div>
       <div class="weather-cell hot"><div class="city">5/26 LIS→OPO</div><div class="temp">33→23℃</div><div class="desc">🔥 이동일</div></div>
       <div class="weather-cell"><div class="city">5/27-31 OPO</div><div class="temp">21-24 / 15-17℃</div><div class="desc">서늘함</div></div>
@@ -176,10 +179,10 @@
 
     <div class="callout info">
       <h3>옷차림 결론 (수정)</h3>
-      <p><strong>레이어드 유지, 단 반팔 비중 확대</strong>. 리스본 30℃ 이틀(5/22, 5/26)이 있어서 반팔 5~6장이 편함 (원래 3~4장 계획이면 1~2장 추가 고려). <strong>모자/선글라스는 사실상 필수</strong> — 자외선 강도 높음. 선크림 SPF 50+는 아침/점심/오후 3회 덧칠. 수영복은 The Rebello 풀/스파 뿐 아니라 <strong>더위 식히기용</strong>으로도 권장. 신트라/호카곶(5/25)은 22℃로 서늘하고 해풍 있어 카디건 필수 (일교차 ~10℃).</p>
-      <p style="margin-top: 8px; color: var(--ink-faint); font-size: 13px;"><strong>비</strong>: 강수확률 5~20%로 거의 안 올 가능성 큼 — 방수 윈드브레이커 우선순위는 낮춰도 됨. 단 포르투는 변덕 있어 접이식 우산 1개 정도는 챙기는 게 안전.</p>
+      <p><strong>레이어드 유지, 단 반팔 비중 확대</strong>. 리스본 30℃ 이틀(5/22, 5/26)이 있어서 반팔 5~6장이 편함. <strong>모자/선글라스는 사실상 필수</strong> — 자외선 강도 높음. 선크림 SPF 50+은 아침/점심/오후 3회 덧칠. 수영복은 The Rebello 풀/스파 뿐 아니라 <strong>더위 식히기용</strong>으로도 권장. 신트라/호카곶(5/25)은 22℃로 서늘하고 해풍 있어 카디건 필수.</p>
+      <p style="margin-top: 8px; color: var(--ink-faint); font-size: 13px;"><strong>비</strong>: 강수확률 5~20%로 거의 안 올 가능성 큼 — 방수 윈드브레이커 우선순위 낮춤. 단 포르투는 변덕 있어 접이식 우산 1개 정도는 챙기는 게 안전.</p>
     </div>
-    <div class="source-note">출처: weather_fetch 실시간 forecast + AccuWeather Lisbon 11일치 (2026.05.21 KST 12:00 조회). 출발 당일 재확인 권장 — forecast는 매일 조정됨.</div>
+    <div class="source-note">출처: weather_fetch 실시간 forecast + AccuWeather Lisbon 11일치 (2026.05.21 KST 조회). 출발 당일 재확인 권장.</div>
   </section>
 
   <section>
@@ -192,9 +195,9 @@
         <ul>
           <li class="done"><span class="item-name">여권 (유효기간 6개월 이상)</span><span class="priority must">필수</span></li>
           <li class="done"><span class="item-name">기차 티켓 (AP125)<span class="item-note">CP.pt 모바일 + PDF 백업</span></span><span class="priority must">필수</span></li>
-          <li class="done"><span class="item-name">여행자보험 증서<span class="item-note">출국 1주일 전 가입</span></span><span class="priority must">필수</span></li>
-          <li class="done"><span class="item-name">현금 €200~300<span class="item-note">소액권 분산, 카드 못 받는 곳 대비</span></span><span class="priority rec">권장</span></li>
-          <li class="done"><span class="item-name">해외에서 쓸 카드 준비</span><span class="priority rec">권장</span></li>
+          <li class="done"><span class="item-name">여행자보험 증서</span><span class="priority must">필수</span></li>
+          <li class="done"><span class="item-name">현금 €200~300<span class="item-note">소액권 분산</span></span><span class="priority rec">권장</span></li>
+          <li class="done"><span class="item-name">해외에서 쓸 카드</span><span class="priority rec">권장</span></li>
         </ul>
       </div>
 
@@ -202,11 +205,12 @@
         <h3><span class="emoji">🔌</span> 전자기기 / 충전</h3>
         <p class="cat-note">아이폰·아이패드 사용 — 멀티포트 충전기 핵심</p>
         <ul>
-          <li><span class="item-name">아이폰 + USB-C 케이블<span class="item-note">eSIM/로밍 사전 셋업</span></span><span class="priority must">필수</span></li>
-          <li><span class="item-name">아이패드 + 충전기<span class="item-note">기내/호텔 영화 감상용</span></span><span class="priority opt">옵션</span></li>
-          <li><span class="item-name">유럽 C타입 멀티 어댑터 ×2<span class="item-note">양쪽 동시 충전</span></span><span class="priority must">필수</span></li>
-          <li><span class="item-name">USB-C 멀티 충전기 (4~5포트, 100W+)<span class="item-note">맥북+폰+아이패드 동시</span></span><span class="priority rec">권장</span></li>
-          <li><span class="item-name">미러리스 / 필름카메라<span class="item-note">SD 카드, 배터리, 충전기 세트</span></span><span class="priority opt">옵션</span></li>
+          <li><span class="item-name">폰 케이블</span><span class="priority must">필수</span></li>
+          <li class="sub"><span class="item-name">eSIM/로밍 사전 셋업</span><span class="priority must">필수</span></li>
+          <li><span class="item-name">아이패드 충전기<span class="item-note">기내/호텔 영화 감상용</span></span><span class="priority opt">옵션</span></li>
+          <li class="done"><span class="item-name">유럽 C타입 멀티 어댑터 ×2<span class="item-note">양쪽 동시 충전</span></span><span class="priority must">필수</span></li>
+          <li class="done"><span class="item-name">USB-C 멀티 충전기 (4~5포트, 100W+)</span><span class="priority rec">권장</span></li>
+          <li class="done"><span class="item-name">미러리스 / 필름카메라 배터리 + 충전기</span><span class="priority opt">옵션</span></li>
           <li><span class="item-name">에어팟 + 케이스</span><span class="priority rec">권장</span></li>
         </ul>
       </div>
@@ -221,9 +225,9 @@
           <li class="done"><span class="item-name">반팔 티 ×3-4<span class="item-note">리스본 30℃ 이틀 — 5-6장도 고려</span></span><span class="priority must">필수</span></li>
           <li class="done"><span class="item-name">긴 바지 ×2 + 짧은 바지 ×1<span class="item-note">더우면 짧은 바지 비중 ↑</span></span><span class="priority must">필수</span></li>
           <li class="done"><span class="item-name">속옷 / 양말 (일수+여분 1)</span><span class="priority must">필수</span></li>
-          <li class="done"><span class="item-name">편한 운동화<span class="item-note">알파마/리베이라 언덕 대비, 푹신한 솔</span></span><span class="priority must">필수</span></li>
-          <li><span class="item-name">샌들 또는 슬리퍼<span class="item-note">더위+호텔 안</span></span><span class="priority rec">권장</span></li>
-          <li class="done"><span class="item-name">모자 / 선글라스<span class="item-note">30℃ + UV 강함 — 사실상 필수 수준</span></span><span class="priority must">필수</span></li>
+          <li class="done"><span class="item-name">편한 운동화<span class="item-note">알파마/리베이라 언덕 대비</span></span><span class="priority must">필수</span></li>
+          <li class="done"><span class="item-name">샌들 또는 슬리퍼<span class="item-note">더위+호텔 안</span></span><span class="priority rec">권장</span></li>
+          <li class="done"><span class="item-name">모자 / 선글라스<span class="item-note">30℃ + UV 강함 — 사실상 필수</span></span><span class="priority must">필수</span></li>
           <li class="done"><span class="item-name">수영복<span class="item-note">The Rebello 풀 + 더위 식히기용</span></span><span class="priority rec">권장</span></li>
         </ul>
       </div>
@@ -233,11 +237,10 @@
         <p class="cat-note">현지 약국 처방 어려운 한국식 상비약은 미리 준비</p>
         <ul>
           <li class="done"><span class="item-name">감기약 / 진통제 / 해열제</span><span class="priority must">필수</span></li>
-          <li class="done"><span class="item-name">소화제 / 지사제<span class="item-note">유럽 음식 적응 안 될 때</span></span><span class="priority must">필수</span></li>
+          <li class="done"><span class="item-name">소화제 / 지사제</span><span class="priority must">필수</span></li>
           <li class="done"><span class="item-name">밴드 + 소독약</span><span class="priority must">필수</span></li>
-          <li class="done"><span class="item-name">개인 처방약 + 영문 처방전<span class="item-note">EU 입국 시 의약품 확인 가능</span></span><span class="priority must">필수</span></li>
-          <li class="done"><span class="item-name">선크림 SPF 50+<span class="item-note">30℃ + UV 강함 — 아침/점심/오후 3회 덧칠</span></span><span class="priority must">필수</span></li>
-          <li><span class="item-name">립밤<span class="item-note">건조함</span></span><span class="priority rec">권장</span></li>
+          <li class="done"><span class="item-name">개인 처방약 + 영문 처방전</span><span class="priority must">필수</span></li>
+          <li class="done"><span class="item-name">선크림 SPF 50+<span class="item-note">아침/점심/오후 3회 덧칠</span></span><span class="priority must">필수</span></li>
           <li class="done"><span class="item-name">영양제 (멀티비타민·유산균)</span><span class="priority rec">권장</span></li>
           <li class="done"><span class="item-name">러브젤 / 콘돔</span><span class="priority opt">옵션</span></li>
           <li class="done"><span class="item-name">탈모약</span><span class="priority personal">개인</span></li>
@@ -253,33 +256,30 @@
         <p class="cat-note">Filigrana 아파트형 — 어메니티 미제공 가능성 / 수건 첫날 1세트만</p>
         <ul>
           <li class="done"><span class="item-name">치약 / 칫솔</span><span class="priority must">필수</span></li>
-          <li><span class="item-name">샴푸 / 린스<span class="item-note">Filigrana 사전 확인. 미제공이면 100ml 미만 용기로</span></span><span class="priority rec">권장</span></li>
-          <li><span class="item-name">바디로션</span><span class="priority rec">권장</span></li>
+          <li><span class="item-name">샴푸 / 린스<span class="item-note">Filigrana 사전 확인. 미제공이면 100ml 미만 용기로</span></span><span class="priority partner">찌니가</span></li>
+          <li><span class="item-name">바디로션</span><span class="priority partner">찌니가</span></li>
           <li><span class="item-name">면도용품 / 메이크업 도구</span><span class="priority must">필수</span></li>
-          <li><span class="item-name">스킨케어 (토너/로션/크림)</span><span class="priority must">필수</span></li>
-          <li><span class="item-name">여성용품</span><span class="priority must">필수</span></li>
-          <li><span class="item-name">물티슈 + 휴대 손소독제</span><span class="priority rec">권장</span></li>
+          <li><span class="item-name">스킨케어 (토너/로션/크림)</span><span class="priority partner">찌니가</span></li>
+          <li class="done"><span class="item-name">물티슈 + 휴대 손소독제</span><span class="priority rec">권장</span></li>
           <li><span class="item-name">소형 빨래용 세제<span class="item-note">긴 여행 — 중간 세탁 대비</span></span><span class="priority opt">옵션</span></li>
-          <li><span class="item-name">수건 ×8장<span class="item-note">Filigrana 4박 중 첫날만 제공, 교체 유료. 2인×4박치</span></span><span class="priority must">필수</span></li>
-          <li><span class="item-name">여행용 타월 (마이크로파이버)<span class="item-note">빠른건조, 수건 보조용</span></span><span class="priority rec">권장</span></li>
-          <li><span class="item-name">헤어제품 (왁스/스프레이/스타일링)</span><span class="priority rec">권장</span></li>
-          <li><span class="item-name">미스트<span class="item-note">기내·건조한 호텔 대응</span></span><span class="priority rec">권장</span></li>
+          <li class="done"><span class="item-name">수건 ×6장<span class="item-note">Filigrana 4박 중 첫날만 제공, 교체 유료</span></span><span class="priority must">필수</span></li>
+          <li class="done"><span class="item-name">여행용 타월 (마이크로파이버)<span class="item-note">빠른건조, 수건 보조용</span></span><span class="priority rec">권장</span></li>
+          <li><span class="item-name">드라이기<span class="item-note">호텔 확인 필요. 220V 호환만</span></span><span class="priority opt">옵션</span></li>
+          <li class="done"><span class="item-name">미스트<span class="item-note">기내·건조한 호텔 대응</span></span><span class="priority rec">권장</span></li>
         </ul>
       </div>
 
       <div class="pack-cat carry">
         <h3><span class="emoji">🎒</span> 휴대 / 보안</h3>
-        <p class="cat-note">리스본/포르투 트램·메트로 소매치기 주의 지역</p>
+        <p class="cat-note">리스본/포르투 트램·메트로 소매치기 주의 지역 + 30℃ 폭염 대비</p>
         <ul>
           <li><span class="item-name">크로스백 (지퍼 잠금)<span class="item-note">앞으로 메기 — 소매치기 대비</span></span><span class="priority must">필수</span></li>
-          <li><span class="item-name">RFID 차단 카드지갑</span><span class="priority rec">권장</span></li>
-          <li><span class="item-name">휴대용 자물쇠<span class="item-note">호텔 클로젯 잠금에 유용</span></span><span class="priority opt">옵션</span></li>
           <li><span class="item-name">접이식 보조 가방<span class="item-note">쇼핑 / 마지막 날 짐 분산</span></span><span class="priority rec">권장</span></li>
           <li><span class="item-name">지퍼백 / 파우치<span class="item-note">속옷, 양말, 액세서리 분류</span></span><span class="priority rec">권장</span></li>
-          <li><span class="item-name">비닐봉지 (세탁/젖은 옷용)</span><span class="priority rec">권장</span></li>
-          <li class="done"><span class="item-name">우산 (작은 접이식)<span class="item-note">포르투 간헐 비 대응</span></span><span class="priority rec">권장</span></li>
+          <li class="done"><span class="item-name">비닐봉지 (세탁/젖은 옷용)</span><span class="priority rec">권장</span></li>
+          <li class="done"><span class="item-name">우산 (작은 접이식)<span class="item-note">포르투 변덕 대비</span></span><span class="priority rec">권장</span></li>
           <li class="done"><span class="item-name">손톱깎이 + 작은 가위<span class="item-note">위탁수하물에 (가위는 기내 ❌)</span></span><span class="priority rec">권장</span></li>
-          <li class="done"><span class="item-name">와인오프너<span class="item-note">인룸 와인용. 위탁수하물에 (기내 ❌)</span></span><span class="priority rec">권장</span></li>
+          <li><span class="item-name">손풍기<span class="item-note">노션 추가할 거에서 — 리스본 30℃ 폭염 대비. USB-C 충전식, 보조배터리로 충전 가능</span></span><span class="priority rec">권장</span></li>
         </ul>
       </div>
 
@@ -287,8 +287,8 @@
         <h3><span class="emoji">🍱</span> 한국 식품</h3>
         <p class="cat-note">9박 장기 여행 — 향수병 대비. Filigrana 풀키친 활용 가능</p>
         <ul>
-          <li><span class="item-name">볶음김치<span class="item-note">진공포장, 위탁수하물에</span></span><span class="priority opt">옵션</span></li>
-          <li><span class="item-name">컵라면 작은 것<span class="item-note">1인 2~3봉, Filigrana에서 한 끼</span></span><span class="priority opt">옵션</span></li>
+          <li class="done"><span class="item-name">볶음김치<span class="item-note">진공포장, 위탁수하물에</span></span><span class="priority opt">옵션</span></li>
+          <li class="done"><span class="item-name">컵라면 작은 것<span class="item-note">1인 2~3봉, Filigrana에서 한 끼</span></span><span class="priority opt">옵션</span></li>
         </ul>
       </div>
 
@@ -299,7 +299,7 @@
     <h2><span class="num">03 /</span> 보조배터리 · 한국 출발 규정 변경 적용</h2>
     <div class="battery-feature">
       <h3>CUKTECH 20000mAh 55W · 1인 1개 권장</h3>
-      <p>한국 출발 항공편은 2026년부터 보조배터리 규정이 강화됨. 100Wh 한도(약 27000mAh) 안전권으로 20000mAh가 가장 무난하고, 55W 출력이면 <strong>아이폰/아이패드 풀스피드 + 맥북 보조 충전</strong>까지 커버.</p>
+      <p>한국 출발 항공편은 2026년부터 보조배터리 규정이 강화됨. 100Wh 한도(약 27000mAh) 안전권으로 20000mAh가 가장 무난하고, 55W 출력이면 <strong>아이폰/아이패드 풀스피드 + 맥북 보조 충전</strong>까지 커버. 손풍기 충전에도 활용.</p>
       <div class="specs-grid">
         <div><strong>용량</strong>20,000 mAh</div>
         <div><strong>Wh 환산</strong>약 74 Wh</div>
@@ -315,7 +315,7 @@
       <thead><tr><th style="width:25%">규정</th><th style="width:30%">시행일</th><th>내용</th></tr></thead>
       <tbody>
         <tr><td><strong>기내 사용 금지</strong></td><td>2026.01.26 시행</td><td>기내에서 보조배터리로 기기 충전 금지. 좌석 USB / 콘센트만 사용 가능.</td></tr>
-        <tr><td><strong>인당 2개 제한</strong></td><td>2026.04.20 시행</td><td>한국 출발편 한정. 100Wh 미만 보조배터리 1인당 최대 2개. 100Wh 이상은 항공사 사전 승인.</td></tr>
+        <tr><td><strong>인당 2개 제한</strong></td><td>2026.04.20 시행</td><td>한국 출발편 한정. 100Wh 미만 보조배터리 1인당 최대 2개.</td></tr>
         <tr><td><strong>단자 절연 의무</strong></td><td>현행</td><td>+/- 단자에 절연테이프 부착 또는 개별 비닐백 보관 필수.</td></tr>
         <tr><td><strong>위탁 금지</strong></td><td>현행</td><td>위탁수하물 절대 불가. 기내 휴대만 가능.</td></tr>
       </tbody>
@@ -324,10 +324,9 @@
     <div class="callout warning" style="margin-top: 28px;">
       <h3>⚠ 출국 전 체크리스트</h3>
       <ul>
-        <li>보조배터리 단자에 <strong>절연테이프 부착</strong> (마스킹/전기테이프)</li>
+        <li>보조배터리 단자에 <strong>절연테이프 부착</strong></li>
         <li>위탁수하물에 절대 넣지 말 것 (기내 휴대 필수)</li>
         <li>스마트태그(에어태그) 같은 리튬 코인배터리도 동일 규정 적용</li>
-        <li>리스본/포르투 호텔에서 매일 충전 가능하므로 1인 1개로 충분</li>
       </ul>
     </div>
     <div class="source-note">출처: 국토교통부 / 대한항공 위험물 안내 / 인천공항 공지 (2026.01~04 시행분)</div>
@@ -340,33 +339,31 @@
       <p>EU는 2026년 4월 10일부터 EES를 <strong>완전 시행</strong>. 비EU 국적자(=한국 여권) 첫 EU 입국 시 지문 + 얼굴 사진 등록 절차 추가됨.</p>
       <ul>
         <li>첫 입국(LIS)에서 등록 → 이후 EU 내 이동(MAD 경유)은 자동 처리</li>
-        <li>등록은 <strong>3년간 유효</strong>, 갱신 시 재등록</li>
-        <li>입국 심사 시간 평소보다 길어질 가능성 — 환승 시간 여유 있는 일정인지 확인</li>
-        <li>5월 22일 LIS 도착편(KE921)은 단일 목적지라 큰 문제 없음</li>
+        <li>등록은 <strong>3년간 유효</strong></li>
+        <li>입국 심사 시간 평소보다 길어질 가능성</li>
       </ul>
     </div>
     <div class="callout warning">
       <h3>⚠ 귀국편 환승 시간 주의 (5/31 → 6/1)</h3>
       <p><strong>UX1140 OPO 16:00 → MAD 18:00 → KE914 MAD 20:00 → ICN 6/1 16:00</strong></p>
-      <p>마드리드 환승 2시간. EES 등록은 LIS 첫 입국 시 완료된 상태라 MAD 경유엔 영향 없지만, MAD T4S(UX) → T1(KE) 환승 거리 멂. Schengen → Non-Schengen 출국 심사 재실시.</p>
+      <p>마드리드 환승 2시간. MAD T4S(UX) → T1(KE) 환승 거리 멂. Schengen → Non-Schengen 출국 심사 재실시.</p>
     </div>
-    <div class="source-note">출처: 유럽연합 공식 EES 안내. 출발 1주 전 EU 공식 페이지 재확인 권장.</div>
   </section>
 
   <section>
     <h2><span class="num">05 /</span> 출발 전 시간순 체크리스트</h2>
     <div class="timeline">
-      <div class="timeline-item done"><div class="timeline-when"><span class="check">✓</span> D-30 (4/22)</div><div class="timeline-what"><strong>여권 유효기간 확인</strong> · 6개월 이상</div></div>
-      <div class="timeline-item"><div class="timeline-when">D-21 (5/1)</div><div class="timeline-what"><strong>페나 궁전 사전예약</strong> · 30분 타임슬롯 / <strong>렐루 서점 예약</strong> · 5/27 / <strong>가이아 와이너리 예약</strong> · 5/28</div></div>
-      <div class="timeline-item"><div class="timeline-when">D-14 (5/8)</div><div class="timeline-what"><strong>리스보아 카드 온라인 구매</strong> (€124, 2인) · <strong>Filigrana 어메니티 확인 메일</strong> (수건 교체 비용 같이 문의)</div></div>
-      <div class="timeline-item"><div class="timeline-when">D-10 (5/12)</div><div class="timeline-what"><strong>보조배터리 구매</strong> · CUKTECH 20000mAh × 2 + 절연테이프</div></div>
+      <div class="timeline-item done"><div class="timeline-when"><span class="check">✓</span> D-30 (4/22)</div><div class="timeline-what"><strong>여권 유효기간 확인</strong></div></div>
+      <div class="timeline-item"><div class="timeline-when">D-21 (5/1)</div><div class="timeline-what"><strong>페나 궁전 사전예약</strong> / <strong>렐루 서점 예약</strong> 5/27 / <strong>가이아 와이너리 예약</strong> 5/28</div></div>
+      <div class="timeline-item"><div class="timeline-when">D-14 (5/8)</div><div class="timeline-what"><strong>리스보아 카드 24시간 ×2 구매</strong> · 5/24 활성화 / <strong>Filigrana 어메니티 확인 메일</strong></div></div>
+      <div class="timeline-item"><div class="timeline-when">D-10 (5/12)</div><div class="timeline-what"><strong>보조배터리 구매</strong> · CUKTECH 20000mAh × 2 + 절연테이프 / <strong>손풍기 구매</strong></div></div>
       <div class="timeline-item done"><div class="timeline-when"><span class="check">✓</span> D-7 (5/15)</div><div class="timeline-what"><strong>여행자보험 가입 + eSIM/로밍 셋업</strong></div></div>
-      <div class="timeline-item"><div class="timeline-when">D-7 (5/15)</div><div class="timeline-what"><strong>The Rebello 스파 예약</strong> (<a href="mailto:spa@therebello.com">spa@therebello.com</a>) — Water Lounge 15:00, 트리트먼트 16:30, Bello Rooftop 18:00, Pot&amp;Pan 19:30 일괄로</div></div>
-      <div class="timeline-item"><div class="timeline-when">D-3 (5/19)</div><div class="timeline-what"><strong>모든 바우처/티켓 PDF 저장</strong> · 폰 + 클라우드 + 출력 1부</div></div>
+      <div class="timeline-item"><div class="timeline-when">D-7 (5/15)</div><div class="timeline-what"><strong>The Rebello 스파 예약</strong> — Water Lounge 15:00, 트리트먼트 16:30, Bello Rooftop 18:00, Pot&amp;Pan 19:30 일괄로</div></div>
+      <div class="timeline-item"><div class="timeline-when">D-3 (5/19)</div><div class="timeline-what"><strong>모든 바우처/티켓 PDF 저장</strong></div></div>
       <div class="timeline-item done"><div class="timeline-when"><span class="check">✓</span> D-3 (5/19)</div><div class="timeline-what"><strong>현금 환전</strong></div></div>
-      <div class="timeline-item"><div class="timeline-when">D-1 (5/21)</div><div class="timeline-what"><strong>최종 짐 정리</strong> · 보조배터리 절연테이프 확인 · 위탁/휴대 분리 · <strong>실시간 날씨 forecast 재확인</strong></div></div>
+      <div class="timeline-item"><div class="timeline-when">D-1 (5/21)</div><div class="timeline-what"><strong>최종 짐 정리</strong> · 보조배터리 절연테이프 · 위탁/휴대 분리 · <strong>실시간 날씨 forecast 재확인</strong></div></div>
       <div class="timeline-item done"><div class="timeline-when"><span class="check">✓</span> D-1 (5/21)</div><div class="timeline-what"><strong>CP 환불 €66.50 확인</strong></div></div>
-      <div class="timeline-item"><div class="timeline-when">D-Day (5/22)</div><div class="timeline-what"><strong>출발</strong> · ICN 13:00 KE921 / 공항 도착 후 Ask Me Lisboa 데스크에서 리스보아 카드 픽업 (20:15~22:00 사이) · <strong>리스본 30℃ 폭염 도착 대비 가벼운 옷 휴대</strong></div></div>
+      <div class="timeline-item"><div class="timeline-when">D-Day (5/22)</div><div class="timeline-what"><strong>ICN 13:00 KE921</strong> · 도착 후 Ask Me Lisboa에서 리스보아 카드 픽업 (활성화는 5/24)</div></div>
     </div>
   </section>
 
