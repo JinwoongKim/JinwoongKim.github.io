@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>용인 모임 2026 · 코스 후보</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=JetBrains+Mono:wght@400;500&family=Noto+Serif+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#faf8f5; --bg-card:#ffffff;
+    --ink:#1a1a1a; --ink-soft:#4a4a4a; --ink-muted:#8a8a8a;
+    --line:#e5e1da;
+    --accent:#7a2e2e; --accent-soft:#c4a5a5;
+    --azul:#2d5a8a; --warn:#b8541c; --done:#4a7c4a; --hot:#a52a2a;
+    --serif:'Cormorant Garamond','Noto Serif KR',serif;
+    --serif-kr:'Noto Serif KR',serif;
+    --mono:'JetBrains Mono',monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:var(--bg);color:var(--ink);font-family:var(--serif-kr);font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased;}
+  a{color:var(--accent);text-decoration:none;border-bottom:1px solid transparent;transition:border-color .2s;}
+  a:hover{border-bottom-color:var(--accent);}
+  .page{max-width:860px;margin:0 auto;padding:clamp(36px,5vw,64px) clamp(20px,4vw,48px) 80px;}
+
+  .top-nav{display:flex;justify-content:space-between;align-items:center;padding-bottom:26px;border-bottom:1px solid var(--line);margin-bottom:52px;font-family:var(--mono);font-size:11px;letter-spacing:1.5px;color:var(--ink-muted);}
+  .top-nav a{color:var(--accent);}
+
+  /* masthead */
+  .masthead{margin-bottom:48px;}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:4px;color:var(--accent);text-transform:uppercase;margin-bottom:18px;}
+  .kicker{font-family:var(--serif);font-style:italic;font-size:20px;color:var(--accent-soft);margin-bottom:6px;}
+  h1{font-family:var(--serif-kr);font-size:clamp(38px,6.5vw,60px);font-weight:700;line-height:1.06;letter-spacing:-1px;color:var(--ink);}
+  h1 em{font-style:normal;color:var(--accent);}
+  .lede{font-family:var(--serif);font-size:20px;font-style:italic;color:var(--ink-soft);max-width:620px;line-height:1.6;margin-top:22px;}
+  .lede b{font-style:normal;color:var(--ink);font-weight:500;}
+  .cond{display:flex;flex-wrap:wrap;gap:7px;margin-top:28px;padding-top:24px;border-top:1px dashed var(--line);}
+  .cond span{font-family:var(--mono);font-size:10px;letter-spacing:1px;text-transform:uppercase;padding:4px 10px;background:#f4efe7;color:var(--ink-soft);border-radius:2px;}
+
+  .divider{display:flex;align-items:center;gap:16px;margin:8px 0 40px;}
+  .divider .lbl{font-family:var(--mono);font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--ink-muted);white-space:nowrap;}
+  .divider .ln{height:1px;flex:1;background:var(--line);}
+
+  /* course */
+  .course{--c:var(--accent);--cs:rgba(122,46,46,.13);margin-bottom:52px;}
+  .course.b{--c:var(--warn);--cs:rgba(184,84,28,.13);}
+  .course.c{--c:var(--azul);--cs:rgba(45,90,138,.13);}
+  .course .ceye{font-family:var(--mono);font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--c);margin-bottom:9px;}
+  .course h2{font-family:var(--serif-kr);font-size:30px;font-weight:700;letter-spacing:-.4px;line-height:1.1;color:var(--ink);}
+  .course .concept{font-family:var(--serif);font-style:italic;font-size:17px;color:var(--ink-soft);margin-top:8px;}
+
+  .route{margin-top:22px;}
+  .stop{position:relative;display:grid;grid-template-columns:50px 1fr;gap:0 22px;padding-bottom:22px;}
+  .stop:last-child{padding-bottom:0;}
+  .stop::before{content:'';position:absolute;left:60px;top:7px;bottom:0;width:1px;background:var(--line);}
+  .stop:last-child::before{display:none;}
+  .stop .dot{position:absolute;left:56px;top:5px;width:9px;height:9px;border-radius:50%;background:var(--c);box-shadow:0 0 0 3px var(--cs);z-index:2;}
+  .stop .t{font-family:var(--mono);font-size:11px;font-weight:600;color:var(--c);text-align:right;padding-top:2px;letter-spacing:.02em;}
+  .stop .b{padding-left:18px;}
+  .stop .p{font-family:var(--serif-kr);font-weight:700;font-size:16px;color:var(--ink);}
+  .stop .d{font-size:13px;color:var(--ink-soft);margin-top:3px;line-height:1.55;}
+  .stop.fire .dot{background:radial-gradient(circle at 50% 38%,#e8a05a,#a52a2a 70%);box-shadow:0 0 0 3px rgba(165,42,42,.18),0 0 11px 1px rgba(165,42,42,.28);animation:glow 2.8s ease-in-out infinite;}
+  .stop.fire .t,.stop.fire .p{color:var(--hot);}
+  @keyframes glow{0%,100%{box-shadow:0 0 0 3px rgba(165,42,42,.18),0 0 9px 1px rgba(165,42,42,.22);}50%{box-shadow:0 0 0 4px rgba(165,42,42,.2),0 0 16px 3px rgba(165,42,42,.3);}}
+
+  .cmeta{margin-top:22px;padding-top:18px;border-top:1px dashed var(--line);display:grid;gap:9px;}
+  .cmeta .row{display:grid;grid-template-columns:56px 1fr;gap:14px;align-items:baseline;font-size:13px;}
+  .cmeta .k{font-family:var(--mono);font-size:9px;letter-spacing:1.2px;text-transform:uppercase;color:#fff;background:var(--c);text-align:center;padding:3px 0;border-radius:2px;}
+  .cmeta .k.warn{background:var(--warn);}
+  .cmeta .v{color:var(--ink-soft);}
+  .cmeta .v b{color:var(--ink);font-weight:700;}
+
+  /* decision */
+  .decide{background:var(--bg-card);border:1px solid var(--line);padding:24px 28px;margin-bottom:48px;}
+  .decide h3{font-family:var(--serif);font-size:26px;font-weight:600;margin-bottom:10px;}
+  .drow{display:flex;align-items:center;gap:18px;padding:11px 0;border-top:1px solid var(--line);}
+  .drow:first-of-type{border-top:none;}
+  .drow .if{flex:1;font-size:14px;color:var(--ink-soft);}
+  .drow .go{font-family:var(--serif);font-style:italic;font-size:28px;width:38px;text-align:center;flex:none;}
+  .drow .go.a{color:var(--accent);} .drow .go.b{color:var(--warn);} .drow .go.c{color:var(--azul);}
+
+  /* notes */
+  .notes{display:grid;gap:11px;margin-bottom:8px;}
+  .note{display:grid;grid-template-columns:58px 1fr;gap:16px;background:var(--bg-card);border:1px solid var(--line);border-left:3px solid var(--warn);padding:16px 22px;align-items:start;}
+  .note .ni{font-family:var(--mono);font-size:10px;letter-spacing:1.2px;color:var(--warn);padding-top:3px;text-transform:uppercase;}
+  .note .nb strong{display:block;margin-bottom:3px;font-size:14.5px;color:var(--ink);}
+  .note .nb p{font-size:13px;color:var(--ink-soft);line-height:1.55;}
+
+  .footer{margin-top:72px;padding-top:30px;border-top:1px solid var(--line);text-align:center;}
+  .footer .orn{font-size:14px;color:var(--accent);margin-bottom:12px;}
+  .footer .credit{font-family:var(--mono);font-size:10px;letter-spacing:2px;color:var(--ink-muted);}
+  .footer .sub{font-family:var(--serif);font-style:italic;font-size:15px;color:var(--ink-soft);margin-bottom:14px;}
+
+  @media (max-width:560px){
+    h1{font-size:34px;}
+    .course h2{font-size:25px;}
+    .stop{grid-template-columns:44px 1fr;gap:0 16px;}
+    .stop::before{left:52px;} .stop .dot{left:48px;}
+  }
+  @media (prefers-reduced-motion:reduce){.stop.fire .dot{animation:none;}}
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <nav class="top-nav">
+    <a href="../index.html">← with Claude 아카이브</a>
+    <span>archives / with-claude / yongin</span>
+  </nav>
+
+  <header class="masthead">
+    <div class="eyebrow">A Getaway · with Claude</div>
+    <div class="kicker">Three plans, one good night.</div>
+    <h1>용인 모임,<br><em>어디서 놀까</em></h1>
+    <p class="lede">점심은 맛집, 저녁은 직접 굽는 바베큐에 가져온 술. 밤엔 숙소에서 수다.
+      <b>종환이 당일치기</b>라 멀지 않게 잡은 코스 세 개.</p>
+    <div class="cond">
+      <span>점심 맛집</span>
+      <span>저녁 바베큐+술</span>
+      <span>숙소 수다</span>
+      <span>깨끗한 독채</span>
+      <span>종환 당일치기 · 영통 30분</span>
+    </div>
+  </header>
+
+  <div class="divider"><span class="lbl">Course Candidates</span><span class="ln"></span></div>
+
+  <!-- COURSE A -->
+  <section class="course a">
+    <div class="ceye">Course A · 활동형</div>
+    <h2>그때 그 코스</h2>
+    <p class="concept">예전처럼 민속촌에서 놀고 → 자동차 박물관 → 펜션. 하루가 알차다.</p>
+    <div class="route">
+      <div class="stop"><div class="dot"></div>
+        <div class="t">11:00</div>
+        <div class="b"><div class="p">한국민속촌 (기흥)</div>
+          <div class="d">조선시대 인물 NPC·전통공연·먹거리(닭꼬치/묵비빔밥). 집결지에서 차로 10분.</div></div></div>
+      <div class="stop"><div class="dot"></div>
+        <div class="t">13:00</div>
+        <div class="b"><div class="p">점심</div>
+          <div class="d">민속촌 안에서 해결하거나 근처 맛집으로.</div></div></div>
+      <div class="stop"><div class="dot"></div>
+        <div class="t">14:30</div>
+        <div class="b"><div class="p">삼성화재 모빌리티뮤지엄 (포곡)</div>
+          <div class="d">RC카·드론·4D 시뮬레이터·클래식카. 차 좋아하면 강추. 성인 1만원, 무료주차.</div></div></div>
+      <div class="stop"><div class="dot"></div>
+        <div class="t">16:30</div>
+        <div class="b"><div class="p">펜션 체크인 (양지/포곡)</div>
+          <div class="d">단독 독채. 가는 길 마트에서 고기·술·얼음·숯 보충.</div></div></div>
+      <div class="stop fire"><div class="dot"></div>
+        <div class="t">18:00~</div>
+        <div class="b"><div class="p">바베큐 · 술 · 불멍</div>
+          <div class="d">밤새 수다.</div></div></div>
+    </div>
+    <div class="cmeta">
+      <div class="row"><span class="k">동선</span><span class="v">집결→민속촌 <b>10분</b> · →박물관 <b>20분</b> · →펜션 <b>15분</b></span></div>
+      <div class="row"><span class="k">비용</span><span class="v">민속촌 통합권 <b>3만원대</b>(예매 시 20–30%↓) + 박물관 1만 + 숙소비</span></div>
+      <div class="row"><span class="k warn">주의</span><span class="v"><b>박물관 월요일 휴관.</b> 월요일 모임이면 A는 패스.</span></div>
+    </div>
+  </section>
+
+  <!-- COURSE B -->
+  <section class="course b">
+    <div class="ceye">Course B · 휴식형</div>
+    <h2>올인 휴식</h2>
+    <p class="concept">딴 데 안 들르고 펜션 직행. 술·수다에 올인하는 버전.</p>
+    <div class="route">
+      <div class="stop"><div class="dot"></div>
+        <div class="t">12:00</div>
+        <div class="b"><div class="p">양지 점심</div>
+          <div class="d">금성식당(청국장, 리뷰 1,100+) 또는 메밀향칼국수(담백·깨끗). 저녁이 고기니 점심은 가볍게.</div></div></div>
+      <div class="stop"><div class="dot"></div>
+        <div class="t">13:30</div>
+        <div class="b"><div class="p">마트 보충</div>
+          <div class="d">고기·술·얼음·숯.</div></div></div>
+      <div class="stop"><div class="dot"></div>
+        <div class="t">15:00</div>
+        <div class="b"><div class="p">스테이뷰 풀빌라 체크인 (양지)</div>
+          <div class="d">단독 독채, 깨끗·숯/장작 준비·불멍 가능. 마당/풀에서 늘어지기.</div></div></div>
+      <div class="stop fire"><div class="dot"></div>
+        <div class="t">18:00~</div>
+        <div class="b"><div class="p">바베큐 · 술 · 불멍</div>
+          <div class="d">아무 방해 없이 밤새 떠들기.</div></div></div>
+    </div>
+    <div class="cmeta">
+      <div class="row"><span class="k">동선</span><span class="v">신갈 → 양지 <b>약 30분</b></span></div>
+      <div class="row"><span class="k">비용</span><span class="v"><b>숙소비만</b> (입장료 없음)</span></div>
+      <div class="row"><span class="k">장점</span><span class="v">움직임 최소, 술·수다 집중. 제일 편하고 싸다.</span></div>
+    </div>
+  </section>
+
+  <!-- COURSE C -->
+  <section class="course c">
+    <div class="ceye">Course C · 우천형</div>
+    <h2>비 와도 OK</h2>
+    <p class="concept">실내 박물관 + 실내 바베큐장. 비가 와도 그대로 진행된다.</p>
+    <div class="route">
+      <div class="stop"><div class="dot"></div>
+        <div class="t">12:00</div>
+        <div class="b"><div class="p">양지 점심</div>
+          <div class="d">금성식당 / 메밀향칼국수.</div></div></div>
+      <div class="stop"><div class="dot"></div>
+        <div class="t">13:30</div>
+        <div class="b"><div class="p">삼성화재 모빌리티뮤지엄 (실내)</div>
+          <div class="d">비 와도 RC카·드론·시뮬레이터로 시간 보내기. 성인 1만원.</div></div></div>
+      <div class="stop"><div class="dot"></div>
+        <div class="t">16:00</div>
+        <div class="b"><div class="p">해내린 펜션 (남사)</div>
+          <div class="d">실내 난방 바베큐장 있는 독채. 비·추위 걱정 없음. 불멍 화목난로.</div></div></div>
+      <div class="stop fire"><div class="dot"></div>
+        <div class="t">18:00~</div>
+        <div class="b"><div class="p">지붕 아래 바베큐 · 술 · 불멍</div>
+          <div class="d">날씨 신경 끄고 진행.</div></div></div>
+    </div>
+    <div class="cmeta">
+      <div class="row"><span class="k">동선</span><span class="v">신갈 기준 <b>약 30분</b></span></div>
+      <div class="row"><span class="k">비용</span><span class="v">박물관 1만 + 숙소비</span></div>
+      <div class="row"><span class="k warn">주의</span><span class="v">박물관 <b>월요일 휴관</b>. 비 안 오면 굳이 C일 필요 없음.</span></div>
+    </div>
+  </section>
+
+  <div class="divider"><span class="lbl">뭐 고르지?</span><span class="ln"></span></div>
+
+  <div class="decide">
+    <div class="drow"><span class="if">놀거리·볼거리 빵빵하게, 하루 알차게 보내고 싶다</span><span class="go a">A</span></div>
+    <div class="drow"><span class="if">그냥 푹 쉬면서 먹고 마시고 떠들고 싶다</span><span class="go b">B</span></div>
+    <div class="drow"><span class="if">그날 비 예보가 있다</span><span class="go c">C</span></div>
+  </div>
+
+  <div class="divider"><span class="lbl">출발 전 체크</span><span class="ln"></span></div>
+
+  <div class="notes">
+    <div class="note"><span class="ni">예약</span><span class="nb"><strong>숙소 먼저 잡기</strong><p>단독 독채는 주말 금방 마감. 날짜 정해지면 바로 예약.</p></span></div>
+    <div class="note"><span class="ni">운전</span><span class="nb"><strong>종환 술은 신중하게</strong><p>당일치기 = 결국 운전. 마시면 음주운전이니 처음부터 안 마시거나 대리 동선 미리. 이 계획의 유일한 진짜 리스크.</p></span></div>
+    <div class="note"><span class="ni">휴관</span><span class="nb"><strong>박물관 월요일 휴관</strong><p>A·C 코스는 월요일 피하기.</p></span></div>
+    <div class="note"><span class="ni">할인</span><span class="nb"><strong>민속촌 온라인 예매</strong><p>네이버·오픈마켓 예매 시 20–30% 할인 + 줄 안 서고 QR 입장.</p></span></div>
+    <div class="note"><span class="ni">확인</span><span class="nb"><strong>가격·시간 재확인</strong><p>시즌마다 변동되니 가기 전 공식 홈페이지로 한 번 더.</p></span></div>
+  </div>
+
+  <div class="footer">
+    <div class="orn">✦</div>
+    <div class="sub">하나 골라서 던져줘 🍻</div>
+    <div class="credit">JINWOONG KIM · ARCHIVES · WITH CLAUDE · 2026.06</div>
+  </div>
+
+</div>
+</body>
+</html>
