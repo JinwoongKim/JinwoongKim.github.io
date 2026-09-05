@@ -6,24 +6,25 @@ author_profile: false
 sidebar_main: false
 ---
 
-안녕하세요~ 누렁 총각 입니다.
+안녕하세요~ 누렁 ~~총각~~ 입니다.
 
-컴퓨터,머신러닝을 좋아하고 책,영화,그림 ... 입니다.
+컴퓨터, 그 중에서도 하드웨어, 인프라를 좋아하고 책, 영화, 그림 그리는걸 좋아합니다.
 
-데이터베이스 내 다차원 인덱스를 GPU로 가속화하는 연구 <sup> [[Link]](https://scholarworks.unist.ac.kr/handle/201301/22497) </sup> 로 UNIST에서 박사 학위를 받았습니다. 첫 직장은 전공과 약간은 쌩뚱(?)맞은 네이버 클로바 조직으로 가게 됩니다. 
+데이터베이스 내 다차원 인덱스를 GPU로 가속화하는 연구 <sup> [[논문]](https://scholarworks.unist.ac.kr/handle/201301/22497) </sup> 로 UNIST에서 박사 학위를 받았습니다. 첫 직장은 전공과 약간은 쌩뚱(?)맞은 네이버 클로바 조직으로 가게 됩니다. 
 
-네이버 자체 머신 러닝 플랫폼(NSML)에서 스케쥴러와 모니터링 시스템을 만들고 자동 하이퍼파라미터 튜닝 시스템 <sup> [[Link]](https://deview.kr/2018/schedule/240) </sup>  <sup> [[Link]](https://arxiv.org/abs/1810.03527) </sup> 도 만들었습니다.
+네이버 자체 머신 러닝 플랫폼(NSML)에서 스케쥴러와 모니터링 시스템을 만들고 자동 하이퍼파라미터 튜닝 시스템 <sup> [[발표]](https://deview.kr/2018/schedule/240) </sup>  <sup> [[논문]](https://arxiv.org/abs/1810.03527) </sup> 도 만들었습니다.
 
-이후에는 검색 조직으로 옮겨, GPU 클러스터를 쿠버네티스로 운영하는 업무를 했습니다. 이후 GPT3를 기존 검색서비스에 접목하는 일 <sup> [[Link]](https://deview.kr/2021/sessions/465) </sup> <sup> [[Link]](https://deview.kr/2021/sessions/439) </sup> 도 했습니다.
+이후에는 검색 조직으로 옮겨, GPU 클러스터를 쿠버네티스로 운영하는 업무를 했습니다. 이후 GPT3를 기존 검색서비스에 접목하는 일 <sup> [[팀발표]](https://deview.kr/2021/sessions/465) </sup> <sup> [[발표]](https://deview.kr/2021/sessions/439) </sup> 도 했습니다.
 
-~~빛의 속도로 창업을 했다가 접고~~
+창업을 했다가 1년만에 접고 6개월을 쉬다가 
 
-지금은 ~~모든 직장인이 부러워하는,하지만 굳이 하지 않는~~ 백수로 살고 있습니다 ^^
-
-### 최신 근황
 2023년 9월부터 토스 증권에 다니고 있습니다.
 
-(토스 증권에서 어떤 일을 하는지는 나중에 공유 드리겠습니다.)
+지난 3년간 팀도 꾸리고 글도 쓰고 발표도 했습니다.
+
+처음 토스증권에 왔을때는 인프라도 없었습니다. 그래서, GPU 인프라 구축부터 시작했습니다. 인피니밴드로 연결된 H100 클러스터를 구축하는 글을 썼습니다. <sup> [[글1]](https://toss.tech/article/securities_llm_1) </sup> <sup> [[글2]](https://toss.tech/article/securities_llm_2) </sup> 
+
+인프라 구축후에는 비싸고 희귀한 GPU라는 자원을 좀 더 효율적이게 쓰는 방법에 대해 연구하고 내용을 공유 했습니다.  <sup> [[발표]] (https://toss.im/tmc-25/sessions/engineering/ml-10)) </sup> <sup> [[글]](https://toss.tech/article/toss-securities-gpu-mig) </sup> 
 
 # Research Interest
 
