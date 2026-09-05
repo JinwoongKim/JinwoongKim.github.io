@@ -8,7 +8,7 @@ sidebar_main: false
 
 안녕하세요~ 누렁 ~~총각~~ 입니다.
 
-컴퓨터, 그 중에서도 하드웨어, 인프라를 좋아하고 책, 영화, 그림 그리는걸 좋아합니다.
+컴퓨터, 그중에서도 하드웨어, 인프라를 좋아하고 책, 영화, 그림 그리는 걸 좋아합니다.
 
 데이터베이스 내 다차원 인덱스를 GPU로 가속화하는 연구 <sup> [[논문]](https://scholarworks.unist.ac.kr/handle/201301/22497) </sup> 로 UNIST에서 박사 학위를 받았습니다. 첫 직장은 전공과 약간은 쌩뚱(?)맞은 네이버 클로바 조직으로 가게 됩니다. 
 
@@ -22,9 +22,9 @@ sidebar_main: false
 
 지난 3년간 팀도 꾸리고 글도 쓰고 발표도 했습니다.
 
-처음 토스증권에 왔을때는 인프라도 없었습니다. 그래서, GPU 인프라 구축부터 시작했습니다. 인피니밴드로 연결된 H100 클러스터를 구축하는 글을 썼습니다. <sup> [[글1]](https://toss.tech/article/securities_llm_1) </sup> <sup> [[글2]](https://toss.tech/article/securities_llm_2) </sup> 
+처음 토스증권에 왔을 때는 인프라도 없었습니다. 그래서, GPU 인프라 구축부터 시작했습니다. 인피니밴드로 연결된 H100 클러스터를 구축하는 글을 썼습니다. <sup> [[글1]](https://toss.tech/article/securities_llm_1) </sup> <sup> [[글2]](https://toss.tech/article/securities_llm_2) </sup> 
 
-인프라 구축후에는 비싸고 희귀한 GPU라는 자원을 좀 더 효율적이게 쓰는 방법에 대해 연구하고 내용을 공유 했습니다.  <sup> [[발표]] (https://toss.im/tmc-25/sessions/engineering/ml-10)) </sup> <sup> [[글]](https://toss.tech/article/toss-securities-gpu-mig) </sup> 
+인프라 구축 후에는 비싸고 희귀한 GPU라는 자원을 좀 더 효율적이게 쓰는 방법에 대해 연구하고 내용을 공유했습니다.  <sup> [[발표]](https://toss.im/tmc-25/sessions/engineering/ml-10) </sup> <sup> [[글]](https://toss.tech/article/toss-securities-gpu-mig) </sup> 
 
 # Research Interest
 
@@ -38,7 +38,7 @@ sidebar_main: false
 
 **_#Painting_**, **_#Book_**, **_#Espresso_**, **_#Movie_**
 
-최근에는 ~~epiphany를 위해~~ 취미를 갖기 위해 이것저것 시도해보다가, 전공과 정반대에 있는 그림그리기, 피아노 등을 취미로 갖게 되었습니다.
+최근에는 ~~epiphany를 위해~~ 취미를 갖기 위해 이것저것 시도해보다가, 전공과 정반대에 있는 그림 그리기, 피아노 등을 취미로 갖게 되었습니다.
 
 + 요즘은 피아노는 듣기만 하고 치지를 않아.. 제외..
 
